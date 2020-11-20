@@ -85,9 +85,12 @@ public class Game_Controller : MonoBehaviour
             for (int side = g_originpoint; side < g_s_BlockCount; side++) {
                 //縦の回数分繰り返す
                 for (int ver = g_originpoint; ver < g_v_BlockCount; ver++) {
-                    Debug.Log("縦："+ver+"_横："+ side+"_高さ："+ high);
-                    Debug.Log("オブジェクト："+g_blocks_Array[ver, side, high]);
-                    Debug.Log("タイプ："+ g_blocksType_Array[ver, side, high]);
+                    if (g_blocksType_Array[ver, side, high] == 100) {
+                        Debug.Log("縦：" + ver + "_横：" + side + "_高さ：" + high);
+                        Debug.Log("オブジェクト：" + g_blocks_Array[ver, side, high]);
+                        Debug.Log("タイプ：" + g_blocksType_Array[ver, side, high]);
+                    }
+          
                 }
             }
         }

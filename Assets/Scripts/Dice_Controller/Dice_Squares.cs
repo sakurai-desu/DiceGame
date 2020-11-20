@@ -5,7 +5,10 @@ using UnityEngine;
 public class Dice_Squares : MonoBehaviour {
 
     private Game_Controller g_game_Con_Script;
+    private Dice_Controller g_dice_Con_Script;
     private Check_Dice g_check_Script;
+    private Parent_All_Rotation g_all_rotate_Script;
+
     /// <summary>
     /// サイコロ回転用スクリプト
     /// </summary>
@@ -63,6 +66,9 @@ public class Dice_Squares : MonoBehaviour {
     void Start() {
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         g_check_Script = GameObject.Find("Dice_Controller").GetComponent<Check_Dice>();
+        g_dice_Con_Script= GameObject.Find("Dice_Controller").GetComponent<Dice_Controller>();
+        g_all_rotate_Script= GameObject.Find("Dice_Controller").GetComponent<Parent_All_Rotation>();
+
         g_rotate_Script = GetComponent<Dice_Rotate>();
         g_work_Array = new int[6];
         //縦横高さを決めた数へ変更する
@@ -99,7 +105,7 @@ public class Dice_Squares : MonoBehaviour {
     }
 
     /// <summary>
-    /// 縦軸のプラス方向の移動
+    /// 横軸のプラス方向の移動
     /// </summary>
     public void Side_Plus_Move() {
         //移動範囲外の時処理終了
@@ -112,26 +118,22 @@ public class Dice_Squares : MonoBehaviour {
         if (type == 100) {
             return;
         }
+
         //オブジェクトを回転させる
         g_rotate_Script.Side_Plus_Rotate();
-        //現在のマス目を保持
-        Retention_Squares();
-        //マス目入れ替え
-        g_squares_Array[3] = g_work_Array[0];
-        g_squares_Array[4] = g_work_Array[3];
-        g_squares_Array[1] = g_work_Array[4];
-        g_squares_Array[0] = g_work_Array[1];
 
+        g_all_rotate_Script.Plus_Side_Rotate(this.gameObject);
         //このオブジェクトを配列に格納
-        g_game_Con_Script.Storage_Obj(g_this_Ver, g_this_Side + 1, g_this_High, this.gameObject);
-        //元々格納されていたところを空にする
-        g_game_Con_Script.Storage_Reset(g_this_Ver, g_this_Side, g_this_High);
+        //g_game_Con_Script.Storage_Obj(g_this_Ver, g_this_Side + 1, g_this_High, this.gameObject);
+        //g_game_Con_Script.Storage_Obj_Type(g_this_Ver, g_this_Side + 1, g_this_High, 100);
+        ////元々格納されていたところを空にする
+        //g_game_Con_Script.Storage_Reset(g_this_Ver, g_this_Side, g_this_High);
         //自分のいる横の位置を＋1
-        g_this_Side++;
+        //g_this_Side++;
     }
 
     /// <summary>
-    /// 縦軸のマイナス方向の移動
+    /// 横軸のマイナス方向の移動
     /// </summary>
     public void Side_Minus_Move() {
         //移動範囲外の時処理終了
@@ -146,25 +148,20 @@ public class Dice_Squares : MonoBehaviour {
         }
         //オブジェクトを回転させる
         g_rotate_Script.Side_Minus_Rotate();
-        //現在のマス目を保持
-        Retention_Squares();
-        //マス目入れ替え
-        g_squares_Array[0] = g_work_Array[3];
-        g_squares_Array[3] = g_work_Array[4];
-        g_squares_Array[4] = g_work_Array[1];
-        g_squares_Array[1] = g_work_Array[0];
 
-        //このオブジェクトを配列に格納
-        g_game_Con_Script.Storage_Obj(g_this_Ver, g_this_Side - 1, g_this_High, this.gameObject);
-        //元々格納されていたところを空にする
-        g_game_Con_Script.Storage_Reset(g_this_Ver, g_this_Side, g_this_High);
-        //自分のいる横の位置を−1
-        g_this_Side--;
-        
+        g_all_rotate_Script.Minus_Side_Rotate(this.gameObject);
+        ////このオブジェクトを配列に格納
+        //g_game_Con_Script.Storage_Obj(g_this_Ver, g_this_Side - 1, g_this_High, this.gameObject);
+        //g_game_Con_Script.Storage_Obj_Type(g_this_Ver, g_this_Side - 1, g_this_High, 100);
+        ////元々格納されていたところを空にする
+        //g_game_Con_Script.Storage_Reset(g_this_Ver, g_this_Side, g_this_High);
+        ////自分のいる横の位置を−1
+        //g_this_Side--;
+
     }
 
     /// <summary>
-    /// 横軸のプラス方向の移動
+    /// 縦軸のプラス方向の移動
     /// </summary>
     public void Ver_Plus_Move() {
         //移動範囲外の時処理終了
@@ -189,6 +186,7 @@ public class Dice_Squares : MonoBehaviour {
 
         //このオブジェクトを配列に格納
         g_game_Con_Script.Storage_Obj(g_this_Ver + 1, g_this_Side, g_this_High, this.gameObject);
+        g_game_Con_Script.Storage_Obj_Type(g_this_Ver + 1, g_this_Side, g_this_High, 100);
         //元々格納されていたところを空にする
         g_game_Con_Script.Storage_Reset(g_this_Ver, g_this_Side, g_this_High);
         //自分のいる縦の位置を−1
@@ -198,7 +196,7 @@ public class Dice_Squares : MonoBehaviour {
     }
 
     /// <summary>
-    /// 横軸のマイナス方向の移動
+    /// 縦軸のマイナス方向の移動
     /// </summary>
     public void Ver_Minus_Move() {
         //移動範囲外の時処理終了
@@ -223,11 +221,33 @@ public class Dice_Squares : MonoBehaviour {
 
         //このオブジェクトを配列に格納
         g_game_Con_Script.Storage_Obj(g_this_Ver - 1, g_this_Side, g_this_High, this.gameObject);
+        g_game_Con_Script.Storage_Obj_Type(g_this_Ver - 1, g_this_Side, g_this_High,100);
         //元々格納されていたところを空にする
         g_game_Con_Script.Storage_Reset(g_this_Ver, g_this_Side, g_this_High);
         //自分のいる縦の位置を−1
         g_this_Ver--;
     }
+
+    public void Side_Plus_Squears_Change() {
+        //現在のマス目を保持
+        Retention_Squares();
+        //マス目入れ替え
+        g_squares_Array[3] = g_work_Array[0];
+        g_squares_Array[4] = g_work_Array[3];
+        g_squares_Array[1] = g_work_Array[4];
+        g_squares_Array[0] = g_work_Array[1];
+    }
+    public void Side_Minus_Squears_Change() {
+        //現在のマス目を保持
+        Retention_Squares();
+        //マス目入れ替え
+        g_squares_Array[0] = g_work_Array[3];
+        g_squares_Array[3] = g_work_Array[4];
+        g_squares_Array[4] = g_work_Array[1];
+        g_squares_Array[1] = g_work_Array[0];
+    }
+
+
 
     /// <summary>
     /// 現在のマス目を保持する処理
@@ -240,6 +260,9 @@ public class Dice_Squares : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// 全方位のくっつくオブジェクトをチェックする処理
+    /// </summary>
     public void All_Check() {
         //移動後に全方位をチェックする
         //くっつくことができるサイコロを探す
@@ -256,7 +279,23 @@ public class Dice_Squares : MonoBehaviour {
         return g_squares_Array[pointer];
     }
 
+    /// <summary>
+    /// 現在の指標を返す処理
+    /// </summary>
+    /// <returns></returns>
     public (int, int, int) Get_Dice_Pointer() {
         return (g_this_Ver, g_this_Side, g_this_High);
+    }
+
+    /// <summary>
+    /// 指標を更新する処理
+    /// </summary>
+    /// <param name="ver">縦</param>
+    /// <param name="side">横</param>
+    /// <param name="high">高さ</param>
+    public void Storage_This_Pointer(int ver,int side,int high) {
+        g_this_Ver = ver;
+        g_this_Side = side;
+        g_this_High = high;
     }
 }

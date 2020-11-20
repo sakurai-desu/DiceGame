@@ -222,6 +222,7 @@ GameObject:
   - component: {fileID: 806481032}
   - component: {fileID: 806481031}
   - component: {fileID: 806481030}
+  - component: {fileID: 806481033}
   m_Layer: 0
   m_Name: Dice_Controller
   m_TagString: Untagged
@@ -271,6 +272,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &806481033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806481029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d017616939c01c542bfbfe1702618825, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,10 +417,7 @@ MonoBehaviour:
     type: 3}
   g_dice_Prefab: {fileID: 4587978707711304603, guid: 3fb03f9a3de85074a8996f77ff7f7eb5,
     type: 3}
-  g_floor_Prefab: {fileID: 1201363661}
-  g_start_Prefab: {fileID: 8061145608474930937, guid: 484381a3e0f63eb41894d51781fe3859,
-    type: 3}
-  g_goal_Prefab: {fileID: 4716210305998990306, guid: 7eb28de92b024384d8a797c91d675adb,
+  g_floor_Prefab: {fileID: 4716210305998990306, guid: 7eb28de92b024384d8a797c91d675adb,
     type: 3}
 --- !u!1 &1201363661
 GameObject:
@@ -550,7 +560,7 @@ MonoBehaviour:
     g_hori: 0
     g_high: 0
     g_block: []
-  g_jsonname: qery
+  g_jsonname: Test_Dice
 --- !u!4 &1663185077
 Transform:
   m_ObjectHideFlags: 0

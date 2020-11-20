@@ -32,10 +32,6 @@ public class Stage_Obj_Pool : MonoBehaviour
     private GameObject g_dice_Prefab;
     [SerializeField]
     private GameObject g_floor_Prefab;
-    [SerializeField]
-    private GameObject g_start_Prefab;
-    [SerializeField]
-    private GameObject g_goal_Prefab;
 
     void Start()
     {
@@ -56,7 +52,20 @@ public class Stage_Obj_Pool : MonoBehaviour
         return g_blockObj;
     }
     
-   
+    ///// <summary>
+    ///// オブジェクトを指定した位置に生成して、配列に格納
+    ///// </summary>
+    ///// <param name="g_sporn_Pos">生成位置</param>
+    //public void SpornBlock(int ver,int side,int high, GameObject stageobj) {
+    //    //オブジェクトを生成して
+    //    g_block_Obj = BlockCreator(stageobj);
+    //    //ポジション取得
+    //    Vector3 g_sporn_Pos = g_game_Con_Script.Get_Pos(ver, side, high);
+    //    //生まれたブロックのポジションを変更する
+    //    g_block_Obj.transform.position = g_sporn_Pos;
+    //    //配列にオブジェクトを格納する
+    //    g_game_Con_Script.Storage_Obj(ver, side, high, g_block_Obj);
+    //}
 
     /// <summary>
     /// オブジェクトを指定した位置に生成して、配列に格納
@@ -68,19 +77,14 @@ public class Stage_Obj_Pool : MonoBehaviour
     public void Spawn_Block(int ver, int side, int high,int type) {
         //タイプに応じて生成するプレハブを変更する
         switch (type) {
-                //g_typeが０の時
             case 0:
                 g_block_Obj = BlockCreator(g_null_Prefab);
                 break;
-                //g_typeが50の時
-            case 50:
-                g_block_Obj = BlockCreator(g_floor_Prefab);
+            case 1:
+                g_block_Obj = BlockCreator(g_null_Prefab);
                 break;
-            case 10:
-                g_block_Obj = BlockCreator(g_start_Prefab);
-                break;
-            case 20:
-                g_block_Obj = BlockCreator(g_goal_Prefab);
+            case 2:
+                g_block_Obj = BlockCreator(g_null_Prefab);
                 break;
             case 100:
                 g_block_Obj = Dice_Creator(g_dice_Prefab);
