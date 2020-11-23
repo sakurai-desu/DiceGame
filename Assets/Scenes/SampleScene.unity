@@ -223,7 +223,10 @@ GameObject:
   - component: {fileID: 806481031}
   - component: {fileID: 806481030}
   - component: {fileID: 806481033}
+<<<<<<< HEAD
   - component: {fileID: 806481034}
+=======
+>>>>>>> 0adec74d705f0e4511a91ce3c9e575709f1c6a8d
   m_Layer: 0
   m_Name: Dice_Controller
   m_TagString: Untagged
@@ -285,6 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d017616939c01c542bfbfe1702618825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
 --- !u!114 &806481034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,6 +301,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5ebbf67d6eddd14ba2eb6164cd2a027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+=======
+>>>>>>> 0adec74d705f0e4511a91ce3c9e575709f1c6a8d
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,7 +474,11 @@ MonoBehaviour:
     g_hori: 0
     g_high: 0
     g_block: []
+<<<<<<< HEAD
   g_jsonname: Test_2
+=======
+  g_jsonname: Test_Dice
+>>>>>>> 0adec74d705f0e4511a91ce3c9e575709f1c6a8d
 --- !u!4 &1663185077
 Transform:
   m_ObjectHideFlags: 0

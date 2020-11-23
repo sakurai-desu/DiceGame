@@ -51,6 +51,25 @@ public class Stage_Obj_Pool : MonoBehaviour
         //ノーツオブジェクトを返す
         return g_blockObj;
     }
+<<<<<<< HEAD
+=======
+    
+    ///// <summary>
+    ///// オブジェクトを指定した位置に生成して、配列に格納
+    ///// </summary>
+    ///// <param name="g_sporn_Pos">生成位置</param>
+    //public void SpornBlock(int ver,int side,int high, GameObject stageobj) {
+    //    //オブジェクトを生成して
+    //    g_block_Obj = BlockCreator(stageobj);
+    //    //ポジション取得
+    //    Vector3 g_sporn_Pos = g_game_Con_Script.Get_Pos(ver, side, high);
+    //    //生まれたブロックのポジションを変更する
+    //    g_block_Obj.transform.position = g_sporn_Pos;
+    //    //配列にオブジェクトを格納する
+    //    g_game_Con_Script.Storage_Obj(ver, side, high, g_block_Obj);
+    //}
+
+>>>>>>> 0adec74d705f0e4511a91ce3c9e575709f1c6a8d
     /// <summary>
     /// オブジェクトを指定した位置に生成して、配列に格納
     /// </summary>
@@ -66,12 +85,18 @@ public class Stage_Obj_Pool : MonoBehaviour
                 break;
             case 1:
                 g_block_Obj = BlockCreator(g_null_Prefab);
+<<<<<<< HEAD
                 break;
             case 2:
                 g_block_Obj = BlockCreator(g_null_Prefab);
                 break;
             case 50:
                 g_block_Obj = BlockCreator(g_floor_Prefab);
+=======
+                break;
+            case 2:
+                g_block_Obj = BlockCreator(g_null_Prefab);
+>>>>>>> 0adec74d705f0e4511a91ce3c9e575709f1c6a8d
                 break;
             case 100:
                 g_block_Obj = Dice_Creator(g_dice_Prefab);
