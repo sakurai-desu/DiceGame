@@ -32,10 +32,6 @@ public class Stage_Obj_Pool : MonoBehaviour
     private GameObject g_dice_Prefab;
     [SerializeField]
     private GameObject g_floor_Prefab;
-    [SerializeField]
-    private GameObject g_start_Prefab;
-    [SerializeField]
-    private GameObject g_goal_Prefab;
 
     void Start()
     {
@@ -55,9 +51,6 @@ public class Stage_Obj_Pool : MonoBehaviour
         //ノーツオブジェクトを返す
         return g_blockObj;
     }
-    
-   
-
     /// <summary>
     /// オブジェクトを指定した位置に生成して、配列に格納
     /// </summary>
@@ -68,19 +61,17 @@ public class Stage_Obj_Pool : MonoBehaviour
     public void Spawn_Block(int ver, int side, int high,int type) {
         //タイプに応じて生成するプレハブを変更する
         switch (type) {
-                //g_typeが０の時
             case 0:
                 g_block_Obj = BlockCreator(g_null_Prefab);
                 break;
-                //g_typeが50の時
+            case 1:
+                g_block_Obj = BlockCreator(g_null_Prefab);
+                break;
+            case 2:
+                g_block_Obj = BlockCreator(g_null_Prefab);
+                break;
             case 50:
                 g_block_Obj = BlockCreator(g_floor_Prefab);
-                break;
-            case 10:
-                g_block_Obj = BlockCreator(g_start_Prefab);
-                break;
-            case 20:
-                g_block_Obj = BlockCreator(g_goal_Prefab);
                 break;
             case 100:
                 g_block_Obj = Dice_Creator(g_dice_Prefab);

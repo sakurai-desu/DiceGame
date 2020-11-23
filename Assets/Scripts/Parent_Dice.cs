@@ -33,12 +33,17 @@ public class Parent_Dice : MonoBehaviour
             //くっついたオブジェクトを自分の子オブジェクトにする
             storage_Array[pointer].transform.parent = gameObject.transform;
         }
+        Storage_Children();
     }
 
     public GameObject[] Get_Children() {
         //子オブジェクトを配列に格納
         Storage_Children();
         return g_child_Array;
+    }
+
+    public int Get_Children_Count() {
+        return g_child_Array.Length;
     }
 
     /// <summary>
@@ -59,14 +64,60 @@ public class Parent_Dice : MonoBehaviour
         }
     }
 
+    public GameObject Plus_Ver(int player_ver, int player_side, int player_high) {
+        Storage_Children();
+        float max = 0;
+        for (int i = 0; i < g_child_Array.Length; i++) {
+            (g_dice_ver, g_dice_side, g_dice_high) =
+                g_child_Array[i].GetComponent<Dice_Squares>().Get_Dice_Pointer();
+
+            if (max <= g_dice_ver &&g_dice_side==player_side&& g_dice_high == player_high) {
+                max = g_dice_ver;
+                g_con_Dice = g_child_Array[i];
+            }
+        }
+        return g_con_Dice;
+    }
+
+    public GameObject Minus_Ver(int player_ver, int player_side, int player_high) {
+        Storage_Children();
+        float min = 100;
+        for (int i = 0; i < g_child_Array.Length; i++) {
+            (g_dice_ver, g_dice_side, g_dice_high) =
+                g_child_Array[i].GetComponent<Dice_Squares>().Get_Dice_Pointer();
+
+            if (min >= g_dice_ver && g_dice_side == player_side && g_dice_high == player_high) {
+                min = g_dice_ver;
+                g_con_Dice = g_child_Array[i];
+            }
+        }
+        return g_con_Dice;
+    }
+
     public GameObject Plus_Side(int player_ver, int player_side, int player_high) {
-        int max = 0;
+        Storage_Children();
+        float max = 0;
         for (int i = 0; i < g_child_Array.Length ; i++) {
             (g_dice_ver, g_dice_side, g_dice_high) =
                 g_child_Array[i].GetComponent<Dice_Squares>().Get_Dice_Pointer();
-            Debug.Log(g_dice_ver+"_"+ g_dice_side+"_"+ g_dice_high);
-            if (max < player_side) {
-                max = player_side;
+            
+            if (max <= g_dice_side&&g_dice_ver==player_ver&&g_dice_high==player_high) {
+                max = g_dice_side;
+                g_con_Dice = g_child_Array[i];
+            }
+        }
+        return g_con_Dice;
+    }
+
+    public GameObject Minus_Side(int player_ver, int player_side, int player_high) {
+        Storage_Children();
+        float min = 100;
+        for (int i = 0; i < g_child_Array.Length; i++) {
+            (g_dice_ver, g_dice_side, g_dice_high) =
+                g_child_Array[i].GetComponent<Dice_Squares>().Get_Dice_Pointer();
+
+            if (min >= g_dice_side && g_dice_ver == player_ver && g_dice_high == player_high) {
+                min = g_dice_side;
                 g_con_Dice = g_child_Array[i];
             }
         }

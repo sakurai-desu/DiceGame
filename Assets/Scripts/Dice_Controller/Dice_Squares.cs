@@ -6,6 +6,7 @@ public class Dice_Squares : MonoBehaviour {
 
     private Game_Controller g_game_Con_Script;
     private Check_Dice g_check_Script;
+
     /// <summary>
     /// サイコロ回転用スクリプト
     /// </summary>
@@ -60,34 +61,23 @@ public class Dice_Squares : MonoBehaviour {
     /// </summary>
     private int g_max_High;
 
+    private const int g_ver_plus_Para = 0;
+    private const int g_ver_minus_Para = 1;
+    private const int g_side_plus_Para = 2;
+    private const int g_side_minus_Para = 3;
+
     void Start() {
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         g_check_Script = GameObject.Find("Dice_Controller").GetComponent<Check_Dice>();
+
         g_rotate_Script = GetComponent<Dice_Rotate>();
         g_work_Array = new int[6];
         //縦横高さを決めた数へ変更する
         (g_max_Ver, g_max_Side, g_max_High) = g_game_Con_Script.Get_Array_Max();
     }
 
-    void Update() {
-        ////回転中の間は回転させない
-        //if (g_rotate_Script.Get_Rotate_Flag()) {
-        //    return;
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.UpArrow)) {
-        //    Side_Minus_Move();
-        //} else if (Input.GetKeyDown(KeyCode.DownArrow)) {
-        //    Side_Plus_Move();
-        //} else if (Input.GetKeyDown(KeyCode.RightArrow)) {
-        //    Ver_Plus_Move();
-        //} else if (Input.GetKeyDown(KeyCode.LeftArrow)) {
-        //    Ver_Minus_Move();
-        //}
-    }
-
     /// <summary>
-    /// サイコロ自身の格納位置を決める
+    /// 指標を更新する処理
     /// </summary>
     /// <param name="ver">縦</param>
     /// <param name="side">横</param>
@@ -98,87 +88,24 @@ public class Dice_Squares : MonoBehaviour {
         g_this_High = high;
     }
 
-    /// <summary>
-    /// 縦軸のプラス方向の移動
-    /// </summary>
-    public void Side_Plus_Move() {
-        //移動範囲外の時処理終了
-        if (g_this_Side + g_one_Count >= g_max_Side) {
-            return;
+    public void Change_Squares(int para) {
+        switch (para) {
+            case g_ver_plus_Para:
+                Ver_Plus_Squeares_Change();
+                break;
+            case g_ver_minus_Para:
+                Ver_Minus_Squeares_Change();
+                break;
+            case g_side_plus_Para:
+                Side_Plus_Squeares_Change();
+                break;
+            case g_side_minus_Para:
+                Side_Minus_Squeares_Change();
+                break;
         }
-        //移動先が埋まっているか調べる
-        int type = g_game_Con_Script.Get_Obj_Type(g_this_Ver, g_this_Side+1, g_this_High);
-        //移動先が埋まっていた時処理終了
-        if (type == 100) {
-            return;
-        }
-        //オブジェクトを回転させる
-        g_rotate_Script.Side_Plus_Rotate();
-        //現在のマス目を保持
-        Retention_Squares();
-        //マス目入れ替え
-        g_squares_Array[3] = g_work_Array[0];
-        g_squares_Array[4] = g_work_Array[3];
-        g_squares_Array[1] = g_work_Array[4];
-        g_squares_Array[0] = g_work_Array[1];
-
-        //このオブジェクトを配列に格納
-        g_game_Con_Script.Storage_Obj(g_this_Ver, g_this_Side + 1, g_this_High, this.gameObject);
-        //元々格納されていたところを空にする
-        g_game_Con_Script.Storage_Reset(g_this_Ver, g_this_Side, g_this_High);
-        //自分のいる横の位置を＋1
-        g_this_Side++;
     }
 
-    /// <summary>
-    /// 縦軸のマイナス方向の移動
-    /// </summary>
-    public void Side_Minus_Move() {
-        //移動範囲外の時処理終了
-        if (g_this_Side - g_one_Count < g_zero_Count) {
-            return;
-        }
-        //移動先が埋まっているか調べる
-        int type = g_game_Con_Script.Get_Obj_Type(g_this_Ver, g_this_Side - 1, g_this_High);
-        //移動先が埋まっていた時処理終了
-        if (type == 100) {
-            return;
-        }
-        //オブジェクトを回転させる
-        g_rotate_Script.Side_Minus_Rotate();
-        //現在のマス目を保持
-        Retention_Squares();
-        //マス目入れ替え
-        g_squares_Array[0] = g_work_Array[3];
-        g_squares_Array[3] = g_work_Array[4];
-        g_squares_Array[4] = g_work_Array[1];
-        g_squares_Array[1] = g_work_Array[0];
-
-        //このオブジェクトを配列に格納
-        g_game_Con_Script.Storage_Obj(g_this_Ver, g_this_Side - 1, g_this_High, this.gameObject);
-        //元々格納されていたところを空にする
-        g_game_Con_Script.Storage_Reset(g_this_Ver, g_this_Side, g_this_High);
-        //自分のいる横の位置を−1
-        g_this_Side--;
-        
-    }
-
-    /// <summary>
-    /// 横軸のプラス方向の移動
-    /// </summary>
-    public void Ver_Plus_Move() {
-        //移動範囲外の時処理終了
-        if (g_this_Ver + g_one_Count >= g_max_Ver) {
-            return;
-        }
-        //移動先が埋まっているか調べる
-        int type = g_game_Con_Script.Get_Obj_Type(g_this_Ver+1, g_this_Side, g_this_High);
-        //移動先が埋まっていた時処理終了
-        if (type == 100) {
-            return;
-        }
-        //オブジェクトを回転させる
-        g_rotate_Script.Ver_Plus_Rotate();
+    private void Ver_Plus_Squeares_Change() {
         //現在のマス目を保持
         Retention_Squares();
         //マス目入れ替え
@@ -186,33 +113,8 @@ public class Dice_Squares : MonoBehaviour {
         g_squares_Array[2] = g_work_Array[4];
         g_squares_Array[4] = g_work_Array[5];
         g_squares_Array[5] = g_work_Array[0];
-
-        //このオブジェクトを配列に格納
-        g_game_Con_Script.Storage_Obj(g_this_Ver + 1, g_this_Side, g_this_High, this.gameObject);
-        //元々格納されていたところを空にする
-        g_game_Con_Script.Storage_Reset(g_this_Ver, g_this_Side, g_this_High);
-        //自分のいる縦の位置を−1
-        g_this_Ver++;
-        
-
     }
-
-    /// <summary>
-    /// 横軸のマイナス方向の移動
-    /// </summary>
-    public void Ver_Minus_Move() {
-        //移動範囲外の時処理終了
-        if (g_this_Ver - g_one_Count < g_zero_Count) {
-            return;
-        }
-        //移動先が埋まっているか調べる
-        int type = g_game_Con_Script.Get_Obj_Type(g_this_Ver-1, g_this_Side, g_this_High);
-        //移動先が埋まっていた時処理終了
-        if (type == 100) {
-            return;
-        }
-        //オブジェクトを回転させる
-        g_rotate_Script.Ver_Minus_Rotate();
+    private void Ver_Minus_Squeares_Change() {
         //現在のマス目を保持
         Retention_Squares();
         //マス目入れ替え
@@ -220,13 +122,24 @@ public class Dice_Squares : MonoBehaviour {
         g_squares_Array[4] = g_work_Array[2];
         g_squares_Array[5] = g_work_Array[4];
         g_squares_Array[0] = g_work_Array[5];
-
-        //このオブジェクトを配列に格納
-        g_game_Con_Script.Storage_Obj(g_this_Ver - 1, g_this_Side, g_this_High, this.gameObject);
-        //元々格納されていたところを空にする
-        g_game_Con_Script.Storage_Reset(g_this_Ver, g_this_Side, g_this_High);
-        //自分のいる縦の位置を−1
-        g_this_Ver--;
+    }
+    private void Side_Plus_Squeares_Change() {
+        //現在のマス目を保持
+        Retention_Squares();
+        //マス目入れ替え
+        g_squares_Array[3] = g_work_Array[0];
+        g_squares_Array[4] = g_work_Array[3];
+        g_squares_Array[1] = g_work_Array[4];
+        g_squares_Array[0] = g_work_Array[1];
+    }
+    private void Side_Minus_Squeares_Change() {
+        //現在のマス目を保持
+        Retention_Squares();
+        //マス目入れ替え
+        g_squares_Array[0] = g_work_Array[3];
+        g_squares_Array[3] = g_work_Array[4];
+        g_squares_Array[4] = g_work_Array[1];
+        g_squares_Array[1] = g_work_Array[0];
     }
 
     /// <summary>
@@ -240,6 +153,9 @@ public class Dice_Squares : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// 全方位のくっつくオブジェクトをチェックする処理
+    /// </summary>
     public void All_Check() {
         //移動後に全方位をチェックする
         //くっつくことができるサイコロを探す
@@ -256,6 +172,10 @@ public class Dice_Squares : MonoBehaviour {
         return g_squares_Array[pointer];
     }
 
+    /// <summary>
+    /// 現在の指標を返す処理
+    /// </summary>
+    /// <returns></returns>
     public (int, int, int) Get_Dice_Pointer() {
         return (g_this_Ver, g_this_Side, g_this_High);
     }
