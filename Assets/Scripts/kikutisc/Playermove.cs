@@ -73,16 +73,6 @@ public class Playermove : MonoBehaviour {
                         break;
                 }
 
-                //空白の時に下のやつ実行したい
-                //g_check_script.GetComponent<TypeCheck>().TypeCheck_block();
-
-                //if (g_check_script.g_v_plus_flag == false) {
-                //    g_potision_script.g_playerpointer_v++;
-                //    Player_Move();
-                //} else if (g_check_script.g_v_plus_flag == true) {
-                //    Debug.Log("TRUE");
-                //    g_check_script.g_v_plus_flag = false;
-                //}
             }
         }
         //配列hの下限に達してない時移動(下)
@@ -98,16 +88,7 @@ public class Playermove : MonoBehaviour {
                     case 100:
                         break;
                 }
-                //g_check_script.GetComponent<TypeCheck>().TypeCheck_block();
-
-                //    if (g_check_script.g_v_minus_flag == false) {
-                //        g_potision_script.g_playerpointer_v--;
-                //        Player_Move();
-                //    } else if (g_check_script.g_v_minus_flag == true) {
-                //        Debug.Log("TRUE");
-                //        g_check_script.g_v_minus_flag = false;
-                //    }
-                //}
+              
             }
         }
         //配列vの下限に達してない時移動(左)
@@ -123,15 +104,7 @@ public class Playermove : MonoBehaviour {
                     case 100:
                         break;
                 }
-                //g_check_script.GetComponent<TypeCheck>().TypeCheck_block();
-
-                //if (g_check_script.g_s_minus_flag == false) {
-                //    g_potision_script.g_playerpointer_s--;
-                //    Player_Move();
-                //} else if (g_check_script.g_s_minus_flag == true) {
-                //    Debug.Log("TRUE");
-                //    g_check_script.g_s_minus_flag = false;
-                //}
+             
             }
         }
         //配列vの上限に達してない時移動(右)
@@ -147,15 +120,6 @@ public class Playermove : MonoBehaviour {
                     case 100:
                         break;
                 }
-                //g_check_script.GetComponent<TypeCheck>().TypeCheck_block();
-
-                //if (g_check_script.g_s_plus_flag == false) {
-                //    g_potision_script.g_playerpointer_s++;
-                //    Player_Move();
-                //} else if (g_check_script.g_s_plus_flag == true) {
-                //    Debug.Log("TRUE");
-                //    g_check_script.g_s_plus_flag = false;
-                //}
             }
         }
         #endregion
