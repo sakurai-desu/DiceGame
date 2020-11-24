@@ -519,7 +519,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5613002937132859189}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1307b8a0fa808084aaba2538a14a781a, type: 3}
   m_Name: 
@@ -528,7 +528,7 @@ MonoBehaviour:
     type: 3}
   g_playerpointer_v: 3
   g_playerpointer_h: 1
-  g_playerpointer_s: 3
+  g_playerpointer_s: 4
 --- !u!4 &5613002937132859191
 Transform:
   m_ObjectHideFlags: 0

@@ -63,99 +63,71 @@ public class Playermove : MonoBehaviour {
         //配列hの上限に達してない時移動(上)
         if (g_potision_script.g_playerpointer_v < g_v_PBlockCount - 1) {
             if (Input.GetKeyDown(KeyCode.W)) {
-                switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
-                    case 0:
-                        g_potision_script.g_playerpointer_v++;
-                        Player_Move();
-                        break;
+                if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h - 1) != 0) {
 
-                    case 100:
-                        break;
+                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
+                        case 0:
+                            g_potision_script.g_playerpointer_v++;
+                            Player_Move();
+                            break;
+
+                        case 100:
+                            //dicemove入れればいいんじゃね
+                            break;
+                    }
                 }
-
-                //空白の時に下のやつ実行したい
-                //g_check_script.GetComponent<TypeCheck>().TypeCheck_block();
-
-                //if (g_check_script.g_v_plus_flag == false) {
-                //    g_potision_script.g_playerpointer_v++;
-                //    Player_Move();
-                //} else if (g_check_script.g_v_plus_flag == true) {
-                //    Debug.Log("TRUE");
-                //    g_check_script.g_v_plus_flag = false;
-                //}
             }
         }
         //配列hの下限に達してない時移動(下)
         if (g_potision_script.g_playerpointer_v > 0) {
             if (Input.GetKeyDown(KeyCode.S)) {
+                if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h - 1) != 0) {
 
-                switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
-                    case 0:
-                        g_potision_script.g_playerpointer_v--;
-                        Player_Move();
-                        break;
+                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
+                        case 0:
+                            g_potision_script.g_playerpointer_v--;
+                            Player_Move();
+                            break;
 
-                    case 100:
-                        break;
+                        case 100:
+                            break;
+                    }
                 }
-                //g_check_script.GetComponent<TypeCheck>().TypeCheck_block();
-
-                //    if (g_check_script.g_v_minus_flag == false) {
-                //        g_potision_script.g_playerpointer_v--;
-                //        Player_Move();
-                //    } else if (g_check_script.g_v_minus_flag == true) {
-                //        Debug.Log("TRUE");
-                //        g_check_script.g_v_minus_flag = false;
-                //    }
-                //}
+               
             }
         }
         //配列vの下限に達してない時移動(左)
         if (g_potision_script.g_playerpointer_s > 0) {
             if (Input.GetKeyDown(KeyCode.A)) {
+                if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h -1) != 0) {
 
-                switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h)) {
-                    case 0:
-                        g_potision_script.g_playerpointer_s--;
-                        Player_Move();
-                        break;
+                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h)) {
+                        case 0:
+                            g_potision_script.g_playerpointer_s--;
+                            Player_Move();
+                            break;
 
-                    case 100:
-                        break;
+                        case 100:
+                            break;
+                    }
                 }
-                //g_check_script.GetComponent<TypeCheck>().TypeCheck_block();
-
-                //if (g_check_script.g_s_minus_flag == false) {
-                //    g_potision_script.g_playerpointer_s--;
-                //    Player_Move();
-                //} else if (g_check_script.g_s_minus_flag == true) {
-                //    Debug.Log("TRUE");
-                //    g_check_script.g_s_minus_flag = false;
-                //}
             }
         }
         //配列vの上限に達してない時移動(右)
         if (g_potision_script.g_playerpointer_s < g_s_PBlockCount - 1) {
             if (Input.GetKeyDown(KeyCode.D)) {
+                if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h - 1) != 0) {
 
-                switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h)) {
-                    case 0:
-                        g_potision_script.g_playerpointer_s++;
-                        Player_Move();
-                        break;
+                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h)) {
+                        case 0:
+                            g_potision_script.g_playerpointer_s++;
+                            Player_Move();
+                            break;
 
-                    case 100:
-                        break;
+                        case 100:
+                            break;
+                    }
                 }
-                //g_check_script.GetComponent<TypeCheck>().TypeCheck_block();
-
-                //if (g_check_script.g_s_plus_flag == false) {
-                //    g_potision_script.g_playerpointer_s++;
-                //    Player_Move();
-                //} else if (g_check_script.g_s_plus_flag == true) {
-                //    Debug.Log("TRUE");
-                //    g_check_script.g_s_plus_flag = false;
-                //}
             }
         }
         #endregion

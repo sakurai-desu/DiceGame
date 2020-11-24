@@ -32,11 +32,11 @@ public class Dice_Controller : MonoBehaviour {
     }
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.A)) {
-            g_con_Obj = g_test_con_Obj;
-            g_dice_Script = g_con_Obj.GetComponent<Dice_Squares>();
-            g_rotate_Script = g_con_Obj.GetComponent<Dice_Rotate>();
-        }
+        //if (Input.GetKeyDown(KeyCode.A)) {
+        //    g_con_Obj = g_test_con_Obj;
+        //    g_dice_Script = g_con_Obj.GetComponent<Dice_Squares>();
+        //    g_rotate_Script = g_con_Obj.GetComponent<Dice_Rotate>();
+        //}
         if (g_con_Obj == null) {
             return;
         }
