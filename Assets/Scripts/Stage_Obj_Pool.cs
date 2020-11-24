@@ -64,10 +64,10 @@ public class Stage_Obj_Pool : MonoBehaviour
             case 0:
                 g_block_Obj = BlockCreator(g_null_Prefab);
                 break;
-            case 1:
+            case 10:
                 g_block_Obj = BlockCreator(g_null_Prefab);
                 break;
-            case 2:
+            case 20:
                 g_block_Obj = BlockCreator(g_null_Prefab);
                 break;
             case 50:

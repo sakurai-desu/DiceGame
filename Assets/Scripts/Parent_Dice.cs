@@ -71,7 +71,11 @@ public class Parent_Dice : MonoBehaviour
             (g_dice_ver, g_dice_side, g_dice_high) =
                 g_child_Array[i].GetComponent<Dice_Squares>().Get_Dice_Pointer();
 
-            if (max <= g_dice_ver &&g_dice_side==player_side&& g_dice_high == player_high) {
+            //if (max <= g_dice_ver &&g_dice_side==player_side&& g_dice_high == player_high) {
+            //    max = g_dice_ver;
+            //    g_con_Dice = g_child_Array[i];
+            //}
+            if (max <= g_dice_ver && g_dice_high == player_high) {
                 max = g_dice_ver;
                 g_con_Dice = g_child_Array[i];
             }
@@ -86,7 +90,11 @@ public class Parent_Dice : MonoBehaviour
             (g_dice_ver, g_dice_side, g_dice_high) =
                 g_child_Array[i].GetComponent<Dice_Squares>().Get_Dice_Pointer();
 
-            if (min >= g_dice_ver && g_dice_side == player_side && g_dice_high == player_high) {
+            //if (min >= g_dice_ver && g_dice_side == player_side && g_dice_high == player_high) {
+            //    min = g_dice_ver;
+            //    g_con_Dice = g_child_Array[i];
+            //}
+            if (min >= g_dice_ver&& g_dice_high == player_high) {
                 min = g_dice_ver;
                 g_con_Dice = g_child_Array[i];
             }
@@ -100,12 +108,16 @@ public class Parent_Dice : MonoBehaviour
         for (int i = 0; i < g_child_Array.Length ; i++) {
             (g_dice_ver, g_dice_side, g_dice_high) =
                 g_child_Array[i].GetComponent<Dice_Squares>().Get_Dice_Pointer();
-            
-            if (max <= g_dice_side&&g_dice_ver==player_ver&&g_dice_high==player_high) {
+
+            //if (max <= g_dice_side&&g_dice_ver==player_ver&&g_dice_high==player_high) {
+            //    max = g_dice_side;
+            //    g_con_Dice = g_child_Array[i];
+            //}
+            if (max <= g_dice_side && g_dice_high == player_high) {
                 max = g_dice_side;
-                g_con_Dice = g_child_Array[i];
-            }
+            g_con_Dice = g_child_Array[i];
         }
+    }
         return g_con_Dice;
     }
 
@@ -116,7 +128,11 @@ public class Parent_Dice : MonoBehaviour
             (g_dice_ver, g_dice_side, g_dice_high) =
                 g_child_Array[i].GetComponent<Dice_Squares>().Get_Dice_Pointer();
 
-            if (min >= g_dice_side && g_dice_ver == player_ver && g_dice_high == player_high) {
+            //if (min >= g_dice_side && g_dice_ver == player_ver && g_dice_high == player_high) {
+            //    min = g_dice_side;
+            //    g_con_Dice = g_child_Array[i];
+            //}
+            if (min >= g_dice_side && g_dice_high == player_high) {
                 min = g_dice_side;
                 g_con_Dice = g_child_Array[i];
             }

@@ -10,7 +10,7 @@ public class Input_Date : MonoBehaviour
     [Serializable]
     public class InputJson {
         //読み込むjsonの名前
-        public string g_name;
+        public string g_stagename;
         //ステージの縦の広さ
         public int g_ver;
         //ステージの横の広さ
@@ -18,7 +18,7 @@ public class Input_Date : MonoBehaviour
         //ステージの高さ
         public int g_high;
         //ステージ攻勢を入れる配列
-        public Block[] g_block;
+        public Block[] g_blocks;
     }
 
     [Serializable]
@@ -46,6 +46,7 @@ public class Input_Date : MonoBehaviour
         string inputString = Resources.Load<TextAsset>(g_jsonname).ToString();
         //譜面データを取り込む
         g_inputJson = JsonUtility.FromJson<InputJson>(inputString);
+
     }
 
     void Start()

@@ -117,7 +117,7 @@ public class Game_Controller : MonoBehaviour
                     //ポジション格納用配列にポジションを格納
                     g_blocksPos_Array[ver, side, high] = new Vector3(g_s_pos, g_h_pos, g_v_pos);
                     //タイプを保持
-                    int type = g_json_Script.g_inputJson.g_block[i].g_type;
+                    int type = g_json_Script.g_inputJson.g_blocks[i].g_type;
                     //配列にタイプを格納
                     Storage_Obj_Type(ver, side, high, type);
                     //タイプに応じたブロックを生成
