@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Playermove : MonoBehaviour
-{
+public class Playermove : MonoBehaviour {
     //GameObject g_pushstasts;
 
     Input_Date g_json_Script;
@@ -24,6 +23,7 @@ public class Playermove : MonoBehaviour
 
     private int g_h_PBlockCount;
 
+    Game_Controller g_type_script;
 
     bool g_arrayflag = false;
     //player位置
@@ -35,8 +35,10 @@ public class Playermove : MonoBehaviour
     void Start() {
         g_arrymovescript = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         g_potision_script = GameObject.Find("Player_Controller").GetComponent<Playercontroller>();
-        g_check_script = GameObject.Find("Player(Clone)").GetComponent<TypeCheck>();
+        g_check_script = GameObject.FindGameObjectWithTag("Player").GetComponent<TypeCheck>();
         g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Date>();
+        //ブロックのタイプを取得
+        g_type_script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         //g_pushscript = g_pushstasts.GetComponent<Game_Controller>();
         //配列を一度だけ読み込み用フラグ
         g_arrayflag = true;
@@ -61,36 +63,105 @@ public class Playermove : MonoBehaviour
         //配列hの上限に達してない時移動(上)
         if (g_potision_script.g_playerpointer_v < g_v_PBlockCount - 1) {
             if (Input.GetKeyDown(KeyCode.W)) {
-                g_potision_script.g_playerpointer_v++;
-                Player_Move();
+                switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
+                    case 0:
+                        g_potision_script.g_playerpointer_v++;
+                        Player_Move();
+                        break;
+
+                    case 100:
+                        break;
+                }
+
+                //空白の時に下のやつ実行したい
+                //g_check_script.GetComponent<TypeCheck>().TypeCheck_block();
+
+                //if (g_check_script.g_v_plus_flag == false) {
+                //    g_potision_script.g_playerpointer_v++;
+                //    Player_Move();
+                //} else if (g_check_script.g_v_plus_flag == true) {
+                //    Debug.Log("TRUE");
+                //    g_check_script.g_v_plus_flag = false;
+                //}
             }
         }
         //配列hの下限に達してない時移動(下)
         if (g_potision_script.g_playerpointer_v > 0) {
             if (Input.GetKeyDown(KeyCode.S)) {
-                //g_playerpointer_v = g_playerpointer_v++;
-                g_potision_script.g_playerpointer_v--;
-                Player_Move();
-            }
 
+                switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
+                    case 0:
+                        g_potision_script.g_playerpointer_v--;
+                        Player_Move();
+                        break;
+
+                    case 100:
+                        break;
+                }
+                //g_check_script.GetComponent<TypeCheck>().TypeCheck_block();
+
+                //    if (g_check_script.g_v_minus_flag == false) {
+                //        g_potision_script.g_playerpointer_v--;
+                //        Player_Move();
+                //    } else if (g_check_script.g_v_minus_flag == true) {
+                //        Debug.Log("TRUE");
+                //        g_check_script.g_v_minus_flag = false;
+                //    }
+                //}
+            }
         }
         //配列vの下限に達してない時移動(左)
         if (g_potision_script.g_playerpointer_s > 0) {
             if (Input.GetKeyDown(KeyCode.A)) {
-                g_potision_script.g_playerpointer_s--;
-                Player_Move();
+
+                switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h)) {
+                    case 0:
+                        g_potision_script.g_playerpointer_s--;
+                        Player_Move();
+                        break;
+
+                    case 100:
+                        break;
+                }
+                //g_check_script.GetComponent<TypeCheck>().TypeCheck_block();
+
+                //if (g_check_script.g_s_minus_flag == false) {
+                //    g_potision_script.g_playerpointer_s--;
+                //    Player_Move();
+                //} else if (g_check_script.g_s_minus_flag == true) {
+                //    Debug.Log("TRUE");
+                //    g_check_script.g_s_minus_flag = false;
+                //}
             }
         }
         //配列vの上限に達してない時移動(右)
         if (g_potision_script.g_playerpointer_s < g_s_PBlockCount - 1) {
             if (Input.GetKeyDown(KeyCode.D)) {
-                g_potision_script.g_playerpointer_s++;
-                Player_Move();
+
+                switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h)) {
+                    case 0:
+                        g_potision_script.g_playerpointer_s++;
+                        Player_Move();
+                        break;
+
+                    case 100:
+                        break;
+                }
+                //g_check_script.GetComponent<TypeCheck>().TypeCheck_block();
+
+                //if (g_check_script.g_s_plus_flag == false) {
+                //    g_potision_script.g_playerpointer_s++;
+                //    Player_Move();
+                //} else if (g_check_script.g_s_plus_flag == true) {
+                //    Debug.Log("TRUE");
+                //    g_check_script.g_s_plus_flag = false;
+                //}
             }
         }
         #endregion
-      
+
     }
+
     private void Player_Move() {
         g_sponplayer = g_arrymovescript.Get_Pos(g_potision_script.g_playerpointer_v, g_potision_script.g_playerpointer_s, g_potision_script.g_playerpointer_h);
         this.gameObject.transform.position = g_sponplayer;
@@ -101,8 +172,11 @@ public class Playermove : MonoBehaviour
         g_playerpotision = g_sponplayer;
         g_check_script.GetComponent<TypeCheck>().Get_p_p();
     }
-    public Vector3 Get_potision(int v,int s,int h) {
+    public Vector3 Get_potision(int v, int s, int h) {
         return g_playerpotision;
     }
+
+
+
 
 }

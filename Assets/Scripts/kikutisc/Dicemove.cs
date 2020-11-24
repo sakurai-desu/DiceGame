@@ -14,21 +14,21 @@ public class Dicemove : MonoBehaviour
     {
        
     }
-    public void Move_dice_plus_v() {
-        if (Input.GetKey(KeyCode.W)) {
-            Debug.Log("dawdddddddddddd");
-        }
-    }
-    public void Move_dice_minus_v() {
-        if (Input.GetKey(KeyCode.S)) {
-        }
-    }
-    public void Move_dice_plus_s() {
-        if (Input.GetKey(KeyCode.D)) {
-        }
-    }
-    public void Move_dice_minus_s() {
-        if (Input.GetKey(KeyCode.A)) {
-        }
-    }
+    //public void Move_dice_plus_v() {
+    //    if (Input.GetKey(KeyCode.W)) {
+    //        Debug.Log("dawdddddddddddd");
+    //    }
+    //}
+    //public void Move_dice_minus_v() {
+    //    if (Input.GetKey(KeyCode.S)) {
+    //    }
+    //}
+    //public void Move_dice_plus_s() {
+    //    if (Input.GetKey(KeyCode.D)) {
+    //    }
+    //}
+    //public void Move_dice_minus_s() {
+    //    if (Input.GetKey(KeyCode.A)) {
+    //    }
+    //}
 }

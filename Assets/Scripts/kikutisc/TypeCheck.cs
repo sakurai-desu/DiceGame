@@ -19,9 +19,9 @@ public class TypeCheck : MonoBehaviour
     Vector3 g_check_vsh;
 
     //ダイスの場所を探す
-    private int g_dice_check_v;
-    private int g_dice_check_s;
-    private int g_dice_check_h;
+    public int g_dice_check_v;
+    public int g_dice_check_s;
+    public int g_dice_check_h;
 
     //g_tyep_scriptを入れる
     private int g_type_obj;
@@ -42,6 +42,7 @@ public class TypeCheck : MonoBehaviour
         g_potision_script = GameObject.FindGameObjectWithTag("Player").GetComponent<Playermove>();
         //ブロックのタイプを取得
         g_tyep_script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
+        g_dicemove = GameObject.FindGameObjectWithTag("Dice").GetComponent<Dicemove>();
         //g_check_vsh = g_potision_script.Get_potision(g_check_v, g_check_s, g_check_h);
         g_getdate = true;
      
@@ -57,37 +58,19 @@ public class TypeCheck : MonoBehaviour
             g_getdate = false;
             Get_p_p();
         }
-        #region 先にあるもののTypeCheck
-        if (g_tyep_script.Get_Obj_Type(g_dice_check_v + 1, g_dice_check_s, g_dice_check_h) == 100) {
-            Debug.Log("uedice");
-            g_v_plus_flag = true;
-        }
-        if (g_tyep_script.Get_Obj_Type(g_dice_check_v - 1, g_dice_check_s, g_dice_check_h) == 100) {
-            Debug.Log("sitadice");
-            g_v_minus_flag = true;
-        } 
-        if (g_tyep_script.Get_Obj_Type(g_dice_check_v, g_dice_check_s + 1, g_dice_check_h) == 100) {
-            Debug.Log("migidice");
-            g_s_plus_flag = true;
-        } 
-        if (g_tyep_script.Get_Obj_Type(g_dice_check_v, g_dice_check_s - 1, g_dice_check_h) == 100) {
-            Debug.Log("hidaridice");
-            g_s_minus_flag = true;
-        } 
-
-        #endregion
-        if (g_v_plus_flag == true) {
-            g_dicemove.GetComponent<Dicemove>().Move_dice_plus_v();
-        }
-        if (g_v_minus_flag == true) {
-            g_dicemove.GetComponent<Dicemove>().Move_dice_minus_v();
-        } 
-        if (g_s_plus_flag == true) {
-            g_dicemove.GetComponent<Dicemove>().Move_dice_plus_s();
-        } 
-        if (g_s_minus_flag == true) {
-            g_dicemove.GetComponent<Dicemove>().Move_dice_minus_s();
-        } 
+       
+        //if (g_v_plus_flag == true) {
+        //    g_dicemove.GetComponent<Dicemove>().Move_dice_plus_v();
+        //}
+        //if (g_v_minus_flag == true) {
+        //    g_dicemove.GetComponent<Dicemove>().Move_dice_minus_v();
+        //}
+        //if (g_s_plus_flag == true) {
+        //    g_dicemove.GetComponent<Dicemove>().Move_dice_plus_s();
+        //}
+        //if (g_s_minus_flag == true) {
+        //    g_dicemove.GetComponent<Dicemove>().Move_dice_minus_s();
+        //}
     }
     //プレイヤーポジション取得
     public void Get_p_p() {
@@ -100,5 +83,26 @@ public class TypeCheck : MonoBehaviour
         //プレイヤーH値取得
         g_dice_check_h = g_playercontroller.g_playerpointer_h;
    }
-   
+    public void TypeCheck_block() {
+
+        #region 先にあるもののTypeCheck
+        if (g_tyep_script.Get_Obj_Type(g_dice_check_v + 1, g_dice_check_s, g_dice_check_h) == 100) {
+            Debug.Log("uedice");
+            g_v_plus_flag = true;
+        }
+        if (g_tyep_script.Get_Obj_Type(g_dice_check_v - 1, g_dice_check_s, g_dice_check_h) == 100) {
+            Debug.Log("sitadice");
+            g_v_minus_flag = true;
+        }
+        if (g_tyep_script.Get_Obj_Type(g_dice_check_v, g_dice_check_s + 1, g_dice_check_h) == 100) {
+            Debug.Log("migidice");
+            g_s_plus_flag = true;
+        }
+        if (g_tyep_script.Get_Obj_Type(g_dice_check_v, g_dice_check_s - 1, g_dice_check_h) == 100) {
+            Debug.Log("hidaridice");
+            g_s_minus_flag = true;
+        }
+
+        #endregion
+    }
 }
