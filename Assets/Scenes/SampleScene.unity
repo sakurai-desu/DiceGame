@@ -390,6 +390,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1174057186}
   - component: {fileID: 1174057187}
+  - component: {fileID: 1174057185}
   m_Layer: 0
   m_Name: Stage_Pool
   m_TagString: Untagged
@@ -397,6 +398,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1174057185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174057184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7bbf62a97b3a8469faf27fc4ec798f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  g_work_dices: 010000000400000002000000030000000600000005000000
+  g_work_Array: 000000000000000000000000000000000000000000000000
+  g_json_dices: 010000000400000002000000030000000600000005000000
+  g_ver_count: 0
 --- !u!4 &1174057186
 Transform:
   m_ObjectHideFlags: 0
@@ -430,7 +447,7 @@ MonoBehaviour:
     type: 3}
   g_dice_Prefab: {fileID: 4587978707711304603, guid: 3fb03f9a3de85074a8996f77ff7f7eb5,
     type: 3}
-  g_floor_Prefab: {fileID: 4716210305998990306, guid: 7eb28de92b024384d8a797c91d675adb,
+  g_floor_Prefab: {fileID: 7237009044604176305, guid: e01990e496b3a03479a4587e9465a000,
     type: 3}
 --- !u!1 &1663185075
 GameObject:
@@ -468,7 +485,7 @@ MonoBehaviour:
     g_hori: 0
     g_high: 0
     g_blocks: []
-  g_jsonname: Stage1
+  g_jsonname: Stage5
 --- !u!4 &1663185077
 Transform:
   m_ObjectHideFlags: 0
@@ -519,7 +536,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5613002937132859189}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1307b8a0fa808084aaba2538a14a781a, type: 3}
   m_Name: 

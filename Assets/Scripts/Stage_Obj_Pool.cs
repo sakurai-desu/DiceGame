@@ -77,7 +77,6 @@ public class Stage_Obj_Pool : MonoBehaviour
                 g_block_Obj = Dice_Creator(g_dice_Prefab);
                 g_block_Obj.GetComponent<Dice_Squares>().Storage_This_Index(ver, side, high);
                 break;
-
         }
         //ポジション取得
         Vector3 g_sporn_Pos = g_game_Con_Script.Get_Pos(ver, side, high);
@@ -85,7 +84,6 @@ public class Stage_Obj_Pool : MonoBehaviour
         g_block_Obj.transform.position = g_sporn_Pos;
         //配列にオブジェクトを格納する
         g_game_Con_Script.Storage_Obj(ver, side, high, g_block_Obj);
-
     }
 
     private GameObject Dice_Creator(GameObject dice_obj) {
