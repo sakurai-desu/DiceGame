@@ -528,7 +528,7 @@ MonoBehaviour:
     type: 3}
   g_playerpointer_v: 3
   g_playerpointer_h: 1
-  g_playerpointer_s: 4
+  g_playerpointer_s: 3
 --- !u!4 &5613002937132859191
 Transform:
   m_ObjectHideFlags: 0
