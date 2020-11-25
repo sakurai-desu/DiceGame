@@ -76,10 +76,7 @@ public class Playermove : MonoBehaviour {
                             break;
                     }
                 }
-<<<<<<< HEAD
-=======
 
->>>>>>> 487088c0bf984ea9e9a21fa66fd5869b81668ed1
             }
         }
         //配列hの下限に達してない時移動(下)
@@ -97,11 +94,7 @@ public class Playermove : MonoBehaviour {
                             break;
                     }
                 }
-<<<<<<< HEAD
-               
-=======
-              
->>>>>>> 487088c0bf984ea9e9a21fa66fd5869b81668ed1
+
             }
         }
         //配列vの下限に達してない時移動(左)
@@ -119,10 +112,6 @@ public class Playermove : MonoBehaviour {
                             break;
                     }
                 }
-<<<<<<< HEAD
-=======
-             
->>>>>>> 487088c0bf984ea9e9a21fa66fd5869b81668ed1
             }
         }
         //配列vの上限に達してない時移動(右)

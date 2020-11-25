@@ -430,7 +430,7 @@ MonoBehaviour:
     type: 3}
   g_dice_Prefab: {fileID: 4587978707711304603, guid: 3fb03f9a3de85074a8996f77ff7f7eb5,
     type: 3}
-  g_floor_Prefab: {fileID: 4716210305998990306, guid: 7eb28de92b024384d8a797c91d675adb,
+  g_floor_Prefab: {fileID: 4716210305998990306, guid: 1f152679617277d439b77b03851d2c21,
     type: 3}
 --- !u!1 &1663185075
 GameObject:
