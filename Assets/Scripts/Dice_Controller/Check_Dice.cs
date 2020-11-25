@@ -229,7 +229,6 @@ public class Check_Dice : MonoBehaviour {
     /// 接触したサイコロ同士の接触面を比較し接着するか調べる処理
     /// </summary>
     private void Adhesive_Check() {
-
         //移動側のサイコロの接触面に対応した処理をする
         switch (g_adhesive_para) {
             //接触面が縦のプラス方向の時
@@ -270,13 +269,26 @@ public class Check_Dice : MonoBehaviour {
         int g_next_dice_squares = g_next_dice_Script.Get_Array_Squares(g_next_adhesive_para);
         //互いの数値の合計が7の時くっつく
         if (g_dice_squares + g_next_dice_squares == g_max_squares_sum) {
-            Debug.Log("くっつきます");
+            //操作中オブジェクトの親を取得
             GameObject parent_Obj = g_dice_Obj.gameObject.transform.root.gameObject;
-            //g_next_dice_Obj.transform.parent = parent_Obj.transform;
+            //くっつけられた側の親オブジェクトを保持
+            GameObject detroy_Obj = g_next_dice_Obj.transform.parent.gameObject;
+            //くっつけられた側の親のスクリプト取得
             Parent_Dice next_parent_Script = g_next_dice_Obj.transform.parent.GetComponent<Parent_Dice>();
+            //くっつけられた側の子オブジェクトをすべて取得
             GameObject[] children = next_parent_Script.Get_Children();
-            Debug.Log(children[0]);
+            //くっつける前の子の数
+            int children_count = parent_Obj.GetComponent<Parent_Dice>().Get_Children_Count();
             parent_Obj.GetComponent<Parent_Dice>().Parent_In_Child(children);
+            //くっつけた後の子の数
+            int next_children_count = parent_Obj.GetComponent<Parent_Dice>().Get_Children_Count();
+            //くっつけた後の子の個数がくっつける前より増えていたら
+            if (next_children_count > children_count) {
+                Debug.Log("新しいサイコロがくっついた");
+                Debug.Log("サイコロがくっつく演出を入れる");
+                //くっつけられた側の親を削除する
+                Destroy(detroy_Obj);
+            }
         }
     }
 }

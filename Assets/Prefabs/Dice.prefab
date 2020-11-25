@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 4587978707709377883}
   - component: {fileID: 4587978707711304601}
   - component: {fileID: 4587978707711304600}
+  - component: {fileID: -2880219810045785685}
   m_Layer: 0
   m_Name: Dice
-  m_TagString: Untagged
+  m_TagString: Dice
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,3 +105,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   g_squares_Array: 010000000400000002000000030000000600000005000000
+  g_this_Ver: 0
+  g_this_Side: 0
+  g_this_High: 0
+<<<<<<< HEAD
+--- !u!114 &-2880219810045785685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4587978707711304603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a8774fd5b639e64e8f6713cd239e0a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+=======
+>>>>>>> 487088c0bf984ea9e9a21fa66fd5869b81668ed1

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Dice_Rotate : MonoBehaviour
 {
     private Dice_Squares g_dice_Script;
+    private Parent_All_Rotation g_parent_rotate_Script;
 
     /// <summary>
     /// 回転させるオブジェクト
@@ -43,8 +44,15 @@ public class Dice_Rotate : MonoBehaviour
     /// </summary>
     private bool g_rotate_Flag = false;
 
+    private const int g_ver_plus_Para = 0;
+    private const int g_ver_minus_Para = 1;
+    private const int g_side_plus_Para = 2;
+    private const int g_side_minus_Para = 3;
+
     void Start()
     {
+        g_parent_rotate_Script = GameObject.Find("Dice_Controller").GetComponent<Parent_All_Rotation>();
+
         g_dice_Script = this.GetComponent<Dice_Squares>();
         //操作オブジェクト取得
         g_dice_Obj = this.gameObject;
@@ -56,10 +64,28 @@ public class Dice_Rotate : MonoBehaviour
         g_parent_Obj = this.gameObject.transform.parent.gameObject;
     }
 
+    public void This_Rotate(int para) {
+        switch (para) {
+            case g_ver_plus_Para:
+                Ver_Plus_Rotate();
+                break;
+            case g_ver_minus_Para:
+                Ver_Minus_Rotate();
+                break;
+            case g_side_plus_Para:
+                Side_Plus_Rotate();
+                break;
+            case g_side_minus_Para:
+                Side_Minus_Rotate();
+                break;
+        }
+    }
+
+
     /// <summary>
     /// 横軸のプラス方向の回転
     /// </summary>
-    public void Side_Plus_Rotate()
+    private void Side_Plus_Rotate()
     {
         //回転の中心を決める
         g_rotate_Point = g_dice_Obj.transform.position + new Vector3(g_dice_Size, -g_dice_Size, 0);
@@ -72,7 +98,7 @@ public class Dice_Rotate : MonoBehaviour
     /// <summary>
     /// 横軸のマイナス方向の回転
     /// </summary>
-    public void Side_Minus_Rotate()
+    private void Side_Minus_Rotate()
     {
         //回転の中心を決める
         g_rotate_Point = g_dice_Obj.transform.position + new Vector3(-g_dice_Size, -g_dice_Size, 0);
@@ -85,7 +111,7 @@ public class Dice_Rotate : MonoBehaviour
     /// <summary>
     /// 縦軸のプラス方向の回転
     /// </summary>
-    public void Ver_Plus_Rotate()
+    private void Ver_Plus_Rotate()
     {
         //回転の中心を決める
         g_rotate_Point = g_dice_Obj.transform.position + new Vector3(0, -g_dice_Size, g_dice_Size);
@@ -98,7 +124,7 @@ public class Dice_Rotate : MonoBehaviour
     /// <summary>
     /// 縦軸のマイナス方向の回転
     /// </summary>
-    public void Ver_Minus_Rotate()
+    private void Ver_Minus_Rotate()
     {
         //回転の中心を決める
         g_rotate_Point = g_dice_Obj.transform.position + new Vector3(0, -g_dice_Size, -g_dice_Size);
@@ -144,7 +170,8 @@ public class Dice_Rotate : MonoBehaviour
         g_rotate_Point = Vector3.zero;
         //回転の軸を初期化
         g_rotate_Axis = Vector3.zero;
-        g_dice_Script.All_Check();
+        //g_dice_Script.All_Check();
+        g_parent_rotate_Script.Reset_And_Storage_Obj();
         //処理終了
         yield break;
     }

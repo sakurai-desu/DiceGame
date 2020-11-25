@@ -58,7 +58,6 @@ public class Game_Controller : MonoBehaviour
         g_blocksType_Array = new int[g_s_BlockCount, g_v_BlockCount, g_h_BlockCount];
 
         Pos_Array_Reset();
-
     }
 
     private void Update() {
@@ -85,9 +84,12 @@ public class Game_Controller : MonoBehaviour
             for (int side = g_originpoint; side < g_s_BlockCount; side++) {
                 //縦の回数分繰り返す
                 for (int ver = g_originpoint; ver < g_v_BlockCount; ver++) {
-                    Debug.Log("縦："+ver+"_横："+ side+"_高さ："+ high);
-                    Debug.Log("オブジェクト："+g_blocks_Array[ver, side, high]);
-                    Debug.Log("タイプ："+ g_blocksType_Array[ver, side, high]);
+                    if (g_blocksType_Array[ver, side, high] == 100) {
+                        Debug.Log("縦：" + ver + "_横：" + side + "_高さ：" + high);
+                        Debug.Log("オブジェクト：" + g_blocks_Array[ver, side, high]);
+                        Debug.Log("タイプ：" + g_blocksType_Array[ver, side, high]);
+                    }
+          
                 }
             }
         }
@@ -115,7 +117,7 @@ public class Game_Controller : MonoBehaviour
                     //ポジション格納用配列にポジションを格納
                     g_blocksPos_Array[ver, side, high] = new Vector3(g_s_pos, g_h_pos, g_v_pos);
                     //タイプを保持
-                    int type = g_json_Script.g_inputJson.g_block[i].g_type;
+                    int type = g_json_Script.g_inputJson.g_blocks[i].g_type;
                     //配列にタイプを格納
                     Storage_Obj_Type(ver, side, high, type);
                     //タイプに応じたブロックを生成
