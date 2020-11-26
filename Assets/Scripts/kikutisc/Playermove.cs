@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Playermove : MonoBehaviour {
     //GameObject g_pushstasts;
@@ -53,10 +54,23 @@ public class Playermove : MonoBehaviour {
     }
     [SerializeField]
     bool g_arrayExistFlag;
+    /// <summary>
+    /// ｗボタンが押されたフラグ
+    /// </summary>
     bool g_wflag;
+    /// <summary>
+    /// aボタンが押されたフラグ
+    /// </summary>
     bool g_aflag;
+    /// <summary>
+    /// sボタンが押されたフラグ
+    /// </summary>
     bool g_sflag;
+    /// <summary>
+    /// dボタンが押されたフラグ
+    /// </summary>
     bool g_dflag;
+    bool g_pushflag;
     // Update is called once per frame
     void Update() {
 
@@ -81,6 +95,10 @@ public class Playermove : MonoBehaviour {
                             g_potision_script.g_playerpointer_v++;
                             Player_Move();
                             break;
+                        case 20:
+                            g_potision_script.g_playerpointer_v++;
+                            Player_Move();
+                            break;
 
                         case 100:
                             g_dice_con_Script.Change_Player_Pointer(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
@@ -100,6 +118,11 @@ public class Playermove : MonoBehaviour {
 
                             Player_Move();
                             break;
+                        case 20:
+                            g_potision_script.g_playerpointer_v++;
+                            g_potision_script.g_playerpointer_h--;
+                            Player_Move();
+                            break;
 
                         case 100:
                             g_potision_script.g_playerpointer_v++;
@@ -109,8 +132,10 @@ public class Playermove : MonoBehaviour {
                             break;
                     }
                 }
+                PushKey();
                 g_wflag = true;
             } else if (Input.GetKeyUp(KeyCode.W)) {
+                UpKey();
                 g_wflag = false;
             }
             if (Input.GetKeyDown(KeyCode.Space)&&g_wflag) {
@@ -119,6 +144,11 @@ public class Playermove : MonoBehaviour {
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
                         case 0:
 
+                            break;
+                        case 20:
+                            g_potision_script.g_playerpointer_v++;
+                            g_potision_script.g_playerpointer_h++;
+                            Player_Move();
                             break;
                         case 50:
                             g_potision_script.g_playerpointer_v++;
@@ -146,7 +176,10 @@ public class Playermove : MonoBehaviour {
                             g_potision_script.g_playerpointer_v--;
                             Player_Move();
                             break;
-
+                        case 20:
+                            g_potision_script.g_playerpointer_v--;
+                            Player_Move();
+                            break;
                         case 100:
                             g_dice_con_Script.Change_Player_Pointer(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
                             GameObject dice_obj = g_type_script.Get_Obj(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
@@ -164,7 +197,11 @@ public class Playermove : MonoBehaviour {
 
                             Player_Move();
                             break;
-
+                        case 20:
+                            g_potision_script.g_playerpointer_v--;
+                            g_potision_script.g_playerpointer_h--;
+                            Player_Move();
+                            break;
                         case 100:
                             g_potision_script.g_playerpointer_v--;
                             g_potision_script.g_playerpointer_h--;
@@ -173,8 +210,10 @@ public class Playermove : MonoBehaviour {
                             break;
                     }
                 }
+                PushKey();
                 g_sflag = true;
             } else if (Input.GetKeyUp(KeyCode.S)) {
+                UpKey();
                 g_sflag = false;
             }
             if (Input.GetKeyDown(KeyCode.Space)&&g_sflag) {
@@ -183,6 +222,11 @@ public class Playermove : MonoBehaviour {
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
                         case 0:
 
+                            break;
+                        case 20:
+                            g_potision_script.g_playerpointer_v--;
+                            g_potision_script.g_playerpointer_h++;
+                            Player_Move();
                             break;
                         case 50:
                             g_potision_script.g_playerpointer_v--;
@@ -210,7 +254,10 @@ public class Playermove : MonoBehaviour {
                             g_potision_script.g_playerpointer_s--;
                             Player_Move();
                             break;
-
+                        case 20:
+                            g_potision_script.g_playerpointer_s--;
+                            Player_Move();
+                            break;
                         case 100:
                             g_dice_con_Script.Change_Player_Pointer(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
                             GameObject dice_obj = g_type_script.Get_Obj(g_check_script.g_dice_check_v , g_check_script.g_dice_check_s-1, g_check_script.g_dice_check_h);
@@ -228,7 +275,11 @@ public class Playermove : MonoBehaviour {
 
                             Player_Move();
                             break;
-
+                        case 20:
+                            g_potision_script.g_playerpointer_s--;
+                            g_potision_script.g_playerpointer_h--;
+                            Player_Move();
+                            break;
                         case 100:
                             g_potision_script.g_playerpointer_s--;
                             g_potision_script.g_playerpointer_h--;
@@ -237,8 +288,10 @@ public class Playermove : MonoBehaviour {
                             break;
                     }
                 }
+                PushKey();
                 g_aflag = true;
             } else if (Input.GetKeyUp(KeyCode.A)) {
+                UpKey();
                 g_aflag = false;
             }
             if (Input.GetKeyDown(KeyCode.Space)&&g_aflag) {
@@ -247,6 +300,11 @@ public class Playermove : MonoBehaviour {
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h)) {
                         case 0:
 
+                            break;
+                        case 20:
+                            g_potision_script.g_playerpointer_s--;
+                            g_potision_script.g_playerpointer_h++;
+                            Player_Move();
                             break;
 
                         case 50:
@@ -275,7 +333,10 @@ public class Playermove : MonoBehaviour {
                             g_potision_script.g_playerpointer_s++;
                             Player_Move();
                             break;
-
+                        case 20:
+                            g_potision_script.g_playerpointer_s++;
+                            Player_Move();
+                            break;
                         case 100:
                             g_dice_con_Script.Change_Player_Pointer(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
                             GameObject dice_obj = g_type_script.Get_Obj(g_check_script.g_dice_check_v , g_check_script.g_dice_check_s+1, g_check_script.g_dice_check_h);
@@ -293,7 +354,11 @@ public class Playermove : MonoBehaviour {
 
                             Player_Move();
                             break;
-
+                        case 20:
+                            g_potision_script.g_playerpointer_s++;
+                            g_potision_script.g_playerpointer_h--;
+                            Player_Move();
+                            break;
                         case 100:
                             g_potision_script.g_playerpointer_s++;
                             g_potision_script.g_playerpointer_h--;
@@ -302,8 +367,10 @@ public class Playermove : MonoBehaviour {
                             break;
                     }
                 }
+                PushKey();
                 g_dflag = true;
             } else if (Input.GetKeyUp(KeyCode.D)) {
+                UpKey();
                 g_dflag = false;
             }
 
@@ -313,6 +380,11 @@ public class Playermove : MonoBehaviour {
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h)) {
                         case 0:
 
+                            break;
+                        case 20:
+                            g_potision_script.g_playerpointer_s++;
+                            g_potision_script.g_playerpointer_h++;
+                            Player_Move();
                             break;
                         case 50:
                             g_potision_script.g_playerpointer_s++;
@@ -331,7 +403,14 @@ public class Playermove : MonoBehaviour {
             }
         }
         #endregion
-
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            PushKey();
+        } else if (Input.GetKeyUp(KeyCode.Space)) {
+            UpKey();
+        }
+        if (g_pushflag) {
+            Goal();
+        } 
     }
 
     private void Player_Move() {
@@ -348,7 +427,18 @@ public class Playermove : MonoBehaviour {
         return g_playerpotision;
     }
 
-
-
-
+    private void Goal() {
+        int g_gettype = g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v , g_check_script.g_dice_check_s, g_check_script.g_dice_check_h - 1);
+        Debug.Log("検索");
+        if (g_gettype == 20) {
+            Debug.Log("ゴールの上");
+            //SceneManager.LoadScene("Goal");
+        }
+    }
+    private void PushKey() {
+        g_pushflag = true;
+    }
+    private void UpKey() {
+        g_pushflag = false;
+    }
 }
