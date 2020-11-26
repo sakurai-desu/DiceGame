@@ -410,10 +410,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e7bbf62a97b3a8469faf27fc4ec798f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  g_work_dices: 010000000400000002000000030000000600000005000000
-  g_work_Array: 000000000000000000000000000000000000000000000000
-  g_json_dices: 010000000400000002000000030000000600000005000000
+  g_work_dices: 
+  g_work_Array: 
+  g_json_dices: 
+  g_dice_Obj: {fileID: 0}
   g_ver_count: 0
+  g_side_count: 0
+  g_high_count: 0
 --- !u!4 &1174057186
 Transform:
   m_ObjectHideFlags: 0
