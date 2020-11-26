@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Parent_Dice : MonoBehaviour
-{
+public class Parent_Dice : MonoBehaviour {
     private Transform g_parent_transform;
     [SerializeField]
     private GameObject[] g_child_Array;
     private int g_child_pointer;
 
     private GameObject g_con_Dice;
-    
+
     /// <summary>
     /// 初期化用変数
     /// </summary>
@@ -71,14 +70,14 @@ public class Parent_Dice : MonoBehaviour
             (g_dice_ver, g_dice_side, g_dice_high) =
                 g_child_Array[i].GetComponent<Dice_Squares>().Get_Dice_Pointer();
 
-            //if (max <= g_dice_ver &&g_dice_side==player_side&& g_dice_high == player_high) {
-            //    max = g_dice_ver;
-            //    g_con_Dice = g_child_Array[i];
-            //}
-            if (max <= g_dice_ver && g_dice_high == player_high) {
+            if (max <= g_dice_ver && g_dice_side == player_side && g_dice_high == player_high) {
                 max = g_dice_ver;
                 g_con_Dice = g_child_Array[i];
             }
+            //if (max <= g_dice_ver && g_dice_high == player_high) {
+            //    max = g_dice_ver;
+            //    g_con_Dice = g_child_Array[i];
+            //}
         }
         return g_con_Dice;
     }
@@ -90,14 +89,14 @@ public class Parent_Dice : MonoBehaviour
             (g_dice_ver, g_dice_side, g_dice_high) =
                 g_child_Array[i].GetComponent<Dice_Squares>().Get_Dice_Pointer();
 
-            //if (min >= g_dice_ver && g_dice_side == player_side && g_dice_high == player_high) {
-            //    min = g_dice_ver;
-            //    g_con_Dice = g_child_Array[i];
-            //}
-            if (min >= g_dice_ver&& g_dice_high == player_high) {
+            if (min >= g_dice_ver && g_dice_side == player_side && g_dice_high == player_high) {
                 min = g_dice_ver;
                 g_con_Dice = g_child_Array[i];
             }
+            //if (min >= g_dice_ver&& g_dice_high == player_high) {
+            //    min = g_dice_ver;
+            //    g_con_Dice = g_child_Array[i];
+            //}
         }
         return g_con_Dice;
     }
@@ -105,19 +104,19 @@ public class Parent_Dice : MonoBehaviour
     public GameObject Plus_Side(int player_ver, int player_side, int player_high) {
         Storage_Children();
         float max = 0;
-        for (int i = 0; i < g_child_Array.Length ; i++) {
+        for (int i = 0; i < g_child_Array.Length; i++) {
             (g_dice_ver, g_dice_side, g_dice_high) =
                 g_child_Array[i].GetComponent<Dice_Squares>().Get_Dice_Pointer();
 
-            //if (max <= g_dice_side&&g_dice_ver==player_ver&&g_dice_high==player_high) {
-            //    max = g_dice_side;
+            if (max <= g_dice_side && g_dice_ver == player_ver && g_dice_high == player_high) {
+                max = g_dice_side;
+                g_con_Dice = g_child_Array[i];
+            }
+            //    if (max <= g_dice_side && g_dice_high == player_high) {
+            //        max = g_dice_side;
             //    g_con_Dice = g_child_Array[i];
             //}
-            if (max <= g_dice_side && g_dice_high == player_high) {
-                max = g_dice_side;
-            g_con_Dice = g_child_Array[i];
         }
-    }
         return g_con_Dice;
     }
 
@@ -128,14 +127,14 @@ public class Parent_Dice : MonoBehaviour
             (g_dice_ver, g_dice_side, g_dice_high) =
                 g_child_Array[i].GetComponent<Dice_Squares>().Get_Dice_Pointer();
 
-            //if (min >= g_dice_side && g_dice_ver == player_ver && g_dice_high == player_high) {
-            //    min = g_dice_side;
-            //    g_con_Dice = g_child_Array[i];
-            //}
-            if (min >= g_dice_side && g_dice_high == player_high) {
+            if (min >= g_dice_side && g_dice_ver == player_ver && g_dice_high == player_high) {
                 min = g_dice_side;
                 g_con_Dice = g_child_Array[i];
             }
+            //if (min >= g_dice_side && g_dice_high == player_high) {
+            //    min = g_dice_side;
+            //    g_con_Dice = g_child_Array[i];
+            //}
         }
         return g_con_Dice;
     }

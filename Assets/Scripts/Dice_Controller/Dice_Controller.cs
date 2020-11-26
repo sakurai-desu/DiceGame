@@ -20,7 +20,7 @@ public class Dice_Controller : MonoBehaviour {
 
     private int g_player_ver = 0;
     private int g_player_side = 0;
-    private int g_player_high = 1;
+    private int g_player_high = 0;
 
     private const int g_ver_plus_Para = 0;
     private const int g_ver_minus_Para = 1;
@@ -37,29 +37,31 @@ public class Dice_Controller : MonoBehaviour {
         //    g_dice_Script = g_con_Obj.GetComponent<Dice_Squares>();
         //    g_rotate_Script = g_con_Obj.GetComponent<Dice_Rotate>();
         //}
-    //    if (Input.GetKeyDown(KeyCode.A)) {
-    //        g_con_Obj = g_test_con_Obj;
-    //        g_dice_Script = g_con_Obj.GetComponent<Dice_Squares>();
-    //        g_rotate_Script = g_con_Obj.GetComponent<Dice_Rotate>();
-    //    }
-        if (g_con_Obj == null) {
-            return;
-        }
+        //if (g_con_Obj == null) {
+        //    return;
+        //}
 
-        //回転中の間は回転させない
-        if (g_rotate_Script.Get_Rotate_Flag()) {
-            return;
-        }
+        ////回転中の間は回転させない
+        //if (g_rotate_Script.Get_Rotate_Flag()) {
+        //    return;
+        //}
 
-        if (Input.GetKeyDown(KeyCode.UpArrow)) {
-            Move(g_side_minus_Para);
-        } else if (Input.GetKeyDown(KeyCode.DownArrow)) {
-            Move(g_side_plus_Para);
-        } else if (Input.GetKeyDown(KeyCode.RightArrow)) {
-            Move(g_ver_plus_Para);
-        } else if (Input.GetKeyDown(KeyCode.LeftArrow)) {
-            Move(g_ver_minus_Para);
-        }
+        //if (Input.GetKeyDown(KeyCode.UpArrow)) {
+        //    Move(g_side_minus_Para);
+        //} else if (Input.GetKeyDown(KeyCode.DownArrow)) {
+        //    Move(g_side_plus_Para);
+        //} else if (Input.GetKeyDown(KeyCode.RightArrow)) {
+        //    Move(g_ver_plus_Para);
+        //} else if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+        //    Move(g_ver_minus_Para);
+        //}
+    }
+
+    public void Storage_Control_Obj(GameObject storage_obj,int para) {
+        g_con_Obj = storage_obj;
+        g_dice_Script = g_con_Obj.GetComponent<Dice_Squares>();
+        g_rotate_Script = g_con_Obj.GetComponent<Dice_Rotate>();
+        Move(para);
     }
 
     /// <summary>
@@ -79,6 +81,10 @@ public class Dice_Controller : MonoBehaviour {
     /// </summary>
     /// <param name="para"></param>
     private void Move(int para) {
+        //回転中の間は回転させない
+        if (g_rotate_Script.Get_Rotate_Flag()) {
+            return;
+        }
         //回転の中心にしているサイコロの親を取得
         g_con_Obj_Parent = g_con_Obj.transform.parent.gameObject;
         //親のスクリプトを取得

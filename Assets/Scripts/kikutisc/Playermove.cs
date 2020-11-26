@@ -9,6 +9,8 @@ public class Playermove : MonoBehaviour {
     Playercontroller g_potision_script;
     TypeCheck g_check_script;
     Game_Controller g_arrymovescript;
+    Dice_Controller g_dice_con_Script;
+
     //Playercontrollerの生成位置取得
     [SerializeField]
     private int g_createpointer_v;
@@ -33,6 +35,7 @@ public class Playermove : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        g_dice_con_Script = GameObject.Find("Dice_Controller").GetComponent<Dice_Controller>();
         g_arrymovescript = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         g_potision_script = GameObject.Find("Player_Controller").GetComponent<Playercontroller>();
         g_check_script = GameObject.FindGameObjectWithTag("Player").GetComponent<TypeCheck>();
@@ -80,10 +83,15 @@ public class Playermove : MonoBehaviour {
                             break;
 
                         case 100:
+                            g_dice_con_Script.Change_Player_Pointer(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
+                            GameObject dice_obj = g_type_script.Get_Obj(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
+                            g_dice_con_Script.Storage_Control_Obj(dice_obj,0);
                             //dicemove入れればいいんじゃね
                             break;
                     }
-                } else if (g_arrayExistFlag == true && g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h - 2) != 0  ) {
+                }
+                //上から降りるときのスクリプト
+                else if (g_arrayExistFlag == true && g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h - 2) != 0  ) {
 
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
                         case 0:
@@ -96,9 +104,8 @@ public class Playermove : MonoBehaviour {
                         case 100:
                             g_potision_script.g_playerpointer_v++;
                             g_potision_script.g_playerpointer_h--;
-
                             Player_Move();
-                            //dicemove入れればいいんじゃね
+                            //dicemove入れなくてもいいんじゃね
                             break;
                     }
                 }
@@ -141,9 +148,14 @@ public class Playermove : MonoBehaviour {
                             break;
 
                         case 100:
+                            g_dice_con_Script.Change_Player_Pointer(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
+                            GameObject dice_obj = g_type_script.Get_Obj(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
+                            g_dice_con_Script.Storage_Control_Obj(dice_obj, 1);
                             break;
                     }
-                } else if (g_arrayExistFlag == true && g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h - 2) != 0) {
+                }
+                //上から降りるときのスクリプト
+                else if (g_arrayExistFlag == true && g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h - 2) != 0) {
 
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
                         case 0:
@@ -158,7 +170,6 @@ public class Playermove : MonoBehaviour {
                             g_potision_script.g_playerpointer_h--;
 
                             Player_Move();
-                            //dicemove入れればいいんじゃね
                             break;
                     }
                 }
@@ -201,9 +212,14 @@ public class Playermove : MonoBehaviour {
                             break;
 
                         case 100:
+                            g_dice_con_Script.Change_Player_Pointer(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
+                            GameObject dice_obj = g_type_script.Get_Obj(g_check_script.g_dice_check_v , g_check_script.g_dice_check_s-1, g_check_script.g_dice_check_h);
+                            g_dice_con_Script.Storage_Control_Obj(dice_obj, 3);
                             break;
                     }
-                } else if (g_arrayExistFlag == true && g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v , g_check_script.g_dice_check_s-1, g_check_script.g_dice_check_h - 2) != 0 ) {
+                }
+                //上から降りるときのスクリプト
+               else if (g_arrayExistFlag == true && g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v , g_check_script.g_dice_check_s-1, g_check_script.g_dice_check_h - 2) != 0 ) {
 
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v , g_check_script.g_dice_check_s-1, g_check_script.g_dice_check_h)) {
                         case 0:
@@ -218,7 +234,6 @@ public class Playermove : MonoBehaviour {
                             g_potision_script.g_playerpointer_h--;
 
                             Player_Move();
-                            //dicemove入れればいいんじゃね
                             break;
                     }
                 }
@@ -262,9 +277,14 @@ public class Playermove : MonoBehaviour {
                             break;
 
                         case 100:
+                            g_dice_con_Script.Change_Player_Pointer(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
+                            GameObject dice_obj = g_type_script.Get_Obj(g_check_script.g_dice_check_v , g_check_script.g_dice_check_s+1, g_check_script.g_dice_check_h);
+                            g_dice_con_Script.Storage_Control_Obj(dice_obj, 2);
                             break;
                     }
-                } else if (g_arrayExistFlag == true && g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h - 2) != 0) {
+                }
+                //上から降りるときのスクリプト
+                else if (g_arrayExistFlag == true && g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h - 2) != 0) {
 
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h)) {
                         case 0:
@@ -279,7 +299,6 @@ public class Playermove : MonoBehaviour {
                             g_potision_script.g_playerpointer_h--;
 
                             Player_Move();
-                            //dicemove入れればいいんじゃね
                             break;
                     }
                 }

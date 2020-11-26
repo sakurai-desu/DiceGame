@@ -81,20 +81,20 @@ public class Dice_Create : MonoBehaviour {
     }
 
     public void Dice_Squares_Change(GameObject dice_obj,int[] json_dices) {
-        Get_Json_Dice(json_dices);
-        Reset_Array();
-        g_dice_Obj = dice_obj;
-        //サイズを求める
-        g_dice_Size = g_dice_Obj.transform.localScale.x;
-        g_check_flag = false;
-        for (int i = 0; i < 4; i++) {
-            Reset_Array();
-            Ver_Check();
-            if (g_check_flag) {
-                g_check_flag = false;
-                break;
-            }
-        }
+        //Get_Json_Dice(json_dices);
+        //Reset_Array();
+        //g_dice_Obj = dice_obj;
+        ////サイズを求める
+        //g_dice_Size = g_dice_Obj.transform.localScale.x;
+        //g_check_flag = false;
+        //for (int i = 0; i < 4; i++) {
+        //    Reset_Array();
+        //    Ver_Check();
+        //    if (g_check_flag) {
+        //        g_check_flag = false;
+        //        break;
+        //    }
+        //}
     }
 
     private void Check_Point_Change() {
