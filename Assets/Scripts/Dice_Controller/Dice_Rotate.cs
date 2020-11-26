@@ -49,7 +49,9 @@ public class Dice_Rotate : MonoBehaviour
     private const int g_side_plus_Para = 2;
     private const int g_side_minus_Para = 3;
 
+    Playermove g_playermove;
     TroubleScr g_trouble_script;
+    bool g_startflag;
     void Start()
     {
         g_parent_rotate_Script = GameObject.Find("Dice_Controller").GetComponent<Parent_All_Rotation>();
@@ -60,27 +62,34 @@ public class Dice_Rotate : MonoBehaviour
         //サイズを求める
         g_dice_Size = g_dice_Obj.transform.localScale.x / 1f;
     }
-
+    private void Update() {
+        if (g_startflag == false) {
+        g_playermove = GameObject.FindGameObjectWithTag("Player").GetComponent<Playermove>();
+        }
+    }
     private void Get_Parent() {
         g_parent_Obj = this.gameObject.transform.parent.gameObject;
     }
 
     public void This_Rotate(int para) {
-        switch (para) {
-            case g_ver_plus_Para:
-                Ver_Plus_Rotate();
-                break;
-            case g_ver_minus_Para:
-                Ver_Minus_Rotate();
-                break;
-            case g_side_plus_Para:
-                Side_Plus_Rotate();
-                break;
-            case g_side_minus_Para:
-                Side_Minus_Rotate();
-                break;
+        if (g_playermove.g_speaceflag == false) {
+
+            switch (para) {
+                case g_ver_plus_Para:
+                    Ver_Plus_Rotate();
+                    break;
+                case g_ver_minus_Para:
+                    Ver_Minus_Rotate();
+                    break;
+                case g_side_plus_Para:
+                    Side_Plus_Rotate();
+                    break;
+                case g_side_minus_Para:
+                    Side_Minus_Rotate();
+                    break;
+            }
+            g_trouble_script.Trouble();
         }
-        g_trouble_script.Trouble();
     }
 
 

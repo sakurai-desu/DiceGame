@@ -92,7 +92,34 @@ public class Playermove : MonoBehaviour {
         #region 移動制御
         //配列hの上限に達してない時移動(上)
         if (g_potision_script.g_playerpointer_v < g_v_PBlockCount - 1&&g_cooltimer>0) {
-            if (Input.GetKeyDown(KeyCode.W)) {
+            if (g_speaceflag && Input.GetKeyDown(KeyCode.W)) {
+                if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h) != 0 &&
+                    g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h + 1) == 0) {
+                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
+                        case 0:
+
+                            break;
+                        case 20:
+                            g_potision_script.g_playerpointer_v++;
+                            g_potision_script.g_playerpointer_h++;
+                            Player_Move();
+                            break;
+                        case 50:
+                            g_potision_script.g_playerpointer_v++;
+                            g_potision_script.g_playerpointer_h++;
+
+                            Player_Move();
+                            break;
+                        case 100:
+                            g_potision_script.g_playerpointer_v++;
+                            g_potision_script.g_playerpointer_h++;
+
+                            Player_Move();
+                            break;
+                    }
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.W)) {
                 if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h - 1) != 0) {
 
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
@@ -143,26 +170,29 @@ public class Playermove : MonoBehaviour {
                 UpKey();
                 g_wflag = false;
             }
-            if (g_speaceflag && Input.GetKeyDown(KeyCode.W)) {
-                if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h) != 0 &&
-                    g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h + 1) == 0) {
-                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
+        }
+        //配列hの下限に達してない時移動(下)
+        if (g_potision_script.g_playerpointer_v > 0 && g_cooltimer > 0) {
+            if (g_speaceflag && Input.GetKeyDown(KeyCode.S)) {
+                if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h) != 0 &&
+                    g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h + 1) == 0) {
+                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
                         case 0:
 
                             break;
                         case 20:
-                            g_potision_script.g_playerpointer_v++;
+                            g_potision_script.g_playerpointer_v--;
                             g_potision_script.g_playerpointer_h++;
                             Player_Move();
                             break;
                         case 50:
-                            g_potision_script.g_playerpointer_v++;
+                            g_potision_script.g_playerpointer_v--;
                             g_potision_script.g_playerpointer_h++;
 
                             Player_Move();
                             break;
                         case 100:
-                            g_potision_script.g_playerpointer_v++;
+                            g_potision_script.g_playerpointer_v--;
                             g_potision_script.g_playerpointer_h++;
 
                             Player_Move();
@@ -170,10 +200,7 @@ public class Playermove : MonoBehaviour {
                     }
                 }
             }
-        }
-        //配列hの下限に達してない時移動(下)
-        if (g_potision_script.g_playerpointer_v > 0 && g_cooltimer > 0) {
-            if (Input.GetKeyDown(KeyCode.S)) {
+            else if (Input.GetKeyDown(KeyCode.S)) {
                 if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h - 1) != 0) {
 
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
@@ -221,26 +248,30 @@ public class Playermove : MonoBehaviour {
                 UpKey();
                 g_sflag = false;
             }
-            if (g_speaceflag && Input.GetKeyDown(KeyCode.S)) {
-                if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h) != 0 &&
-                    g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h + 1) == 0) {
-                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
+        }
+        //配列vの下限に達してない時移動(左)
+        if (g_potision_script.g_playerpointer_s > 0 && g_cooltimer > 0) {
+            if (g_speaceflag && Input.GetKeyDown(KeyCode.A)) {
+                if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h) != 0 &&
+                    g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h + 1) == 0) {
+                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h)) {
                         case 0:
 
                             break;
                         case 20:
-                            g_potision_script.g_playerpointer_v--;
+                            g_potision_script.g_playerpointer_s--;
                             g_potision_script.g_playerpointer_h++;
                             Player_Move();
                             break;
+
                         case 50:
-                            g_potision_script.g_playerpointer_v--;
+                            g_potision_script.g_playerpointer_s--;
                             g_potision_script.g_playerpointer_h++;
 
                             Player_Move();
                             break;
                         case 100:
-                            g_potision_script.g_playerpointer_v--;
+                            g_potision_script.g_playerpointer_s--;
                             g_potision_script.g_playerpointer_h++;
 
                             Player_Move();
@@ -248,10 +279,7 @@ public class Playermove : MonoBehaviour {
                     }
                 }
             }
-        }
-        //配列vの下限に達してない時移動(左)
-        if (g_potision_script.g_playerpointer_s > 0 && g_cooltimer > 0) {
-            if (Input.GetKeyDown(KeyCode.A)) {
+            else if (Input.GetKeyDown(KeyCode.A)) {
                 if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h - 1) != 0) {
 
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h)) {
@@ -299,27 +327,30 @@ public class Playermove : MonoBehaviour {
                 UpKey();
                 g_aflag = false;
             }
-            if (g_speaceflag && Input.GetKeyDown(KeyCode.A)) {
-                if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h) != 0 &&
-                    g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h + 1) == 0) {
-                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h)) {
+        }
+        //配列vの上限に達してない時移動(右)
+        if (g_potision_script.g_playerpointer_s < g_s_PBlockCount - 1 && g_cooltimer > 0) {
+
+            if (g_speaceflag&&Input.GetKeyDown(KeyCode.D)) {
+                if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h) != 0 &&
+                    g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h + 1) == 0) {
+                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h)) {
                         case 0:
 
                             break;
                         case 20:
-                            g_potision_script.g_playerpointer_s--;
+                            g_potision_script.g_playerpointer_s++;
                             g_potision_script.g_playerpointer_h++;
                             Player_Move();
                             break;
-
                         case 50:
-                            g_potision_script.g_playerpointer_s--;
+                            g_potision_script.g_playerpointer_s++;
                             g_potision_script.g_playerpointer_h++;
 
                             Player_Move();
                             break;
                         case 100:
-                            g_potision_script.g_playerpointer_s--;
+                            g_potision_script.g_playerpointer_s++;
                             g_potision_script.g_playerpointer_h++;
 
                             Player_Move();
@@ -327,10 +358,7 @@ public class Playermove : MonoBehaviour {
                     }
                 }
             }
-        }
-        //配列vの上限に達してない時移動(右)
-        if (g_potision_script.g_playerpointer_s < g_s_PBlockCount - 1 && g_cooltimer > 0) {
-            if (Input.GetKeyDown(KeyCode.D)) {
+            else if (Input.GetKeyDown(KeyCode.D)) {
                 if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h - 1) != 0) {
 
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h)) {
@@ -377,34 +405,6 @@ public class Playermove : MonoBehaviour {
             } else if (Input.GetKeyUp(KeyCode.D)) {
                 UpKey();
                 g_dflag = false;
-            }
-
-            if (g_speaceflag&&Input.GetKeyDown(KeyCode.D)) {
-                if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h) != 0 &&
-                    g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h + 1) == 0) {
-                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h)) {
-                        case 0:
-
-                            break;
-                        case 20:
-                            g_potision_script.g_playerpointer_s++;
-                            g_potision_script.g_playerpointer_h++;
-                            Player_Move();
-                            break;
-                        case 50:
-                            g_potision_script.g_playerpointer_s++;
-                            g_potision_script.g_playerpointer_h++;
-
-                            Player_Move();
-                            break;
-                        case 100:
-                            g_potision_script.g_playerpointer_s++;
-                            g_potision_script.g_playerpointer_h++;
-
-                            Player_Move();
-                            break;
-                    }
-                }
             }
         }
         #endregion
