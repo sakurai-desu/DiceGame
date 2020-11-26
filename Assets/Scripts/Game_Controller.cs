@@ -192,6 +192,9 @@ public class Game_Controller : MonoBehaviour
     /// <param name="high">高さ</param>
     /// <returns>オブジェクトの種類</returns>
     public int Get_Obj_Type(int ver, int side, int high) {
+        if (high <= 0) {
+            high = 0;
+        }
         return g_blocksType_Array[ver, side, high];
     }
 }

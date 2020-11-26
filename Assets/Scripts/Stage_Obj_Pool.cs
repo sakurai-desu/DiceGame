@@ -33,9 +33,11 @@ public class Stage_Obj_Pool : MonoBehaviour
     [SerializeField]
     private GameObject g_floor_Prefab;
 
+    private Playercontroller g_player_sporn;
     void Start()
     {
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
+        g_player_sporn = GameObject.Find("Player_Controller").GetComponent<Playercontroller>();
     }
     
     /// <summary>
@@ -65,7 +67,8 @@ public class Stage_Obj_Pool : MonoBehaviour
                 g_block_Obj = BlockCreator(g_null_Prefab);
                 break;
             case 10:
-                g_block_Obj = BlockCreator(g_null_Prefab);
+                g_block_Obj = BlockCreator(g_floor_Prefab);
+                g_player_sporn.PlayerCreator(new Vector3(ver,high,side));
                 break;
             case 20:
                 g_block_Obj = BlockCreator(g_null_Prefab);

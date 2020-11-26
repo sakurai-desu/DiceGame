@@ -42,7 +42,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2501633328705625660}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &9488376760422865
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -108,6 +108,7 @@ MonoBehaviour:
   g_createpointer_v: 0
   g_createpointer_s: 0
   g_createpointer_h: 0
+  g_arrayExistFlag: 0
 --- !u!114 &-6658481199506896697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,3 +124,10 @@ MonoBehaviour:
   g_check_v: 0
   g_check_s: 0
   g_check_h: 0
+  g_dice_check_v: 0
+  g_dice_check_s: 0
+  g_dice_check_h: 0
+  g_v_plus_flag: 0
+  g_v_minus_flag: 0
+  g_s_plus_flag: 0
+  g_s_minus_flag: 0

@@ -32,19 +32,23 @@ public class Playercontroller : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
-        if (g_arrayflag == true) {
-            //Testpool.GetArrayから配列読み込み
-            g_sponplayer = g_arryscript.Get_Pos(g_playerpointer_v, g_playerpointer_s, g_playerpointer_h);
-            PlayerCreator();
-            g_arrayflag = false;
-        }
+        //if (g_arrayflag == true) {
+        //    //Testpool.GetArrayから配列読み込み
+        //    g_sponplayer = g_arryscript.Get_Pos(g_playerpointer_v, g_playerpointer_s, g_playerpointer_h);
+        //    PlayerCreator(g_sponplayer);
+        //    g_arrayflag = false;
+        //}
     }
     //プレイヤー生成
-    private GameObject PlayerCreator() {
+    public GameObject PlayerCreator(Vector3 g_playerposition) {
         //生成オブジェクト
         GameObject g_playerobj;
         //指定位置に生成
-        g_playerobj = Instantiate(g_player, g_sponplayer, Quaternion.identity);
+        g_playerobj = Instantiate(g_player, new Vector3(g_playerposition.x,g_playerposition.y+1,g_playerposition.z), Quaternion.identity);
+
+        g_playerpointer_s = (int)g_playerobj.transform.position.x;
+        g_playerpointer_v = (int)g_playerobj.transform.position.z;
+        g_playerpointer_h = (int)g_playerobj.transform.position.y;
         return g_playerobj;
     }
    
