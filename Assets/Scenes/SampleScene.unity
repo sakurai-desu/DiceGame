@@ -452,6 +452,10 @@ MonoBehaviour:
     type: 3}
   g_floor_Prefab: {fileID: 7237009044604176305, guid: e01990e496b3a03479a4587e9465a000,
     type: 3}
+  g_start_Prefab: {fileID: 2935337024853653469, guid: 4d4c3f04dace3944b852914d7cfab997,
+    type: 3}
+  g_goal_Prefab: {fileID: 8228770091370613375, guid: 57e75bd51e6897347a3748d09a23ebdd,
+    type: 3}
 --- !u!1 &1663185075
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,8 +491,9 @@ MonoBehaviour:
     g_ver: 0
     g_hori: 0
     g_high: 0
+    g_p_direction: 
     g_blocks: []
-  g_jsonname: Stage5
+  g_jsonname: Stage1
 --- !u!4 &1663185077
 Transform:
   m_ObjectHideFlags: 0

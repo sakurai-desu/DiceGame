@@ -32,6 +32,10 @@ public class Stage_Obj_Pool : MonoBehaviour
     private GameObject g_dice_Prefab;
     [SerializeField]
     private GameObject g_floor_Prefab;
+    [SerializeField]
+    private GameObject g_start_Prefab;
+    [SerializeField]
+    private GameObject g_goal_Prefab;
 
     private Playercontroller g_player_sporn;
     void Start()
@@ -67,11 +71,12 @@ public class Stage_Obj_Pool : MonoBehaviour
                 g_block_Obj = BlockCreator(g_null_Prefab);
                 break;
             case 10:
-                g_block_Obj = BlockCreator(g_floor_Prefab);
-                g_player_sporn.PlayerCreator(new Vector3(ver,high,side));
+                g_block_Obj = BlockCreator(g_start_Prefab);
+                Vector3 player = g_game_Con_Script.Get_Pos(ver,side,high);
+                g_player_sporn.PlayerCreator(player);
                 break;
             case 20:
-                g_block_Obj = BlockCreator(g_null_Prefab);
+                g_block_Obj = BlockCreator(g_goal_Prefab);
                 break;
             case 50:
                 g_block_Obj = BlockCreator(g_floor_Prefab);
