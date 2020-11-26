@@ -5,6 +5,8 @@ using System;
 
 public class Input_Date : MonoBehaviour
 {
+    StageInformation g_informatinScript;
+    [HideInInspector]
     public InputJson g_inputJson;
 
     [Serializable]
@@ -41,9 +43,11 @@ public class Input_Date : MonoBehaviour
     /// <summary>
     /// 呼び出すテキストの名前
     /// </summary>
-    private string g_jsonname;
+    private string g_jsonname = "";
 
     private void Awake() {
+        g_informatinScript = GameObject.Find("Stageinformation").GetComponent<StageInformation>();
+        g_jsonname = g_informatinScript.g_playStageName;
         //譜面データをResourcesフォルダから取得
         string inputString = Resources.Load<TextAsset>(g_jsonname).ToString();
         //譜面データを取り込む
