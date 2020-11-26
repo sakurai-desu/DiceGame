@@ -60,7 +60,7 @@ public class Stage_Obj_Pool : MonoBehaviour
     /// <param name="side">横</param>
     /// <param name="high">高さ</param>
     /// <param name="type">種類</param>
-    public void Spawn_Block(int ver, int side, int high,int type) {
+    public void Spawn_Block(int ver, int side, int high,int type,int[] json_dices) {
         //タイプに応じて生成するプレハブを変更する
         switch (type) {
             case 0:
