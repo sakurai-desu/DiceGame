@@ -5,7 +5,6 @@ using UnityEngine;
 public class Stage_Obj_Pool : MonoBehaviour
 {
     private Game_Controller g_game_Con_Script;
-    private Dice_Create g_dice_create_Script;
 
     //生成するオブジェクト
     [SerializeField]
@@ -34,10 +33,11 @@ public class Stage_Obj_Pool : MonoBehaviour
     [SerializeField]
     private GameObject g_floor_Prefab;
 
+    private Playercontroller g_player_sporn;
     void Start()
     {
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
-        g_dice_create_Script = this.GetComponent<Dice_Create>();
+        g_player_sporn = GameObject.Find("Player_Controller").GetComponent<Playercontroller>();
     }
     
     /// <summary>
@@ -60,14 +60,15 @@ public class Stage_Obj_Pool : MonoBehaviour
     /// <param name="side">横</param>
     /// <param name="high">高さ</param>
     /// <param name="type">種類</param>
-    public void Spawn_Block(int ver, int side, int high,int type,int[] json_dices) {
+    public void Spawn_Block(int ver, int side, int high,int type) {
         //タイプに応じて生成するプレハブを変更する
         switch (type) {
             case 0:
                 g_block_Obj = BlockCreator(g_null_Prefab);
                 break;
             case 10:
-                g_block_Obj = BlockCreator(g_null_Prefab);
+                g_block_Obj = BlockCreator(g_floor_Prefab);
+                g_player_sporn.PlayerCreator(new Vector3(ver,high,side));
                 break;
             case 20:
                 g_block_Obj = BlockCreator(g_null_Prefab);
@@ -78,8 +79,6 @@ public class Stage_Obj_Pool : MonoBehaviour
             case 100:
                 g_block_Obj = Dice_Creator(g_dice_Prefab);
                 g_block_Obj.GetComponent<Dice_Squares>().Storage_This_Index(ver, side, high);
-                g_block_Obj.GetComponent<Dice_Squares>().Storage_Squares(json_dices);
-                g_dice_create_Script.Dice_Squares_Change(g_block_Obj, json_dices);
                 break;
         }
         //ポジション取得

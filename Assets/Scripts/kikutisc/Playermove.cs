@@ -48,7 +48,12 @@ public class Playermove : MonoBehaviour {
         g_createpointer_s = g_potision_script.g_playerpointer_s;
         (g_v_PBlockCount, g_s_PBlockCount, g_h_PBlockCount) = g_json_Script.Get_Array_Max();
     }
-
+    [SerializeField]
+    bool g_arrayExistFlag;
+    bool g_wflag;
+    bool g_aflag;
+    bool g_sflag;
+    bool g_dflag;
     // Update is called once per frame
     void Update() {
 
@@ -58,6 +63,9 @@ public class Playermove : MonoBehaviour {
                 g_potision_script.g_playerpointer_s, g_potision_script.g_playerpointer_h);
             //Debug.Log(g_sponplayer);
             g_arrayflag = false;
+        }
+        if (g_potision_script.g_playerpointer_h > 1) {
+            g_arrayExistFlag = true;
         }
         #region 移動制御
         //配列hの上限に達してない時移動(上)
@@ -75,10 +83,30 @@ public class Playermove : MonoBehaviour {
                             //dicemove入れればいいんじゃね
                             break;
                     }
-                }
+                } else if (g_arrayExistFlag == true && g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h - 2) != 0  ) {
 
+                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
+                        case 0:
+                            g_potision_script.g_playerpointer_v++;
+                            g_potision_script.g_playerpointer_h--;
+
+                            Player_Move();
+                            break;
+
+                        case 100:
+                            g_potision_script.g_playerpointer_v++;
+                            g_potision_script.g_playerpointer_h--;
+
+                            Player_Move();
+                            //dicemove入れればいいんじゃね
+                            break;
+                    }
+                }
+                g_wflag = true;
+            } else if (Input.GetKeyUp(KeyCode.W)) {
+                g_wflag = false;
             }
-            if (Input.GetKeyDown(KeyCode.Space)) {
+            if (Input.GetKeyDown(KeyCode.Space)&&g_wflag) {
                 if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h) != 0 &&
                     g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h + 1) == 0) {
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
@@ -115,9 +143,30 @@ public class Playermove : MonoBehaviour {
                         case 100:
                             break;
                     }
+                } else if (g_arrayExistFlag == true && g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h - 2) != 0) {
+
+                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
+                        case 0:
+                            g_potision_script.g_playerpointer_v--;
+                            g_potision_script.g_playerpointer_h--;
+
+                            Player_Move();
+                            break;
+
+                        case 100:
+                            g_potision_script.g_playerpointer_v--;
+                            g_potision_script.g_playerpointer_h--;
+
+                            Player_Move();
+                            //dicemove入れればいいんじゃね
+                            break;
+                    }
                 }
+                g_sflag = true;
+            } else if (Input.GetKeyUp(KeyCode.S)) {
+                g_sflag = false;
             }
-            if (Input.GetKeyDown(KeyCode.Space)) {
+            if (Input.GetKeyDown(KeyCode.Space)&&g_sflag) {
                 if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h) != 0 &&
                     g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h + 1) == 0) {
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
@@ -154,10 +203,30 @@ public class Playermove : MonoBehaviour {
                         case 100:
                             break;
                     }
-                }
+                } else if (g_arrayExistFlag == true && g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v , g_check_script.g_dice_check_s-1, g_check_script.g_dice_check_h - 2) != 0 ) {
 
+                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v , g_check_script.g_dice_check_s-1, g_check_script.g_dice_check_h)) {
+                        case 0:
+                            g_potision_script.g_playerpointer_s--;
+                            g_potision_script.g_playerpointer_h--;
+
+                            Player_Move();
+                            break;
+
+                        case 100:
+                            g_potision_script.g_playerpointer_s--;
+                            g_potision_script.g_playerpointer_h--;
+
+                            Player_Move();
+                            //dicemove入れればいいんじゃね
+                            break;
+                    }
+                }
+                g_aflag = true;
+            } else if (Input.GetKeyUp(KeyCode.A)) {
+                g_aflag = false;
             }
-            if (Input.GetKeyDown(KeyCode.Space)) {
+            if (Input.GetKeyDown(KeyCode.Space)&&g_aflag) {
                 if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h) != 0 &&
                     g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h + 1) == 0) {
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h)) {
@@ -195,9 +264,31 @@ public class Playermove : MonoBehaviour {
                         case 100:
                             break;
                     }
+                } else if (g_arrayExistFlag == true && g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h - 2) != 0) {
+
+                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h)) {
+                        case 0:
+                            g_potision_script.g_playerpointer_s++;
+                            g_potision_script.g_playerpointer_h--;
+
+                            Player_Move();
+                            break;
+
+                        case 100:
+                            g_potision_script.g_playerpointer_s++;
+                            g_potision_script.g_playerpointer_h--;
+
+                            Player_Move();
+                            //dicemove入れればいいんじゃね
+                            break;
+                    }
                 }
+                g_dflag = true;
+            } else if (Input.GetKeyUp(KeyCode.D)) {
+                g_dflag = false;
             }
-            if (Input.GetKeyDown(KeyCode.Space)) {
+
+            if (Input.GetKeyDown(KeyCode.Space)&&g_dflag) {
                 if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h) != 0 &&
                     g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h + 1) == 0) {
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h)) {
