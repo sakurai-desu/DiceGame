@@ -33,7 +33,10 @@ public class Playermove : MonoBehaviour {
     Vector3 g_sponplayer;
     //player位置読み込み用
     Vector3 g_playerpotision;
+    [SerializeField]
+    float g_cooltimer;
 
+    const float g_coolresettimer = 0.2f;
     // Start is called before the first frame update
     void Start() {
         g_dice_con_Script = GameObject.Find("Dice_Controller").GetComponent<Dice_Controller>();
@@ -51,6 +54,7 @@ public class Playermove : MonoBehaviour {
         g_createpointer_h = g_potision_script.g_playerpointer_h;
         g_createpointer_s = g_potision_script.g_playerpointer_s;
         (g_v_PBlockCount, g_s_PBlockCount, g_h_PBlockCount) = g_json_Script.Get_Array_Max();
+        g_cooltimer = g_coolresettimer;
     }
     [SerializeField]
     bool g_arrayExistFlag;
@@ -71,7 +75,7 @@ public class Playermove : MonoBehaviour {
     /// </summary>
     bool g_dflag;
     bool g_pushflag;
-    bool g_speaceflag;
+    public bool g_speaceflag;
     // Update is called once per frame
     void Update() {
 
@@ -87,7 +91,7 @@ public class Playermove : MonoBehaviour {
         }
         #region 移動制御
         //配列hの上限に達してない時移動(上)
-        if (g_potision_script.g_playerpointer_v < g_v_PBlockCount - 1) {
+        if (g_potision_script.g_playerpointer_v < g_v_PBlockCount - 1&&g_cooltimer>0) {
             if (Input.GetKeyDown(KeyCode.W)) {
                 if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h - 1) != 0) {
 
@@ -168,7 +172,7 @@ public class Playermove : MonoBehaviour {
             }
         }
         //配列hの下限に達してない時移動(下)
-        if (g_potision_script.g_playerpointer_v > 0) {
+        if (g_potision_script.g_playerpointer_v > 0 && g_cooltimer > 0) {
             if (Input.GetKeyDown(KeyCode.S)) {
                 if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h - 1) != 0) {
 
@@ -246,7 +250,7 @@ public class Playermove : MonoBehaviour {
             }
         }
         //配列vの下限に達してない時移動(左)
-        if (g_potision_script.g_playerpointer_s > 0) {
+        if (g_potision_script.g_playerpointer_s > 0 && g_cooltimer > 0) {
             if (Input.GetKeyDown(KeyCode.A)) {
                 if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h - 1) != 0) {
 
@@ -325,7 +329,7 @@ public class Playermove : MonoBehaviour {
             }
         }
         //配列vの上限に達してない時移動(右)
-        if (g_potision_script.g_playerpointer_s < g_s_PBlockCount - 1) {
+        if (g_potision_script.g_playerpointer_s < g_s_PBlockCount - 1 && g_cooltimer > 0) {
             if (Input.GetKeyDown(KeyCode.D)) {
                 if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h - 1) != 0) {
 
@@ -412,6 +416,11 @@ public class Playermove : MonoBehaviour {
             g_speaceflag = false;
         }
         if (g_pushflag) {
+            if (g_cooltimer > 0) {
+                g_cooltimer -= Time.deltaTime;
+            } else{
+                g_cooltimer = g_coolresettimer;
+            }
             Goal();
         } 
     }

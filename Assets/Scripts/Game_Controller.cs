@@ -197,6 +197,22 @@ public class Game_Controller : MonoBehaviour
         if (high <= 0) {
             high = 0;
         }
+        if (side <= 0) {
+            side = 0;
+        }
+        if (ver <= 0) {
+            ver = 0;
+        }
+        if (ver >= g_v_BlockCount) {
+            ver = g_v_BlockCount-1;
+        }
+        if (side >= g_s_BlockCount) {
+            side = g_s_BlockCount-1;
+        }
+        if (high >= g_h_BlockCount) {
+            high = g_h_BlockCount-1;
+        }
+
         return g_blocksType_Array[ver, side, high];
     }
 }

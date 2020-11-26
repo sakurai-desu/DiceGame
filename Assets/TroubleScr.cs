@@ -12,6 +12,8 @@ public class TroubleScr : MonoBehaviour
     int g_troublenum = 10;
 
     Text g_troublenumtext;
+    [SerializeField]
+    GameObject g_resetcanvas;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,9 +31,12 @@ public class TroubleScr : MonoBehaviour
     /// </summary>
    public  void Trouble() {
         g_troublenum--;
-        if (g_troublenum == 0) {
+        if (g_troublenum == -1) {
             Debug.Log("ゲームオーバー");
+            g_resetcanvas.SetActive(true);
+
         }
         g_troublenumtext.text = g_troublenum.ToString();
-    }
+
+   }
 }
