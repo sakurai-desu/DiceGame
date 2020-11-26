@@ -16,6 +16,7 @@ public class TroubleScr : MonoBehaviour
     void Start()
     {
         g_troublenumtext = GetComponent<Text>();
+        g_troublenumtext.text = g_troublenum.ToString();
     }
 
     // Update is called once per frame

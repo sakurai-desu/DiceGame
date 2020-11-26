@@ -49,10 +49,11 @@ public class Dice_Rotate : MonoBehaviour
     private const int g_side_plus_Para = 2;
     private const int g_side_minus_Para = 3;
 
+    TroubleScr g_trouble_script;
     void Start()
     {
         g_parent_rotate_Script = GameObject.Find("Dice_Controller").GetComponent<Parent_All_Rotation>();
-
+        g_trouble_script = GameObject.Find("TroubleObj").GetComponent<TroubleScr>();
         g_dice_Script = this.GetComponent<Dice_Squares>();
         //操作オブジェクト取得
         g_dice_Obj = this.gameObject;
@@ -79,6 +80,7 @@ public class Dice_Rotate : MonoBehaviour
                 Side_Minus_Rotate();
                 break;
         }
+        g_trouble_script.Trouble();
     }
 
 
