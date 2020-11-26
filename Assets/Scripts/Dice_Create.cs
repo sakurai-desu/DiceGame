@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Dice_Create : MonoBehaviour {
-
     private int[] g_default_dices = { 1, 4, 2, 3, 6, 5 };
-    //private int[] g_work_dices = new int[6];
-    //private int[] g_json_dices = new int[6];
+    private int[] g_now_dices;
     [SerializeField]
     private int[] g_work_dices;
     [SerializeField]
     private int[] g_work_Array;
     [SerializeField]
     private int[] g_json_dices;
-    //private int[] g_json_dices = { 4, 5, 6, 2, 3, 1 };
 
     [SerializeField]
     /// <summary>
@@ -51,67 +48,39 @@ public class Dice_Create : MonoBehaviour {
     private bool g_check_flag = false;
 
     void Start() {
+        g_now_dices = new int[6];
         g_work_dices = new int[6];
         g_work_Array = new int[6];
         g_json_dices = new int[6];
         Reset_Array();
     }
 
-    void Update() {
-        //if (Input.GetKeyDown(KeyCode.Q)) {
-        //    //サイズを求める
-        //    g_dice_Size = g_dice_Obj.transform.localScale.x;
-        //    g_check_flag = false;
-        //    while (true) {
-        //        Ver_Check();
-        //        if (g_check_flag) {
-        //            break;
-        //        }
-        //    }
-        //}
-        //if (Input.GetKeyDown(KeyCode.W)) {
-        //    Ver_Check();
-        //}
-        //if (Input.GetKeyDown(KeyCode.E)) {
-        //    Side_Check();
-        //}
-        //if (Input.GetKeyDown(KeyCode.R)) {
-        //    High_Check();
-        //}
-    }
-
-    public void Dice_Squares_Change(GameObject dice_obj,int[] json_dices) {
-        //Get_Json_Dice(json_dices);
-        //Reset_Array();
-        //g_dice_Obj = dice_obj;
-        ////サイズを求める
-        //g_dice_Size = g_dice_Obj.transform.localScale.x;
-        //g_check_flag = false;
-        //for (int i = 0; i < 4; i++) {
-        //    Reset_Array();
-        //    Ver_Check();
-        //    if (g_check_flag) {
-        //        g_check_flag = false;
-        //        break;
-        //    }
-        //}
+    public void Dice_Squares_Change(GameObject dice_obj, int[] json_dices) {
+        g_json_dices = json_dices;
+        Reset_Array();
+        g_dice_Obj = dice_obj;
+        //サイズを求める
+        g_dice_Size = g_dice_Obj.transform.localScale.x;
+        g_check_flag = false;
+        while (true) {
+            Ver_Check();
+            if (g_check_flag) {
+                g_check_flag = false;
+                break;
+            }
+        }
     }
 
     private void Check_Point_Change() {
-        //int work = g_ver_check;
-        //g_ver_check = g_side_check;
-        //g_side_check = g_high_check;
-        //g_high_check = work;
-        //g_ver_check = 2;
-        //g_side_check = 1;
-        //g_high_check = 2;
-    }
-
-    private void Dice_Rotate() {
-        //回転の中心を決める
-        g_rotate_Point = g_dice_Obj.transform.position;
-        //軸と中心を元に回転させる
-        g_dice_Obj.transform.RotateAround(g_rotate_Point, g_rotate_Axis, g_rotation_Max);
+        if (g_ver_check < 3) {
+            g_ver_check++;
+        }
+        if (g_side_check < 4) {
+            g_side_check++;
+        }
+        if (g_high_check < 5) {
+            g_high_check++;
+        }
     }
 
     private void Ver_Check() {
@@ -129,6 +98,10 @@ public class Dice_Create : MonoBehaviour {
             }
             if (g_work_dices[g_ver_check] == g_json_dices[g_ver_check]) {
                 Debug.Log("一致した");
+                Retention_Now();
+                if (g_ver_check < 3) {
+                    g_ver_check++;
+                }
                 Squares_All_Check();
                 break;
             }
@@ -137,7 +110,7 @@ public class Dice_Create : MonoBehaviour {
     private void Side_Check() {
         g_side_count = 0;
         //回転の軸を決める
-        g_rotate_Axis = new Vector3(0, 0, -1);
+        g_rotate_Axis = new Vector3(0, 0, 1);
         for (int i = 0; i < 4; i++) {
             Side_Squeares_Change();
             g_side_count++;
@@ -149,6 +122,9 @@ public class Dice_Create : MonoBehaviour {
             }
             if (g_work_dices[g_side_check] == g_json_dices[g_side_check]) {
                 Debug.Log("一致した");
+                if (g_side_check < 4) {
+                    g_side_check++;
+                }
                 Squares_All_Check();
                 break;
             }
@@ -164,10 +140,14 @@ public class Dice_Create : MonoBehaviour {
             Dice_Rotate();
             if (g_high_count > 3) {
                 Debug.Log("一致していない");
+                Check_Point_Change();
                 break;
             }
             if (g_work_dices[g_high_check] == g_json_dices[g_high_check]) {
                 Debug.Log("一致した");
+                if (g_high_check < 5) {
+                    g_high_check++;
+                }
                 Squares_All_Check();
                 break;
             }
@@ -181,7 +161,6 @@ public class Dice_Create : MonoBehaviour {
         for (int i = 0; i < g_default_dices.Length; i++) {
             if (g_work_dices[i] != g_json_dices[i]) {
                 Debug.Log("全てが一致しきっていない");
-                Check_Point_Change();
                 break;
             }
             if (i >= g_default_dices.Length - 1) {
@@ -189,6 +168,13 @@ public class Dice_Create : MonoBehaviour {
                 g_check_flag = true;
             }
         }
+    }
+
+    private void Dice_Rotate() {
+        //回転の中心を決める
+        g_rotate_Point = g_dice_Obj.transform.position;
+        //軸と中心を元に回転させる
+        g_dice_Obj.transform.RotateAround(g_rotate_Point, g_rotate_Axis, g_rotation_Max);
     }
 
     private void Ver_Squeares_Change() {
@@ -229,19 +215,24 @@ public class Dice_Create : MonoBehaviour {
             g_work_Array[pointer] = g_work_dices[pointer];
         }
     }
+    /// <summary>
+    /// 現在のマス目を保持する処理
+    /// </summary>
+    private void Retention_Now() {
+        //マス目の数の分繰り返す
+        for (int pointer = 0; pointer < g_work_dices.Length; pointer++) {
+            //保持用配列にマス目の値を保持する
+            g_now_dices[pointer] = g_work_dices[pointer];
+        }
+    }
     private void Reset_Array() {
+        g_ver_check = 0;
+        g_side_check = 1;
+        g_high_check = 2;
         //マス目の数の分繰り返す
         for (int pointer = 0; pointer < g_default_dices.Length; pointer++) {
             //保持用配列にマス目の値を保持する
             g_work_dices[pointer] = g_default_dices[pointer];
         }
     }
-    private void Get_Json_Dice(int[] json_dices) {
-        //マス目の数の分繰り返す
-        for (int pointer = 0; pointer < g_json_dices.Length; pointer++) {
-            //保持用配列にマス目の値を保持する
-            g_json_dices[pointer] = json_dices[pointer];
-        }
-    }
-
 }
