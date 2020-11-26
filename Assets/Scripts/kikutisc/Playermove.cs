@@ -71,6 +71,7 @@ public class Playermove : MonoBehaviour {
     /// </summary>
     bool g_dflag;
     bool g_pushflag;
+    bool g_speaceflag;
     // Update is called once per frame
     void Update() {
 
@@ -138,7 +139,7 @@ public class Playermove : MonoBehaviour {
                 UpKey();
                 g_wflag = false;
             }
-            if (Input.GetKeyDown(KeyCode.Space)&&g_wflag) {
+            if (g_speaceflag && Input.GetKeyDown(KeyCode.W)) {
                 if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h) != 0 &&
                     g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h + 1) == 0) {
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
@@ -216,7 +217,7 @@ public class Playermove : MonoBehaviour {
                 UpKey();
                 g_sflag = false;
             }
-            if (Input.GetKeyDown(KeyCode.Space)&&g_sflag) {
+            if (g_speaceflag && Input.GetKeyDown(KeyCode.S)) {
                 if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h) != 0 &&
                     g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h + 1) == 0) {
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
@@ -294,7 +295,7 @@ public class Playermove : MonoBehaviour {
                 UpKey();
                 g_aflag = false;
             }
-            if (Input.GetKeyDown(KeyCode.Space)&&g_aflag) {
+            if (g_speaceflag && Input.GetKeyDown(KeyCode.A)) {
                 if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h) != 0 &&
                     g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h + 1) == 0) {
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h)) {
@@ -374,7 +375,7 @@ public class Playermove : MonoBehaviour {
                 g_dflag = false;
             }
 
-            if (Input.GetKeyDown(KeyCode.Space)&&g_dflag) {
+            if (g_speaceflag&&Input.GetKeyDown(KeyCode.D)) {
                 if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h) != 0 &&
                     g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h + 1) == 0) {
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h)) {
@@ -405,8 +406,10 @@ public class Playermove : MonoBehaviour {
         #endregion
         if (Input.GetKeyDown(KeyCode.Space)) {
             PushKey();
+            g_speaceflag = true;
         } else if (Input.GetKeyUp(KeyCode.Space)) {
             UpKey();
+            g_speaceflag = false;
         }
         if (g_pushflag) {
             Goal();
