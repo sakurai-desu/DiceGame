@@ -45,6 +45,8 @@ public class Game_Controller : MonoBehaviour
     /// </summary>
     private const int g_originpoint = 0;
 
+    private int[] g_json_dices;
+
     void Start()
     {
         g_json_Script = this.GetComponent<Input_Date>();
@@ -94,7 +96,6 @@ public class Game_Controller : MonoBehaviour
             }
         }
     }
-    
 
     /// <summary>
     /// ポジション配列初期化
@@ -118,10 +119,11 @@ public class Game_Controller : MonoBehaviour
                     g_blocksPos_Array[ver, side, high] = new Vector3(g_s_pos, g_h_pos, g_v_pos);
                     //タイプを保持
                     int type = g_json_Script.g_inputJson.g_blocks[i].g_type;
+                    g_json_dices = g_json_Script.g_inputJson.g_blocks[i].g_dices;
                     //配列にタイプを格納
                     Storage_Obj_Type(ver, side, high, type);
                     //タイプに応じたブロックを生成
-                    g_pool_Script.Spawn_Block(ver,side,high,type);
+                    g_pool_Script.Spawn_Block(ver,side,high,type, g_json_dices);
                     //Json用の指標を進める
                     i++;
                 }

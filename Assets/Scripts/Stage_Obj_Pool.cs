@@ -5,6 +5,7 @@ using UnityEngine;
 public class Stage_Obj_Pool : MonoBehaviour
 {
     private Game_Controller g_game_Con_Script;
+    private Dice_Create g_dice_create_Script;
 
     //生成するオブジェクト
     [SerializeField]
@@ -36,6 +37,7 @@ public class Stage_Obj_Pool : MonoBehaviour
     void Start()
     {
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
+        g_dice_create_Script = this.GetComponent<Dice_Create>();
     }
     
     /// <summary>
@@ -58,7 +60,7 @@ public class Stage_Obj_Pool : MonoBehaviour
     /// <param name="side">横</param>
     /// <param name="high">高さ</param>
     /// <param name="type">種類</param>
-    public void Spawn_Block(int ver, int side, int high,int type) {
+    public void Spawn_Block(int ver, int side, int high,int type,int[] json_dices) {
         //タイプに応じて生成するプレハブを変更する
         switch (type) {
             case 0:
@@ -76,6 +78,8 @@ public class Stage_Obj_Pool : MonoBehaviour
             case 100:
                 g_block_Obj = Dice_Creator(g_dice_Prefab);
                 g_block_Obj.GetComponent<Dice_Squares>().Storage_This_Index(ver, side, high);
+                g_block_Obj.GetComponent<Dice_Squares>().Storage_Squares(json_dices);
+                g_dice_create_Script.Dice_Squares_Change(g_block_Obj, json_dices);
                 break;
         }
         //ポジション取得
