@@ -34,6 +34,7 @@ public class Playermove : MonoBehaviour {
     //player位置読み込み用
     Vector3 g_playerpotision;
 
+    TroubleScr g_trouble_script;
     // Start is called before the first frame update
     void Start() {
         g_dice_con_Script = GameObject.Find("Dice_Controller").GetComponent<Dice_Controller>();
@@ -41,6 +42,7 @@ public class Playermove : MonoBehaviour {
         g_potision_script = GameObject.Find("Player_Controller").GetComponent<Playercontroller>();
         g_check_script = GameObject.FindGameObjectWithTag("Player").GetComponent<TypeCheck>();
         g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Date>();
+        g_trouble_script=GameObject.Find("TroubleObj").GetComponent<TroubleScr>();
         //ブロックのタイプを取得
         g_type_script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         //g_pushscript = g_pushstasts.GetComponent<Game_Controller>();
