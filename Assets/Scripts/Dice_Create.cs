@@ -92,12 +92,12 @@ public class Dice_Create : MonoBehaviour {
             g_ver_count++;
             Dice_Rotate();
             if (g_ver_count > 3) {
-                Debug.Log("一致していない");
+                //Debug.Log("一致していない");
                 Side_Check();
                 break;
             }
             if (g_work_dices[g_ver_check] == g_json_dices[g_ver_check]) {
-                Debug.Log("一致した");
+                //Debug.Log("一致した");
                 Retention_Now();
                 if (g_ver_check < 3) {
                     g_ver_check++;
@@ -116,12 +116,12 @@ public class Dice_Create : MonoBehaviour {
             g_side_count++;
             Dice_Rotate();
             if (g_side_count > 3) {
-                Debug.Log("一致していない");
+                //Debug.Log("一致していない");
                 High_Check();
                 break;
             }
             if (g_work_dices[g_side_check] == g_json_dices[g_side_check]) {
-                Debug.Log("一致した");
+                //Debug.Log("一致した");
                 if (g_side_check < 4) {
                     g_side_check++;
                 }
@@ -139,12 +139,12 @@ public class Dice_Create : MonoBehaviour {
             g_high_count++;
             Dice_Rotate();
             if (g_high_count > 3) {
-                Debug.Log("一致していない");
+                //Debug.Log("一致していない");
                 Check_Point_Change();
                 break;
             }
             if (g_work_dices[g_high_check] == g_json_dices[g_high_check]) {
-                Debug.Log("一致した");
+                //Debug.Log("一致した");
                 if (g_high_check < 5) {
                     g_high_check++;
                 }
@@ -160,11 +160,11 @@ public class Dice_Create : MonoBehaviour {
     private void Squares_All_Check() {
         for (int i = 0; i < g_default_dices.Length; i++) {
             if (g_work_dices[i] != g_json_dices[i]) {
-                Debug.Log("全てが一致しきっていない");
+                //Debug.Log("全てが一致しきっていない");
                 break;
             }
             if (i >= g_default_dices.Length - 1) {
-                Debug.Log("全てが一致しました");
+                //Debug.Log("全てが一致しました");
                 g_check_flag = true;
             }
         }
