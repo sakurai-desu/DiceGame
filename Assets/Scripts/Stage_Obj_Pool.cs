@@ -6,6 +6,8 @@ public class Stage_Obj_Pool : MonoBehaviour
 {
     private Game_Controller g_game_Con_Script;
     private Dice_Create g_dice_create_Script;
+    private Playercontroller g_player_sporn;
+
     //生成するオブジェクト
     [SerializeField]
     private GameObject g_createBlock;
@@ -37,7 +39,6 @@ public class Stage_Obj_Pool : MonoBehaviour
     [SerializeField]
     private GameObject g_goal_Prefab;
 
-    private Playercontroller g_player_sporn;
     void Start()
     {
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
@@ -73,8 +74,9 @@ public class Stage_Obj_Pool : MonoBehaviour
                 break;
             case 10:
                 g_block_Obj = BlockCreator(g_start_Prefab);
-                Vector3 player = g_game_Con_Script.Get_Pos(ver,side,high);
-                g_player_sporn.PlayerCreator(player);
+                Vector3 player_pos = g_game_Con_Script.Get_Pos(ver,side,high);
+                GameObject player=g_player_sporn.PlayerCreator(player_pos);
+                g_player_sporn.GetComponent<Player_Direction>().Start_Direction(player);
                 break;
             case 20:
                 g_block_Obj = BlockCreator(g_goal_Prefab);

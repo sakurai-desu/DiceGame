@@ -8,9 +8,7 @@ public class Dice_Controller : MonoBehaviour {
 
     private Parent_Dice g_parent_Script;
     private Parent_All_Rotation g_parent_rotate_Script;
-
-    [SerializeField]
-    private GameObject g_test_con_Obj;
+    
     [SerializeField]
     private GameObject g_con_Obj;
     [SerializeField]
@@ -29,32 +27,6 @@ public class Dice_Controller : MonoBehaviour {
 
     void Start() {
         g_parent_rotate_Script = GetComponent<Parent_All_Rotation>();
-    }
-
-    void Update() {
-        //if (Input.GetKeyDown(KeyCode.A)) {
-        //    g_con_Obj = g_test_con_Obj;
-        //    g_dice_Script = g_con_Obj.GetComponent<Dice_Squares>();
-        //    g_rotate_Script = g_con_Obj.GetComponent<Dice_Rotate>();
-        //}
-        //if (g_con_Obj == null) {
-        //    return;
-        //}
-
-        ////回転中の間は回転させない
-        //if (g_rotate_Script.Get_Rotate_Flag()) {
-        //    return;
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.UpArrow)) {
-        //    Move(g_side_minus_Para);
-        //} else if (Input.GetKeyDown(KeyCode.DownArrow)) {
-        //    Move(g_side_plus_Para);
-        //} else if (Input.GetKeyDown(KeyCode.RightArrow)) {
-        //    Move(g_ver_plus_Para);
-        //} else if (Input.GetKeyDown(KeyCode.LeftArrow)) {
-        //    Move(g_ver_minus_Para);
-        //}
     }
 
     public void Storage_Control_Obj(GameObject storage_obj,int para) {

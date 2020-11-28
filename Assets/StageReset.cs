@@ -17,6 +17,6 @@ public class StageReset : MonoBehaviour
         
     }
     public void Resetstage() {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("MainScene");
     }
 }
