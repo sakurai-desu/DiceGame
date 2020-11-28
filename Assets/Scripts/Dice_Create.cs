@@ -5,14 +5,10 @@ using UnityEngine;
 public class Dice_Create : MonoBehaviour {
     private int[] g_default_dices = { 1, 4, 2, 3, 6, 5 };
     private int[] g_now_dices;
-    [SerializeField]
     private int[] g_work_dices;
-    [SerializeField]
     private int[] g_work_Array;
-    [SerializeField]
     private int[] g_json_dices;
 
-    [SerializeField]
     /// <summary>
     /// 回転させるオブジェクト
     /// </summary>
@@ -34,11 +30,8 @@ public class Dice_Create : MonoBehaviour {
     /// </summary>
     private float g_dice_Size;
 
-    [SerializeField]
     private int g_ver_count;
-    [SerializeField]
     private int g_side_count;
-    [SerializeField]
     private int g_high_count;
 
     private int g_ver_check=0;
