@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class StageReset : MonoBehaviour
+public class MainCamera_Move : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject[] g_camera_Array;
+
     void Start()
     {
         
@@ -13,8 +15,5 @@ public class StageReset : MonoBehaviour
     void Update()
     {
         
-    }
-    public void Resetstage() {
-        SceneManager.LoadScene("MainScene");
     }
 }

@@ -53,7 +53,12 @@ public class Move_Check : MonoBehaviour {
         g_get_before = 0;
         g_get_after = 0;
     }
-
+    /// <summary>
+    /// 移動する前の指標を保持する処理
+    /// </summary>
+    /// <param name="ver"></param>
+    /// <param name="side"></param>
+    /// <param name="high"></param>
     public void Retention_Before_Pointer(int ver, int side, int high) {
         Array.Resize(ref g_before_Pointers, g_before_Pointers.Length + 3);
         g_before_Pointers[g_before] = ver;
@@ -61,7 +66,12 @@ public class Move_Check : MonoBehaviour {
         g_before_Pointers[g_before + 2] = high;
         g_before = g_before + 3;
     }
-
+    /// <summary>
+    /// 移動した後の指標を保持しておく処理
+    /// </summary>
+    /// <param name="ver"></param>
+    /// <param name="side"></param>
+    /// <param name="high"></param>
     public void Retention_After_Pointer(int ver, int side, int high) {
         Array.Resize(ref g_after_Pointers, g_after_Pointers.Length + 3);
         g_after_Pointers[g_after] = ver;

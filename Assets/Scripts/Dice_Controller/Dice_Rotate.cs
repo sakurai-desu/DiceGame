@@ -92,7 +92,6 @@ public class Dice_Rotate : MonoBehaviour
         }
     }
 
-
     /// <summary>
     /// 横軸のプラス方向の回転
     /// </summary>

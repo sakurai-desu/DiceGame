@@ -74,10 +74,6 @@ public class Parent_Dice : MonoBehaviour {
                 max = g_dice_ver;
                 g_con_Dice = g_child_Array[i];
             }
-            //if (max <= g_dice_ver && g_dice_high == player_high) {
-            //    max = g_dice_ver;
-            //    g_con_Dice = g_child_Array[i];
-            //}
         }
         return g_con_Dice;
     }
@@ -93,10 +89,6 @@ public class Parent_Dice : MonoBehaviour {
                 min = g_dice_ver;
                 g_con_Dice = g_child_Array[i];
             }
-            //if (min >= g_dice_ver&& g_dice_high == player_high) {
-            //    min = g_dice_ver;
-            //    g_con_Dice = g_child_Array[i];
-            //}
         }
         return g_con_Dice;
     }
@@ -112,10 +104,6 @@ public class Parent_Dice : MonoBehaviour {
                 max = g_dice_side;
                 g_con_Dice = g_child_Array[i];
             }
-            //    if (max <= g_dice_side && g_dice_high == player_high) {
-            //        max = g_dice_side;
-            //    g_con_Dice = g_child_Array[i];
-            //}
         }
         return g_con_Dice;
     }
@@ -131,10 +119,6 @@ public class Parent_Dice : MonoBehaviour {
                 min = g_dice_side;
                 g_con_Dice = g_child_Array[i];
             }
-            //if (min >= g_dice_side && g_dice_high == player_high) {
-            //    min = g_dice_side;
-            //    g_con_Dice = g_child_Array[i];
-            //}
         }
         return g_con_Dice;
     }

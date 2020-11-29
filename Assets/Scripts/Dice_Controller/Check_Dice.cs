@@ -212,7 +212,7 @@ public class Check_Dice : MonoBehaviour {
         int type = g_game_Con_Script.Get_Obj_Type(this_ver, this_side, this_high);
         //取得したタイプがサイコロだった時
         if (type == 100) {
-            Debug.Log("縦：" + this_ver + "_横" + this_side + "_高さ" + this_high + "_ダイス発見");
+            //Debug.Log("縦：" + this_ver + "_横" + this_side + "_高さ" + this_high + "_ダイス発見");
 
             //接触された側のオブジェクトを取得
             g_next_dice_Obj = g_game_Con_Script.Get_Obj(this_ver, this_side, this_high);

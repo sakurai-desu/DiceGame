@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StageReset : MonoBehaviour
+public class Move_StageSelect : MonoBehaviour
 {
     void Start()
     {
@@ -14,7 +14,8 @@ public class StageReset : MonoBehaviour
     {
         
     }
-    public void Resetstage() {
-        SceneManager.LoadScene("MainScene");
+
+    public void StageSelect() {
+        SceneManager.LoadScene("SelectScene");
     }
 }

@@ -9,6 +9,7 @@ public class Parent_All_Rotation : MonoBehaviour {
     private Dice_Rotate g_rotate_Script;
     private Parent_Dice g_parent_Script;
     private Move_Check g_check_Script;
+    private Dice_Fall g_dice_fall_Script;
 
     /// <summary>
     /// 回転計算用オブジェクト配列
@@ -84,13 +85,14 @@ public class Parent_All_Rotation : MonoBehaviour {
     void Start() {
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         g_check_Script = this.GetComponent<Move_Check>();
+        g_dice_fall_Script = this.GetComponent<Dice_Fall>();
         g_work_Objs_Array = new GameObject[g_array_max, g_array_max, g_array_max];
         g_work_senter = 3;
         //縦横高さを決めた数へ変更する
         //(g_max_Ver, g_max_Side, g_max_High) = g_game_Con_Script.Get_Array_Max();
     }
 
-    public void All_Rotation(GameObject center_obj,int para) {
+    public void All_Rotation(GameObject center_obj, int para) {
         //配列初期化
         Reset_Objs_Array();
         //回転の軸にするオブジェクトを保持
@@ -113,7 +115,7 @@ public class Parent_All_Rotation : MonoBehaviour {
                 Minus_Side_Rotate();
                 break;
         }
-        if (g_rotate_Flag&&g_ground_Flag) {
+        if (g_rotate_Flag) {
             g_rotate_Script = g_center_Dice.GetComponent<Dice_Rotate>();
             //オブジェクトを回転させる
             g_rotate_Script.This_Rotate(g_now_para);
@@ -161,8 +163,9 @@ public class Parent_All_Rotation : MonoBehaviour {
             if (!g_rotate_Flag) {
                 break;
             }
-            g_ground_Flag = g_check_Script.Center_Obj_Ground_Check(g_center_Ver+1, g_center_Side, g_center_High);
         }
+        //軸のダイスの床があるか調べる
+        g_ground_Flag = g_check_Script.Center_Obj_Ground_Check(g_center_Ver + 1, g_center_Side, g_center_High);
     }
     /// <summary>
     /// 縦マイナス方向の回転処理
@@ -189,8 +192,9 @@ public class Parent_All_Rotation : MonoBehaviour {
             if (!g_rotate_Flag) {
                 break;
             }
-            g_ground_Flag = g_check_Script.Center_Obj_Ground_Check(g_center_Ver - 1, g_center_Side, g_center_High);
         }
+        //軸のダイスの床があるか調べる
+        g_ground_Flag = g_check_Script.Center_Obj_Ground_Check(g_center_Ver - 1, g_center_Side, g_center_High);
     }
 
     /// <summary>
@@ -215,11 +219,12 @@ public class Parent_All_Rotation : MonoBehaviour {
             g_check_Script.Retention_After_Pointer(g_child_Ver, g_next_side + 1, g_next_high);
 
             g_rotate_Flag = g_check_Script.Check(g_child_Ver, g_next_side + 1, g_next_high);
-            if (!g_rotate_Flag ) {
+            if (!g_rotate_Flag) {
                 break;
             }
-            g_ground_Flag = g_check_Script.Center_Obj_Ground_Check(g_center_Ver , g_center_Side+1, g_center_High);
         }
+        //軸のダイスの床があるか調べる
+        g_ground_Flag = g_check_Script.Center_Obj_Ground_Check(g_center_Ver, g_center_Side + 1, g_center_High);
     }
     /// <summary>
     /// 横マイナス方向の回転処理
@@ -242,11 +247,12 @@ public class Parent_All_Rotation : MonoBehaviour {
             g_check_Script.Retention_Before_Pointer(g_child_Ver, g_child_Side, g_child_High);
             g_check_Script.Retention_After_Pointer(g_child_Ver, g_next_side - 1, g_next_high);
 
-            g_rotate_Flag=g_check_Script.Check(g_child_Ver, g_next_side - 1, g_next_high);
+            g_rotate_Flag = g_check_Script.Check(g_child_Ver, g_next_side - 1, g_next_high);
             if (!g_rotate_Flag) {
                 break;
             }
         }
+        //軸のダイスの床があるか調べる
         g_ground_Flag = g_check_Script.Center_Obj_Ground_Check(g_center_Ver, g_center_Side - 1, g_center_High);
     }
 
@@ -301,8 +307,9 @@ public class Parent_All_Rotation : MonoBehaviour {
     public void Reset_And_Storage_Obj() {
         for (int child_pointer = g_zero_Count; child_pointer < g_work_children.Length; child_pointer++) {
             g_child_Script = g_work_children[child_pointer].GetComponent<Dice_Squares>();
-
+            //移動前の位置を取得
             (g_child_Ver, g_child_Side, g_child_High) = g_check_Script.Get_Before_Pointer();
+            //移動先の位置を取得
             (g_next_ver, g_next_side, g_next_high) = g_check_Script.Get_After_Pointer();
 
             //元々格納されていたオブジェクトを空にする
@@ -311,11 +318,20 @@ public class Parent_All_Rotation : MonoBehaviour {
             g_game_Con_Script.Storage_Obj(g_next_ver, g_next_side, g_next_high, g_work_children[child_pointer]);
             //タイプを回転先に格納
             g_game_Con_Script.Storage_Obj_Type(g_next_ver, g_next_side, g_next_high, 100);
+            //移動先のポジション取得
+            Vector3 pos = g_game_Con_Script.Get_Pos(g_next_ver, g_next_side, g_next_high);
+            //ポジション移動
+            g_work_children[child_pointer].transform.position = pos;
             //子オブジェクトが保持している指標を更新する
             g_child_Script.Storage_This_Index(g_next_ver, g_next_side, g_next_high);
             //サイコロのマス目を変更
             g_child_Script.Change_Squares(g_now_para);
             g_child_Script.All_Check();
+        }
+        //軸のダイスの移動先の床がないとき
+        if (!g_ground_Flag) {
+            //全てのダイスを落とす
+            g_dice_fall_Script.All_Dice_Fall(g_work_children);
         }
     }
 
@@ -325,12 +341,12 @@ public class Parent_All_Rotation : MonoBehaviour {
     /// <param name="now_pointer_ver_or_side">縦または横</param>
     /// <param name="now_pointer_high">高さ</param>
     /// <returns>縦または横、高さを返す</returns>
-    private (int,int) Plus_Rotate(int now_pointer_ver_or_side, int now_pointer_high) {
-        int high =6- now_pointer_ver_or_side;
+    private (int, int) Plus_Rotate(int now_pointer_ver_or_side, int now_pointer_high) {
+        int high = 6 - now_pointer_ver_or_side;
         int ver_or_side = now_pointer_high;
 
-        int move_high =high- now_pointer_high;
-        int move_ver_or_side = ver_or_side- now_pointer_ver_or_side;
+        int move_high = high - now_pointer_high;
+        int move_ver_or_side = ver_or_side - now_pointer_ver_or_side;
         return (move_ver_or_side, move_high);
     }
     /// <summary>
@@ -340,8 +356,8 @@ public class Parent_All_Rotation : MonoBehaviour {
     /// <param name="now_pointer_high">高さ</param>
     /// <returns>縦または横、高さを返す</returns>
     private (int, int) Minus_Rotate(int now_pointer_ver_or_side, int now_pointer_high) {
-        int high =  now_pointer_ver_or_side;
-        int ver_or_side = 6-now_pointer_high;
+        int high = now_pointer_ver_or_side;
+        int ver_or_side = 6 - now_pointer_high;
 
         int move_high = high - now_pointer_high;
         int move_ver_or_side = ver_or_side - now_pointer_ver_or_side;

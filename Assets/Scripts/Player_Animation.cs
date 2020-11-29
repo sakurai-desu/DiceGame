@@ -15,25 +15,25 @@ public class Player_Animation : MonoBehaviour
         g_player_Anim = g_player_Obj.GetComponent<Animator>();
     }
 
-    void Update()
-    {
-        if (g_play_flag) {
-            g_player_Anim.SetBool("jump_active", false);
-            g_player_Anim.SetBool("move_active", false);
-            g_player_Anim.SetBool("roll_active", false);
-            g_play_flag = false;
-        }
+    //void Update()
+    //{
+    //    if (g_play_flag) {
+    //        g_player_Anim.SetBool("jump_active", false);
+    //        g_player_Anim.SetBool("move_active", false);
+    //        g_player_Anim.SetBool("roll_active", false);
+    //        g_play_flag = false;
+    //    }
 
-        if (Input.GetKeyDown(KeyCode.J)) {
-            Player_Jump_Anim();
-        }
-        if (Input.GetKeyDown(KeyCode.K)) {
-            Player_Move_Anim();
-        }
-        if (Input.GetKeyDown(KeyCode.L)) {
-            Player_Roll_Anim();
-        }
-    }
+    //    if (Input.GetKeyDown(KeyCode.J)) {
+    //        Player_Jump_Anim();
+    //    }
+    //    if (Input.GetKeyDown(KeyCode.K)) {
+    //        Player_Move_Anim();
+    //    }
+    //    if (Input.GetKeyDown(KeyCode.L)) {
+    //        Player_Roll_Anim();
+    //    }
+    //}
 
     private void Player_Jump_Anim() {
         g_play_flag = true;

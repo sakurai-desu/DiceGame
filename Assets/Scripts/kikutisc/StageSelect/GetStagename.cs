@@ -7,13 +7,12 @@ public class GetStagename : MonoBehaviour
 {
     private StageInformation g_info_Script;
     public string g_get_stagename = "";
-    // Start is called before the first frame update
+
     void Start()
     {
         g_info_Script = GameObject.Find("Stageinformation").GetComponent<StageInformation>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -22,5 +21,13 @@ public class GetStagename : MonoBehaviour
         g_info_Script.Change_StageName(g_get_stagename);
         //this.gameObject.transform.root.GetComponent<Stageparameter>().MainScene();
         SceneManager.LoadScene("MainScene");
+    }
+
+    public void Exit() {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+    Application.Quit();
+#endif 
     }
 }
