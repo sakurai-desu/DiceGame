@@ -502,9 +502,9 @@ public class Playermove : MonoBehaviour {
                    else  if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, i-1) != 0) {
 
                       
-                        Debug.Log(g_loopnum);
+                        //Debug.Log(g_loopnum);
                         g_loopnum = g_potision_script.g_playerpointer_h -g_loopnum;
-                        Debug.Log(g_loopnum);
+                        //Debug.Log(g_loopnum);
                         return g_loopnum;
                     }
                 }
@@ -519,9 +519,9 @@ public class Playermove : MonoBehaviour {
                      else   if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, i-1) != 0) {
                        
 
-                        Debug.Log(g_loopnum);
+                        //Debug.Log(g_loopnum);
                         g_loopnum = g_potision_script.g_playerpointer_h - g_loopnum;
-                        Debug.Log(g_loopnum);
+                        //Debug.Log(g_loopnum);
                         return g_loopnum;
                     }
                 }
@@ -535,9 +535,9 @@ public class Playermove : MonoBehaviour {
                       else  if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, i-1) != 0) {
                        
 
-                        Debug.Log(g_loopnum);
+                        //Debug.Log(g_loopnum);
                         g_loopnum = g_potision_script.g_playerpointer_h - g_loopnum;
-                        Debug.Log(g_loopnum);
+                        //Debug.Log(g_loopnum);
                         return g_loopnum;
                     } 
                 }
@@ -551,9 +551,9 @@ public class Playermove : MonoBehaviour {
                       else  if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, i-1) != 0) {
                        
 
-                        Debug.Log(g_loopnum);
+                        //Debug.Log(g_loopnum);
                         g_loopnum = g_potision_script.g_playerpointer_h - g_loopnum;
-                       Debug.Log(g_loopnum);
+                       //Debug.Log(g_loopnum);
                         return g_loopnum;
                     }
                 }

@@ -17,6 +17,7 @@ public class Dice_Fall : MonoBehaviour {
     private int g_min_counter;
 
     private bool g_delete_flag = true;
+    private bool g_same_parent_flag = false;
 
     void Start() {
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
@@ -31,13 +32,14 @@ public class Dice_Fall : MonoBehaviour {
         Fall_Check();
         Fall();
     }
-
     /// <summary>
     /// オブジェクトを一段下に落とす処理
     /// </summary>
     private void Fall_Check() {
         g_delete_flag = true;
         g_min_counter = 100;
+        //g_same_parent_flag = true;
+
         for (int i = 0; i < g_work_dices.Length; i++) {
             g_fall_counter = 0;
             //ダイスのスクリプト取得
@@ -46,16 +48,18 @@ public class Dice_Fall : MonoBehaviour {
             (g_dice_ver, g_dice_side, g_dice_high) = g_child_Script.Get_Dice_Pointer();
             for (int pointer = g_dice_high - 1; pointer >= 0; pointer--) {
                 int type = g_game_Con_Script.Get_Obj_Type(g_dice_ver, g_dice_side, pointer);
-                if (type>=100) {
-                    GameObject dice_parent = g_work_dices[i].transform.parent.gameObject;
-                    GameObject next_dice= g_game_Con_Script.Get_Obj(g_dice_ver, g_dice_side, pointer);
-                    GameObject next_parent = next_dice.transform.parent.gameObject;
-                    if (dice_parent != next_parent) {
-                        g_delete_flag = false;
-                        break;
-                    }
-                }
-                else if (type != 0) {
+                //Debug.Log(type);
+                //if (type == 100) {
+                //    GameObject dice_parent = g_work_dices[i].transform.parent.gameObject;
+                //    GameObject next_dice = g_game_Con_Script.Get_Obj(g_dice_ver, g_dice_side, pointer);
+                //    GameObject next_parent = next_dice.transform.parent.gameObject;
+                //    if (dice_parent != next_parent) {
+                //        g_same_parent_flag = false;
+                //        //g_delete_flag = false;
+                //        //break;
+                //    }
+                //}
+                if (type != 0) {
                     g_delete_flag = false;
                     break;
                 }
