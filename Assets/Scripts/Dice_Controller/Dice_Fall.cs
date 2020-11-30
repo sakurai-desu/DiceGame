@@ -46,7 +46,16 @@ public class Dice_Fall : MonoBehaviour {
             (g_dice_ver, g_dice_side, g_dice_high) = g_child_Script.Get_Dice_Pointer();
             for (int pointer = g_dice_high - 1; pointer >= 0; pointer--) {
                 int type = g_game_Con_Script.Get_Obj_Type(g_dice_ver, g_dice_side, pointer);
-                if (type != 0) {
+                if (type>=100) {
+                    GameObject dice_parent = g_work_dices[i].transform.parent.gameObject;
+                    GameObject next_dice= g_game_Con_Script.Get_Obj(g_dice_ver, g_dice_side, pointer);
+                    GameObject next_parent = next_dice.transform.parent.gameObject;
+                    if (dice_parent != next_parent) {
+                        g_delete_flag = false;
+                        break;
+                    }
+                }
+                else if (type != 0) {
                     g_delete_flag = false;
                     break;
                 }
