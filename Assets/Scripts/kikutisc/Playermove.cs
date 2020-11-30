@@ -87,6 +87,7 @@ public class Playermove : MonoBehaviour {
     [SerializeField]
     bool g_h_seartchflag;
 
+    int g_dicemovenum;
     void Update() {
 
         if (g_arrayflag == true) {
@@ -135,7 +136,8 @@ public class Playermove : MonoBehaviour {
             } else if (Input.GetKeyDown(KeyCode.W)) {
                 //プレイヤーの向きを変更
                 g_direction_Script.Player_Direction_Change(30);
-                HSearch(0);
+
+                g_dicemovenum = HSearch(0);
                 if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h - 1) != 0) {
 
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
@@ -158,24 +160,24 @@ public class Playermove : MonoBehaviour {
                 }
 
                     //上から降りるときのスクリプト
-                    else if (g_loopnum != 0 && g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v+ 1, g_check_script.g_dice_check_s , 0) != 0) {
+                    else if (g_dicemovenum != 0 && g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v+ 1, g_check_script.g_dice_check_s , 0) != 0) {
 
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
                         case 0:
                             g_potision_script.g_playerpointer_v++;
-                            g_potision_script.g_playerpointer_h = g_potision_script.g_playerpointer_h - g_loopnum;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
 
                             Player_Move();
                             break;
                         case 20:
                             g_potision_script.g_playerpointer_v++;
-                            g_potision_script.g_playerpointer_h = g_potision_script.g_playerpointer_h - g_loopnum;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
                             Player_Move();
                             break;
 
                         case 100:
                             g_potision_script.g_playerpointer_v++;
-                            g_potision_script.g_playerpointer_h = g_potision_script.g_playerpointer_h - g_loopnum;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
                             Player_Move();
                             //dicemove入れなくてもいいんじゃね
                             break;
@@ -223,7 +225,8 @@ public class Playermove : MonoBehaviour {
             } else if (Input.GetKeyDown(KeyCode.S)) {
                 //プレイヤーの向きを変更
                 g_direction_Script.Player_Direction_Change(32);
-                HSearch(1);
+
+                g_dicemovenum = HSearch(1);
                 if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h - 1) != 0) {
 
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
@@ -243,23 +246,23 @@ public class Playermove : MonoBehaviour {
                     }
                 }
                  //上から降りるときのスクリプト
-                 else if (g_loopnum != 0 && g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v-1, g_check_script.g_dice_check_s, 0) != 0) {
+                 else if (g_dicemovenum != 0 && g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v-1, g_check_script.g_dice_check_s, 0) != 0) {
 
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
                         case 0:
                             g_potision_script.g_playerpointer_v--;
-                            g_potision_script.g_playerpointer_h = g_potision_script.g_playerpointer_h - g_loopnum;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
 
                             Player_Move();
                             break;
                         case 20:
                             g_potision_script.g_playerpointer_v--;
-                            g_potision_script.g_playerpointer_h = g_potision_script.g_playerpointer_h - g_loopnum;
+                            g_potision_script.g_playerpointer_h =  g_dicemovenum;
                             Player_Move();
                             break;
                         case 100:
                             g_potision_script.g_playerpointer_v--;
-                            g_potision_script.g_playerpointer_h = g_potision_script.g_playerpointer_h - g_loopnum;
+                            g_potision_script.g_playerpointer_h =  g_dicemovenum;
 
                             Player_Move();
                             break;
@@ -307,7 +310,7 @@ public class Playermove : MonoBehaviour {
             } else if (Input.GetKeyDown(KeyCode.A)) {
                 //プレイヤーの向きを変更
                 g_direction_Script.Player_Direction_Change(33);
-                HSearch(2);
+                g_dicemovenum = HSearch(2);
                 if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h - 1) != 0) {
 
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h)) {
@@ -327,23 +330,23 @@ public class Playermove : MonoBehaviour {
                     }
                 }
                     //上から降りるときのスクリプト
-                    else if (g_loopnum != 0 && g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, 0) != 0) {
+                    else if (g_dicemovenum != 0 && g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, 0) != 0) {
 
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h)) {
                         case 0:
                             g_potision_script.g_playerpointer_s--;
-                            g_potision_script.g_playerpointer_h = g_potision_script.g_playerpointer_h - g_loopnum;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
 
                             Player_Move();
                             break;
                         case 20:
                             g_potision_script.g_playerpointer_s--;
-                            g_potision_script.g_playerpointer_h = g_potision_script.g_playerpointer_h - g_loopnum;
+                            g_potision_script.g_playerpointer_h =  g_dicemovenum;
                             Player_Move();
                             break;
                         case 100:
                             g_potision_script.g_playerpointer_s--;
-                            g_potision_script.g_playerpointer_h = g_potision_script.g_playerpointer_h - g_loopnum;
+                            g_potision_script.g_playerpointer_h =  g_dicemovenum;
 
                             Player_Move();
                             break;
@@ -390,29 +393,8 @@ public class Playermove : MonoBehaviour {
             } else if (Input.GetKeyDown(KeyCode.D)) {
                 //プレイヤーの向きを変更
                 g_direction_Script.Player_Direction_Change(31);
-                HSearch(3);
-                //上から降りるときのスクリプト
-                if (g_loopnum != 0&& g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, 0) != 0) {
-                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h)) {
-                        case 0:
-                            g_potision_script.g_playerpointer_s++;
-                            g_potision_script.g_playerpointer_h = g_potision_script.g_playerpointer_h - g_loopnum;
-
-                            Player_Move();
-                            break;
-                        case 20:
-                            g_potision_script.g_playerpointer_s++;
-                            g_potision_script.g_playerpointer_h = g_potision_script.g_playerpointer_h - g_loopnum;
-                            Player_Move();
-                            break;
-                        case 100:
-                            g_potision_script.g_playerpointer_s++;
-                            g_potision_script.g_playerpointer_h = g_potision_script.g_playerpointer_h - g_loopnum;
-
-                            Player_Move();
-                            break;
-                    }
-                } else if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h - 1) != 0) {
+                g_dicemovenum = HSearch(3);
+                if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h - 1) != 0) {
 
                     switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h)) {
                         case 0:
@@ -427,6 +409,28 @@ public class Playermove : MonoBehaviour {
                             g_dice_con_Script.Change_Player_Pointer(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
                             GameObject dice_obj = g_type_script.Get_Obj(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h);
                             g_dice_con_Script.Storage_Control_Obj(dice_obj, 2);
+                            break;
+                    }
+                }
+                //上から降りるときのスクリプト
+                else if (g_dicemovenum != 0&& g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, 0) != 0) {
+                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h)) {
+                        case 0:
+                            g_potision_script.g_playerpointer_s++;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+
+                            Player_Move();
+                            break;
+                        case 20:
+                            g_potision_script.g_playerpointer_s++;
+                            g_potision_script.g_playerpointer_h =  g_dicemovenum;
+                            Player_Move();
+                            break;
+                        case 100:
+                            g_potision_script.g_playerpointer_s++;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+
+                            Player_Move();
                             break;
                     }
                 }
@@ -485,73 +489,79 @@ public class Playermove : MonoBehaviour {
         g_pushflag = false;
     }
     private int HSearch(int g_keynum) {
-        g_loopnum = g_check_script.g_dice_check_h;
+        g_loopnum = 0;
         g_floorflag = false;
         //Debug.Log("やってるよ");
         switch (g_keynum) {
             case 0:
-                for (int i = g_check_script.g_dice_check_h; i > 0|| g_floorflag ==true; i--) {
-                    g_loopnum--;
+                for (int i = g_potision_script.g_playerpointer_h; i > 0|| g_floorflag ==true; i--) {
+                    if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, i - 1) == 0) {
 
-                    if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h - g_loopnum + 1) != 0) {
-                        g_down_rotatenum = 0;
-                        g_floorflag = true;
-                        //Debug.Log(g_loopnum);
-                        return g_loopnum;
-                    } else if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h - g_loopnum) == 0) {
-                        g_down_rotatenum = 100;
+                    g_loopnum++;
+                    }
+                   else  if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, i-1) != 0) {
+
+                      
+                        Debug.Log(g_loopnum);
+                        g_loopnum = g_potision_script.g_playerpointer_h -g_loopnum;
+                        Debug.Log(g_loopnum);
                         return g_loopnum;
                     }
                 }
                 break;
             case 1:
                 //Debug.Log(g_loopnum);
-                for (int i = g_check_script.g_dice_check_h; i > 0 || g_floorflag == true; i--) {
+                for (int i = g_potision_script.g_playerpointer_h; i > 0 || g_floorflag == true; i--) {
+                    if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, i - 1) == 0) {
 
-                    g_loopnum--;
-                    if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h - g_loopnum + 1) != 0) {
-                        g_down_rotatenum = 1;
-                        g_floorflag = true;
-                        //Debug.Log(g_loopnum);
+                    g_loopnum++;
+                    }
+                     else   if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, i-1) != 0) {
+                       
+
+                        Debug.Log(g_loopnum);
+                        g_loopnum = g_potision_script.g_playerpointer_h - g_loopnum;
+                        Debug.Log(g_loopnum);
                         return g_loopnum;
-                    } else if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h - g_loopnum) == 0) {
-                        g_down_rotatenum = 100;
-                        return g_down_rotatenum;
                     }
                 }
                 break;
             case 2:
-                for (int i = g_check_script.g_dice_check_h; i > 0 || g_floorflag == true; i--) {
+                for (int i = g_potision_script.g_playerpointer_h; i > 0 || g_floorflag == true; i--) {
+                    if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, i - 1) == 0) {
 
-                    g_loopnum--;
-                    if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h - g_loopnum + 1) != 0) {
-                        g_down_rotatenum = 2;
-                        g_floorflag = true;
-                        //Debug.Log(g_loopnum);
-                        return g_loopnum;
-                    } else if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h - g_loopnum) == 0) {
-                        g_down_rotatenum = 100;
-                        return g_down_rotatenum;
+                    g_loopnum++;
                     }
+                      else  if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, i-1) != 0) {
+                       
+
+                        Debug.Log(g_loopnum);
+                        g_loopnum = g_potision_script.g_playerpointer_h - g_loopnum;
+                        Debug.Log(g_loopnum);
+                        return g_loopnum;
+                    } 
                 }
                 break;
             case 3:
-                for (int i = g_check_script.g_dice_check_h; i > 0 || g_floorflag == true; i--) {
-                    g_loopnum--;
-                    if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h - g_loopnum + 1) != 0) {
-                        g_down_rotatenum = 3;
-                        g_floorflag = true;
-                        //Debug.Log(g_loopnum);
+                for (int i = g_potision_script.g_playerpointer_h; i > 0 || g_floorflag == true; i--) {
+                    if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, i - 1) == 0) {
+
+                    g_loopnum++;
+                    }
+                      else  if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, i-1) != 0) {
+                       
+
+                        Debug.Log(g_loopnum);
+                        g_loopnum = g_potision_script.g_playerpointer_h - g_loopnum;
+                       Debug.Log(g_loopnum);
                         return g_loopnum;
-                    } else if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h - g_loopnum) == 0) {
-                        g_down_rotatenum = 100;
-                        return g_down_rotatenum;
                     }
                 }
                 break;
         }
-        return g_loopnum;
 
+        g_loopnum = 0;
+        return g_loopnum;
 
     }
 }
