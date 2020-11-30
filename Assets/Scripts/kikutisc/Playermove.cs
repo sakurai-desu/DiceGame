@@ -145,10 +145,10 @@ public class Playermove : MonoBehaviour {
                             g_potision_script.g_playerpointer_v++;
                             Player_Move();
                             break;
-                        case 20:
-                            g_potision_script.g_playerpointer_v++;
-                            Player_Move();
-                            break;
+                        //case 20:
+                        //    g_potision_script.g_playerpointer_v++;
+                        //    Player_Move();
+                        //    break;
 
                         case 100:
                             g_dice_con_Script.Change_Player_Pointer(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
@@ -234,10 +234,10 @@ public class Playermove : MonoBehaviour {
                             g_potision_script.g_playerpointer_v--;
                             Player_Move();
                             break;
-                        case 20:
-                            g_potision_script.g_playerpointer_v--;
-                            Player_Move();
-                            break;
+                        //case 20:
+                        //    g_potision_script.g_playerpointer_v--;
+                        //    Player_Move();
+                        //    break;
                         case 100:
                             g_dice_con_Script.Change_Player_Pointer(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
                             GameObject dice_obj = g_type_script.Get_Obj(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
@@ -318,10 +318,10 @@ public class Playermove : MonoBehaviour {
                             g_potision_script.g_playerpointer_s--;
                             Player_Move();
                             break;
-                        case 20:
-                            g_potision_script.g_playerpointer_s--;
-                            Player_Move();
-                            break;
+                        //case 20:
+                        //    g_potision_script.g_playerpointer_s--;
+                        //    Player_Move();
+                        //    break;
                         case 100:
                             g_dice_con_Script.Change_Player_Pointer(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
                             GameObject dice_obj = g_type_script.Get_Obj(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h);
@@ -401,10 +401,10 @@ public class Playermove : MonoBehaviour {
                             g_potision_script.g_playerpointer_s++;
                             Player_Move();
                             break;
-                        case 20:
-                            g_potision_script.g_playerpointer_s++;
-                            Player_Move();
-                            break;
+                        //case 20:
+                        //    g_potision_script.g_playerpointer_s++;
+                        //    Player_Move();
+                        //    break;
                         case 100:
                             g_dice_con_Script.Change_Player_Pointer(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
                             GameObject dice_obj = g_type_script.Get_Obj(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h);
