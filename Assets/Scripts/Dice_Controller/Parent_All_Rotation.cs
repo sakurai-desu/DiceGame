@@ -76,20 +76,26 @@ public class Parent_All_Rotation : MonoBehaviour {
     private const int g_ver_minus_Para = 1;
     private const int g_side_plus_Para = 2;
     private const int g_side_minus_Para = 3;
-
+    /// <summary>
+    /// 現在のパラメータを保持する変数
+    /// </summary>
     private int g_now_para;
-
-    private bool g_rotate_Flag = true;
-    private bool g_ground_Flag = true;
+    /// <summary>
+    /// 回転させるかを判別するフラグ/True：回転できる/False：回転できない
+    /// </summary>
+    private bool g_is_rotate = true;
+    /// <summary>
+    /// 床があるか判別するフラグ/True：床がある/False：床がない
+    /// </summary>
+    private bool g_is_ground = true;
 
     void Start() {
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         g_check_Script = this.GetComponent<Move_Check>();
         g_dice_fall_Script = this.GetComponent<Dice_Fall>();
+        //配列を生成
         g_work_Objs_Array = new GameObject[g_array_max, g_array_max, g_array_max];
         g_work_senter = 3;
-        //縦横高さを決めた数へ変更する
-        //(g_max_Ver, g_max_Side, g_max_High) = g_game_Con_Script.Get_Array_Max();
     }
 
     public void All_Rotation(GameObject center_obj, int para) {
@@ -101,23 +107,30 @@ public class Parent_All_Rotation : MonoBehaviour {
         Get_Children();
         //現在のパラメータ保持
         g_now_para = para;
+        //現在のパラメータに応じた処理をする
         switch (para) {
+            //縦プラス方向
             case g_ver_plus_Para:
                 Plus_Ver_Rotate();
                 break;
+            //縦マイナス方向
             case g_ver_minus_Para:
                 Minus_Ver_Rotate();
                 break;
+            //横プラス方向
             case g_side_plus_Para:
                 Plus_Side_Rotate();
                 break;
+            //横マイナス方向
             case g_side_minus_Para:
                 Minus_Side_Rotate();
                 break;
         }
-        if (g_rotate_Flag) {
+        //回転できる状態なら
+        if (g_is_rotate) {
+            //回転の軸にするダイスの回転用スクリプト取得
             g_rotate_Script = g_center_Dice.GetComponent<Dice_Rotate>();
-            //オブジェクトを回転させる
+            //ダイスを回転させる
             g_rotate_Script.This_Rotate(g_now_para);
         }
     }
@@ -127,11 +140,13 @@ public class Parent_All_Rotation : MonoBehaviour {
     /// </summary>
     private void Reset_Objs_Array() {
         g_check_Script.Reset_Array();
-        g_rotate_Flag = true;
-        g_ground_Flag = true;
-        for (int ver = 0; ver < g_array_max; ver++) {
-            for (int side = 0; side < g_array_max; side++) {
-                for (int high = 0; high < g_array_max; high++) {
+        //回転フラグ初期化
+        g_is_rotate = true;
+        //床フラグ初期化
+        g_is_ground = true;
+        for (int ver = g_zero_Count; ver < g_array_max; ver++) {
+            for (int side = g_zero_Count; side < g_array_max; side++) {
+                for (int high = g_zero_Count; high < g_array_max; high++) {
                     g_work_Objs_Array[ver, side, high] = null;
                 }
             }
@@ -156,16 +171,20 @@ public class Parent_All_Rotation : MonoBehaviour {
             //回転先の指標計算
             Rotate_Pointer_Calc();
 
+            //移動前の位置を配列に格納して保持
             g_check_Script.Retention_Before_Pointer(g_child_Ver, g_child_Side, g_child_High);
+            //移動後の位置を配列に格納して保持
             g_check_Script.Retention_After_Pointer(g_next_ver + 1, g_child_Side, g_next_high);
-
-            g_rotate_Flag = g_check_Script.Check(g_next_ver + 1, g_child_Side, g_next_high);
-            if (!g_rotate_Flag) {
+            //移動先が埋まっていないか調べる
+            g_is_rotate = g_check_Script.Check(g_next_ver + 1, g_child_Side, g_next_high);
+            //移動先が埋まっていたら
+            if (!g_is_rotate) {
+                //処理中断
                 break;
             }
         }
         //軸のダイスの床があるか調べる
-        g_ground_Flag = g_check_Script.Center_Obj_Ground_Check(g_center_Ver + 1, g_center_Side, g_center_High);
+        g_is_ground = g_check_Script.Center_Obj_Ground_Check(g_center_Ver + 1, g_center_Side, g_center_High);
     }
     /// <summary>
     /// 縦マイナス方向の回転処理
@@ -185,16 +204,20 @@ public class Parent_All_Rotation : MonoBehaviour {
             //回転先の指標計算
             Rotate_Pointer_Calc();
 
+            //移動前の位置を配列に格納して保持
             g_check_Script.Retention_Before_Pointer(g_child_Ver, g_child_Side, g_child_High);
+            //移動後の位置を配列に格納して保持
             g_check_Script.Retention_After_Pointer(g_next_ver - 1, g_child_Side, g_next_high);
-
-            g_rotate_Flag = g_check_Script.Check(g_next_ver - 1, g_child_Side, g_next_high);
-            if (!g_rotate_Flag) {
+            //移動先が埋まっていないか調べる
+            g_is_rotate = g_check_Script.Check(g_next_ver - 1, g_child_Side, g_next_high);
+            //移動先が埋まっていないか調べる
+            if (!g_is_rotate) {
+                //処理中断
                 break;
             }
         }
         //軸のダイスの床があるか調べる
-        g_ground_Flag = g_check_Script.Center_Obj_Ground_Check(g_center_Ver - 1, g_center_Side, g_center_High);
+        g_is_ground = g_check_Script.Center_Obj_Ground_Check(g_center_Ver - 1, g_center_Side, g_center_High);
     }
 
     /// <summary>
@@ -214,17 +237,19 @@ public class Parent_All_Rotation : MonoBehaviour {
             (g_next_side, g_next_high) = Plus_Rotate(g_next_side, g_next_high);
             //回転先の指標計算
             Rotate_Pointer_Calc();
-
+            //移動前の位置を配列に格納して保持
             g_check_Script.Retention_Before_Pointer(g_child_Ver, g_child_Side, g_child_High);
+            //移動後の位置を配列に格納して保持
             g_check_Script.Retention_After_Pointer(g_child_Ver, g_next_side + 1, g_next_high);
-
-            g_rotate_Flag = g_check_Script.Check(g_child_Ver, g_next_side + 1, g_next_high);
-            if (!g_rotate_Flag) {
+            //移動先が埋まっていないか調べる
+            g_is_rotate = g_check_Script.Check(g_child_Ver, g_next_side + 1, g_next_high);
+            if (!g_is_rotate) {
+                //処理中断
                 break;
             }
         }
         //軸のダイスの床があるか調べる
-        g_ground_Flag = g_check_Script.Center_Obj_Ground_Check(g_center_Ver, g_center_Side + 1, g_center_High);
+        g_is_ground = g_check_Script.Center_Obj_Ground_Check(g_center_Ver, g_center_Side + 1, g_center_High);
     }
     /// <summary>
     /// 横マイナス方向の回転処理
@@ -243,17 +268,20 @@ public class Parent_All_Rotation : MonoBehaviour {
             (g_next_side, g_next_high) = Minus_Rotate(g_next_side, g_next_high);
             //回転先の指標計算
             Rotate_Pointer_Calc();
-
+            //移動前の位置を配列に格納して保持
             g_check_Script.Retention_Before_Pointer(g_child_Ver, g_child_Side, g_child_High);
+            //移動後の位置を配列に格納して保持
             g_check_Script.Retention_After_Pointer(g_child_Ver, g_next_side - 1, g_next_high);
-
-            g_rotate_Flag = g_check_Script.Check(g_child_Ver, g_next_side - 1, g_next_high);
-            if (!g_rotate_Flag) {
+            //移動先が埋まっていないか調べる
+            g_is_rotate = g_check_Script.Check(g_child_Ver, g_next_side - 1, g_next_high);
+            //移動先が埋まっていないか調べる
+            if (!g_is_rotate) {
+                //処理中断
                 break;
             }
         }
         //軸のダイスの床があるか調べる
-        g_ground_Flag = g_check_Script.Center_Obj_Ground_Check(g_center_Ver, g_center_Side - 1, g_center_High);
+        g_is_ground = g_check_Script.Center_Obj_Ground_Check(g_center_Ver, g_center_Side - 1, g_center_High);
     }
 
     /// <summary>
@@ -305,7 +333,9 @@ public class Parent_All_Rotation : MonoBehaviour {
     /// <param name="high">高さ</param>
     /// <param name="pointer">子オブジェクト配列の指標</param>
     public void Reset_And_Storage_Obj() {
+        //動かすダイスの個数分繰り返す
         for (int child_pointer = g_zero_Count; child_pointer < g_work_children.Length; child_pointer++) {
+            //ダイスのスクリプト取得
             g_child_Script = g_work_children[child_pointer].GetComponent<Dice_Squares>();
             //移動前の位置を取得
             (g_child_Ver, g_child_Side, g_child_High) = g_check_Script.Get_Before_Pointer();
@@ -326,10 +356,11 @@ public class Parent_All_Rotation : MonoBehaviour {
             g_child_Script.Storage_This_Index(g_next_ver, g_next_side, g_next_high);
             //サイコロのマス目を変更
             g_child_Script.Change_Squares(g_now_para);
+            //ダイスの全方向を調べて、くっつくダイスがあるか調べる
             g_child_Script.All_Check();
         }
         //軸のダイスの移動先の床がないとき
-        if (!g_ground_Flag) {
+        if (!g_is_ground) {
             //全てのダイスを落とす
             g_dice_fall_Script.All_Dice_Fall(g_work_children);
         }

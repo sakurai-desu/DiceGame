@@ -62,11 +62,11 @@ public class Game_Controller : MonoBehaviour
         Pos_Array_Reset();
     }
 
-    //private void Update() {
-    //    if (Input.GetKeyDown(KeyCode.Space)) {
-    //        Array_Debug_Log();
-    //    }
-    //}
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            Array_Debug_Log();
+        }
+    }
 
     /// <summary>
     /// 3次元配列の要素数を返す処理
@@ -212,7 +212,6 @@ public class Game_Controller : MonoBehaviour
         if (high >= g_h_BlockCount) {
             high = g_h_BlockCount-1;
         }
-
         return g_blocksType_Array[ver, side, high];
     }
 }

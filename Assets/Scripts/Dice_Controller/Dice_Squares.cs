@@ -104,7 +104,9 @@ public class Dice_Squares : MonoBehaviour {
                 break;
         }
     }
-
+    /// <summary>
+    /// マス目の変更処理：縦プラス方向
+    /// </summary>
     private void Ver_Plus_Squeares_Change() {
         //現在のマス目を保持
         Retention_Squares();
@@ -114,6 +116,9 @@ public class Dice_Squares : MonoBehaviour {
         g_squares_Array[4] = g_work_Array[5];
         g_squares_Array[5] = g_work_Array[0];
     }
+    /// <summary>
+    /// マス目の変更処理：縦マイナス方向
+    /// </summary>
     private void Ver_Minus_Squeares_Change() {
         //現在のマス目を保持
         Retention_Squares();
@@ -123,6 +128,9 @@ public class Dice_Squares : MonoBehaviour {
         g_squares_Array[5] = g_work_Array[4];
         g_squares_Array[0] = g_work_Array[5];
     }
+    /// <summary>
+    /// マス目の変更処理：横プラス方向
+    /// </summary>
     private void Side_Plus_Squeares_Change() {
         //現在のマス目を保持
         Retention_Squares();
@@ -132,6 +140,9 @@ public class Dice_Squares : MonoBehaviour {
         g_squares_Array[1] = g_work_Array[4];
         g_squares_Array[0] = g_work_Array[1];
     }
+    /// <summary>
+    /// マス目の変更処理：横マイナス方向
+    /// </summary>
     private void Side_Minus_Squeares_Change() {
         //現在のマス目を保持
         Retention_Squares();
