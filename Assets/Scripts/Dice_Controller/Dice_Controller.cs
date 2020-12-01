@@ -5,16 +5,32 @@ using UnityEngine;
 public class Dice_Controller : MonoBehaviour {
     private Dice_Squares g_dice_Script;
     private Dice_Rotate g_rotate_Script;
-
     private Parent_Dice g_parent_Script;
     private Parent_All_Rotation g_parent_rotate_Script;
 
+    /// <summary>
+    /// 回転の軸にするダイス
+    /// </summary>
     private GameObject g_con_Obj;
+    /// <summary>
+    /// 次に回転の軸にするダイス
+    /// </summary>
     private GameObject g_next_con_Obj;
+    /// <summary>
+    /// 回転の軸にしているダイスの親オブジェクト
+    /// </summary>
     private GameObject g_con_Obj_Parent;
-
+    /// <summary>
+    /// プレイヤーの指標：縦
+    /// </summary>
     private int g_player_ver = 0;
+    /// <summary>
+    /// プレイヤーの指標：横
+    /// </summary>
     private int g_player_side = 0;
+    /// <summary>
+    /// プレイヤーの指標：高さ
+    /// </summary>
     private int g_player_high = 0;
 
     private const int g_ver_plus_Para = 0;
@@ -58,22 +74,23 @@ public class Dice_Controller : MonoBehaviour {
         g_con_Obj_Parent = g_con_Obj.transform.parent.gameObject;
         //親のスクリプトを取得
         g_parent_Script = g_con_Obj_Parent.GetComponent<Parent_Dice>();
+        //与えられたパラメータに応じて、回転の軸にするダイスを取得
         switch (para) {
             //縦プラス方向
             case g_ver_plus_Para:
-                g_next_con_Obj = g_parent_Script.Plus_Ver(g_player_ver, g_player_side, g_player_high);
+                g_next_con_Obj = g_parent_Script.Get_Center_Ver_Plus(g_player_ver, g_player_side, g_player_high);
                 break;
             //縦マイナス方向
             case g_ver_minus_Para:
-                g_next_con_Obj = g_parent_Script.Minus_Ver(g_player_ver, g_player_side, g_player_high);
+                g_next_con_Obj = g_parent_Script.Get_Center_Ver_Minus(g_player_ver, g_player_side, g_player_high);
                 break;
             //横プラス方向
             case g_side_plus_Para:
-                g_next_con_Obj = g_parent_Script.Plus_Side(g_player_ver, g_player_side, g_player_high);
+                g_next_con_Obj = g_parent_Script.Get_Center_Side_Plus(g_player_ver, g_player_side, g_player_high);
                 break;
             //横マイナス方向
             case g_side_minus_Para:
-                g_next_con_Obj = g_parent_Script.Minus_Side(g_player_ver, g_player_side, g_player_high);
+                g_next_con_Obj = g_parent_Script.Get_Center_Side_Minus(g_player_ver, g_player_side, g_player_high);
                 break;
         }
         //回転の中心にするサイコロを変更

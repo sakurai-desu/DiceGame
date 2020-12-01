@@ -173,7 +173,10 @@ public class Dice_Squares : MonoBehaviour {
         g_check_Script.Check_All_Direction(g_this_Ver, g_this_Side, g_this_High, this.gameObject);
     }
 
-
+    /// <summary>
+    /// マス目を格納する処理
+    /// </summary>
+    /// <param name="storage_dices"></param>
     public void Storage_Squares(int[] storage_dices) {
         g_squares_Array = storage_dices;
     }
