@@ -56,6 +56,11 @@ public class Move_Check : MonoBehaviour {
     /// </summary>
     private int g_max_High;
 
+    /// <summary>
+    /// 親オブジェクトが同じか判別するフラグ/True：同じ/False：同じではない
+    /// </summary>
+    private bool g_same_parent_flag = false;
+
     void Start() {
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Date>();
@@ -181,17 +186,34 @@ public class Move_Check : MonoBehaviour {
     /// <param name="side">横</param>
     /// <param name="high">高さ</param>
     /// <returns>True：床が有る/False：床が無い</returns>
-    public bool Center_Obj_Ground_Check(int ver, int side, int high) {
-        //取得した高さの一つ下
-        high--;
-        //検索位置に格納されているオブジェクトのタイプ取得
-        int type = g_game_Con_Script.Get_Obj_Type(ver, side, high);
-        //空白だったら（床がないとき）
-        if (type == 0) {
-            //床が無い状態を返す
-            return false;
+    public bool Center_Obj_Ground_Check(int ver, int side, int high,GameObject dice_obj) {
+        //落下先が埋まるか、配列の範囲外になるまで繰り返す
+        for (int pointer = high - 1; pointer >= g_zero_Count; pointer--) {
+            //同じ親フラグ初期化
+            g_same_parent_flag = false;
+            //検索先に埋まっているオブジェクトのタイプ取得
+            int type = g_game_Con_Script.Get_Obj_Type(ver, side, pointer);
+            //検索先がダイスの時、ダイスが検索用ダイスと同じ階層にあるか調べる
+            if (type == 100) {
+                //検索用ダイスの親オブジェクトを取得
+                GameObject dice_parent = dice_obj.transform.parent.gameObject;
+                //検索先のダイス取得
+                GameObject next_dice = g_game_Con_Script.Get_Obj(ver, side, pointer);
+                //検索先のダイスの親オブジェクトを取得
+                GameObject next_parent = next_dice.transform.parent.gameObject;
+                //ダイスが検索用ダイスと同じ階層にあるか調べる
+                if (dice_parent == next_parent) {
+                    //同じならフラグON
+                    g_same_parent_flag = true;
+                }
+            }
+            //移動先オブジェクトが空白ではないなら（床があるなら）
+            if (type != 0 && !g_same_parent_flag) {
+                //処理終了
+                //床がある状態を返す
+                return true;
+            }
         }
-        //床が有る状態を返す
-        return true;
+        return false;
     }
 }

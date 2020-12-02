@@ -66,6 +66,51 @@ public class Dice_Fall : MonoBehaviour {
         Fall();
     }
 
+    public bool Rotate_Check(GameObject[] children_dices) {
+        //落下させるダイスを保持
+        g_work_dices = children_dices;
+        //ダイスの個数分だけ処理を繰り返す
+        for (int dice_count = g_zero_Count; dice_count < g_work_dices.Length; dice_count++) {
+            g_fall_counter = g_zero_Count;
+            //ダイスのスクリプト取得
+            g_child_Script = g_work_dices[dice_count].GetComponent<Dice_Squares>();
+            //ダイスの現在位置取得
+            (g_dice_ver, g_dice_side, g_dice_high) = g_child_Script.Get_Dice_Pointer();
+
+            //落下先が埋まるか、配列の範囲外になるまで繰り返す
+            for (int pointer = g_dice_high - 1; pointer >= g_zero_Count; pointer--) {
+                //同じ親フラグ初期化
+                g_same_parent_flag = false;
+                //検索先に埋まっているオブジェクトのタイプ取得
+                int type = g_game_Con_Script.Get_Obj_Type(g_dice_ver, g_dice_side, pointer);
+                //検索先がダイスの時、ダイスが検索用ダイスと同じ階層にあるか調べる
+                if (type == 100) {
+                    //検索用ダイスの親オブジェクトを取得
+                    GameObject dice_parent = g_work_dices[dice_count].transform.parent.gameObject;
+                    //検索先のダイス取得
+                    GameObject next_dice = g_game_Con_Script.Get_Obj(g_dice_ver, g_dice_side, pointer);
+                    //検索先のダイスの親オブジェクトを取得
+                    GameObject next_parent = next_dice.transform.parent.gameObject;
+                    //ダイスが検索用ダイスと同じ階層にあるか調べる
+                    if (dice_parent == next_parent) {
+                        //同じならフラグON
+                        g_same_parent_flag = true;
+                    }
+                }
+                //移動先オブジェクトが空白ではないなら（床があるなら）
+                if (type != 0 && !g_same_parent_flag) {
+                    //処理終了
+                    Debug.Log("床あります");
+                    //床がある状態を返す
+                    return true;
+                }
+            }
+        }
+        Debug.Log("床ないです");
+        //床がない状態を返す
+        return false;
+    }
+
     /// <summary>
     /// ダイスをどれだけ落下させるか調べる処理
     /// </summary>
@@ -84,7 +129,7 @@ public class Dice_Fall : MonoBehaviour {
             (g_dice_ver, g_dice_side, g_dice_high) = g_child_Script.Get_Dice_Pointer();
             
             //落下先が埋まるか、配列の範囲外になるまで繰り返す
-            for (int pointer = g_dice_high - 1; pointer >= 0; pointer--) {
+            for (int pointer = g_dice_high - 1; pointer >= g_zero_Count; pointer--) {
                 //同じ親フラグ初期化
                 g_same_parent_flag = false;
                 //検索先に埋まっているオブジェクトのタイプ取得
@@ -127,7 +172,7 @@ public class Dice_Fall : MonoBehaviour {
         //床のないところに落ちたダイスを削除する
         if (g_delete_flag) {
             //ダイスを削除する
-            Delete_Dice();
+            //Delete_Dice();
             //処理終了
             return;
         }
