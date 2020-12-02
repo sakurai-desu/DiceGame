@@ -146,7 +146,7 @@ public class Parent_Dice : MonoBehaviour {
         //子オブジェクトを配列に格納
         Storage_Children();
         //最大値初期化
-        int max = g_min_Count;
+        int max = g_zero_Count;
         //子オブジェクトの個数分繰り返す
         for (int child_pointer = g_zero_Count; child_pointer < g_child_Array.Length; child_pointer++) {
             //ダイスの現在の指標取得
