@@ -67,10 +67,14 @@ public class Dice_Rotate : MonoBehaviour
         g_playermove = GameObject.FindGameObjectWithTag("Player").GetComponent<Playermove>();
         }
     }
+
     private void Get_Parent() {
         g_parent_Obj = this.gameObject.transform.parent.gameObject;
     }
-
+    /// <summary>
+    /// 与えられたパラメータに応じた方向に回転する処理
+    /// </summary>
+    /// <param name="para"></param>
     public void This_Rotate(int para) {
         if (g_playermove.g_speaceflag == false) {
 
@@ -104,7 +108,6 @@ public class Dice_Rotate : MonoBehaviour
         //サイコロ回転
         StartCoroutine(Rotate());
     }
-
     /// <summary>
     /// 横軸のマイナス方向の回転
     /// </summary>
@@ -117,7 +120,6 @@ public class Dice_Rotate : MonoBehaviour
         //サイコロ回転
         StartCoroutine(Rotate());
     }
-
     /// <summary>
     /// 縦軸のプラス方向の回転
     /// </summary>
@@ -130,7 +132,6 @@ public class Dice_Rotate : MonoBehaviour
         //サイコロ回転
         StartCoroutine(Rotate());
     }
-
     /// <summary>
     /// 縦軸のマイナス方向の回転
     /// </summary>
@@ -180,7 +181,7 @@ public class Dice_Rotate : MonoBehaviour
         g_rotate_Point = Vector3.zero;
         //回転の軸を初期化
         g_rotate_Axis = Vector3.zero;
-        //g_dice_Script.All_Check();
+        //回転先にダイスを格納する
         g_parent_rotate_Script.Reset_And_Storage_Obj();
         //処理終了
         yield break;

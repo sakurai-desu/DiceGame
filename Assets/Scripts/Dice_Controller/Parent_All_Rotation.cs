@@ -21,7 +21,7 @@ public class Parent_All_Rotation : MonoBehaviour {
     private GameObject g_parent_center_Dice;
 
     private int g_array_max = 7;
-    private int g_work_senter;
+    private int g_work_senter = 3;
 
     /// <summary>
     /// 初期化用変数
@@ -95,7 +95,6 @@ public class Parent_All_Rotation : MonoBehaviour {
         g_dice_fall_Script = this.GetComponent<Dice_Fall>();
         //配列を生成
         g_work_Objs_Array = new GameObject[g_array_max, g_array_max, g_array_max];
-        g_work_senter = 3;
     }
 
     public void All_Rotation(GameObject center_obj, int para) {

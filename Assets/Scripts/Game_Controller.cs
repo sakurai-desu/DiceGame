@@ -63,7 +63,7 @@ public class Game_Controller : MonoBehaviour
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetKeyDown(KeyCode.Return)) {
             Array_Debug_Log();
         }
     }
@@ -88,8 +88,8 @@ public class Game_Controller : MonoBehaviour
                 for (int ver = g_originpoint; ver < g_v_BlockCount; ver++) {
                     if (g_blocksType_Array[ver, side, high] == 100) {
                         Debug.Log("縦：" + ver + "_横：" + side + "_高さ：" + high);
-                        Debug.Log("オブジェクト：" + g_blocks_Array[ver, side, high]);
-                        Debug.Log("タイプ：" + g_blocksType_Array[ver, side, high]);
+                        //Debug.Log("オブジェクト：" + g_blocks_Array[ver, side, high]);
+                        //Debug.Log("タイプ：" + g_blocksType_Array[ver, side, high]);
                     }
           
                 }
