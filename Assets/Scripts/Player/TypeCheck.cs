@@ -77,6 +77,7 @@ public class TypeCheck : MonoBehaviour {
         g_dice_check_s = g_playercontroller.g_playerpointer_s;
         //プレイヤーH値取得
         g_dice_check_h = g_playercontroller.g_playerpointer_h;
+        GetComponent<Playermove>().Movecheck();
     }
     public void TypeCheck_block() {
 
