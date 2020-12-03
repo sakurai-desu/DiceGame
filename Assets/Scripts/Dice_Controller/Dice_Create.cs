@@ -162,7 +162,9 @@ public class Dice_Create : MonoBehaviour {
             }
         }
     }
-
+    /// <summary>
+    /// 生成したダイスを回転させる処理
+    /// </summary>
     private void Dice_Rotate() {
         //回転の中心を決める
         g_rotate_Point = g_dice_Obj.transform.position;
@@ -170,6 +172,9 @@ public class Dice_Create : MonoBehaviour {
         g_dice_Obj.transform.RotateAround(g_rotate_Point, g_rotate_Axis, g_rotation_Max);
     }
 
+    /// <summary>
+    /// ダイスのマス目を変更：縦方向
+    /// </summary>
     private void Ver_Squeares_Change() {
         //現在のマス目を保持
         Retention_Squares();
@@ -179,6 +184,9 @@ public class Dice_Create : MonoBehaviour {
         g_work_dices[5] = g_work_Array[4];
         g_work_dices[0] = g_work_Array[5];
     }
+    /// <summary>
+    /// ダイスのマス目を変更：横方向
+    /// </summary>
     private void Side_Squeares_Change() {
         //現在のマス目を保持
         Retention_Squares();
@@ -188,6 +196,9 @@ public class Dice_Create : MonoBehaviour {
         g_work_dices[4] = g_work_Array[1];
         g_work_dices[1] = g_work_Array[0];
     }
+    /// <summary>
+    /// ダイスのマス目を変更：高さ方向
+    /// </summary>
     private void High_Squeares_Change() {
         //現在のマス目を保持
         Retention_Squares();
@@ -218,6 +229,9 @@ public class Dice_Create : MonoBehaviour {
             g_now_dices[pointer] = g_work_dices[pointer];
         }
     }
+    /// <summary>
+    /// 保持しているマス目を初期化する
+    /// </summary>
     private void Reset_Array() {
         g_ver_check = 0;
         g_side_check = 1;

@@ -41,7 +41,11 @@ public class Dice_Controller : MonoBehaviour {
     void Start() {
         g_parent_rotate_Script = GetComponent<Parent_All_Rotation>();
     }
-
+    /// <summary>
+    /// 軸にするダイスを中心にダイスを回転させる
+    /// </summary>
+    /// <param name="storage_obj">軸にするダイス</param>
+    /// <param name="para">移動方向パラメータ</param>
     public void Storage_Control_Obj(GameObject storage_obj,int para) {
         g_con_Obj = storage_obj;
         g_dice_Script = g_con_Obj.GetComponent<Dice_Squares>();

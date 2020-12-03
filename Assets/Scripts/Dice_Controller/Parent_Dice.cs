@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 
 public class Parent_Dice : MonoBehaviour {
+    private Game_Controller g_game_con_Script;
     private Transform g_parent_transform;
     [SerializeField]
     private GameObject[] g_child_Array;
@@ -25,6 +26,7 @@ public class Parent_Dice : MonoBehaviour {
     private int g_dice_high;
 
     void Start() {
+        g_game_con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         Storage_Children();
     }
 
@@ -92,10 +94,12 @@ public class Parent_Dice : MonoBehaviour {
             //ダイスの現在の指標取得
             (g_dice_ver, g_dice_side, g_dice_high) =
                 g_child_Array[child_pointer].GetComponent<Dice_Squares>().Get_Dice_Pointer();
+            int type = g_game_con_Script.Get_Obj_Type(g_dice_ver, g_dice_side, g_dice_high-1);
             //ダイスの縦の指標が保持している最大値以上＆
             //ダイスの横の指標がプレイヤーの横の指標と同じ＆
             //ダイスの縦の指標がプレイヤーの縦の指標と同じ
-            if (max <= g_dice_ver && g_dice_side == player_side && g_dice_high == player_high) {
+            if (type!=0&&
+                max <= g_dice_ver && g_dice_side == player_side && g_dice_high == player_high) {
                 //最大値を更新
                 max = g_dice_ver;
                 //軸のダイスを更新
@@ -122,10 +126,11 @@ public class Parent_Dice : MonoBehaviour {
             //ダイスの現在の指標取得
             (g_dice_ver, g_dice_side, g_dice_high) =
                 g_child_Array[child_pointer].GetComponent<Dice_Squares>().Get_Dice_Pointer();
+            int type = g_game_con_Script.Get_Obj_Type(g_dice_ver, g_dice_side, g_dice_high-1);
             //ダイスの縦の指標が保持している最小値以下＆
             //ダイスの横の指標がプレイヤーの横の指標と同じ＆
             //ダイスの縦の指標がプレイヤーの縦の指標と同じ
-            if (min >= g_dice_ver && g_dice_side == player_side && g_dice_high == player_high) {
+            if (type != 0 && min >= g_dice_ver && g_dice_side == player_side && g_dice_high == player_high) {
             //最小値を更新
             min = g_dice_ver;
                 //軸のダイスを更新
@@ -152,10 +157,11 @@ public class Parent_Dice : MonoBehaviour {
             //ダイスの現在の指標取得
             (g_dice_ver, g_dice_side, g_dice_high) =
                 g_child_Array[child_pointer].GetComponent<Dice_Squares>().Get_Dice_Pointer();
+            int type = g_game_con_Script.Get_Obj_Type(g_dice_ver, g_dice_side, g_dice_high-1);
             //ダイスの横の指標が保持している最大値以上＆
             //ダイスの縦の指標がプレイヤーの縦の指標と同じ＆
             //ダイスの縦の指標がプレイヤーの縦の指標と同じ
-            if (max <= g_dice_side && g_dice_ver == player_ver && g_dice_high == player_high) {
+            if (type != 0 && max <= g_dice_side && g_dice_ver == player_ver && g_dice_high == player_high) {
                 //最大値を更新
                 max = g_dice_side;
                 //軸のダイスを更新
@@ -182,10 +188,11 @@ public class Parent_Dice : MonoBehaviour {
             //ダイスの現在の指標取得
             (g_dice_ver, g_dice_side, g_dice_high) =
                 g_child_Array[child_pointer].GetComponent<Dice_Squares>().Get_Dice_Pointer();
+            int type = g_game_con_Script.Get_Obj_Type(g_dice_ver, g_dice_side, g_dice_high-1);
             //ダイスの横の指標が保持している最小値以下＆
             //ダイスの縦の指標がプレイヤーの縦の指標と同じ＆
             //ダイスの縦の指標がプレイヤーの縦の指標と同じ
-            if (min >= g_dice_side && g_dice_ver == player_ver && g_dice_high == player_high) {
+            if (type != 0 && min >= g_dice_side && g_dice_ver == player_ver && g_dice_high == player_high) {
                 //最小値を更新
                 min = g_dice_side;
                 //軸のダイスを更新

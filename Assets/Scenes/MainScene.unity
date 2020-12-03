@@ -281,7 +281,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &150255159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,7 +294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 633b3e6d0d32ce148a239cd71c09c37b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  g_playStageName: Stage5
+  g_playStageName: Stage7
 --- !u!4 &150255160
 Transform:
   m_ObjectHideFlags: 0
@@ -332,13 +332,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 635931309}
-  m_LocalRotation: {x: -0.066347934, y: 0.92983156, z: -0.20852368, w: -0.29585326}
-  m_LocalPosition: {x: 8.82, y: 6.89, z: 12}
+  m_LocalRotation: {x: -0.06508463, y: 0.9311101, z: -0.20642212, w: -0.29357782}
+  m_LocalPosition: {x: 9, y: 7, z: 12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1210324708}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 25.28, y: 215.3, z: 0}
+  m_LocalEulerAnglesHint: {x: 25, y: 215, z: 0}
 --- !u!1 &672243023
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,7 +363,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 672243023}
   m_LocalRotation: {x: 0.21345407, y: -0.21485032, z: 0.048182253, w: 0.9518168}
-  m_LocalPosition: {x: 8.82, y: 6.89, z: -5.52}
+  m_LocalPosition: {x: 9, y: 7, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1210324708}
@@ -483,13 +483,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 760693887}
-  m_LocalRotation: {x: -0.06634794, y: -0.9298315, z: 0.20852366, w: -0.29585326}
-  m_LocalPosition: {x: -0.7, y: 6.89, z: 12}
+  m_LocalRotation: {x: -0.06508463, y: -0.9311101, z: 0.20642212, w: -0.29357782}
+  m_LocalPosition: {x: -0.7, y: 7, z: 12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1210324708}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 25.28, y: -215.3, z: 0}
+  m_LocalEulerAnglesHint: {x: 25, y: -215, z: 0}
 --- !u!1 &789785042
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,9 +614,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1896731242b3ddd469278903a97653af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  g_con_Obj: {fileID: 0}
-  g_next_con_Obj: {fileID: 0}
-  g_con_Obj_Parent: {fileID: 0}
 --- !u!4 &806481032
 Transform:
   m_ObjectHideFlags: 0
@@ -889,13 +886,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.21345407, y: -0.21485032, z: 0.048182253, w: 0.9518168}
-  m_LocalPosition: {x: 8.82, y: 6.89, z: -5.52}
+  m_LocalRotation: {x: 0.2113091, y: -0.21130902, z: 0.04684608, w: 0.9531539}
+  m_LocalPosition: {x: 9, y: 7, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1210324708}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 25.28, y: -25.44, z: 0}
+  m_LocalEulerAnglesHint: {x: 25, y: -25, z: 0}
 --- !u!114 &963194229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1114,7 +1111,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2c18b8072f273742af467180f878449, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  g_createBlock: {fileID: 0}
   g_parent_Prefab: {fileID: 2379556581813497347, guid: 1561a13cac6d2f44d99fa79df5c05148,
     type: 3}
   g_null_Prefab: {fileID: 2172714369140518682, guid: 501e087ee4ece984c9c23935f41d8056,
@@ -1559,13 +1555,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1594793990}
-  m_LocalRotation: {x: 0.21345407, y: 0.21485032, z: -0.048182253, w: 0.9518168}
-  m_LocalPosition: {x: -0.7, y: 6.89, z: -5.52}
+  m_LocalRotation: {x: 0.2113091, y: 0.2113091, z: -0.0468461, w: 0.9531539}
+  m_LocalPosition: {x: -0.7, y: 7, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1210324708}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 25.28, y: 25.44, z: 0}
+  m_LocalEulerAnglesHint: {x: 25, y: 25, z: 0}
 --- !u!1 &1614694756
 GameObject:
   m_ObjectHideFlags: 0

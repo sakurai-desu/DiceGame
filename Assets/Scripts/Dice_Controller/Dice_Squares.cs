@@ -74,6 +74,8 @@ public class Dice_Squares : MonoBehaviour {
         g_work_Array = new int[6];
         //縦横高さを決めた数へ変更する
         (g_max_Ver, g_max_Side, g_max_High) = g_game_Con_Script.Get_Array_Max();
+        //スタート時にくっつくダイスを探す
+        All_Check();
     }
 
     /// <summary>
@@ -171,6 +173,7 @@ public class Dice_Squares : MonoBehaviour {
         //移動後に全方位をチェックする
         //くっつくことができるサイコロを探す
         g_check_Script.Check_All_Direction(g_this_Ver, g_this_Side, g_this_High, this.gameObject);
+        //Debug.Log("チェックします");
     }
 
     /// <summary>
