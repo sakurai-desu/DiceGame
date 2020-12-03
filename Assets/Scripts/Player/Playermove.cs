@@ -10,10 +10,10 @@ public class Playermove : MonoBehaviour {
     Input_Date g_json_Script;
     Playercontroller g_potision_script;
     TypeCheck g_check_script;
-    Game_Controller g_arrymovescript;
     Dice_Controller g_dice_con_Script;
     Player_Direction g_direction_Script;
-
+    Game_Controller g_type_script;
+    Playermove g_move_Script;
     //Playercontrollerの生成位置取得
     [SerializeField]
     private int g_createpointer_v;
@@ -28,7 +28,10 @@ public class Playermove : MonoBehaviour {
 
     private int g_h_PBlockCount;
 
-    Game_Controller g_type_script;
+    public int g_movecheck_v;
+    public int g_movecheck_s;
+    public int g_movecheck_h;
+
 
     bool g_arrayflag = false;
     //player位置
@@ -45,7 +48,6 @@ public class Playermove : MonoBehaviour {
     void Start() {
         g_direction_Script = GameObject.Find("Player_Controller").GetComponent<Player_Direction>();
         g_dice_con_Script = GameObject.Find("Dice_Controller").GetComponent<Dice_Controller>();
-        g_arrymovescript = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         g_potision_script = GameObject.Find("Player_Controller").GetComponent<Playercontroller>();
         g_check_script = GameObject.FindGameObjectWithTag("Player").GetComponent<TypeCheck>();
         g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Date>();
@@ -60,6 +62,7 @@ public class Playermove : MonoBehaviour {
         g_createpointer_s = g_potision_script.g_playerpointer_s;
         (g_v_PBlockCount, g_s_PBlockCount, g_h_PBlockCount) = g_json_Script.Get_Array_Max();
         g_cooltimer = g_coolresettimer;
+
     }
     [SerializeField]
     bool g_arrayExistFlag;
@@ -92,7 +95,7 @@ public class Playermove : MonoBehaviour {
 
         if (g_arrayflag == true) {
             //Game_Controller.GetArrayから配列読み込み
-            g_sponplayer = g_arrymovescript.Get_Pos(g_potision_script.g_playerpointer_v,
+            g_sponplayer = g_type_script.Get_Pos(g_potision_script.g_playerpointer_v,
                 g_potision_script.g_playerpointer_s, g_potision_script.g_playerpointer_h);
             //Debug.Log(g_sponplayer);
             g_arrayflag = false;
@@ -103,13 +106,15 @@ public class Playermove : MonoBehaviour {
         #region 移動制御
         //配列hの上限に達してない時移動(上)
         if (g_potision_script.g_playerpointer_v < g_v_PBlockCount - 1 && g_cooltimer > 0) {
-
             if (g_speaceflag && Input.GetKeyDown(KeyCode.W)) {
-                //プレイヤーの向きを変更
                 g_direction_Script.Player_Direction_Change(30);
-                if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h) != 0 &&
-                    g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h + 1) == 0) {
-                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
+                //プレイヤーのv方向の一個先
+                int type_v_plus = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h);
+                //プレイヤーのv.h方向の一個先
+                int type_v_h_plus = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h + 1);
+
+                if (type_v_plus != 0 && type_v_h_plus == 0) {
+                    switch (type_v_plus) {
                         case 0:
 
                             break;
@@ -132,15 +137,17 @@ public class Playermove : MonoBehaviour {
                             break;
                     }
                 }
-
             } else if (Input.GetKeyDown(KeyCode.W)) {
                 //プレイヤーの向きを変更
                 g_direction_Script.Player_Direction_Change(30);
 
                 g_dicemovenum = HSearch(0);
-                if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h - 1) != 0) {
+                int type_vp_hm = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h - 1);
+                int type_v_p = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h);
+                int type_v_p_0 = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, 0);
+                if (type_vp_hm != 0) {
 
-                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
+                    switch (type_v_p) {
                         case 0:
                             g_potision_script.g_playerpointer_v++;
                             Player_Move();
@@ -151,8 +158,8 @@ public class Playermove : MonoBehaviour {
                         //    break;
 
                         case 100:
-                            g_dice_con_Script.Change_Player_Pointer(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
-                            GameObject dice_obj = g_type_script.Get_Obj(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
+                            g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
+                            GameObject dice_obj = g_type_script.Get_Obj(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h);
                             g_dice_con_Script.Storage_Control_Obj(dice_obj, 0);
                             //dicemove入れればいいんじゃね
                             break;
@@ -160,9 +167,9 @@ public class Playermove : MonoBehaviour {
                 }
 
                     //上から降りるときのスクリプト
-                    else if (g_dicemovenum != 0 && g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v+ 1, g_check_script.g_dice_check_s , 0) != 0) {
+                    else if (g_dicemovenum != 0 && type_v_p_0 != 0) {
 
-                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
+                    switch (type_v_p) {
                         case 0:
                             g_potision_script.g_playerpointer_v++;
                             g_potision_script.g_playerpointer_h = g_dicemovenum;
@@ -197,9 +204,11 @@ public class Playermove : MonoBehaviour {
             if (g_speaceflag && Input.GetKeyDown(KeyCode.S)) {
                 //プレイヤーの向きを変更
                 g_direction_Script.Player_Direction_Change(32);
-                if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h) != 0 &&
-                    g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h + 1) == 0) {
-                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
+
+                int type_v_minus = g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h);
+                int type_vm_hp = g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h + 1);
+                if (type_v_minus != 0 && type_vm_hp == 0) {
+                    switch (g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h)) {
                         case 0:
 
                             break;
@@ -225,11 +234,14 @@ public class Playermove : MonoBehaviour {
             } else if (Input.GetKeyDown(KeyCode.S)) {
                 //プレイヤーの向きを変更
                 g_direction_Script.Player_Direction_Change(32);
-
                 g_dicemovenum = HSearch(1);
-                if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h - 1) != 0) {
 
-                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
+                int type_vm_hm = g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h - 1);
+                int type_vm = g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h);
+                int type_vm_0 = g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, 0);
+                if (type_vm_hm != 0) {
+
+                    switch (type_vm) {
                         case 0:
                             g_potision_script.g_playerpointer_v--;
                             Player_Move();
@@ -239,16 +251,16 @@ public class Playermove : MonoBehaviour {
                         //    Player_Move();
                         //    break;
                         case 100:
-                            g_dice_con_Script.Change_Player_Pointer(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
-                            GameObject dice_obj = g_type_script.Get_Obj(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
+                            g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
+                            GameObject dice_obj = g_type_script.Get_Obj(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h);
                             g_dice_con_Script.Storage_Control_Obj(dice_obj, 1);
                             break;
                     }
                 }
                  //上から降りるときのスクリプト
-                 else if (g_dicemovenum != 0 && g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v-1, g_check_script.g_dice_check_s, 0) != 0) {
+                 else if (g_dicemovenum != 0 && type_vm_0 != 0) {
 
-                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h)) {
+                    switch (type_vm) {
                         case 0:
                             g_potision_script.g_playerpointer_v--;
                             g_potision_script.g_playerpointer_h = g_dicemovenum;
@@ -257,12 +269,12 @@ public class Playermove : MonoBehaviour {
                             break;
                         case 20:
                             g_potision_script.g_playerpointer_v--;
-                            g_potision_script.g_playerpointer_h =  g_dicemovenum;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
                             Player_Move();
                             break;
                         case 100:
                             g_potision_script.g_playerpointer_v--;
-                            g_potision_script.g_playerpointer_h =  g_dicemovenum;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
 
                             Player_Move();
                             break;
@@ -281,9 +293,10 @@ public class Playermove : MonoBehaviour {
             if (g_speaceflag && Input.GetKeyDown(KeyCode.A)) {
                 //プレイヤーの向きを変更
                 g_direction_Script.Player_Direction_Change(33);
-                if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h) != 0 &&
-                    g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h + 1) == 0) {
-                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h)) {
+                int type_sm = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, g_movecheck_h);
+                int type_sm_hp = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, g_movecheck_h + 1);
+                if (type_sm != 0 && type_sm_hp == 0) {
+                    switch (type_sm) {
                         case 0:
 
                             break;
@@ -311,9 +324,12 @@ public class Playermove : MonoBehaviour {
                 //プレイヤーの向きを変更
                 g_direction_Script.Player_Direction_Change(33);
                 g_dicemovenum = HSearch(2);
-                if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h - 1) != 0) {
+                int type_sm = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, g_movecheck_h);
+                int type_sm_hm = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, g_movecheck_h - 1);
+                int type_sm_0 = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, 0);
+                if (type_sm_hm != 0) {
 
-                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h)) {
+                    switch (type_sm) {
                         case 0:
                             g_potision_script.g_playerpointer_s--;
                             Player_Move();
@@ -323,16 +339,16 @@ public class Playermove : MonoBehaviour {
                         //    Player_Move();
                         //    break;
                         case 100:
-                            g_dice_con_Script.Change_Player_Pointer(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
-                            GameObject dice_obj = g_type_script.Get_Obj(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h);
+                            g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
+                            GameObject dice_obj = g_type_script.Get_Obj(g_movecheck_v, g_movecheck_s - 1, g_movecheck_h);
                             g_dice_con_Script.Storage_Control_Obj(dice_obj, 3);
                             break;
                     }
                 }
                     //上から降りるときのスクリプト
-                    else if (g_dicemovenum != 0 && g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, 0) != 0) {
+                    else if (g_dicemovenum != 0 && type_sm_0 != 0) {
 
-                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, g_check_script.g_dice_check_h)) {
+                    switch (type_sm) {
                         case 0:
                             g_potision_script.g_playerpointer_s--;
                             g_potision_script.g_playerpointer_h = g_dicemovenum;
@@ -341,12 +357,12 @@ public class Playermove : MonoBehaviour {
                             break;
                         case 20:
                             g_potision_script.g_playerpointer_s--;
-                            g_potision_script.g_playerpointer_h =  g_dicemovenum;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
                             Player_Move();
                             break;
                         case 100:
                             g_potision_script.g_playerpointer_s--;
-                            g_potision_script.g_playerpointer_h =  g_dicemovenum;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
 
                             Player_Move();
                             break;
@@ -365,9 +381,10 @@ public class Playermove : MonoBehaviour {
             if (g_speaceflag && Input.GetKeyDown(KeyCode.D)) {
                 //プレイヤーの向きを変更
                 g_direction_Script.Player_Direction_Change(31);
-                if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h) != 0 &&
-                    g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h + 1) == 0) {
-                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h)) {
+                int type_sp = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, g_movecheck_h);
+                int type_sp_hp = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, g_movecheck_h + 1);
+                if (type_sp != 0 && type_sp_hp == 0) {
+                    switch (type_sp) {
                         case 0:
 
                             break;
@@ -394,9 +411,13 @@ public class Playermove : MonoBehaviour {
                 //プレイヤーの向きを変更
                 g_direction_Script.Player_Direction_Change(31);
                 g_dicemovenum = HSearch(3);
-                if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h - 1) != 0) {
+                int type_sp_hm = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, g_movecheck_h - 1);
+                int type_sp = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, g_movecheck_h);
+                int type_sp_0 = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, 0);
 
-                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h)) {
+                if (type_sp_hm != 0) {
+
+                    switch (type_sp) {
                         case 0:
                             g_potision_script.g_playerpointer_s++;
                             Player_Move();
@@ -406,15 +427,16 @@ public class Playermove : MonoBehaviour {
                         //    Player_Move();
                         //    break;
                         case 100:
-                            g_dice_con_Script.Change_Player_Pointer(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h);
-                            GameObject dice_obj = g_type_script.Get_Obj(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h);
+                            g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
+                            GameObject dice_obj = g_type_script.Get_Obj(g_movecheck_v, g_movecheck_s + 1, g_movecheck_h);
                             g_dice_con_Script.Storage_Control_Obj(dice_obj, 2);
                             break;
                     }
                 }
                 //上から降りるときのスクリプト
-                else if (g_dicemovenum != 0&& g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, 0) != 0) {
-                    switch (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, g_check_script.g_dice_check_h)) {
+
+                else if (g_dicemovenum != 0 && type_sp_0 != 0) {
+                    switch (type_sp) {
                         case 0:
                             g_potision_script.g_playerpointer_s++;
                             g_potision_script.g_playerpointer_h = g_dicemovenum;
@@ -423,7 +445,7 @@ public class Playermove : MonoBehaviour {
                             break;
                         case 20:
                             g_potision_script.g_playerpointer_s++;
-                            g_potision_script.g_playerpointer_h =  g_dicemovenum;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
                             Player_Move();
                             break;
                         case 100:
@@ -460,10 +482,12 @@ public class Playermove : MonoBehaviour {
     }
 
     private void Player_Move() {
-        g_sponplayer = g_arrymovescript.Get_Pos(g_potision_script.g_playerpointer_v, g_potision_script.g_playerpointer_s, g_potision_script.g_playerpointer_h);
+
+        g_sponplayer = g_type_script.Get_Pos(g_potision_script.g_playerpointer_v, g_potision_script.g_playerpointer_s, g_potision_script.g_playerpointer_h);
         this.gameObject.transform.position = g_sponplayer;
         Player_potision();
         Goal();
+        Debug.Log(g_movecheck_v);
     }
 
     void Player_potision() {
@@ -494,16 +518,15 @@ public class Playermove : MonoBehaviour {
         //Debug.Log("やってるよ");
         switch (g_keynum) {
             case 0:
-                for (int i = g_potision_script.g_playerpointer_h; i > 0|| g_floorflag ==true; i--) {
-                    if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, i - 1) == 0) {
+                for (int i = g_potision_script.g_playerpointer_h; i > 0 || g_floorflag == true; i--) {
+                    if (g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, i - 1) == 0) {
 
-                    g_loopnum++;
-                    }
-                   else  if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v + 1, g_check_script.g_dice_check_s, i-1) != 0) {
+                        g_loopnum++;
+                    } else if (g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, i - 1) != 0) {
 
-                      
+
                         //Debug.Log(g_loopnum);
-                        g_loopnum = g_potision_script.g_playerpointer_h -g_loopnum;
+                        g_loopnum = g_potision_script.g_playerpointer_h - g_loopnum;
                         //Debug.Log(g_loopnum);
                         return g_loopnum;
                     }
@@ -512,12 +535,11 @@ public class Playermove : MonoBehaviour {
             case 1:
                 //Debug.Log(g_loopnum);
                 for (int i = g_potision_script.g_playerpointer_h; i > 0 || g_floorflag == true; i--) {
-                    if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, i - 1) == 0) {
+                    if (g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, i - 1) == 0) {
 
-                    g_loopnum++;
-                    }
-                     else   if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v - 1, g_check_script.g_dice_check_s, i-1) != 0) {
-                       
+                        g_loopnum++;
+                    } else if (g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, i - 1) != 0) {
+
 
                         //Debug.Log(g_loopnum);
                         g_loopnum = g_potision_script.g_playerpointer_h - g_loopnum;
@@ -528,32 +550,30 @@ public class Playermove : MonoBehaviour {
                 break;
             case 2:
                 for (int i = g_potision_script.g_playerpointer_h; i > 0 || g_floorflag == true; i--) {
-                    if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, i - 1) == 0) {
+                    if (g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, i - 1) == 0) {
 
-                    g_loopnum++;
-                    }
-                      else  if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s - 1, i-1) != 0) {
-                       
+                        g_loopnum++;
+                    } else if (g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, i - 1) != 0) {
+
 
                         //Debug.Log(g_loopnum);
                         g_loopnum = g_potision_script.g_playerpointer_h - g_loopnum;
                         //Debug.Log(g_loopnum);
                         return g_loopnum;
-                    } 
+                    }
                 }
                 break;
             case 3:
                 for (int i = g_potision_script.g_playerpointer_h; i > 0 || g_floorflag == true; i--) {
-                    if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, i - 1) == 0) {
+                    if (g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, i - 1) == 0) {
 
-                    g_loopnum++;
-                    }
-                      else  if (g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s + 1, i-1) != 0) {
-                       
+                        g_loopnum++;
+                    } else if (g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, i - 1) != 0) {
+
 
                         //Debug.Log(g_loopnum);
                         g_loopnum = g_potision_script.g_playerpointer_h - g_loopnum;
-                       //Debug.Log(g_loopnum);
+                        //Debug.Log(g_loopnum);
                         return g_loopnum;
                     }
                 }
@@ -564,4 +584,10 @@ public class Playermove : MonoBehaviour {
         return g_loopnum;
 
     }
+    public void Movecheck() {
+        g_movecheck_v = g_check_script.g_dice_check_v;
+        g_movecheck_s = g_check_script.g_dice_check_s;
+        g_movecheck_h = g_check_script.g_dice_check_h;
+    }
 }
+
