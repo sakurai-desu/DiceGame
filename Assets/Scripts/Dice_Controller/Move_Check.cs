@@ -186,7 +186,7 @@ public class Move_Check : MonoBehaviour {
     /// <param name="side">横</param>
     /// <param name="high">高さ</param>
     /// <returns>True：床が有る/False：床が無い</returns>
-    public bool Center_Obj_Ground_Check(int ver, int side, int high,GameObject dice_obj) {
+    public bool Obj_Ground_Check(int ver, int side, int high,GameObject dice_obj) {
         //落下先が埋まるか、配列の範囲外になるまで繰り返す
         for (int pointer = high - 1; pointer >= g_zero_Count; pointer--) {
             //同じ親フラグ初期化

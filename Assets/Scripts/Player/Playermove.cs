@@ -112,7 +112,7 @@ public class Playermove : MonoBehaviour {
                 int type_v_plus = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h);
                 //プレイヤーのv.h方向の一個先
                 int type_v_h_plus = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h + 1);
-                
+
                 if (type_v_plus != 0 && type_v_h_plus == 0) {
                     switch (type_v_plus) {
                         case 0:
@@ -142,11 +142,8 @@ public class Playermove : MonoBehaviour {
                 g_direction_Script.Player_Direction_Change(30);
 
                 g_dicemovenum = HSearch(0);
-                //プレイヤーのv方向の一個先h方向の一個下
                 int type_vp_hm = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h - 1);
-                //プレイヤーのv方向の一個先
                 int type_v_p = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h);
-                //プレイヤーのv方向の一個先
                 int type_v_p_0 = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, 0);
                 if (type_vp_hm != 0) {
 
