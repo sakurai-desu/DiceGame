@@ -127,7 +127,7 @@ public class Parent_All_Rotation : MonoBehaviour {
         }
         //g_is_ground=g_dice_fall_Script.Rotate_Check(g_work_children);
         //回転できる状態なら
-        if (g_is_rotate &&g_is_ground) {
+        if (g_is_rotate && g_is_ground) {
             //回転の軸にするダイスの回転用スクリプト取得
             g_rotate_Script = g_center_Dice.GetComponent<Dice_Rotate>();
             //ダイスを回転させる
@@ -143,7 +143,7 @@ public class Parent_All_Rotation : MonoBehaviour {
         //回転フラグ初期化
         g_is_rotate = true;
         //床フラグ初期化
-        g_is_ground = true;
+        g_is_ground = false;
         for (int ver = g_zero_Count; ver < g_array_max; ver++) {
             for (int side = g_zero_Count; side < g_array_max; side++) {
                 for (int high = g_zero_Count; high < g_array_max; high++) {
@@ -177,10 +177,12 @@ public class Parent_All_Rotation : MonoBehaviour {
             g_check_Script.Retention_After_Pointer(g_next_ver + 1, g_child_Side, g_next_high);
             //移動先が埋まっていないか調べる
             g_is_rotate = g_check_Script.Check(g_next_ver + 1, g_child_Side, g_next_high);
-            g_is_ground = g_check_Script.Center_Obj_Ground_Check
-                (g_next_ver + 1, g_child_Side, g_next_high, g_work_children[child_pointer]);
+            if (!g_is_ground) {
+                g_is_ground = g_check_Script.Obj_Ground_Check(g_next_ver + 1, g_child_Side, g_next_high, g_work_children[child_pointer]);
+            }
+
             //移動先が埋まっていたら
-            if (!g_is_rotate ||!g_is_ground) {
+            if (!g_is_rotate) {
                 //処理中断
                 break;
             }
@@ -210,9 +212,12 @@ public class Parent_All_Rotation : MonoBehaviour {
             g_check_Script.Retention_After_Pointer(g_next_ver - 1, g_child_Side, g_next_high);
             //移動先が埋まっていないか調べる
             g_is_rotate = g_check_Script.Check(g_next_ver - 1, g_child_Side, g_next_high);
-            g_is_ground = g_check_Script.Center_Obj_Ground_Check(g_next_ver - 1, g_child_Side, g_next_high, g_work_children[child_pointer]);
+           
+            if (!g_is_ground) {
+                g_is_ground = g_check_Script.Obj_Ground_Check(g_next_ver - 1, g_child_Side, g_next_high, g_work_children[child_pointer]);
+            }
             //移動先が埋まっていないか調べる
-            if (!g_is_rotate || !g_is_ground) {
+            if (!g_is_rotate ) {
                 //処理中断
                 break;
             }
@@ -242,9 +247,11 @@ public class Parent_All_Rotation : MonoBehaviour {
             g_check_Script.Retention_After_Pointer(g_child_Ver, g_next_side + 1, g_next_high);
             //移動先が埋まっていないか調べる
             g_is_rotate = g_check_Script.Check(g_child_Ver, g_next_side + 1, g_next_high);
-            g_is_ground = g_check_Script.Center_Obj_Ground_Check(g_child_Ver, g_next_side + 1, g_next_high, g_work_children[child_pointer]);
+            if (!g_is_ground) {
+            g_is_ground = g_check_Script.Obj_Ground_Check(g_child_Ver, g_next_side + 1, g_next_high, g_work_children[child_pointer]);
+            }
             //移動先が埋まっていないか調べる
-            if (!g_is_rotate || !g_is_ground) {
+            if (!g_is_rotate ) {
                 //処理中断
                 break;
             }
@@ -273,9 +280,12 @@ public class Parent_All_Rotation : MonoBehaviour {
             g_check_Script.Retention_After_Pointer(g_child_Ver, g_next_side - 1, g_next_high);
             //移動先が埋まっていないか調べる
             g_is_rotate = g_check_Script.Check(g_child_Ver, g_next_side - 1, g_next_high);
-            g_is_ground = g_check_Script.Center_Obj_Ground_Check(g_child_Ver, g_next_side - 1, g_next_high, g_work_children[child_pointer]);
+            if (!g_is_ground) {
+                g_is_ground = g_check_Script.Obj_Ground_Check(g_child_Ver, g_next_side - 1, g_next_high, g_work_children[child_pointer]);
+
+            }
             //移動先が埋まっていないか調べる
-            if (!g_is_rotate || !g_is_ground) {
+            if (!g_is_rotate ) {
                 //処理中断
                 break;
             }
