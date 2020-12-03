@@ -62,7 +62,7 @@ public class Playermove : MonoBehaviour {
         g_createpointer_s = g_potision_script.g_playerpointer_s;
         (g_v_PBlockCount, g_s_PBlockCount, g_h_PBlockCount) = g_json_Script.Get_Array_Max();
         g_cooltimer = g_coolresettimer;
-       
+
     }
     [SerializeField]
     bool g_arrayExistFlag;
@@ -144,7 +144,7 @@ public class Playermove : MonoBehaviour {
                 g_dicemovenum = HSearch(0);
                 int type_vp_hm = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h - 1);
                 int type_v_p = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h);
-                int type_v_p_0= g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s,0);
+                int type_v_p_0 = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, 0);
                 if (type_vp_hm != 0) {
 
                     switch (type_v_p) {
@@ -238,7 +238,7 @@ public class Playermove : MonoBehaviour {
 
                 int type_vm_hm = g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h - 1);
                 int type_vm = g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h);
-                int type_vm_0 = g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s,0);
+                int type_vm_0 = g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, 0);
                 if (type_vm_hm != 0) {
 
                     switch (type_vm) {
@@ -482,12 +482,12 @@ public class Playermove : MonoBehaviour {
     }
 
     private void Player_Move() {
-       
+
         g_sponplayer = g_type_script.Get_Pos(g_potision_script.g_playerpointer_v, g_potision_script.g_playerpointer_s, g_potision_script.g_playerpointer_h);
         this.gameObject.transform.position = g_sponplayer;
         Player_potision();
         Goal();
-         Debug.Log(g_movecheck_v);
+        Debug.Log(g_movecheck_v);
     }
 
     void Player_potision() {
