@@ -105,363 +105,20 @@ public class Playermove : MonoBehaviour {
         //}
         #region 移動制御
         //配列hの上限に達してない時移動(上)
-        if (g_potision_script.g_playerpointer_v < g_v_PBlockCount - 1 && g_cooltimer > 0) {
-            if (g_speaceflag && Input.GetKeyDown(KeyCode.W)) {
-                g_direction_Script.Player_Direction_Change(30);
-                //プレイヤーのv方向の一個先
-                int type_v_plus = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h);
-                //プレイヤーのv.h方向の一個先
-                int type_v_h_plus = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h + 1);
-
-                if (type_v_plus != 0 && type_v_h_plus == 0) {
-                    switch (type_v_plus) {
-                        case 0:
-
-                            break;
-                        case 20:
-                            g_potision_script.g_playerpointer_v++;
-                            g_potision_script.g_playerpointer_h++;
-                            Player_Move();
-                            break;
-                        case 50:
-                            g_potision_script.g_playerpointer_v++;
-                            g_potision_script.g_playerpointer_h++;
-
-                            Player_Move();
-                            break;
-                        case 100:
-                            g_potision_script.g_playerpointer_v++;
-                            g_potision_script.g_playerpointer_h++;
-
-                            Player_Move();
-                            break;
-                    }
-                }
-            } else if (Input.GetKeyDown(KeyCode.W)) {
-                //プレイヤーの向きを変更
-                g_direction_Script.Player_Direction_Change(30);
-
-                g_dicemovenum = HSearch(0);
-                int type_vp_hm = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h - 1);
-                int type_v_p = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h);
-                int type_v_p_0 = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, 0);
-                if (type_vp_hm != 0) {
-
-                    switch (type_v_p) {
-                        case 0:
-                            g_potision_script.g_playerpointer_v++;
-                            Player_Move();
-                            break;
-                        //case 20:
-                        //    g_potision_script.g_playerpointer_v++;
-                        //    Player_Move();
-                        //    break;
-
-                        case 100:
-                            g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
-                            GameObject dice_obj = g_type_script.Get_Obj(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h);
-                            g_dice_con_Script.Storage_Control_Obj(dice_obj, 0);
-                            //dicemove入れればいいんじゃね
-                            break;
-                    }
-                }
-
-                    //上から降りるときのスクリプト
-                    else if (g_dicemovenum != 0 && type_v_p_0 != 0) {
-
-                    switch (type_v_p) {
-                        case 0:
-                            g_potision_script.g_playerpointer_v++;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
-
-                            Player_Move();
-                            break;
-                        case 20:
-                            g_potision_script.g_playerpointer_v++;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
-                            Player_Move();
-                            break;
-
-                        case 100:
-                            g_potision_script.g_playerpointer_v++;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
-                            Player_Move();
-                            //dicemove入れなくてもいいんじゃね
-                            break;
-                    }
-                }
-
-                PushKey();
-                g_wflag = true;
-            } else if (Input.GetKeyUp(KeyCode.W)) {
-                UpKey();
-                g_wflag = false;
-            }
-
+        if (Input.GetKeyDown(KeyCode.W)) {
+            Move_W();
         }
         //配列hの下限に達してない時移動(下)
-        if (g_potision_script.g_playerpointer_v > 0 && g_cooltimer > 0) {
-            if (g_speaceflag && Input.GetKeyDown(KeyCode.S)) {
-                //プレイヤーの向きを変更
-                g_direction_Script.Player_Direction_Change(32);
-
-                int type_v_minus = g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h);
-                int type_vm_hp = g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h + 1);
-                if (type_v_minus != 0 && type_vm_hp == 0) {
-                    switch (g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h)) {
-                        case 0:
-
-                            break;
-                        case 20:
-                            g_potision_script.g_playerpointer_v--;
-                            g_potision_script.g_playerpointer_h++;
-                            Player_Move();
-                            break;
-                        case 50:
-                            g_potision_script.g_playerpointer_v--;
-                            g_potision_script.g_playerpointer_h++;
-
-                            Player_Move();
-                            break;
-                        case 100:
-                            g_potision_script.g_playerpointer_v--;
-                            g_potision_script.g_playerpointer_h++;
-
-                            Player_Move();
-                            break;
-                    }
-                }
-            } else if (Input.GetKeyDown(KeyCode.S)) {
-                //プレイヤーの向きを変更
-                g_direction_Script.Player_Direction_Change(32);
-                g_dicemovenum = HSearch(1);
-
-                int type_vm_hm = g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h - 1);
-                int type_vm = g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h);
-                int type_vm_0 = g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, 0);
-                if (type_vm_hm != 0) {
-
-                    switch (type_vm) {
-                        case 0:
-                            g_potision_script.g_playerpointer_v--;
-                            Player_Move();
-                            break;
-                        //case 20:
-                        //    g_potision_script.g_playerpointer_v--;
-                        //    Player_Move();
-                        //    break;
-                        case 100:
-                            g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
-                            GameObject dice_obj = g_type_script.Get_Obj(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h);
-                            g_dice_con_Script.Storage_Control_Obj(dice_obj, 1);
-                            break;
-                    }
-                }
-                 //上から降りるときのスクリプト
-                 else if (g_dicemovenum != 0 && type_vm_0 != 0) {
-
-                    switch (type_vm) {
-                        case 0:
-                            g_potision_script.g_playerpointer_v--;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
-
-                            Player_Move();
-                            break;
-                        case 20:
-                            g_potision_script.g_playerpointer_v--;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
-                            Player_Move();
-                            break;
-                        case 100:
-                            g_potision_script.g_playerpointer_v--;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
-
-                            Player_Move();
-                            break;
-                    }
-                }
-
-                PushKey();
-                g_sflag = true;
-            } else if (Input.GetKeyUp(KeyCode.S)) {
-                UpKey();
-                g_sflag = false;
-            }
+        if (Input.GetKeyDown(KeyCode.S)) {
+            Move_S();
         }
         //配列vの下限に達してない時移動(左)
-        if (g_potision_script.g_playerpointer_s > 0 && g_cooltimer > 0) {
-            if (g_speaceflag && Input.GetKeyDown(KeyCode.A)) {
-                //プレイヤーの向きを変更
-                g_direction_Script.Player_Direction_Change(33);
-                int type_sm = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, g_movecheck_h);
-                int type_sm_hp = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, g_movecheck_h + 1);
-                if (type_sm != 0 && type_sm_hp == 0) {
-                    switch (type_sm) {
-                        case 0:
-
-                            break;
-                        case 20:
-                            g_potision_script.g_playerpointer_s--;
-                            g_potision_script.g_playerpointer_h++;
-                            Player_Move();
-                            break;
-
-                        case 50:
-                            g_potision_script.g_playerpointer_s--;
-                            g_potision_script.g_playerpointer_h++;
-
-                            Player_Move();
-                            break;
-                        case 100:
-                            g_potision_script.g_playerpointer_s--;
-                            g_potision_script.g_playerpointer_h++;
-
-                            Player_Move();
-                            break;
-                    }
-                }
-            } else if (Input.GetKeyDown(KeyCode.A)) {
-                //プレイヤーの向きを変更
-                g_direction_Script.Player_Direction_Change(33);
-                g_dicemovenum = HSearch(2);
-                int type_sm = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, g_movecheck_h);
-                int type_sm_hm = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, g_movecheck_h - 1);
-                int type_sm_0 = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, 0);
-                if (type_sm_hm != 0) {
-
-                    switch (type_sm) {
-                        case 0:
-                            g_potision_script.g_playerpointer_s--;
-                            Player_Move();
-                            break;
-                        //case 20:
-                        //    g_potision_script.g_playerpointer_s--;
-                        //    Player_Move();
-                        //    break;
-                        case 100:
-                            g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
-                            GameObject dice_obj = g_type_script.Get_Obj(g_movecheck_v, g_movecheck_s - 1, g_movecheck_h);
-                            g_dice_con_Script.Storage_Control_Obj(dice_obj, 3);
-                            break;
-                    }
-                }
-                    //上から降りるときのスクリプト
-                    else if (g_dicemovenum != 0 && type_sm_0 != 0) {
-
-                    switch (type_sm) {
-                        case 0:
-                            g_potision_script.g_playerpointer_s--;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
-
-                            Player_Move();
-                            break;
-                        case 20:
-                            g_potision_script.g_playerpointer_s--;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
-                            Player_Move();
-                            break;
-                        case 100:
-                            g_potision_script.g_playerpointer_s--;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
-
-                            Player_Move();
-                            break;
-                    }
-                }
-                PushKey();
-                g_aflag = true;
-            } else if (Input.GetKeyUp(KeyCode.A)) {
-                UpKey();
-                g_aflag = false;
-            }
+        if (Input.GetKeyDown(KeyCode.A)) {
+            Move_A();
         }
         //配列vの上限に達してない時移動(右)
-        if (g_potision_script.g_playerpointer_s < g_s_PBlockCount - 1 && g_cooltimer > 0) {
-
-            if (g_speaceflag && Input.GetKeyDown(KeyCode.D)) {
-                //プレイヤーの向きを変更
-                g_direction_Script.Player_Direction_Change(31);
-                int type_sp = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, g_movecheck_h);
-                int type_sp_hp = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, g_movecheck_h + 1);
-                if (type_sp != 0 && type_sp_hp == 0) {
-                    switch (type_sp) {
-                        case 0:
-
-                            break;
-                        case 20:
-                            g_potision_script.g_playerpointer_s++;
-                            g_potision_script.g_playerpointer_h++;
-                            Player_Move();
-                            break;
-                        case 50:
-                            g_potision_script.g_playerpointer_s++;
-                            g_potision_script.g_playerpointer_h++;
-
-                            Player_Move();
-                            break;
-                        case 100:
-                            g_potision_script.g_playerpointer_s++;
-                            g_potision_script.g_playerpointer_h++;
-
-                            Player_Move();
-                            break;
-                    }
-                }
-            } else if (Input.GetKeyDown(KeyCode.D)) {
-                //プレイヤーの向きを変更
-                g_direction_Script.Player_Direction_Change(31);
-                g_dicemovenum = HSearch(3);
-                int type_sp_hm = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, g_movecheck_h - 1);
-                int type_sp = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, g_movecheck_h);
-                int type_sp_0 = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, 0);
-
-                if (type_sp_hm != 0) {
-
-                    switch (type_sp) {
-                        case 0:
-                            g_potision_script.g_playerpointer_s++;
-                            Player_Move();
-                            break;
-                        //case 20:
-                        //    g_potision_script.g_playerpointer_s++;
-                        //    Player_Move();
-                        //    break;
-                        case 100:
-                            g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
-                            GameObject dice_obj = g_type_script.Get_Obj(g_movecheck_v, g_movecheck_s + 1, g_movecheck_h);
-                            g_dice_con_Script.Storage_Control_Obj(dice_obj, 2);
-                            break;
-                    }
-                }
-                //上から降りるときのスクリプト
-
-                else if (g_dicemovenum != 0 && type_sp_0 != 0) {
-                    switch (type_sp) {
-                        case 0:
-                            g_potision_script.g_playerpointer_s++;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
-
-                            Player_Move();
-                            break;
-                        case 20:
-                            g_potision_script.g_playerpointer_s++;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
-                            Player_Move();
-                            break;
-                        case 100:
-                            g_potision_script.g_playerpointer_s++;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
-
-                            Player_Move();
-                            break;
-                    }
-                }
-                PushKey();
-                g_dflag = true;
-            } else if (Input.GetKeyUp(KeyCode.D)) {
-                UpKey();
-                g_dflag = false;
-            }
+        if (Input.GetKeyDown(KeyCode.D)) {
+            Move_D();
         }
         #endregion
         if (Input.GetKeyDown(KeyCode.Space)) {
@@ -588,6 +245,373 @@ public class Playermove : MonoBehaviour {
         g_movecheck_v = g_check_script.g_dice_check_v;
         g_movecheck_s = g_check_script.g_dice_check_s;
         g_movecheck_h = g_check_script.g_dice_check_h;
+    }
+    public void Move_W() {
+        if (g_potision_script.g_playerpointer_v < g_v_PBlockCount - 1 && g_cooltimer > 0) {
+            if (g_speaceflag) 
+            {
+                g_direction_Script.Player_Direction_Change(30);
+                //プレイヤーのv方向の一個先
+                int type_v_plus = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h);
+                //プレイヤーのv.h方向の一個先
+                int type_v_h_plus = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h + 1);
+
+                if (type_v_plus != 0 && type_v_h_plus == 0) {
+                    switch (type_v_plus) {
+                        case 0:
+
+                            break;
+                        case 20:
+                            g_potision_script.g_playerpointer_v++;
+                            g_potision_script.g_playerpointer_h++;
+                            Player_Move();
+                            break;
+                        case 50:
+                            g_potision_script.g_playerpointer_v++;
+                            g_potision_script.g_playerpointer_h++;
+
+                            Player_Move();
+                            break;
+                        case 100:
+                            g_potision_script.g_playerpointer_v++;
+                            g_potision_script.g_playerpointer_h++;
+
+                            Player_Move();
+                            break;
+                    }
+                }
+            } else {
+                //プレイヤーの向きを変更
+                g_direction_Script.Player_Direction_Change(30);
+
+                g_dicemovenum = HSearch(0);
+                int type_vp_hm = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h - 1);
+                int type_v_p = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h);
+                int type_v_p_0 = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, 0);
+                if (type_vp_hm != 0) {
+
+                    switch (type_v_p) {
+                        case 0:
+                            g_potision_script.g_playerpointer_v++;
+                            Player_Move();
+                            break;
+                        //case 20:
+                        //    g_potision_script.g_playerpointer_v++;
+                        //    Player_Move();
+                        //    break;
+
+                        case 100:
+                            g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
+                            GameObject dice_obj = g_type_script.Get_Obj(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h);
+                            g_dice_con_Script.Storage_Control_Obj(dice_obj, 0);
+                            //dicemove入れればいいんじゃね
+                            break;
+                    }
+                }
+
+                    //上から降りるときのスクリプト
+                    else if (g_dicemovenum != 0) {
+
+                    switch (type_v_p) {
+                        case 0:
+                            g_potision_script.g_playerpointer_v++;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+
+                            Player_Move();
+                            break;
+                        case 20:
+                            g_potision_script.g_playerpointer_v++;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+                            Player_Move();
+                            break;
+
+                        case 100:
+                            g_potision_script.g_playerpointer_v++;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+                            Player_Move();
+                            //dicemove入れなくてもいいんじゃね
+                            break;
+                    }
+                }
+
+                PushKey();
+                g_wflag = true;
+            } 
+            //else if (Input.GetKeyUp(KeyCode.W)) {
+            //    UpKey();
+            //    g_wflag = false;
+            //}
+
+        }
+    }
+    public void Move_S() {
+        if (g_potision_script.g_playerpointer_v > 0 && g_cooltimer > 0) {
+            if (g_speaceflag) {
+                //プレイヤーの向きを変更
+                g_direction_Script.Player_Direction_Change(32);
+
+                int type_v_minus = g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h);
+                int type_vm_hp = g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h + 1);
+                if (type_v_minus != 0 && type_vm_hp == 0) {
+                    switch (g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h)) {
+                        case 0:
+
+                            break;
+                        case 20:
+                            g_potision_script.g_playerpointer_v--;
+                            g_potision_script.g_playerpointer_h++;
+                            Player_Move();
+                            break;
+                        case 50:
+                            g_potision_script.g_playerpointer_v--;
+                            g_potision_script.g_playerpointer_h++;
+
+                            Player_Move();
+                            break;
+                        case 100:
+                            g_potision_script.g_playerpointer_v--;
+                            g_potision_script.g_playerpointer_h++;
+
+                            Player_Move();
+                            break;
+                    }
+                }
+            } else {
+                //プレイヤーの向きを変更
+                g_direction_Script.Player_Direction_Change(32);
+                g_dicemovenum = HSearch(1);
+
+                int type_vm_hm = g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h - 1);
+                int type_vm = g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h);
+                int type_vm_0 = g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, 0);
+                if (type_vm_hm != 0) {
+
+                    switch (type_vm) {
+                        case 0:
+                            g_potision_script.g_playerpointer_v--;
+                            Player_Move();
+                            break;
+                        //case 20:
+                        //    g_potision_script.g_playerpointer_v--;
+                        //    Player_Move();
+                        //    break;
+                        case 100:
+                            g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
+                            GameObject dice_obj = g_type_script.Get_Obj(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h);
+                            g_dice_con_Script.Storage_Control_Obj(dice_obj, 1);
+                            break;
+                    }
+                }
+                 //上から降りるときのスクリプト
+                 else if (g_dicemovenum != 0) {
+
+                    switch (type_vm) {
+                        case 0:
+                            g_potision_script.g_playerpointer_v--;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+
+                            Player_Move();
+                            break;
+                        case 20:
+                            g_potision_script.g_playerpointer_v--;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+                            Player_Move();
+                            break;
+                        case 100:
+                            g_potision_script.g_playerpointer_v--;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+
+                            Player_Move();
+                            break;
+                    }
+                }
+
+                PushKey();
+                g_sflag = true;
+            }
+            //else if (Input.GetKeyUp(KeyCode.S)) {
+            //    UpKey();
+            //    g_sflag = false;
+            //}
+        }
+    }
+    public void Move_A() {
+        if (g_potision_script.g_playerpointer_s > 0 && g_cooltimer > 0) {
+            if (g_speaceflag) {
+                //プレイヤーの向きを変更
+                g_direction_Script.Player_Direction_Change(33);
+                int type_sm = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, g_movecheck_h);
+                int type_sm_hp = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, g_movecheck_h + 1);
+                if (type_sm != 0 && type_sm_hp == 0) {
+                    switch (type_sm) {
+                        case 0:
+
+                            break;
+                        case 20:
+                            g_potision_script.g_playerpointer_s--;
+                            g_potision_script.g_playerpointer_h++;
+                            Player_Move();
+                            break;
+
+                        case 50:
+                            g_potision_script.g_playerpointer_s--;
+                            g_potision_script.g_playerpointer_h++;
+
+                            Player_Move();
+                            break;
+                        case 100:
+                            g_potision_script.g_playerpointer_s--;
+                            g_potision_script.g_playerpointer_h++;
+
+                            Player_Move();
+                            break;
+                    }
+                }
+            } else  {
+                //プレイヤーの向きを変更
+                g_direction_Script.Player_Direction_Change(33);
+                g_dicemovenum = HSearch(2);
+                int type_sm = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, g_movecheck_h);
+                int type_sm_hm = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, g_movecheck_h - 1);
+                int type_sm_0 = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, 0);
+                if (type_sm_hm != 0) {
+
+                    switch (type_sm) {
+                        case 0:
+                            g_potision_script.g_playerpointer_s--;
+                            Player_Move();
+                            break;
+                        //case 20:
+                        //    g_potision_script.g_playerpointer_s--;
+                        //    Player_Move();
+                        //    break;
+                        case 100:
+                            g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
+                            GameObject dice_obj = g_type_script.Get_Obj(g_movecheck_v, g_movecheck_s - 1, g_movecheck_h);
+                            g_dice_con_Script.Storage_Control_Obj(dice_obj, 3);
+                            break;
+                    }
+                }
+                    //上から降りるときのスクリプト
+                    else if (g_dicemovenum != 0/* && type_sm_0 != 0*/) {
+
+                    switch (type_sm) {
+                        case 0:
+                            g_potision_script.g_playerpointer_s--;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+
+                            Player_Move();
+                            break;
+                        case 20:
+                            g_potision_script.g_playerpointer_s--;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+                            Player_Move();
+                            break;
+                        case 100:
+                            g_potision_script.g_playerpointer_s--;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+
+                            Player_Move();
+                            break;
+                    }
+                }
+                PushKey();
+                g_aflag = true;
+            } 
+            //else if (Input.GetKeyUp(KeyCode.A)) {
+            //    UpKey();
+            //    g_aflag = false;
+            //}
+        }
+    }
+    public void Move_D() {
+        if (g_potision_script.g_playerpointer_s < g_s_PBlockCount - 1 && g_cooltimer > 0) {
+
+            if (g_speaceflag ) {
+                //プレイヤーの向きを変更
+                g_direction_Script.Player_Direction_Change(31);
+                int type_sp = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, g_movecheck_h);
+                int type_sp_hp = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, g_movecheck_h + 1);
+                if (type_sp != 0 && type_sp_hp == 0) {
+                    switch (type_sp) {
+                        case 0:
+
+                            break;
+                        case 20:
+                            g_potision_script.g_playerpointer_s++;
+                            g_potision_script.g_playerpointer_h++;
+                            Player_Move();
+                            break;
+                        case 50:
+                            g_potision_script.g_playerpointer_s++;
+                            g_potision_script.g_playerpointer_h++;
+
+                            Player_Move();
+                            break;
+                        case 100:
+                            g_potision_script.g_playerpointer_s++;
+                            g_potision_script.g_playerpointer_h++;
+
+                            Player_Move();
+                            break;
+                    }
+                }
+            } else {
+                //プレイヤーの向きを変更
+                g_direction_Script.Player_Direction_Change(31);
+                g_dicemovenum = HSearch(3);
+                int type_sp_hm = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, g_movecheck_h - 1);
+                int type_sp = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, g_movecheck_h);
+                int type_sp_0 = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, 0);
+
+                if (type_sp_hm != 0) {
+
+                    switch (type_sp) {
+                        case 0:
+                            g_potision_script.g_playerpointer_s++;
+                            Player_Move();
+                            break;
+                        //case 20:
+                        //    g_potision_script.g_playerpointer_s++;
+                        //    Player_Move();
+                        //    break;
+                        case 100:
+                            g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
+                            GameObject dice_obj = g_type_script.Get_Obj(g_movecheck_v, g_movecheck_s + 1, g_movecheck_h);
+                            g_dice_con_Script.Storage_Control_Obj(dice_obj, 2);
+                            break;
+                    }
+                }
+                //上から降りるときのスクリプト
+                else if (g_dicemovenum != 0 /*&& type_sp_0 != 0*/) {
+                    switch (type_sp) {
+                        case 0:
+                            g_potision_script.g_playerpointer_s++;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+
+                            Player_Move();
+                            break;
+                        case 20:
+                            g_potision_script.g_playerpointer_s++;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+                            Player_Move();
+                            break;
+                        case 100:
+                            g_potision_script.g_playerpointer_s++;
+                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+
+                            Player_Move();
+                            break;
+                    }
+                }
+                PushKey();
+                g_dflag = true;
+            } 
+            //if (Input.GetKeyUp(KeyCode.D)) {
+            //    UpKey();
+            //    g_dflag = false;
+            //}
+        }
     }
 }
 
