@@ -6,10 +6,14 @@ public class MainCamera_Move : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] g_camera_Array;
-    [SerializeField]
-    private int g_camera_pointer;
+
+    //配列内のどのカメラが選択されているかを判断するための数値
+    public int g_camera_pointer;
 
     private GameObject g_this_Obj;
+
+    //ボタンが押されているかどうかを判断するフラグ
+    public bool g_button_push_flag;
 
     void Start()
     {
@@ -21,11 +25,13 @@ public class MainCamera_Move : MonoBehaviour
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.E)) {
+            g_button_push_flag = true;
             Change_Right_Camra_Pos();
-        }
+        } 
         if (Input.GetKeyDown(KeyCode.Q)) {
+            g_button_push_flag = true;
             Change_Left_Camra_Pos();
-        }
+        } 
     }
 
     private void Change_Left_Camra_Pos() {
