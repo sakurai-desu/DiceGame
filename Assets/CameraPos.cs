@@ -39,22 +39,25 @@ public class CameraPos : MonoBehaviour
         g_side_pos = g_input.g_inputJson.g_hori;
         g_high_pos = g_input.g_inputJson.g_high;
         g_var_pos = g_input.g_inputJson.g_ver;
-        if (g_high_pos >= 6) {
+        if (g_high_pos >= 6 && g_high_pos <= 9) {
             g_change_pos_num = 3;
+        } else if (g_high_pos > 9) {
+
+            g_change_pos_num = 4;
         }
         //自信のオブジェクトがどこのポジションのカメラ化を判断する
         switch (g_camera_num) {
             case g_rghitcamera:
-                CameraSet(g_side_pos+g_change_pos_num, g_high_pos, 0);
+                CameraSet(g_side_pos-g_change_pos_num, g_high_pos-g_change_pos_num, -g_change_pos_num);
                 break;
             case g_leftcamera:
-                CameraSet(0, g_high_pos+g_change_pos_num, 0);
+                CameraSet(0, g_high_pos-g_change_pos_num, -g_change_pos_num);
                 break;
             case g_rightbackcamera:
                 CameraSet(0, g_high_pos, g_var_pos+g_change_pos_num);
                 break;
             case g_leftbackcamera:
-                CameraSet(g_side_pos+g_change_pos_num, g_high_pos, g_var_pos+g_change_pos_num);
+                CameraSet(g_side_pos+g_change_pos_num-1, g_high_pos, g_var_pos+g_change_pos_num-1);
                 break;
         }
     }
