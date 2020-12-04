@@ -57,7 +57,7 @@ public class CameraPos : MonoBehaviour
                 CameraSet(0, g_high_pos, g_var_pos+g_change_pos_num);
                 break;
             case g_leftbackcamera:
-                CameraSet(g_side_pos+g_change_pos_num-1, g_high_pos, g_var_pos+g_change_pos_num-1);
+                CameraSet(g_side_pos+g_change_pos_num+2, g_high_pos, g_var_pos+g_change_pos_num+2);
                 break;
         }
     }

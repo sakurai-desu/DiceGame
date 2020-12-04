@@ -91,6 +91,8 @@ public class Playermove : MonoBehaviour {
     bool g_h_seartchflag;
 
     int g_dicemovenum;
+
+    public int g_camera_num;
     void Update() {
 
         if (g_arrayflag == true) {
@@ -100,27 +102,52 @@ public class Playermove : MonoBehaviour {
             //Debug.Log(g_sponplayer);
             g_arrayflag = false;
         }
-        //if (g_potision_script.g_playerpointer_h > 1) {
-        //    g_arrayExistFlag = true;
-        //}
+        if (g_camera_num == 0 || g_camera_num == 1) {
+            g_camera_num = 0;
+        } else {
+            g_camera_num = 2;
+        }
         #region 移動制御
-        //配列hの上限に達してない時移動(上)
-        if (Input.GetKeyDown(KeyCode.W)) {
+        switch (g_camera_num) {
+            case 0:
+            //配列hの上限に達してない時移動(上)
+            if (Input.GetKeyDown(KeyCode.W)) {
             Move_W();
-        }
-        //配列hの下限に達してない時移動(下)
-        if (Input.GetKeyDown(KeyCode.S)) {
+             }
+              //配列hの下限に達してない時移動(下)
+            if (Input.GetKeyDown(KeyCode.S)) {
             Move_S();
-        }
-        //配列vの下限に達してない時移動(左)
-        if (Input.GetKeyDown(KeyCode.A)) {
+             }
+              //配列vの下限に達してない時移動(左)
+             if (Input.GetKeyDown(KeyCode.A)) {
             Move_A();
-        }
-        //配列vの上限に達してない時移動(右)
-        if (Input.GetKeyDown(KeyCode.D)) {
+             }
+             //配列vの上限に達してない時移動(右)
+              if (Input.GetKeyDown(KeyCode.D)) {
             Move_D();
-        }
+             }
+                break;
+            case 2:
+            //配列hの上限に達してない時移動(上)
+            if (Input.GetKeyDown(KeyCode.W)) {
+            Move_S();
+             }
+              //配列hの下限に達してない時移動(下)
+            if (Input.GetKeyDown(KeyCode.S)) {
+            Move_W();
+             }
+              //配列vの下限に達してない時移動(左)
+             if (Input.GetKeyDown(KeyCode.A)) {
+            Move_D();
+             }
+             //配列vの上限に達してない時移動(右)
+              if (Input.GetKeyDown(KeyCode.D)) {
+            Move_A();
+             }
+                break;
+            }
         #endregion
+    
         if (Input.GetKeyDown(KeyCode.Space)) {
             PushKey();
             g_speaceflag = true;
