@@ -6,10 +6,16 @@ public class MainCamera_Move : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] g_camera_Array;
-    [SerializeField]
-    private int g_camera_pointer;
+
+    //配列内のどのカメラが選択されているかを判断するための数値
+    public int g_camera_pointer;
 
     private GameObject g_this_Obj;
+
+    Playermove g_play_move;
+
+    //ボタンが押されているかどうかを判断するフラグ
+    public bool g_button_push_flag;
 
     void Start()
     {
@@ -21,11 +27,17 @@ public class MainCamera_Move : MonoBehaviour
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.E)) {
+            GetPlayer();
+            g_button_push_flag = true;
             Change_Right_Camra_Pos();
-        }
+            CameraNum();
+        } 
         if (Input.GetKeyDown(KeyCode.Q)) {
+            GetPlayer();
+            g_button_push_flag = true;
             Change_Left_Camra_Pos();
-        }
+            CameraNum();
+        } 
     }
 
     private void Change_Left_Camra_Pos() {
@@ -49,5 +61,17 @@ public class MainCamera_Move : MonoBehaviour
     private void Local_PosAndRotation_Reset() {
         g_this_Obj.transform.localPosition= new Vector3(0, 0, 0);
         g_this_Obj.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+    }
+    /// <summary>
+    /// プレイヤーを取得
+    /// </summary>
+    private void GetPlayer() {
+        g_play_move = GameObject.Find("Player_Parent(Clone)").GetComponent<Playermove>();
+    }
+    /// <summary>
+    /// プレイヤー内の数値変更
+    /// </summary>
+    void CameraNum() {
+        g_play_move.g_camera_num = g_camera_pointer;
     }
 }
