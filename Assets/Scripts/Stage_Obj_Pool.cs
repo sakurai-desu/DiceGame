@@ -18,7 +18,9 @@ public class Stage_Obj_Pool : MonoBehaviour {
     [SerializeField]
     private GameObject g_dice_Prefab;
     [SerializeField]
-    private GameObject g_floor_Prefab;
+    private GameObject g_ground_Prefab;
+    [SerializeField]
+    private GameObject g_ground_Prefab_2;
     [SerializeField]
     private GameObject g_start_Prefab;
     [SerializeField]
@@ -79,7 +81,8 @@ public class Stage_Obj_Pool : MonoBehaviour {
                 break;
             //床
             case g_ground_para:
-                g_block_Obj = BlockCreator(g_floor_Prefab);
+                //Ground_Creator(ver, side);
+                g_block_Obj = BlockCreator(Ground_Creator(ver, side,high));
                 break;
             //ダイス
             case g_dice_para:
@@ -98,6 +101,46 @@ public class Stage_Obj_Pool : MonoBehaviour {
         g_block_Obj.transform.position = g_sporn_Pos;
         //配列にオブジェクトを格納する
         g_game_Con_Script.Storage_Obj(ver, side, high, g_block_Obj);
+    }
+
+    /// <summary>
+    /// 床オジェクト2種類を交互に配置するための処理
+    /// </summary>
+    /// <param name="ver">縦</param>
+    /// <param name="side">横</param>
+    /// <param name="high">高さ</param>
+    /// <returns></returns>
+    private GameObject Ground_Creator(int ver, int side,int high) {
+        //生成オブジェクト初期化
+        GameObject create_Prefab = g_ground_Prefab;
+        //計算した余りが1なら奇数0なら偶数
+        //縦を計算
+        int ver_rem = ver % 2;
+        //横を計算
+        int side_rem = side % 2;
+        //高さを計算
+        int high_rem = high % 2;
+        //高さに応じた処理をする
+        switch (high_rem) {
+            //高さが偶数の場合
+            case 0:
+                //縦と横のどちらかが奇数、どちらかが偶数の時
+                if (ver_rem + side_rem == 1) {
+                    //床オブジェクト変更
+                    create_Prefab = g_ground_Prefab_2;
+                }
+                break;
+                //高さが奇数の時
+            case 1:
+                //縦と横の両方が奇数もしくは偶数の時
+                if (ver_rem + side_rem != 1) {
+                    //床オブジェクト変更
+                    create_Prefab = g_ground_Prefab_2;
+                }
+                break;
+        }
+
+        return create_Prefab;
     }
 
     /// <summary>

@@ -4,47 +4,44 @@ using UnityEngine;
 
 public class Player_Animation : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject g_player_Obj;
+    private Player_Appearance_Move g_move_Script;
     private Animator g_player_Anim;
-
-    private bool g_play_flag = true;
+    [SerializeField]
+    private GameObject g_player_obj;
+    private bool g_play_flag = false;
 
     void Start()
     {
-        g_player_Anim = g_player_Obj.GetComponent<Animator>();
+        g_move_Script = this.GetComponent<Player_Appearance_Move>();
+        g_player_Anim = g_player_obj.GetComponent<Animator>();
     }
 
-    //void Update()
-    //{
-    //    if (g_play_flag) {
-    //        g_player_Anim.SetBool("jump_active", false);
-    //        g_player_Anim.SetBool("move_active", false);
-    //        g_player_Anim.SetBool("roll_active", false);
-    //        g_play_flag = false;
-    //    }
-
-    //    if (Input.GetKeyDown(KeyCode.J)) {
-    //        Player_Jump_Anim();
-    //    }
-    //    if (Input.GetKeyDown(KeyCode.K)) {
-    //        Player_Move_Anim();
-    //    }
-    //    if (Input.GetKeyDown(KeyCode.L)) {
-    //        Player_Roll_Anim();
-    //    }
-    //}
-
-    private void Player_Jump_Anim() {
-        g_play_flag = true;
+    void Update() {
+        //移動中フラグ取得
+        g_play_flag = g_move_Script.Get_MoveFlag();
+        //停止中のとき
+        if (!g_play_flag) {
+            g_player_Anim.SetBool("jump_active", false);
+            g_player_Anim.SetBool("move_active", false);
+            g_player_Anim.SetBool("roll_active", false);
+        }
+    }
+    /// <summary>
+    /// ジャンプアニメーション
+    /// </summary>
+    public void Player_Jump_Anim() {
         g_player_Anim.SetBool("jump_active", true);
     }
-    private void Player_Move_Anim() {
-        g_play_flag = true;
+    /// <summary>
+    /// 移動アニメーション
+    /// </summary>
+    public void Player_Move_Anim() {
         g_player_Anim.SetBool("move_active", true);
     }
-    private void Player_Roll_Anim() {
-        g_play_flag = true;
+    /// <summary>
+    /// ダイスを押すアニメーション
+    /// </summary>
+    public void Player_Roll_Anim() {
         g_player_Anim.SetBool("roll_active", true);
     }
 }

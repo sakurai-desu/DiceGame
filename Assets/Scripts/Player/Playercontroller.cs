@@ -18,9 +18,7 @@ public class Playercontroller : MonoBehaviour {
     bool g_arrayflag = false;
     //player位置
     Vector3 g_sponplayer;
-    
 
-    // Start is called before the first frame update
     void Start() {
         g_arraystats = GameObject.Find("Game_Controller");
         g_arryscript = g_arraystats.GetComponent<Game_Controller>();
@@ -29,16 +27,6 @@ public class Playercontroller : MonoBehaviour {
         g_arrayflag = true;
     }
 
-    // Update is called once per frame
-    void Update() {
-
-        //if (g_arrayflag == true) {
-        //    //Testpool.GetArrayから配列読み込み
-        //    g_sponplayer = g_arryscript.Get_Pos(g_playerpointer_v, g_playerpointer_s, g_playerpointer_h);
-        //    PlayerCreator(g_sponplayer);
-        //    g_arrayflag = false;
-        //}
-    }
     //プレイヤー生成
     public GameObject PlayerCreator(Vector3 g_playerposition) {
         //生成オブジェクト
@@ -51,5 +39,8 @@ public class Playercontroller : MonoBehaviour {
         g_playerpointer_h = (int)g_playerobj.transform.position.y;
         return g_playerobj;
     }
-   
+
+    public (int, int, int) Get_Player_Pointer() {
+        return (g_playerpointer_v, g_playerpointer_s, g_playerpointer_h);
+    }
 }

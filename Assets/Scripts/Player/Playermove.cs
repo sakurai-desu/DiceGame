@@ -7,13 +7,14 @@ public class Playermove : MonoBehaviour {
     //GameObject g_pushstasts;
 
     private bool g_floorflag = false;
-    Input_Date g_json_Script;
-    Playercontroller g_potision_script;
-    TypeCheck g_check_script;
-    Dice_Controller g_dice_con_Script;
-    Player_Direction g_direction_Script;
-    Game_Controller g_type_script;
-    Playermove g_move_Script;
+    private Input_Date g_json_Script;
+    private Playercontroller g_potision_script;
+    private TypeCheck g_check_script;
+    private Dice_Controller g_dice_con_Script;
+    private Player_Direction g_direction_Script;
+    private Game_Controller g_type_script;
+    private Player_Appearance_Move g_move_Script;
+    private Player_Animation g_anim_Script;
     //Playercontrollerの生成位置取得
     [SerializeField]
     private int g_createpointer_v;
@@ -53,6 +54,8 @@ public class Playermove : MonoBehaviour {
         g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Date>();
         //ブロックのタイプを取得
         g_type_script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
+        g_move_Script = this.GetComponent<Player_Appearance_Move>();
+        g_anim_Script = this.GetComponent<Player_Animation>();
         //g_pushscript = g_pushstasts.GetComponent<Game_Controller>();
         //配列を一度だけ読み込み用フラグ
         g_arrayflag = true;
@@ -94,7 +97,9 @@ public class Playermove : MonoBehaviour {
 
     public int g_camera_num;
     void Update() {
-
+        if (g_move_Script.Get_MoveFlag()) {
+            return;
+        }
         if (g_arrayflag == true) {
             //Game_Controller.GetArrayから配列読み込み
             g_sponplayer = g_type_script.Get_Pos(g_potision_script.g_playerpointer_v,
@@ -110,48 +115,49 @@ public class Playermove : MonoBehaviour {
         #region 移動制御
         switch (g_camera_num) {
             case 0:
-            //配列hの上限に達してない時移動(上)
-            if (Input.GetKeyDown(KeyCode.W)) {
-            Move_W();
-             }
-              //配列hの下限に達してない時移動(下)
-            if (Input.GetKeyDown(KeyCode.S)) {
-            Move_S();
-             }
-              //配列vの下限に達してない時移動(左)
-             if (Input.GetKeyDown(KeyCode.A)) {
-            Move_A();
-             }
-             //配列vの上限に達してない時移動(右)
-              if (Input.GetKeyDown(KeyCode.D)) {
-            Move_D();
-             }
+                //配列hの上限に達してない時移動(上)
+                if (Input.GetKeyDown(KeyCode.W)) {
+                    Move_W();
+                }
+                //配列hの下限に達してない時移動(下)
+                if (Input.GetKeyDown(KeyCode.S)) {
+                    Move_S();
+                }
+                //配列vの下限に達してない時移動(左)
+                if (Input.GetKeyDown(KeyCode.A)) {
+                    Move_A();
+                }
+                //配列vの上限に達してない時移動(右)
+                if (Input.GetKeyDown(KeyCode.D)) {
+                    Move_D();
+                }
                 break;
             case 2:
-            //配列hの上限に達してない時移動(上)
-            if (Input.GetKeyDown(KeyCode.W)) {
-            Move_S();
-             }
-              //配列hの下限に達してない時移動(下)
-            if (Input.GetKeyDown(KeyCode.S)) {
-            Move_W();
-             }
-              //配列vの下限に達してない時移動(左)
-             if (Input.GetKeyDown(KeyCode.A)) {
-            Move_D();
-             }
-             //配列vの上限に達してない時移動(右)
-              if (Input.GetKeyDown(KeyCode.D)) {
-            Move_A();
-             }
+                //配列hの上限に達してない時移動(上)
+                if (Input.GetKeyDown(KeyCode.W)) {
+                    Move_S();
+                }
+                //配列hの下限に達してない時移動(下)
+                if (Input.GetKeyDown(KeyCode.S)) {
+                    Move_W();
+                }
+                //配列vの下限に達してない時移動(左)
+                if (Input.GetKeyDown(KeyCode.A)) {
+                    Move_D();
+                }
+                //配列vの上限に達してない時移動(右)
+                if (Input.GetKeyDown(KeyCode.D)) {
+                    Move_A();
+                }
                 break;
-            }
+        }
         #endregion
-    
+
         if (Input.GetKeyDown(KeyCode.Space)) {
             PushKey();
             g_speaceflag = true;
-        } else if (Input.GetKeyUp(KeyCode.Space)) {
+        }
+        if (Input.GetKeyUp(KeyCode.Space)) {
             UpKey();
             g_speaceflag = false;
         }
@@ -161,17 +167,16 @@ public class Playermove : MonoBehaviour {
             } else {
                 g_cooltimer = g_coolresettimer;
             }
-            Goal();
         }
     }
 
     private void Player_Move() {
 
         g_sponplayer = g_type_script.Get_Pos(g_potision_script.g_playerpointer_v, g_potision_script.g_playerpointer_s, g_potision_script.g_playerpointer_h);
-        this.gameObject.transform.position = g_sponplayer;
+        //this.gameObject.transform.position = g_sponplayer;
+        g_move_Script.Player_Move(g_sponplayer);
+
         Player_potision();
-        Goal();
-        Debug.Log(g_movecheck_v);
     }
 
     void Player_potision() {
@@ -182,14 +187,8 @@ public class Playermove : MonoBehaviour {
         return g_playerpotision;
     }
 
-    private void Goal() {
-        int g_gettype = g_type_script.Get_Obj_Type(g_check_script.g_dice_check_v, g_check_script.g_dice_check_s, g_check_script.g_dice_check_h - 1);
-        //Debug.Log("検索");
-        if (g_gettype == 20) {
-            Debug.Log("ゴールの上");
-            SceneManager.LoadScene("SelectScene");
-        }
-    }
+ 
+
     private void PushKey() {
         g_pushflag = true;
     }
@@ -199,35 +198,23 @@ public class Playermove : MonoBehaviour {
     private int HSearch(int g_keynum) {
         g_loopnum = 0;
         g_floorflag = false;
-        //Debug.Log("やってるよ");
         switch (g_keynum) {
             case 0:
                 for (int i = g_potision_script.g_playerpointer_h; i > 0 || g_floorflag == true; i--) {
                     if (g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, i - 1) == 0) {
-
                         g_loopnum++;
                     } else if (g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, i - 1) != 0) {
-
-
-                        //Debug.Log(g_loopnum);
                         g_loopnum = g_potision_script.g_playerpointer_h - g_loopnum;
-                        //Debug.Log(g_loopnum);
                         return g_loopnum;
                     }
                 }
                 break;
             case 1:
-                //Debug.Log(g_loopnum);
                 for (int i = g_potision_script.g_playerpointer_h; i > 0 || g_floorflag == true; i--) {
                     if (g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, i - 1) == 0) {
-
                         g_loopnum++;
                     } else if (g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, i - 1) != 0) {
-
-
-                        //Debug.Log(g_loopnum);
                         g_loopnum = g_potision_script.g_playerpointer_h - g_loopnum;
-                        //Debug.Log(g_loopnum);
                         return g_loopnum;
                     }
                 }
@@ -235,14 +222,9 @@ public class Playermove : MonoBehaviour {
             case 2:
                 for (int i = g_potision_script.g_playerpointer_h; i > 0 || g_floorflag == true; i--) {
                     if (g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, i - 1) == 0) {
-
                         g_loopnum++;
                     } else if (g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, i - 1) != 0) {
-
-
-                        //Debug.Log(g_loopnum);
                         g_loopnum = g_potision_script.g_playerpointer_h - g_loopnum;
-                        //Debug.Log(g_loopnum);
                         return g_loopnum;
                     }
                 }
@@ -250,14 +232,9 @@ public class Playermove : MonoBehaviour {
             case 3:
                 for (int i = g_potision_script.g_playerpointer_h; i > 0 || g_floorflag == true; i--) {
                     if (g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, i - 1) == 0) {
-
                         g_loopnum++;
                     } else if (g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, i - 1) != 0) {
-
-
-                        //Debug.Log(g_loopnum);
                         g_loopnum = g_potision_script.g_playerpointer_h - g_loopnum;
-                        //Debug.Log(g_loopnum);
                         return g_loopnum;
                     }
                 }
@@ -275,8 +252,7 @@ public class Playermove : MonoBehaviour {
     }
     public void Move_W() {
         if (g_potision_script.g_playerpointer_v < g_v_PBlockCount - 1 && g_cooltimer > 0) {
-            if (g_speaceflag) 
-            {
+            if (g_speaceflag) {
                 g_direction_Script.Player_Direction_Change(30);
                 //プレイヤーのv方向の一個先
                 int type_v_plus = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h);
@@ -292,18 +268,19 @@ public class Playermove : MonoBehaviour {
                             g_potision_script.g_playerpointer_v++;
                             g_potision_script.g_playerpointer_h++;
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
                         case 50:
                             g_potision_script.g_playerpointer_v++;
                             g_potision_script.g_playerpointer_h++;
-
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
                         case 100:
                             g_potision_script.g_playerpointer_v++;
                             g_potision_script.g_playerpointer_h++;
-
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
                     }
                 }
@@ -321,6 +298,7 @@ public class Playermove : MonoBehaviour {
                         case 0:
                             g_potision_script.g_playerpointer_v++;
                             Player_Move();
+                            g_anim_Script.Player_Move_Anim();
                             break;
                         //case 20:
                         //    g_potision_script.g_playerpointer_v++;
@@ -331,6 +309,7 @@ public class Playermove : MonoBehaviour {
                             g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
                             GameObject dice_obj = g_type_script.Get_Obj(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h);
                             g_dice_con_Script.Storage_Control_Obj(dice_obj, 0);
+                            g_anim_Script.Player_Roll_Anim();
                             //dicemove入れればいいんじゃね
                             break;
                     }
@@ -345,25 +324,27 @@ public class Playermove : MonoBehaviour {
                             g_potision_script.g_playerpointer_h = g_dicemovenum;
 
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
                         case 20:
                             g_potision_script.g_playerpointer_v++;
                             g_potision_script.g_playerpointer_h = g_dicemovenum;
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
 
                         case 100:
                             g_potision_script.g_playerpointer_v++;
                             g_potision_script.g_playerpointer_h = g_dicemovenum;
                             Player_Move();
-                            //dicemove入れなくてもいいんじゃね
+                            g_anim_Script.Player_Jump_Anim();
                             break;
                     }
                 }
 
                 PushKey();
                 g_wflag = true;
-            } 
+            }
             //else if (Input.GetKeyUp(KeyCode.W)) {
             //    UpKey();
             //    g_wflag = false;
@@ -388,18 +369,21 @@ public class Playermove : MonoBehaviour {
                             g_potision_script.g_playerpointer_v--;
                             g_potision_script.g_playerpointer_h++;
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
                         case 50:
                             g_potision_script.g_playerpointer_v--;
                             g_potision_script.g_playerpointer_h++;
 
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
                         case 100:
                             g_potision_script.g_playerpointer_v--;
                             g_potision_script.g_playerpointer_h++;
 
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
                     }
                 }
@@ -417,6 +401,7 @@ public class Playermove : MonoBehaviour {
                         case 0:
                             g_potision_script.g_playerpointer_v--;
                             Player_Move();
+                            g_anim_Script.Player_Move_Anim();
                             break;
                         //case 20:
                         //    g_potision_script.g_playerpointer_v--;
@@ -426,6 +411,7 @@ public class Playermove : MonoBehaviour {
                             g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
                             GameObject dice_obj = g_type_script.Get_Obj(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h);
                             g_dice_con_Script.Storage_Control_Obj(dice_obj, 1);
+                            g_anim_Script.Player_Roll_Anim();
                             break;
                     }
                 }
@@ -438,17 +424,20 @@ public class Playermove : MonoBehaviour {
                             g_potision_script.g_playerpointer_h = g_dicemovenum;
 
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
                         case 20:
                             g_potision_script.g_playerpointer_v--;
                             g_potision_script.g_playerpointer_h = g_dicemovenum;
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
                         case 100:
                             g_potision_script.g_playerpointer_v--;
                             g_potision_script.g_playerpointer_h = g_dicemovenum;
 
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
                     }
                 }
@@ -478,6 +467,7 @@ public class Playermove : MonoBehaviour {
                             g_potision_script.g_playerpointer_s--;
                             g_potision_script.g_playerpointer_h++;
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
 
                         case 50:
@@ -485,16 +475,18 @@ public class Playermove : MonoBehaviour {
                             g_potision_script.g_playerpointer_h++;
 
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
                         case 100:
                             g_potision_script.g_playerpointer_s--;
                             g_potision_script.g_playerpointer_h++;
 
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
                     }
                 }
-            } else  {
+            } else {
                 //プレイヤーの向きを変更
                 g_direction_Script.Player_Direction_Change(33);
                 g_dicemovenum = HSearch(2);
@@ -507,6 +499,7 @@ public class Playermove : MonoBehaviour {
                         case 0:
                             g_potision_script.g_playerpointer_s--;
                             Player_Move();
+                            g_anim_Script.Player_Move_Anim();
                             break;
                         //case 20:
                         //    g_potision_script.g_playerpointer_s--;
@@ -516,6 +509,7 @@ public class Playermove : MonoBehaviour {
                             g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
                             GameObject dice_obj = g_type_script.Get_Obj(g_movecheck_v, g_movecheck_s - 1, g_movecheck_h);
                             g_dice_con_Script.Storage_Control_Obj(dice_obj, 3);
+                            g_anim_Script.Player_Roll_Anim();
                             break;
                     }
                 }
@@ -528,23 +522,26 @@ public class Playermove : MonoBehaviour {
                             g_potision_script.g_playerpointer_h = g_dicemovenum;
 
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
                         case 20:
                             g_potision_script.g_playerpointer_s--;
                             g_potision_script.g_playerpointer_h = g_dicemovenum;
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
                         case 100:
                             g_potision_script.g_playerpointer_s--;
                             g_potision_script.g_playerpointer_h = g_dicemovenum;
 
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
                     }
                 }
                 PushKey();
                 g_aflag = true;
-            } 
+            }
             //else if (Input.GetKeyUp(KeyCode.A)) {
             //    UpKey();
             //    g_aflag = false;
@@ -554,7 +551,7 @@ public class Playermove : MonoBehaviour {
     public void Move_D() {
         if (g_potision_script.g_playerpointer_s < g_s_PBlockCount - 1 && g_cooltimer > 0) {
 
-            if (g_speaceflag ) {
+            if (g_speaceflag) {
                 //プレイヤーの向きを変更
                 g_direction_Script.Player_Direction_Change(31);
                 int type_sp = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, g_movecheck_h);
@@ -568,18 +565,21 @@ public class Playermove : MonoBehaviour {
                             g_potision_script.g_playerpointer_s++;
                             g_potision_script.g_playerpointer_h++;
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
                         case 50:
                             g_potision_script.g_playerpointer_s++;
                             g_potision_script.g_playerpointer_h++;
 
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
                         case 100:
                             g_potision_script.g_playerpointer_s++;
                             g_potision_script.g_playerpointer_h++;
 
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
                     }
                 }
@@ -597,6 +597,7 @@ public class Playermove : MonoBehaviour {
                         case 0:
                             g_potision_script.g_playerpointer_s++;
                             Player_Move();
+                            g_anim_Script.Player_Move_Anim();
                             break;
                         //case 20:
                         //    g_potision_script.g_playerpointer_s++;
@@ -606,6 +607,7 @@ public class Playermove : MonoBehaviour {
                             g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
                             GameObject dice_obj = g_type_script.Get_Obj(g_movecheck_v, g_movecheck_s + 1, g_movecheck_h);
                             g_dice_con_Script.Storage_Control_Obj(dice_obj, 2);
+                            g_anim_Script.Player_Roll_Anim();
                             break;
                     }
                 }
@@ -617,23 +619,26 @@ public class Playermove : MonoBehaviour {
                             g_potision_script.g_playerpointer_h = g_dicemovenum;
 
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
                         case 20:
                             g_potision_script.g_playerpointer_s++;
                             g_potision_script.g_playerpointer_h = g_dicemovenum;
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
                         case 100:
                             g_potision_script.g_playerpointer_s++;
                             g_potision_script.g_playerpointer_h = g_dicemovenum;
 
                             Player_Move();
+                            g_anim_Script.Player_Jump_Anim();
                             break;
                     }
                 }
                 PushKey();
                 g_dflag = true;
-            } 
+            }
             //if (Input.GetKeyUp(KeyCode.D)) {
             //    UpKey();
             //    g_dflag = false;
