@@ -37,6 +37,8 @@ public class Dice_Rotate : MonoBehaviour {
     /// サイコロのサイズ
     /// </summary>
     private float g_dice_Size;
+    [SerializeField]
+    private float g_size_change=1;
 
     /// <summary>
     /// 回転中かどうかを判定するフラグ
@@ -58,7 +60,7 @@ public class Dice_Rotate : MonoBehaviour {
         //操作オブジェクト取得
         g_dice_Obj = this.gameObject;
         //サイズを求める
-        g_dice_Size = g_dice_Obj.transform.localScale.x / 1f;
+        g_dice_Size = g_dice_Obj.transform.localScale.x / g_size_change;
     }
     private void Update() {
         if (g_startflag == false) {

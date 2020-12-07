@@ -16,6 +16,7 @@ public class Player_Direction : MonoBehaviour {
     private const int g_side_minus_Para = 32;
 
     void Start() {
+
     }
 
     public void Start_Direction(GameObject player) {

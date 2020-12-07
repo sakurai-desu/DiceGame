@@ -294,7 +294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 633b3e6d0d32ce148a239cd71c09c37b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  g_playStageName: Stage5
+  g_playStageName: Stage7
 --- !u!4 &150255160
 Transform:
   m_ObjectHideFlags: 0
@@ -1181,6 +1181,13 @@ MonoBehaviour:
     type: 3}
   g_goal_Prefab: {fileID: 8228770091370613375, guid: 57e75bd51e6897347a3748d09a23ebdd,
     type: 3}
+  g_all_dices:
+  - {fileID: 6848938628480217477, guid: 7c96eaf895c18b24b9d189713eac69a4, type: 3}
+  - {fileID: 6467910897625375284, guid: 63d7fa5426c56ed4996911e54da27f9d, type: 3}
+  - {fileID: 1251977319459169648, guid: e920a9433753c1c41a66421429622307, type: 3}
+  - {fileID: 5037379002214886113, guid: c57568c41b1e5584ab664fd858367519, type: 3}
+  - {fileID: 7338960867939043883, guid: 73dd5ef9e319fa84396c1425120ed413, type: 3}
+  - {fileID: 5798241902058706344, guid: 333ae2eb7d2d5dd4c97637a8683b6f0f, type: 3}
 --- !u!1 &1210239902
 GameObject:
   m_ObjectHideFlags: 0

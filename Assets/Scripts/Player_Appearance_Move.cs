@@ -68,7 +68,7 @@ public class Player_Appearance_Move : MonoBehaviour {
             //移動速度上げる
             if (g_move_speed < g_max_speed) {
                 g_move_speed = g_move_speed + g_plus_speed;
-                g_plus_speed = g_plus_speed + 0.1f;
+                g_plus_speed = g_plus_speed + 0.2f;
             }
             //移動先に向かって移動
             g_player_obj.transform.position = Vector3.MoveTowards(g_player_obj.transform.position,

@@ -25,6 +25,8 @@ public class Stage_Obj_Pool : MonoBehaviour {
     private GameObject g_start_Prefab;
     [SerializeField]
     private GameObject g_goal_Prefab;
+    [SerializeField]
+    private GameObject[] g_all_dices;
 
     /// <summary>
     /// 空白パラメータ
@@ -46,6 +48,13 @@ public class Stage_Obj_Pool : MonoBehaviour {
     /// ダイスパラメータ
     /// </summary>
     private const int g_dice_para = 100;
+    
+    private const int g_dice_1_para = 101;
+    private const int g_dice_2_para = 102;
+    private const int g_dice_3_para = 103;
+    private const int g_dice_4_para = 104;
+    private const int g_dice_5_para = 105;
+    private const int g_dice_6_para = 106;
 
     void Start() {
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
@@ -82,7 +91,7 @@ public class Stage_Obj_Pool : MonoBehaviour {
             //床
             case g_ground_para:
                 //Ground_Creator(ver, side);
-                g_block_Obj = BlockCreator(Ground_Creator(ver, side,high));
+                g_block_Obj = BlockCreator(Ground_Creator(ver, side, high));
                 break;
             //ダイス
             case g_dice_para:
@@ -94,6 +103,44 @@ public class Stage_Obj_Pool : MonoBehaviour {
                 //生成時のマス目になるようにダイスを回転させる
                 g_dice_create_Script.Dice_Squares_Change(g_block_Obj, json_dices);
                 break;
+            #region　全面同じ数字のダイス生成
+            case g_dice_1_para:
+                type = 100;
+                g_block_Obj = Dice_Creator(g_all_dices[0]);
+                //生成した位置をダイスが保持
+                g_block_Obj.GetComponent<Dice_Squares>().Storage_This_Index(ver, side, high);
+                break;
+            case g_dice_2_para:
+                type = 100;
+                g_block_Obj = Dice_Creator(g_all_dices[1]);
+                //生成した位置をダイスが保持
+                g_block_Obj.GetComponent<Dice_Squares>().Storage_This_Index(ver, side, high);
+                break;
+            case g_dice_3_para:
+                type = 100;
+                g_block_Obj = Dice_Creator(g_all_dices[2]);
+                //生成した位置をダイスが保持
+                g_block_Obj.GetComponent<Dice_Squares>().Storage_This_Index(ver, side, high);
+                break;
+            case g_dice_4_para:
+                type = 100;
+                g_block_Obj = Dice_Creator(g_all_dices[3]);
+                //生成した位置をダイスが保持
+                g_block_Obj.GetComponent<Dice_Squares>().Storage_This_Index(ver, side, high);
+                break;
+            case g_dice_5_para:
+                type = 100;
+                g_block_Obj = Dice_Creator(g_all_dices[4]);
+                //生成した位置をダイスが保持
+                g_block_Obj.GetComponent<Dice_Squares>().Storage_This_Index(ver, side, high);
+                break;
+            case g_dice_6_para:
+                type = 100;
+                g_block_Obj = Dice_Creator(g_all_dices[5]);
+                //生成した位置をダイスが保持
+                g_block_Obj.GetComponent<Dice_Squares>().Storage_This_Index(ver, side, high);
+                break;
+                #endregion
         }
         //ポジション取得
         Vector3 g_sporn_Pos = g_game_Con_Script.Get_Pos(ver, side, high);
@@ -101,6 +148,8 @@ public class Stage_Obj_Pool : MonoBehaviour {
         g_block_Obj.transform.position = g_sporn_Pos;
         //配列にオブジェクトを格納する
         g_game_Con_Script.Storage_Obj(ver, side, high, g_block_Obj);
+        //配列にタイプを格納
+        g_game_Con_Script.Storage_Obj_Type(ver, side, high, type);
     }
 
     /// <summary>
