@@ -297,6 +297,7 @@ GameObject:
   - component: {fileID: 319135412}
   - component: {fileID: 319135411}
   - component: {fileID: 319135410}
+  - component: {fileID: 319135413}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -369,6 +370,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &319135413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 319135409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c20595f13ec35c443aa89fd06ed52c44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  g_folderPath: "C:\\Users\\s0620\\Desktop\\\u3055\u3044\u3053\u308D\u30A8\u30C7\u30A3\u30BF\u30FC\uFF081207\uFF09\\diceedhiter_Data\\StreamingAssets"
+  g_pathnum: 0
 --- !u!1 &499910588
 GameObject:
   m_ObjectHideFlags: 0
