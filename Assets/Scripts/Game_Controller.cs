@@ -120,8 +120,6 @@ public class Game_Controller : MonoBehaviour
                     //タイプを保持
                     int type = g_json_Script.g_inputJson.g_blocks[i].g_type;
                     g_json_dices = g_json_Script.g_inputJson.g_blocks[i].g_dices;
-                    //配列にタイプを格納
-                    Storage_Obj_Type(ver, side, high, type);
                     //タイプに応じたブロックを生成
                     g_pool_Script.Spawn_Block(ver,side,high,type, g_json_dices);
                     //Json用の指標を進める
@@ -185,7 +183,7 @@ public class Game_Controller : MonoBehaviour
     public GameObject Get_Obj(int ver, int side, int high) {
         return g_blocks_Array[ver, side, high];
     }
-
+ 
     /// <summary>
     /// 与えられた指標に格納されているオブジェクトの種類を返す処理
     /// </summary>
