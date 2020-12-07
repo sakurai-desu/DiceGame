@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8985426391642381295}
   - component: {fileID: 1120539488818288483}
   - component: {fileID: 1120456114761510021}
+  - component: {fileID: -2281882058058202001}
   m_Layer: 0
   m_Name: Player_Parent
   m_TagString: Player
@@ -47,14 +48,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a83d0b9b15d9f84bb005ea553b5abc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  g_player_obj: {fileID: 5664056391403052196}
   g_createpointer_v: 0
   g_createpointer_s: 0
   g_createpointer_h: 0
   g_movecheck_v: 0
   g_movecheck_s: 0
   g_movecheck_h: 0
-  g_cooltimer: 0
   g_arrayExistFlag: 0
   g_speaceflag: 0
   g_h_seartchflag: 0
@@ -106,6 +105,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   g_player_obj: {fileID: 5664056391403052196}
+--- !u!114 &-2281882058058202001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6658350799274573634}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92b5987b92420a344bdf59d78816b4b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6304979852107512398
 PrefabInstance:
   m_ObjectHideFlags: 0

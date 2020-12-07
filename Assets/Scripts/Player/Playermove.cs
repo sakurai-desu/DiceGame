@@ -33,18 +33,11 @@ public class Playermove : MonoBehaviour {
     public int g_movecheck_s;
     public int g_movecheck_h;
 
-
     bool g_arrayflag = false;
     //player位置
     Vector3 g_sponplayer;
     //player位置読み込み用
     Vector3 g_playerpotision;
-    [SerializeField]
-    float g_cooltimer;
-
-    //どのキーの方向に降りれるのかを判断するために使用するフラグ
-    int g_down_rotatenum = 100;
-    const float g_coolresettimer = 0.2f;
 
     void Start() {
         g_direction_Script = GameObject.Find("Player_Controller").GetComponent<Player_Direction>();
@@ -56,15 +49,10 @@ public class Playermove : MonoBehaviour {
         g_type_script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         g_move_Script = this.GetComponent<Player_Appearance_Move>();
         g_anim_Script = this.GetComponent<Player_Animation>();
-        //g_pushscript = g_pushstasts.GetComponent<Game_Controller>();
         //配列を一度だけ読み込み用フラグ
         g_arrayflag = true;
         //Game_ControllerのBlockCountを読み込み
-        g_createpointer_v = g_potision_script.g_playerpointer_v;
-        g_createpointer_h = g_potision_script.g_playerpointer_h;
-        g_createpointer_s = g_potision_script.g_playerpointer_s;
         (g_v_PBlockCount, g_s_PBlockCount, g_h_PBlockCount) = g_json_Script.Get_Array_Max();
-        g_cooltimer = g_coolresettimer;
 
     }
     [SerializeField]
@@ -104,7 +92,6 @@ public class Playermove : MonoBehaviour {
             //Game_Controller.GetArrayから配列読み込み
             g_sponplayer = g_type_script.Get_Pos(g_potision_script.g_playerpointer_v,
                 g_potision_script.g_playerpointer_s, g_potision_script.g_playerpointer_h);
-            //Debug.Log(g_sponplayer);
             g_arrayflag = false;
         }
         if (g_camera_num == 0 || g_camera_num == 1) {
@@ -160,13 +147,6 @@ public class Playermove : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.Space)) {
             UpKey();
             g_speaceflag = false;
-        }
-        if (g_pushflag) {
-            if (g_cooltimer > 0) {
-                g_cooltimer -= Time.deltaTime;
-            } else {
-                g_cooltimer = g_coolresettimer;
-            }
         }
     }
 
@@ -251,7 +231,7 @@ public class Playermove : MonoBehaviour {
         g_movecheck_h = g_check_script.g_dice_check_h;
     }
     public void Move_W() {
-        if (g_potision_script.g_playerpointer_v < g_v_PBlockCount - 1 && g_cooltimer > 0) {
+        if (g_potision_script.g_playerpointer_v < g_v_PBlockCount - 1) {
             if (g_speaceflag) {
                 g_direction_Script.Player_Direction_Change(30);
                 //プレイヤーのv方向の一個先
@@ -353,7 +333,7 @@ public class Playermove : MonoBehaviour {
         }
     }
     public void Move_S() {
-        if (g_potision_script.g_playerpointer_v > 0 && g_cooltimer > 0) {
+        if (g_potision_script.g_playerpointer_v > 0) {
             if (g_speaceflag) {
                 //プレイヤーの向きを変更
                 g_direction_Script.Player_Direction_Change(32);
@@ -452,7 +432,7 @@ public class Playermove : MonoBehaviour {
         }
     }
     public void Move_A() {
-        if (g_potision_script.g_playerpointer_s > 0 && g_cooltimer > 0) {
+        if (g_potision_script.g_playerpointer_s > 0) {
             if (g_speaceflag) {
                 //プレイヤーの向きを変更
                 g_direction_Script.Player_Direction_Change(33);
@@ -549,7 +529,7 @@ public class Playermove : MonoBehaviour {
         }
     }
     public void Move_D() {
-        if (g_potision_script.g_playerpointer_s < g_s_PBlockCount - 1 && g_cooltimer > 0) {
+        if (g_potision_script.g_playerpointer_s < g_s_PBlockCount - 1 ) {
 
             if (g_speaceflag) {
                 //プレイヤーの向きを変更

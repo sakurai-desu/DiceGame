@@ -1173,7 +1173,7 @@ MonoBehaviour:
     type: 3}
   g_dice_Prefab: {fileID: 4587978707711304603, guid: 3fb03f9a3de85074a8996f77ff7f7eb5,
     type: 3}
-  g_ground_Prefab: {fileID: 7237009044604176305, guid: e01990e496b3a03479a4587e9465a000,
+  g_floor_Prefab: {fileID: 7237009044604176305, guid: e01990e496b3a03479a4587e9465a000,
     type: 3}
   g_ground_Prefab_2: {fileID: 3490098283398350796, guid: d7d46f46695b082469396e21bcff6a4b,
     type: 3}
