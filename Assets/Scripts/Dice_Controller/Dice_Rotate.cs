@@ -176,6 +176,7 @@ public class Dice_Rotate : MonoBehaviour {
         g_rotate_Axis = Vector3.zero;
         //回転先にダイスを格納する
         g_parent_rotate_Script.Reset_And_Storage_Obj();
+
         //処理終了
         yield break;
     }

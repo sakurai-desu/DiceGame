@@ -18,7 +18,7 @@ public class Stage_Obj_Pool : MonoBehaviour {
     [SerializeField]
     private GameObject g_dice_Prefab;
     [SerializeField]
-    private GameObject g_ground_Prefab;
+    private GameObject g_floor_Prefab;
     [SerializeField]
     private GameObject g_ground_Prefab_2;
     [SerializeField]
@@ -90,8 +90,8 @@ public class Stage_Obj_Pool : MonoBehaviour {
                 break;
             //床
             case g_ground_para:
-                //Ground_Creator(ver, side);
-                g_block_Obj = BlockCreator(Ground_Creator(ver, side, high));
+                g_block_Obj = BlockCreator(g_floor_Prefab);
+                //g_block_Obj = BlockCreator(Ground_Creator(ver,side,high));
                 break;
             //ダイス
             case g_dice_para:
@@ -161,7 +161,7 @@ public class Stage_Obj_Pool : MonoBehaviour {
     /// <returns></returns>
     private GameObject Ground_Creator(int ver, int side,int high) {
         //生成オブジェクト初期化
-        GameObject create_Prefab = g_ground_Prefab;
+        GameObject create_Prefab = g_floor_Prefab;
         //計算した余りが1なら奇数0なら偶数
         //縦を計算
         int ver_rem = ver % 2;
