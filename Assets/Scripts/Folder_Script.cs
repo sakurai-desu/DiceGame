@@ -5,7 +5,6 @@ using System.IO;
 
 public class Folder_Script : MonoBehaviour
 {
-    public string g_folderPath;
 
     [SerializeField]
     public DirectoryInfo[] g_dirarray;
@@ -17,7 +16,7 @@ public class Folder_Script : MonoBehaviour
     void Start()
     {
         //指定した名前のフォルダ取得
-        DirectoryInfo dir = new DirectoryInfo(g_folderPath);
+        DirectoryInfo dir = new DirectoryInfo(Application.streamingAssetsPath);
 
         //指定したフォルダの中のフォルダーをすべて取得
         g_dirarray = dir.GetDirectories("*");
