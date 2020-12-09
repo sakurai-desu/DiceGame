@@ -6,6 +6,7 @@ public class JsonArray : MonoBehaviour {
     //ステージの名前を入れる配列
     public string[] g_json_stage;
 
+    public string[,] g_json_name;
     //フォルダーの数を数えるスクリプト
     Folder_Script g_folder_Script;
 
@@ -45,12 +46,11 @@ public class JsonArray : MonoBehaviour {
         //ファイル数とstageの横の数を割りきれなかったとき
         if (g_stage_remainder != 0) {
             g_stage_max_var = g_stage_var + 1;
-        } else {
+        } else { 
+            //割った数で縦の数を決める
           g_stage_max_var = g_stage_var;
         }
-        //割った数で縦の数を決める
-        
-
+      
         Debug.Log(g_stage_var);
         Debug.Log(g_stage_remainder);
         Debug.Log(g_stage_max_var);
