@@ -297,6 +297,7 @@ GameObject:
   - component: {fileID: 319135412}
   - component: {fileID: 319135411}
   - component: {fileID: 319135410}
+  - component: {fileID: 319135413}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -369,6 +370,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &319135413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 319135409}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c20595f13ec35c443aa89fd06ed52c44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  g_pathnum: 0
 --- !u!1 &499910588
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,6 +393,8 @@ GameObject:
   m_Component:
   - component: {fileID: 499910589}
   - component: {fileID: 499910590}
+  - component: {fileID: 499910591}
+  - component: {fileID: 499910592}
   m_Layer: 0
   m_Name: Stageinformation
   m_TagString: Untagged
@@ -413,6 +429,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   g_playStageName: 
+--- !u!114 &499910591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499910588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55bef8755e8e8aa4381fefbfc6f4298b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  g_json_stage: []
+--- !u!114 &499910592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499910588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c20595f13ec35c443aa89fd06ed52c44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  g_pathnum: 0
 --- !u!1 &560688873
 GameObject:
   m_ObjectHideFlags: 0
