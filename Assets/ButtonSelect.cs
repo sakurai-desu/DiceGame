@@ -24,12 +24,16 @@ public class ButtonSelect : MonoBehaviour
 
         Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
 
-        ButtonBig();
     }
-
+    bool g_oneflag;
     // Update is called once per frame
     void Update()
     {
+        if (g_oneflag == false) {
+
+        ButtonBig();
+            g_oneflag = true;
+        }
         #region キーが押されたときの処理
         //Aキーが押されたとき
         if (Input.GetKeyDown(KeyCode.A)) {
