@@ -21,6 +21,13 @@ public class Folder_Script : MonoBehaviour
     private int g_stagearray_pointer;
     void Start()
     {
+
+
+    }
+    /// <summary>
+    /// ファイル数を数える
+    /// </summary>
+    public int Filenum() {
         g_json_array = GetComponent<JsonArray>();
         //指定した名前のフォルダ取得
        g_dir = new DirectoryInfo(Application.streamingAssetsPath);
@@ -32,16 +39,8 @@ public class Folder_Script : MonoBehaviour
         {
             //Debug.Log(d.Name);
         }
-
         //指定したフォルダの名前指定
         g_info = g_dir.GetFiles("*.json");
-
-    }
-    /// <summary>
-    /// ファイル数を数える
-    /// </summary>
-    /// <returns></returns>
-    public int Filenum() {
         //指定した名前のファイルの名前表示
         foreach (FileInfo f in g_info)
         {
