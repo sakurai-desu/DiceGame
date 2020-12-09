@@ -11,7 +11,7 @@ public class JsonArray : MonoBehaviour
     Folder_Script g_folder_Script;
 
     //ステージ数
-    int g_stage_array_num;
+    public int g_stage_array_num;
     // Start is called before the first frame update
     void Start()
     {

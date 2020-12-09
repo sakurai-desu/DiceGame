@@ -2,15 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GetStagename : MonoBehaviour
 {
     private StageInformation g_info_Script;
     public string g_get_stagename = "";
 
+    GameObject g_get_child;
+
+    Text g_stage_text;
     void Start()
     {
+        g_get_child = transform.GetChild(0).gameObject;
+
         g_info_Script = GameObject.Find("Stageinformation").GetComponent<StageInformation>();
+
+        g_stage_text = g_get_child.GetComponent<Text>();
+
+        g_stage_text.text = g_get_stagename;
     }
 
     void Update()
