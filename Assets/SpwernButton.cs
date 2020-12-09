@@ -13,6 +13,8 @@ public class SpwernButton : MonoBehaviour
     private int g_button_sprewn_num;
 
     GameObject[,] g_json_button_array;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +26,9 @@ public class SpwernButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+    }
+    void ButtonSpwern() {
         
     }
 }
