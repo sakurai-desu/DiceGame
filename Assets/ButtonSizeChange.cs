@@ -16,7 +16,8 @@ public class ButtonSizeChange : MonoBehaviour
     void Awake()
     {
         //自信のトランスフォームを格納
-        g_transform_button = GetComponent<RectTransform>();   
+        g_transform_button = GetComponent<RectTransform>();
+        g_transform_button.localScale = new Vector3(g_ori_x, g_ori_y, 0.1f);
     }
     private float g_changenum = 1.2f;
     /// <summary>
