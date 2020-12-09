@@ -45,8 +45,8 @@ public class Folder_Script : MonoBehaviour
         foreach (FileInfo f in g_info)
         {
             g_pathnum++;
-            Debug.Log(g_pathnum);
-            Debug.Log(f.Name);
+            //Debug.Log(g_pathnum);
+            //Debug.Log(f.Name);
         }
         return g_pathnum;
     }
