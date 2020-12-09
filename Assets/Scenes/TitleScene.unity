@@ -442,6 +442,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   g_json_stage: []
+  g_stage_side: 3
+  g_stage_array_num: 0
+  g_stage_max_var: 0
+  g_stage_var: 0
+  g_stage_remainder: 0
 --- !u!114 &499910592
 MonoBehaviour:
   m_ObjectHideFlags: 0
