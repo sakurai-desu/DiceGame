@@ -53,7 +53,7 @@ public class Input_Date : MonoBehaviour
         
         string datastr = "";
         StreamReader reader;
-        reader = new StreamReader(Application.streamingAssetsPath + "/" + g_jsonname + ".json");
+        reader = new StreamReader(Application.streamingAssetsPath + "/" + g_jsonname);
         datastr = reader.ReadToEnd();
         reader.Close();
         //ステージデータを取り込む

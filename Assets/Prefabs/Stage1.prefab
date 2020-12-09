@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 1398817108274415371}
   - component: {fileID: 1398817108274415372}
   - component: {fileID: 1398817108274415369}
+  - component: {fileID: 6745214275474918150}
   m_Layer: 5
   m_Name: Stage1
   m_TagString: Stage
@@ -108,7 +109,7 @@ RectTransform:
   m_GameObject: {fileID: 1398817108274415374}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 13.924072}
-  m_LocalScale: {x: 0.29250002, y: 1.6575, z: 0.975}
+  m_LocalScale: {x: 0.3, y: 1.6, z: 0.975}
   m_Children:
   - {fileID: 1398817107628609676}
   m_Father: {fileID: 0}
@@ -226,3 +227,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   g_get_stagename: Stage1
+--- !u!114 &6745214275474918150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398817108274415374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4313e2a6c1eaa64cadcf4c517294bd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  g_ori_x: 0.39
+  g_ori_y: 2.1

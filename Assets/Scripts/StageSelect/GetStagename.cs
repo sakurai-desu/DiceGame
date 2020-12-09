@@ -14,13 +14,8 @@ public class GetStagename : MonoBehaviour
     Text g_stage_text;
     void Start()
     {
-        g_get_child = transform.GetChild(0).gameObject;
-
         g_info_Script = GameObject.Find("Stageinformation").GetComponent<StageInformation>();
 
-        g_stage_text = g_get_child.GetComponent<Text>();
-
-        g_stage_text.text = g_get_stagename;
     }
 
     void Update()

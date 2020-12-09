@@ -1,33 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpwernButton : MonoBehaviour
 {
+    //配置するステージ選択のオブジェクト
     [SerializeField]
     GameObject g_button_obj;
 
+    //json関連の配列を使うスクリプト
     private JsonArray g_array_Script;
 
+    //ボタンを乱したりするのに使う数値
     [SerializeField]
     private int g_button_sprewn_num;
 
-    [SerializeField]
-    private GameObject[,] g_json_button_array;
+    //ボタンをしまう配列
+    public GameObject[,] g_json_button_array;
     
-    [SerializeField]
-    private string[,] g_json_stage_array;
+    //ステージ名を格納する配列
+    public string[,] g_json_stage_array;
 
-    [SerializeField]
-    int g_varmax_num;
+    //ボタン縦の最大値
+    public int g_varmax_num;
 
+    //ボタン縦の値
+    [SerializeField]
     int g_var_num;
 
-    [SerializeField]
-    int g_side_num;
+    //ボタン横の値
+    public int g_side_num;
 
-    [SerializeField]
-    int g_remainder_num;
+    //ボタンあまりの値
+    public int g_remainder_num;
+
+    //ボタンに入ってるテキスト
+    Text g_button_text;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,53 +52,75 @@ public class SpwernButton : MonoBehaviour
         //生み出す個数
         g_button_sprewn_num = g_array_Script.g_stage_array_num;
         //配列の最大値を決定する
-        g_json_button_array = new GameObject[g_side_num,g_varmax_num];
-        g_json_stage_array = new string[g_side_num, g_varmax_num];
+        g_json_button_array = new GameObject[g_varmax_num,g_side_num];
+        g_json_stage_array = new string[g_varmax_num,g_side_num];
         ButtonPool(g_button_obj);
     }
+    const float g_button_x_pos=180;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    const float g_button_y_pos=20;
+
     int g_array_num;
     GameObject g_button;
+
+        int g_var_count=0;
+        int g_side_count = 0;
     /// <summary>
     /// オブジェクトの生成とステージ名を配列に入れるメソッド
     /// </summary>
     /// <param name="g_stage_button"></param>
     void ButtonPool(GameObject g_stage_button) {
-        int i=0;
-        int j = 0;
-        //オブジェクトを列が埋まっている分生成する
-        for (i=0; i < g_var_num; i++) {
-            for (j = 0; j < g_side_num; j++) {
-                //オブジェクトが生まれる
-               g_button= Instantiate(g_stage_button);
-                //親になる
-                g_button.transform.parent = gameObject.transform;
-                //二次元配列にボタンを入れる
-                g_json_button_array[i, j] = g_button;
-                //ステージ名を二次元配列に入れる
-                g_json_stage_array[i, j] = g_array_Script.g_json_stage[g_array_num];
-                Debug.Log(g_json_stage_array[i, j]);
-                g_array_num++;
-            }
+
+        if (g_remainder_num == 0) {
+            Button(g_stage_button, g_varmax_num);
         }
         //余りがあったらやる
         if (g_remainder_num != 0) {
-            i =g_varmax_num-1;
-            //余りの数だけ入れる
-            for (j = 0; j < g_remainder_num; j++) {
 
-                g_button = Instantiate(g_stage_button);
-                g_button.transform.parent = gameObject.transform;
-                g_json_button_array[i,j] = g_button;
-                g_json_stage_array[i, j] = g_array_Script.g_json_stage[g_array_num];
-                Debug.Log(g_json_stage_array[i, j]);
+            Button(g_stage_button, g_var_num);
+            g_var_count =g_varmax_num-1;
+            //余りの数だけ入れる
+            for (g_side_count = 0; g_side_count < g_remainder_num; g_side_count++) {
+                ButtonSpwen(g_stage_button, g_var_count, g_side_count, g_array_num);
                 g_array_num++;
             }
         }
+    }
+    private void Button(GameObject g_stage_button,int g_var) {
+        //オブジェクトを列が埋まっている分生成する
+        for (g_var_count = 0; g_var_count <= g_var_num-1; g_var_count++) {
+            for (g_side_count = 0; g_side_count <= g_side_num - 1; g_side_count++) {
+                ButtonSpwen(g_stage_button, g_var_count, g_side_count,g_array_num);
+                g_array_num++;
+            }
+        }
+    }
+    //整列するときの縦の数値
+    int g_var_set_num = 80;
+ 
+    //整列するときの横の数値
+    int g_side_set_num = 100;
+    /// <summary>
+    /// ボタンを生んだりするメソッド
+    /// </summary>
+    /// <param name="buttonObj">生まれるボタン</param>
+    /// <param name="i">varの数値</param>
+    /// <param name="j">sideの数値</param>
+    /// <param name="stage_str">ボタンに表示する数値</param>
+    void ButtonSpwen(GameObject buttonObj,int i,int j,int stage_str) {
+
+        stage_str += 1;
+        //オブジェクトが生まれる
+        g_button = Instantiate(buttonObj);
+        g_button_text = g_button.transform.GetChild(0).GetComponent<Text>();
+        g_button_text.text = stage_str.ToString();
+        //親になる
+        g_button.transform.parent = gameObject.transform;
+        RectTransform g_button_transform = g_button.GetComponent<RectTransform>();
+        g_button_transform.localPosition = new Vector3( g_button_y_pos +j*g_var_set_num,g_button_x_pos + i*-g_side_set_num, 0);
+        //二次元配列にボタンを入れる
+        g_json_button_array[i, j] = g_button;
+        //ステージ名を二次元配列に入れる
+        g_json_stage_array[i, j] = g_array_Script.g_json_stage[g_array_num];
     }
 }
