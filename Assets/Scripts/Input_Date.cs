@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.IO;
 
 public class Input_Date : MonoBehaviour
 {
@@ -49,11 +50,14 @@ public class Input_Date : MonoBehaviour
     private void Awake() {
         g_informatinScript = GameObject.Find("Stageinformation").GetComponent<StageInformation>();
         g_jsonname = g_informatinScript.g_playStageName;
-        //譜面データをResourcesフォルダから取得
-        string inputString = Resources.Load<TextAsset>(g_jsonname).ToString();
-        //譜面データを取り込む
-        g_inputJson = JsonUtility.FromJson<InputJson>(inputString);
-
+        
+        string datastr = "";
+        StreamReader reader;
+        reader = new StreamReader(Application.streamingAssetsPath + "/" + g_jsonname + ".json");
+        datastr = reader.ReadToEnd();
+        reader.Close();
+        //ステージデータを取り込む
+        g_inputJson = JsonUtility.FromJson<InputJson>(datastr);
     }
 
     void Start()
