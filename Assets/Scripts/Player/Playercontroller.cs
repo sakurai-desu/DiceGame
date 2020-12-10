@@ -11,9 +11,9 @@ public class Playercontroller : MonoBehaviour {
     private GameObject g_player;   
     Game_Controller g_arryscript;
     //プレイヤー生成位置
-    public int g_playerpointer_v;
-    public int g_playerpointer_h;
-    public int g_playerpointer_s;
+    public int g_player_pointer_ver;
+    public int g_player_pointer_high;
+    public int g_player_pointer_side;
 
     bool g_arrayflag = false;
     //player位置
@@ -34,13 +34,19 @@ public class Playercontroller : MonoBehaviour {
         //指定位置に生成
         g_playerobj = Instantiate(g_player, new Vector3(g_playerposition.x,g_playerposition.y+1,g_playerposition.z), Quaternion.identity);
 
-        g_playerpointer_s = (int)g_playerobj.transform.position.x;
-        g_playerpointer_v = (int)g_playerobj.transform.position.z;
-        g_playerpointer_h = (int)g_playerobj.transform.position.y;
+        g_player_pointer_side = (int)g_playerobj.transform.position.x;
+        g_player_pointer_ver = (int)g_playerobj.transform.position.z;
+        g_player_pointer_high = (int)g_playerobj.transform.position.y;
         return g_playerobj;
     }
 
+    public void Storage_Player_Pointer(int ver,int side,int high) {
+        g_player_pointer_ver = ver;
+        g_player_pointer_side = side;
+        g_player_pointer_high = high;
+    }
+
     public (int, int, int) Get_Player_Pointer() {
-        return (g_playerpointer_v, g_playerpointer_s, g_playerpointer_h);
+        return (g_player_pointer_ver, g_player_pointer_side, g_player_pointer_high);
     }
 }
