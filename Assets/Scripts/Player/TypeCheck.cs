@@ -49,9 +49,9 @@ public class TypeCheck : MonoBehaviour {
         //プレイヤー初期位置取得
         if (g_getdate == true) {
             g_check_vsh = g_potision_script.Get_potision(g_check_v, g_check_s, g_check_h);
-            g_type_obj = g_tyep_script.Get_Obj_Type(g_playercontroller.g_playerpointer_v, g_playercontroller.g_playerpointer_s, g_playercontroller.g_playerpointer_h);
+            g_type_obj = g_tyep_script.Get_Obj_Type(g_playercontroller.g_player_pointer_ver, g_playercontroller.g_player_pointer_side, g_playercontroller.g_player_pointer_high);
             g_getdate = false;
-            Get_p_p();
+            Get_Player_Pointer();
         }
 
         //if (g_v_plus_flag == true) {
@@ -68,15 +68,15 @@ public class TypeCheck : MonoBehaviour {
         //}
     }
     //プレイヤーポジション取得
-    public void Get_p_p() {
+    public void Get_Player_Pointer() {
         //プレイヤーポジション取得
         g_check_vsh = g_potision_script.Get_potision(g_check_v, g_check_s, g_check_h);
         //プレイヤーV値取得
-        g_dice_check_v = g_playercontroller.g_playerpointer_v;
+        g_dice_check_v = g_playercontroller.g_player_pointer_ver;
         //プレイヤーS値取得
-        g_dice_check_s = g_playercontroller.g_playerpointer_s;
+        g_dice_check_s = g_playercontroller.g_player_pointer_side;
         //プレイヤーH値取得
-        g_dice_check_h = g_playercontroller.g_playerpointer_h;
+        g_dice_check_h = g_playercontroller.g_player_pointer_high;
         g_potision_script.Movecheck();
     }
     public void TypeCheck_block() {

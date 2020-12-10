@@ -294,7 +294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 633b3e6d0d32ce148a239cd71c09c37b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  g_playStageName: Stage7
+  g_playStageName: Stage5
 --- !u!4 &150255160
 Transform:
   m_ObjectHideFlags: 0
@@ -342,7 +342,6 @@ MonoBehaviour:
   g_side_pos: 0
   g_high_pos: 0
   g_var_pos: 0
-  g_change_pos_num: 0
 --- !u!4 &635931311
 Transform:
   m_ObjectHideFlags: 0
@@ -404,7 +403,6 @@ MonoBehaviour:
   g_side_pos: 0
   g_high_pos: 0
   g_var_pos: 0
-  g_change_pos_num: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,7 +527,6 @@ MonoBehaviour:
   g_side_pos: 0
   g_high_pos: 0
   g_var_pos: 0
-  g_change_pos_num: 0
 --- !u!4 &760693889
 Transform:
   m_ObjectHideFlags: 0
@@ -1630,7 +1627,6 @@ MonoBehaviour:
   g_side_pos: 0
   g_high_pos: 0
   g_var_pos: 0
-  g_change_pos_num: 0
 --- !u!4 &1594793992
 Transform:
   m_ObjectHideFlags: 0
@@ -1978,9 +1974,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   g_player: {fileID: 6658350799274573634, guid: 889fe96905619f949b4da962c3b8cdc9,
     type: 3}
-  g_playerpointer_v: 3
-  g_playerpointer_h: 1
-  g_playerpointer_s: 3
+  g_player_pointer_ver: 0
+  g_player_pointer_high: 0
+  g_player_pointer_side: 0
 --- !u!4 &5613002937132859191
 Transform:
   m_ObjectHideFlags: 0

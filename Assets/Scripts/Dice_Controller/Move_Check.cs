@@ -179,6 +179,7 @@ public class Move_Check : MonoBehaviour {
         //回転できる状態を返す
         return true;
     }
+
     /// <summary>
     /// 与えられた引数の一つ下に床があるか調べる処理
     /// </summary>

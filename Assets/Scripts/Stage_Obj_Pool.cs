@@ -90,8 +90,8 @@ public class Stage_Obj_Pool : MonoBehaviour {
                 break;
             //床
             case g_ground_para:
-                g_block_Obj = BlockCreator(g_floor_Prefab);
-                //g_block_Obj = BlockCreator(Ground_Creator(ver,side,high));
+                //g_block_Obj = BlockCreator(g_floor_Prefab);
+                g_block_Obj = BlockCreator(Ground_Creator(ver, side, high));
                 break;
             //ダイス
             case g_dice_para:

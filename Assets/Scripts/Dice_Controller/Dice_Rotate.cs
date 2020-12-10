@@ -44,11 +44,11 @@ public class Dice_Rotate : MonoBehaviour {
     /// 回転中かどうかを判定するフラグ
     /// </summary>
     private bool g_rotate_Flag = false;
-
-    private const int g_ver_plus_Para = 0;
-    private const int g_ver_minus_Para = 1;
-    private const int g_side_plus_Para = 2;
-    private const int g_side_minus_Para = 3;
+    
+    private const int g_ver_plus_Para = 31;
+    private const int g_ver_minus_Para = 33;
+    private const int g_side_plus_Para = 30;
+    private const int g_side_minus_Para = 32;
 
     Playermove g_playermove;
     TroubleScr g_trouble_script;
