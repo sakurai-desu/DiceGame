@@ -60,11 +60,11 @@ public class Dice_Squares : MonoBehaviour {
     /// 高さの要素数
     /// </summary>
     private int g_max_High;
-
-    private const int g_ver_plus_Para = 0;
-    private const int g_ver_minus_Para = 1;
-    private const int g_side_plus_Para = 2;
-    private const int g_side_minus_Para = 3;
+    
+    private const int g_ver_plus_Para = 31;
+    private const int g_ver_minus_Para = 33;
+    private const int g_side_plus_Para = 30;
+    private const int g_side_minus_Para = 32;
 
     void Start() {
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
