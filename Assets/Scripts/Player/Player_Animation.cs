@@ -39,9 +39,9 @@ public class Player_Animation : MonoBehaviour
     /// </summary>
     public void Player_Move_Anim() {
         g_player_Anim.SetBool("move_active", true);
-        float move_time = g_test_anim.length;
-        Debug.Log(move_time);
-        g_move_Script.Invoke("MoveFlag_False", move_time);
+        //float move_time = g_test_anim.length;
+        //Debug.Log(move_time);
+        //g_move_Script.Invoke("MoveFlag_False", move_time);
     }
     /// <summary>
     /// ダイスを押すアニメーション
