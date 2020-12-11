@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Playercontroller : MonoBehaviour {
-
+    private Player_Move g_player_move_Script;
     GameObject g_arraystats;
 
     //生成するプレイヤーオブジェクト
@@ -25,6 +25,10 @@ public class Playercontroller : MonoBehaviour {
 
         //配列を一度だけ読み込み用フラグ
         g_arrayflag = true;
+    }
+
+    private void Update() {
+        
     }
 
     //プレイヤー生成

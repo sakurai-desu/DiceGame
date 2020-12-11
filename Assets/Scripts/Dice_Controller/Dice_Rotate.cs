@@ -5,6 +5,7 @@ using UnityEngine;
 public class Dice_Rotate : MonoBehaviour {
     private Dice_Squares g_dice_Script;
     private Parent_All_Rotation g_parent_rotate_Script;
+    private TroubleScr g_trouble_script;
 
     /// <summary>
     /// 回転させるオブジェクト
@@ -44,15 +45,24 @@ public class Dice_Rotate : MonoBehaviour {
     /// 回転中かどうかを判定するフラグ
     /// </summary>
     private bool g_rotate_Flag = false;
-    
+
+    /// <summary>
+    /// 縦のプラス方向のパラメータ
+    /// </summary>
     private const int g_ver_plus_Para = 31;
+    /// <summary>
+    /// 縦のマイナス方向のパラメータ
+    /// </summary>
     private const int g_ver_minus_Para = 33;
+    /// <summary>
+    /// 横のプラス方向のパラメータ
+    /// </summary>
     private const int g_side_plus_Para = 30;
+    /// <summary>
+    /// 横のマイナス方向のパラメータ
+    /// </summary>
     private const int g_side_minus_Para = 32;
 
-    Playermove g_playermove;
-    TroubleScr g_trouble_script;
-    bool g_startflag;
     void Start() {
         g_parent_rotate_Script = GameObject.Find("Dice_Controller").GetComponent<Parent_All_Rotation>();
         g_trouble_script = GameObject.Find("TroubleObj").GetComponent<TroubleScr>();
@@ -61,11 +71,6 @@ public class Dice_Rotate : MonoBehaviour {
         g_dice_Obj = this.gameObject;
         //サイズを求める
         g_dice_Size = g_dice_Obj.transform.localScale.x / g_size_change;
-    }
-    private void Update() {
-        if (g_startflag == false) {
-            g_playermove = GameObject.FindGameObjectWithTag("Player").GetComponent<Playermove>();
-        }
     }
 
     private void Get_Parent() {
@@ -76,24 +81,21 @@ public class Dice_Rotate : MonoBehaviour {
     /// </summary>
     /// <param name="para"></param>
     public void This_Rotate(int para) {
-        if (g_playermove.g_speaceflag == false) {
-
-            switch (para) {
-                case g_ver_plus_Para:
-                    Ver_Plus_Rotate();
-                    break;
-                case g_ver_minus_Para:
-                    Ver_Minus_Rotate();
-                    break;
-                case g_side_plus_Para:
-                    Side_Plus_Rotate();
-                    break;
-                case g_side_minus_Para:
-                    Side_Minus_Rotate();
-                    break;
-            }
-            g_trouble_script.Trouble();
+        switch (para) {
+            case g_ver_plus_Para:
+                Ver_Plus_Rotate();
+                break;
+            case g_ver_minus_Para:
+                Ver_Minus_Rotate();
+                break;
+            case g_side_plus_Para:
+                Side_Plus_Rotate();
+                break;
+            case g_side_minus_Para:
+                Side_Minus_Rotate();
+                break;
         }
+        g_trouble_script.Trouble();
     }
 
     /// <summary>

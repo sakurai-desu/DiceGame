@@ -71,10 +71,22 @@ public class Parent_All_Rotation : MonoBehaviour {
     /// 移動先の指標：高さ
     /// </summary>
     private int g_next_high;
-    
+
+    /// <summary>
+    /// 縦のプラス方向のパラメータ
+    /// </summary>
     private const int g_ver_plus_Para = 31;
+    /// <summary>
+    /// 縦のマイナス方向のパラメータ
+    /// </summary>
     private const int g_ver_minus_Para = 33;
+    /// <summary>
+    /// 横のプラス方向のパラメータ
+    /// </summary>
     private const int g_side_plus_Para = 30;
+    /// <summary>
+    /// 横のマイナス方向のパラメータ
+    /// </summary>
     private const int g_side_minus_Para = 32;
     /// <summary>
     /// 現在のパラメータを保持する変数

@@ -5,7 +5,7 @@ using UnityEngine;
 public class TypeCheck : MonoBehaviour {
     Game_Controller g_tyep_script;
     Playercontroller g_playercontroller;
-    Playermove g_potision_script;
+    //Playermove g_potision_script;
 
     //プレイヤーの位置取得
     [SerializeField]
@@ -36,7 +36,7 @@ public class TypeCheck : MonoBehaviour {
     void Start() {
         //プレイヤーの情報を取得
         g_playercontroller = GameObject.Find("Player_Controller").GetComponent<Playercontroller>();
-        g_potision_script = GameObject.FindGameObjectWithTag("Player").GetComponent<Playermove>();
+        //g_potision_script = GameObject.FindGameObjectWithTag("Player").GetComponent<Playermove>();
         //ブロックのタイプを取得
         g_tyep_script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         //g_check_vsh = g_potision_script.Get_potision(g_check_v, g_check_s, g_check_h);
@@ -48,7 +48,7 @@ public class TypeCheck : MonoBehaviour {
     void Update() {
         //プレイヤー初期位置取得
         if (g_getdate == true) {
-            g_check_vsh = g_potision_script.Get_potision(g_check_v, g_check_s, g_check_h);
+            //g_check_vsh = g_potision_script.Get_potision(g_check_v, g_check_s, g_check_h);
             g_type_obj = g_tyep_script.Get_Obj_Type(g_playercontroller.g_player_pointer_ver, g_playercontroller.g_player_pointer_side, g_playercontroller.g_player_pointer_high);
             g_getdate = false;
             Get_Player_Pointer();
@@ -70,14 +70,14 @@ public class TypeCheck : MonoBehaviour {
     //プレイヤーポジション取得
     public void Get_Player_Pointer() {
         //プレイヤーポジション取得
-        g_check_vsh = g_potision_script.Get_potision(g_check_v, g_check_s, g_check_h);
+        //g_check_vsh = g_potision_script.Get_potision(g_check_v, g_check_s, g_check_h);
         //プレイヤーV値取得
         g_dice_check_v = g_playercontroller.g_player_pointer_ver;
         //プレイヤーS値取得
         g_dice_check_s = g_playercontroller.g_player_pointer_side;
         //プレイヤーH値取得
         g_dice_check_h = g_playercontroller.g_player_pointer_high;
-        g_potision_script.Movecheck();
+        //g_potision_script.Movecheck();
     }
     public void TypeCheck_block() {
 
