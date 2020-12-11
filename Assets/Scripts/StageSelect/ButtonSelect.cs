@@ -18,8 +18,9 @@ public class ButtonSelect : MonoBehaviour
 
     GetStagename g_stagename;
 
-    private float g_controller_time = 0.25f;
+    private float g_controller_time = 0.5f;
 
+    private float g_limit_num = 0.49f;
     void Start()
     {
         g_spwern_script = GetComponent<SpwernButton>();
@@ -102,7 +103,7 @@ public class ButtonSelect : MonoBehaviour
             g_stick_flag = true;
             Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
         }
-        if (Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0&&g_stick_flag) {
+        if (Input.GetAxisRaw("Vertical") > -g_limit_num && Input.GetAxisRaw("Vertical") < g_limit_num && Input.GetAxisRaw("Horizontal") < g_limit_num && Input.GetAxisRaw("Horizontal") > -g_limit_num && g_stick_flag) {
             g_stick_flag = false;
         }
             if (Input.GetKeyDown(KeyCode.Space)||Input.GetButtonDown("A")) {

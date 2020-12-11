@@ -31,8 +31,9 @@ public class PlayerXbox : MonoBehaviour
     /// </summary>
     private const int g_side_minus_Para = 32;
 
-    private float g_controller_time = 0.25f;
+    private float g_controller_Move = 0.5f;
 
+    private float g_limit_num = 0.49f;
     void Start()
     {
         g_player_move_Script = this.GetComponent<Player_Move>();
@@ -78,54 +79,54 @@ public class PlayerXbox : MonoBehaviour
         switch (g_camera_num) {
             case 0:
                 //配列hの上限に達してない時移動(上)
-                if (Input.GetKeyDown(KeyCode.W) || (Input.GetAxisRaw("Vertical") > g_controller_time && g_axis_flag == false)) {
+                if (Input.GetKeyDown(KeyCode.W) || (Input.GetAxisRaw("Vertical") > g_controller_Move && g_axis_flag == false)) {
                     g_player_move_Script.PlayerMove(g_ver_plus_Para);
                     g_axis_flag = true;
                 }
                 //配列hの下限に達してない時移動(下)
-                if (Input.GetKeyDown(KeyCode.S) || (Input.GetAxisRaw("Vertical") < -g_controller_time && g_axis_flag == false)) {
+                if (Input.GetKeyDown(KeyCode.S) || (Input.GetAxisRaw("Vertical") < -g_controller_Move && g_axis_flag == false)) {
                     g_player_move_Script.PlayerMove(g_ver_minus_Para);
                     g_axis_flag = true;
                 }
                 //配列vの下限に達してない時移動(左)
-                if (Input.GetKeyDown(KeyCode.A) || (Input.GetAxisRaw("Horizontal") < -g_controller_time && g_axis_flag == false)) {
+                if (Input.GetKeyDown(KeyCode.A) || (Input.GetAxisRaw("Horizontal") < -g_controller_Move && g_axis_flag == false)) {
                     g_player_move_Script.PlayerMove(g_side_minus_Para);
                     g_axis_flag = true;
                 }
                 //配列vの上限に達してない時移動(右)
-                if (Input.GetKeyDown(KeyCode.D) || (Input.GetAxisRaw("Horizontal") > g_controller_time && g_axis_flag == false)) {
+                if (Input.GetKeyDown(KeyCode.D) || (Input.GetAxisRaw("Horizontal") > g_controller_Move && g_axis_flag == false)) {
                     g_player_move_Script.PlayerMove(g_side_plus_Para);
                     g_axis_flag = true;
                 }
                 //スティックが戻されたとき
-                if (Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0) {
+                if (Input.GetAxisRaw("Vertical") > -g_limit_num && Input.GetAxisRaw("Vertical") < g_limit_num && Input.GetAxisRaw("Horizontal") < g_limit_num && Input.GetAxisRaw("Horizontal") > -g_limit_num) {
                     g_axis_flag = false;
                 }
                 break;
             case 2:
                 //配列hの上限に達してない時移動(上)
-                if (Input.GetKeyDown(KeyCode.W) || (Input.GetAxisRaw("Vertical") > g_controller_time && g_axis_flag == false)) {
+                if (Input.GetKeyDown(KeyCode.W) || (Input.GetAxisRaw("Vertical") > g_controller_Move && g_axis_flag == false)) {
                     g_player_move_Script.PlayerMove(g_ver_minus_Para);
                     g_axis_flag = true;
                 }
                 //配列hの下限に達してない時移動(下)
-                if (Input.GetKeyDown(KeyCode.S) || (Input.GetAxisRaw("Vertical") < -g_controller_time && g_axis_flag == false)) {
+                if (Input.GetKeyDown(KeyCode.S) || (Input.GetAxisRaw("Vertical") < -g_controller_Move && g_axis_flag == false)) {
                     g_player_move_Script.PlayerMove(g_ver_plus_Para);
                     g_axis_flag = true;
                 }
                 //配列vの下限に達してない時移動(左)
-                if (Input.GetKeyDown(KeyCode.A) || (Input.GetAxisRaw("Horizontal") < -g_controller_time && g_axis_flag == false)) {
+                if (Input.GetKeyDown(KeyCode.A) || (Input.GetAxisRaw("Horizontal") < -g_controller_Move && g_axis_flag == false)) {
                     g_player_move_Script.PlayerMove(g_side_plus_Para);
                     g_axis_flag = true;
                 }
                 //配列vの上限に達してない時移動(右)
-                if (Input.GetKeyDown(KeyCode.D) || (Input.GetAxisRaw("Horizontal") > g_controller_time && g_axis_flag == false)) {
+                if (Input.GetKeyDown(KeyCode.D) || (Input.GetAxisRaw("Horizontal") > g_controller_Move && g_axis_flag == false)) {
                     g_player_move_Script.PlayerMove(g_side_minus_Para);
                     g_axis_flag = true;
                 }
 
                 //スティックが戻されたとき
-                if (Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0) {
+                if (Input.GetAxisRaw("Vertical") > -g_limit_num && Input.GetAxisRaw("Vertical") < g_limit_num && Input.GetAxisRaw("Horizontal") < g_limit_num && Input.GetAxisRaw("Horizontal") > -g_limit_num) {
                     g_axis_flag = false;
                 }
                 break;
