@@ -25,12 +25,12 @@ public class MainCamera_Move : MonoBehaviour
     }
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.E)) {
+        if (Input.GetKeyDown(KeyCode.E)||Input.GetButtonDown("R")) {
             g_button_push_flag = true;
             Change_Right_Camra_Pos();
             CameraNum();
         } 
-        if (Input.GetKeyDown(KeyCode.Q)) {
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("L")) {
             g_button_push_flag = true;
             Change_Left_Camra_Pos();
             CameraNum();
