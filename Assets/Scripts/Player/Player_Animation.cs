@@ -9,6 +9,8 @@ public class Player_Animation : MonoBehaviour
     [SerializeField]
     private GameObject g_player_obj;
     private bool g_play_flag = false;
+    [SerializeField]
+    AnimationClip g_test_anim;
 
     void Start()
     {
@@ -37,6 +39,9 @@ public class Player_Animation : MonoBehaviour
     /// </summary>
     public void Player_Move_Anim() {
         g_player_Anim.SetBool("move_active", true);
+        float move_time = g_test_anim.length;
+        Debug.Log(move_time);
+        g_move_Script.Invoke("MoveFlag_False", move_time);
     }
     /// <summary>
     /// ダイスを押すアニメーション

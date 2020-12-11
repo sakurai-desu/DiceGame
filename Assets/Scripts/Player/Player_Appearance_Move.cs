@@ -78,7 +78,7 @@ public class Player_Appearance_Move : MonoBehaviour {
         //移動先への移動終了
         g_player_obj.transform.position = g_end_Pos;
         //移動中フラグOFF
-        g_is_move = false;
+        //g_is_move = false;
         Goal();
         yield break;
     }
@@ -96,5 +96,8 @@ public class Player_Appearance_Move : MonoBehaviour {
     /// <returns></returns>
     public bool Get_MoveFlag() {
         return g_is_move;
+    }
+    public void MoveFlag_False() {
+        g_is_move = false;
     }
 }
