@@ -36,10 +36,22 @@ public class Dice_Controller : MonoBehaviour {
     /// プレイヤーの指標：高さ
     /// </summary>
     private int g_player_high = 0;
-    
+
+    /// <summary>
+    /// 縦のプラス方向のパラメータ
+    /// </summary>
     private const int g_ver_plus_Para = 31;
+    /// <summary>
+    /// 縦のマイナス方向のパラメータ
+    /// </summary>
     private const int g_ver_minus_Para = 33;
+    /// <summary>
+    /// 横のプラス方向のパラメータ
+    /// </summary>
     private const int g_side_plus_Para = 30;
+    /// <summary>
+    /// 横のマイナス方向のパラメータ
+    /// </summary>
     private const int g_side_minus_Para = 32;
 
     void Start() {
@@ -51,7 +63,7 @@ public class Dice_Controller : MonoBehaviour {
     /// </summary>
     /// <param name="storage_obj">軸にするダイス</param>
     /// <param name="para">移動方向パラメータ</param>
-    public void Storage_Control_Obj(GameObject storage_obj,int para) {
+    public void Storage_Control_Obj(GameObject storage_obj, int para) {
         //自分が保持しているプレイヤーのポインターを更新する
         (g_player_ver, g_player_side, g_player_high) = g_player_con_Script.Get_Player_Pointer();
         g_con_Obj = storage_obj;

@@ -85,15 +85,15 @@ public class Playermove : MonoBehaviour {
 
     public int g_camera_num;
     void Update() {
-        if (g_move_Script.Get_MoveFlag()) {
-            return;
-        }
-        if (g_arrayflag == true) {
-            //Game_Controller.GetArrayから配列読み込み
-            g_sponplayer = g_type_script.Get_Pos(g_potision_script.g_player_pointer_ver,
-                g_potision_script.g_player_pointer_side, g_potision_script.g_player_pointer_high);
-            g_arrayflag = false;
-        }
+        //if (g_move_Script.Get_MoveFlag()) {
+        //    return;
+        //}
+        //if (g_arrayflag == true) {
+        //    //Game_Controller.GetArrayから配列読み込み
+        //    g_sponplayer = g_type_script.Get_Pos(g_potision_script.g_player_pointer_ver,
+        //        g_potision_script.g_player_pointer_side, g_potision_script.g_player_pointer_high);
+        //    g_arrayflag = false;
+        //}
         if (g_camera_num == 0 || g_camera_num == 1) {
             g_camera_num = 0;
         } else {
@@ -104,7 +104,7 @@ public class Playermove : MonoBehaviour {
             case 0:
                 ////配列hの上限に達してない時移動(上)
                 //if (Input.GetKeyDown(KeyCode.W)) {
-                //    //Move_W();
+                //    Move_W();
                 //}
                 ////配列hの下限に達してない時移動(下)
                 //if (Input.GetKeyDown(KeyCode.S)) {
@@ -140,14 +140,14 @@ public class Playermove : MonoBehaviour {
         }
         #endregion
 
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            PushKey();
-            g_speaceflag = true;
-        }
-        if (Input.GetKeyUp(KeyCode.Space)) {
-            UpKey();
-            g_speaceflag = false;
-        }
+        //if (Input.GetKeyDown(KeyCode.Space)) {
+        //    PushKey();
+        //    g_speaceflag = true;
+        //}
+        //if (Input.GetKeyUp(KeyCode.Space)) {
+        //    UpKey();
+        //    g_speaceflag = false;
+        //}
     }
 
     private void Player_Move() {

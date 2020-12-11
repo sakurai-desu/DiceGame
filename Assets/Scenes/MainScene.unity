@@ -294,7 +294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 633b3e6d0d32ce148a239cd71c09c37b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  g_playStageName: Stage5
+  g_playStageName: Stage005
 --- !u!4 &150255160
 Transform:
   m_ObjectHideFlags: 0
@@ -665,6 +665,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1896731242b3ddd469278903a97653af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  g_player_ver: 0
+  g_player_side: 0
+  g_player_high: 0
 --- !u!4 &806481032
 Transform:
   m_ObjectHideFlags: 0
@@ -2003,3 +2006,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e20e3207bf0ec5b4cb96d773a5d71d79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  g_player_direction: 0

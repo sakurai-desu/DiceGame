@@ -12,11 +12,22 @@ public class Player_Direction : MonoBehaviour {
     /// </summary>
     private int g_start_Para;
 
+    /// <summary>
+    /// 縦のプラス方向のパラメータ
+    /// </summary>
     private const int g_ver_plus_Para = 31;
+    /// <summary>
+    /// 縦のマイナス方向のパラメータ
+    /// </summary>
     private const int g_ver_minus_Para = 33;
+    /// <summary>
+    /// 横のプラス方向のパラメータ
+    /// </summary>
     private const int g_side_plus_Para = 30;
+    /// <summary>
+    /// 横のマイナス方向のパラメータ
+    /// </summary>
     private const int g_side_minus_Para = 32;
-    [SerializeField]
     /// <summary>
     /// 現在のプレイヤーの向き
     /// </summary>
@@ -35,10 +46,11 @@ public class Player_Direction : MonoBehaviour {
     }
 
     /// <summary>
-    /// プレイヤーキャラクターの向いている方向を変更する処理
+    /// プレイヤーオブジェクトの向いている方向を変更する処理
     /// </summary>
     /// <param name="para"></param>
     public void Player_Direction_Change(int para) {
+        g_player_direction = para;
         switch (para) {
             case g_ver_plus_Para:
                 g_player_Obj.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
@@ -55,6 +67,10 @@ public class Player_Direction : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// プレイヤーの向きを表す数値を返す処理
+    /// </summary>
+    /// <returns></returns>
     public int Get_Player_Direction() {
         return g_player_direction;
     }
