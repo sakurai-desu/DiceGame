@@ -67,11 +67,6 @@ public class Player_Move : MonoBehaviour {
     /// </summary>
     private GameObject g_player_Obj;
 
-    /// <summary>
-    /// カメラの向き
-    /// </summary>
-    private int g_camera_num;
-
     void Start() {
         g_player_Obj = this.gameObject;
         g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Date>();
@@ -84,60 +79,7 @@ public class Player_Move : MonoBehaviour {
         //配列の最大値を取得
         (g_max_ver, g_max_side, g_max_high) = g_json_Script.Get_Array_Max();
     }
-
-    void Update() {
-        if (g_appearance_move_Script.Get_MoveFlag()) {
-            return;
-        }
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            Jump();
-        }
-        if (g_camera_num == 0 || g_camera_num == 1) {
-            g_camera_num = 0;
-        } else {
-            g_camera_num = 2;
-        }
-        //カメラの向きに応じてプレイヤーの操作キーを変更する
-        switch (g_camera_num) {
-            case 0:
-                //配列hの上限に達してない時移動(上)
-                if (Input.GetKeyDown(KeyCode.W)) {
-                    PlayerMove(g_ver_plus_Para);
-                }
-                //配列hの下限に達してない時移動(下)
-                if (Input.GetKeyDown(KeyCode.S)) {
-                    PlayerMove(g_ver_minus_Para);
-                }
-                //配列vの下限に達してない時移動(左)
-                if (Input.GetKeyDown(KeyCode.A)) {
-                    PlayerMove(g_side_minus_Para);
-                }
-                //配列vの上限に達してない時移動(右)
-                if (Input.GetKeyDown(KeyCode.D)) {
-                    PlayerMove(g_side_plus_Para);
-                }
-                break;
-            case 2:
-                //配列hの上限に達してない時移動(上)
-                if (Input.GetKeyDown(KeyCode.W)) {
-                    PlayerMove(g_ver_minus_Para);
-                }
-                //配列hの下限に達してない時移動(下)
-                if (Input.GetKeyDown(KeyCode.S)) {
-                    PlayerMove(g_ver_plus_Para);
-                }
-                //配列vの下限に達してない時移動(左)
-                if (Input.GetKeyDown(KeyCode.A)) {
-                    PlayerMove(g_side_plus_Para);
-                }
-                //配列vの上限に達してない時移動(右)
-                if (Input.GetKeyDown(KeyCode.D)) {
-                    PlayerMove(g_side_minus_Para);
-                }
-                break;
-        }
-    }
-
+    
     /// <summary>
     /// 指定したパラメータと位置に応じてプレイヤーを移動させる
     /// </summary>
@@ -145,7 +87,7 @@ public class Player_Move : MonoBehaviour {
     /// <param name="side">横</param>
     /// <param name="high">高さ</param>
     /// <param name="para">移動方向パラメータ</param>
-    private void PlayerMove(int para) {
+    public void PlayerMove(int para) {
         //プレイヤーの現在のポインター取得
         (g_player_ver, g_player_side, g_player_high) = g_play_con_Script.Get_Player_Pointer();
         //プレイヤーオブジェクトの向きをパラメータに応じて変更する
@@ -268,7 +210,7 @@ public class Player_Move : MonoBehaviour {
     /// <summary>
     /// プレイヤーをジャンプさせる処理
     /// </summary>
-    private void Jump() {
+    public void Jump() {
         //プレイヤーが現在向いている方向を取得
         int direction_para = g_direction_Script.Get_Player_Direction();
         //現在のプレイヤーのポインタ取得
@@ -314,13 +256,5 @@ public class Player_Move : MonoBehaviour {
             //プレイヤーの現在地を更新する
             g_play_con_Script.Storage_Player_Pointer(g_player_ver, g_player_side, g_player_high + 1);
         }
-    }
-
-    /// <summary>
-    /// カメラの向きを示す数値を変更する
-    /// </summary>
-    /// <param name="num"></param>
-    public void Change_CameraNum(int num) {
-        g_camera_num = num;
     }
 }

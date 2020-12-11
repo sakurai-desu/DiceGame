@@ -12,9 +12,7 @@ public class MainCamera_Move : MonoBehaviour
 
     private GameObject g_this_Obj;
 
-    //Playermove g_play_move;
-    private Player_Move g_player_move_Script;
-
+    private PlayerXbox g_player_con_Script;
     //ボタンが押されているかどうかを判断するフラグ
     public bool g_button_push_flag;
 
@@ -28,13 +26,11 @@ public class MainCamera_Move : MonoBehaviour
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.E)) {
-            //GetPlayer();
             g_button_push_flag = true;
             Change_Right_Camra_Pos();
             CameraNum();
         } 
         if (Input.GetKeyDown(KeyCode.Q)) {
-            //GetPlayer();
             g_button_push_flag = true;
             Change_Left_Camra_Pos();
             CameraNum();
@@ -63,18 +59,12 @@ public class MainCamera_Move : MonoBehaviour
         g_this_Obj.transform.localPosition= new Vector3(0, 0, 0);
         g_this_Obj.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
     }
-    ///// <summary>
-    ///// プレイヤーを取得
-    ///// </summary>
-    //private void GetPlayer() {
-    //    g_play_move = GameObject.FindGameObjectWithTag("Player").GetComponent<Playermove>();
-    //}
     /// <summary>
     /// プレイヤー内の数値変更
     /// </summary>
     void CameraNum() {
-        g_player_move_Script = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_Move>();
-        g_player_move_Script.Change_CameraNum(g_camera_pointer);
+        g_player_con_Script = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerXbox>();
+        g_player_con_Script.Change_CameraNum(g_camera_pointer);
 
     }
 }
