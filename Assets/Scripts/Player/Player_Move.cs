@@ -79,7 +79,14 @@ public class Player_Move : MonoBehaviour {
         //配列の最大値を取得
         (g_max_ver, g_max_side, g_max_high) = g_json_Script.Get_Array_Max();
     }
-    
+
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.L)) {
+            g_anim_Script.Player_Jump_Anim();
+
+        }
+    }
+
     /// <summary>
     /// 指定したパラメータと位置に応じてプレイヤーを移動させる
     /// </summary>
@@ -88,6 +95,9 @@ public class Player_Move : MonoBehaviour {
     /// <param name="high">高さ</param>
     /// <param name="para">移動方向パラメータ</param>
     public void PlayerMove(int para) {
+        if (g_play_con_Script.Get_MoveFlag()) {
+            return;
+        }
         //プレイヤーの現在のポインター取得
         (g_player_ver, g_player_side, g_player_high) = g_play_con_Script.Get_Player_Pointer();
         //プレイヤーオブジェクトの向きをパラメータに応じて変更する
@@ -132,11 +142,17 @@ public class Player_Move : MonoBehaviour {
                     //移動処理中止
                     return;
                 }
+                if (g_player_high - g_check_high == 0) {
+                    //移動アニメーション再生
+                    g_anim_Script.Player_Move_Anim();
+                } 
+                else if (g_player_high - g_check_high != 0) {
+                    g_anim_Script.Player_Jump_Anim();
+                }
                 //移動先の高さの指標を変更する
                 g_player_high = g_check_high;
 
-                //移動アニメーション再生
-                g_anim_Script.Player_Move_Anim();
+
                 //移動先のポジション取得
                 Vector3 get_pos = g_game_con_Script.Get_Pos(g_player_ver, g_player_side, g_player_high);
                 //取得した位置にプレイヤーを移動させる
@@ -211,6 +227,9 @@ public class Player_Move : MonoBehaviour {
     /// プレイヤーをジャンプさせる処理
     /// </summary>
     public void Jump() {
+        if (g_play_con_Script.Get_MoveFlag()) {
+            return;
+        }
         //プレイヤーが現在向いている方向を取得
         int direction_para = g_direction_Script.Get_Player_Direction();
         //現在のプレイヤーのポインタ取得

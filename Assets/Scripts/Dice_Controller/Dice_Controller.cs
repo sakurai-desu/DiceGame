@@ -78,7 +78,7 @@ public class Dice_Controller : MonoBehaviour {
     /// <param name="para"></param>
     private void Move(int para) {
         //回転中の間は回転させない
-        if (g_rotate_Script.Get_Rotate_Flag()) {
+        if (g_player_con_Script.Get_MoveFlag()) {
             return;
         }
         //回転の中心にしているサイコロの親を取得

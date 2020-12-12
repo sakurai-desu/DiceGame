@@ -6,7 +6,7 @@ using UnityEngine;
 public class Check_Dice : MonoBehaviour {
     private Input_Date g_json_Script;
     private Game_Controller g_game_Con_Script;
-
+    private Se_Source g_se_source_Script;
     private Dice_Squares g_next_dice_Script;
 
     /// <summary>
@@ -97,6 +97,7 @@ public class Check_Dice : MonoBehaviour {
     void Start() {
         g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Date>();
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
+        g_se_source_Script = GameObject.Find("Se_Source").GetComponent<Se_Source>();
         //縦横高さの最大値をjsonで決めた数へ変更する
         (g_max_Ver, g_max_Side, g_max_High) = g_json_Script.Get_Array_Max();
     }
@@ -221,14 +222,14 @@ public class Check_Dice : MonoBehaviour {
             //移動側の接触面のパラメータを保持
             g_adhesive_para = change_para;
             //接触面を調べてくっつくか調べる
-            Adhesive_Check();
+            Docking_Check();
         }
     }
 
     /// <summary>
     /// 接触したサイコロ同士の接触面を比較し接着するか調べる処理
     /// </summary>
-    private void Adhesive_Check() {
+    private void Docking_Check() {
         //移動側のサイコロの接触面に対応した処理をする
         switch (g_adhesive_para) {
             //接触面が縦のプラス方向の時
@@ -286,6 +287,7 @@ public class Check_Dice : MonoBehaviour {
             if (next_children_count > children_count) {
                 Debug.Log("新しいサイコロがくっついた");
                 Debug.Log("サイコロがくっつく演出を入れる");
+                g_se_source_Script.Dice_Docking_Se_Play();
                 //くっつけられた側の親を削除する
                 Destroy(detroy_Obj);
             }

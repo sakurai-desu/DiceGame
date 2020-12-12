@@ -70,6 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948d660bacdf4e048a85629814cd1dd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  g_player_body: {fileID: 4582352026442456797}
 --- !u!114 &1120456114761510021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,7 +84,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   g_player_obj: {fileID: 5664056391403052196}
-  g_test_anim: {fileID: 7400000, guid: a5e860ece5e5bdd4dbfefbf0f3e43d97, type: 2}
+  g_move_anim: {fileID: 7400000, guid: a5e860ece5e5bdd4dbfefbf0f3e43d97, type: 2}
+  g_jump_anim: {fileID: 7400000, guid: efd4a46c881805b439b4623c78ad7d95, type: 2}
 --- !u!114 &-2281882058058202001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,6 +188,12 @@ GameObject:
 --- !u!4 &8701408164501450423 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3440281012843975929, guid: ea0d629b7d1ee774892afa1a0e7bcdce,
+    type: 3}
+  m_PrefabInstance: {fileID: 6304979852107512398}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4582352026442456797 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7559293241342305427, guid: ea0d629b7d1ee774892afa1a0e7bcdce,
     type: 3}
   m_PrefabInstance: {fileID: 6304979852107512398}
   m_PrefabAsset: {fileID: 0}
