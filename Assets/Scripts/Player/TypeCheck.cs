@@ -54,18 +54,6 @@ public class TypeCheck : MonoBehaviour {
             Get_Player_Pointer();
         }
 
-        //if (g_v_plus_flag == true) {
-        //    g_dicemove.GetComponent<Dicemove>().Move_dice_plus_v();
-        //}
-        //if (g_v_minus_flag == true) {
-        //    g_dicemove.GetComponent<Dicemove>().Move_dice_minus_v();
-        //}
-        //if (g_s_plus_flag == true) {
-        //    g_dicemove.GetComponent<Dicemove>().Move_dice_plus_s();
-        //}
-        //if (g_s_minus_flag == true) {
-        //    g_dicemove.GetComponent<Dicemove>().Move_dice_minus_s();
-        //}
     }
     //プレイヤーポジション取得
     public void Get_Player_Pointer() {
@@ -83,19 +71,15 @@ public class TypeCheck : MonoBehaviour {
 
         #region 先にあるもののTypeCheck
         if (g_tyep_script.Get_Obj_Type(g_dice_check_v + 1, g_dice_check_s, g_dice_check_h) == 100) {
-            Debug.Log("uedice");
             g_v_plus_flag = true;
         }
         if (g_tyep_script.Get_Obj_Type(g_dice_check_v - 1, g_dice_check_s, g_dice_check_h) == 100) {
-            Debug.Log("sitadice");
             g_v_minus_flag = true;
         }
         if (g_tyep_script.Get_Obj_Type(g_dice_check_v, g_dice_check_s + 1, g_dice_check_h) == 100) {
-            Debug.Log("migidice");
             g_s_plus_flag = true;
         }
         if (g_tyep_script.Get_Obj_Type(g_dice_check_v, g_dice_check_s - 1, g_dice_check_h) == 100) {
-            Debug.Log("hidaridice");
             g_s_minus_flag = true;
         }
 
