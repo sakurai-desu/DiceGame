@@ -28,9 +28,6 @@ public class Particle_Source : MonoBehaviour {
     }
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.H)) {
-            Docking_Particle_Play(this.gameObject, 2);
-        }
     }
 
     public void Docking_Particle_Play(GameObject docking_dice, int particle_pointer) {
