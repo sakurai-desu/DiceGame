@@ -173,7 +173,7 @@ MonoBehaviour:
   g_side_num: 0
   g_remainder_num: 0
   g_var_set_num: 100
-  g_side_set_num: 130
+  g_side_set_num: 110
 --- !u!114 &97349111
 MonoBehaviour:
   m_ObjectHideFlags: 0
