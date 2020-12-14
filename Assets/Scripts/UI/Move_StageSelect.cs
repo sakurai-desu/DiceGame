@@ -12,7 +12,9 @@ public class Move_StageSelect : MonoBehaviour
 
     void Update()
     {
-        
+        //if (Input.GetButtonDown("Back")) {
+        //    StageSelect();
+        //}
     }
 
     public void StageSelect() {

@@ -17,7 +17,10 @@ public class ButtonSelect : MonoBehaviour
     ButtonSizeChange g_buttonSize;
 
     GetStagename g_stagename;
-    // Start is called before the first frame update
+
+    private float g_controller_time = 0.5f;
+
+    private float g_limit_num = 0.49f;
     void Start()
     {
         g_spwern_script = GetComponent<SpwernButton>();
@@ -26,7 +29,8 @@ public class ButtonSelect : MonoBehaviour
 
     }
     bool g_oneflag;
-    // Update is called once per frame
+    bool g_stick_flag;
+
     void Update()
     {
         if (g_oneflag == false) {
@@ -36,7 +40,7 @@ public class ButtonSelect : MonoBehaviour
         }
         #region キーが押されたときの処理
         //Aキーが押されたとき
-        if (Input.GetKeyDown(KeyCode.A)) {
+        if (Input.GetKeyDown(KeyCode.A)||(Input.GetAxisRaw("Horizontal") <-g_controller_time && g_stick_flag==false)) {
             ButtonOrigin();
             //２段目以降の一番左の時
             if (g_side_pointer == 0 && g_var_pointer != 0) {
@@ -52,9 +56,10 @@ public class ButtonSelect : MonoBehaviour
             g_side_pointer -= 1;
             }
             ButtonBig();
-            Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
+            g_stick_flag = true;
+            //Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
         }
-        if (Input.GetKeyDown(KeyCode.D)) {
+        if (Input.GetKeyDown(KeyCode.D) || (Input.GetAxisRaw("Horizontal") > g_controller_time && g_stick_flag == false)) {
             ButtonOrigin();
             //一番下以外の一番右の時
             if (g_side_pointer == g_spwern_script.g_side_num - 1 && g_var_pointer != g_spwern_script.g_varmax_num) {
@@ -69,9 +74,10 @@ public class ButtonSelect : MonoBehaviour
             g_side_pointer += 1;
             }
             ButtonBig();
-            Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
+            g_stick_flag = true;
+            //Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
         }
-        if (Input.GetKeyDown(KeyCode.W)) {
+        if (Input.GetKeyDown(KeyCode.W)|| (Input.GetAxisRaw("Vertical") > g_controller_time && g_stick_flag == false)) {
             ButtonOrigin();
             //ポインターがはみ出そうなとき
             if (g_var_pointer == 0) {
@@ -81,9 +87,10 @@ public class ButtonSelect : MonoBehaviour
             g_var_pointer -= 1;
             }
             ButtonBig();
-            Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
+            g_stick_flag = true;
+            //Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
         }
-        if (Input.GetKeyDown(KeyCode.S)) {
+        if (Input.GetKeyDown(KeyCode.S)||(Input.GetAxisRaw("Vertical") < -g_controller_time && g_stick_flag == false)) {
             ButtonOrigin();
             //ポインターがはみ出そうなとき
             if (g_var_pointer == g_spwern_script.g_varmax_num-1) {
@@ -93,9 +100,13 @@ public class ButtonSelect : MonoBehaviour
             VarNullChacker(1);
             }
             ButtonBig();
-            Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
+            g_stick_flag = true;
+            //Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
         }
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetAxisRaw("Vertical") > -g_limit_num && Input.GetAxisRaw("Vertical") < g_limit_num && Input.GetAxisRaw("Horizontal") < g_limit_num && Input.GetAxisRaw("Horizontal") > -g_limit_num && g_stick_flag) {
+            g_stick_flag = false;
+        }
+            if (Input.GetKeyDown(KeyCode.Space)||Input.GetButtonDown("A")) {
             g_stagename = g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer].GetComponent<GetStagename>();
             g_stagename.g_get_stagename = g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer];
             g_stagename.OnClick();

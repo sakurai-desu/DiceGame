@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Dice_Controller : MonoBehaviour {
+    private Playercontroller g_player_con_Script;
     private Dice_Squares g_dice_Script;
     private Dice_Rotate g_rotate_Script;
     private Parent_Dice g_parent_Script;
@@ -20,25 +21,41 @@ public class Dice_Controller : MonoBehaviour {
     /// 回転の軸にしているダイスの親オブジェクト
     /// </summary>
     private GameObject g_con_Obj_Parent;
+    [SerializeField]
     /// <summary>
     /// プレイヤーの指標：縦
     /// </summary>
     private int g_player_ver = 0;
+    [SerializeField]
     /// <summary>
     /// プレイヤーの指標：横
     /// </summary>
     private int g_player_side = 0;
+    [SerializeField]
     /// <summary>
     /// プレイヤーの指標：高さ
     /// </summary>
     private int g_player_high = 0;
 
-    private const int g_ver_plus_Para = 0;
-    private const int g_ver_minus_Para = 1;
-    private const int g_side_plus_Para = 2;
-    private const int g_side_minus_Para = 3;
+    /// <summary>
+    /// 縦のプラス方向のパラメータ
+    /// </summary>
+    private const int g_ver_plus_Para = 31;
+    /// <summary>
+    /// 縦のマイナス方向のパラメータ
+    /// </summary>
+    private const int g_ver_minus_Para = 33;
+    /// <summary>
+    /// 横のプラス方向のパラメータ
+    /// </summary>
+    private const int g_side_plus_Para = 30;
+    /// <summary>
+    /// 横のマイナス方向のパラメータ
+    /// </summary>
+    private const int g_side_minus_Para = 32;
 
     void Start() {
+        g_player_con_Script = GameObject.Find("Player_Controller").GetComponent<Playercontroller>();
         g_parent_rotate_Script = GetComponent<Parent_All_Rotation>();
     }
     /// <summary>
@@ -46,23 +63,13 @@ public class Dice_Controller : MonoBehaviour {
     /// </summary>
     /// <param name="storage_obj">軸にするダイス</param>
     /// <param name="para">移動方向パラメータ</param>
-    public void Storage_Control_Obj(GameObject storage_obj,int para) {
+    public void Storage_Control_Obj(GameObject storage_obj, int para) {
+        //自分が保持しているプレイヤーのポインターを更新する
+        (g_player_ver, g_player_side, g_player_high) = g_player_con_Script.Get_Player_Pointer();
         g_con_Obj = storage_obj;
         g_dice_Script = g_con_Obj.GetComponent<Dice_Squares>();
         g_rotate_Script = g_con_Obj.GetComponent<Dice_Rotate>();
         Move(para);
-    }
-
-    /// <summary>
-    /// プレイヤーの指標を更新
-    /// </summary>
-    /// <param name="ver"></param>
-    /// <param name="side"></param>
-    /// <param name="high"></param>
-    public void Change_Player_Pointer(int ver,int side,int high) {
-        g_player_ver = ver;
-        g_player_side = side;
-        g_player_high = high;
     }
 
     /// <summary>
@@ -71,7 +78,7 @@ public class Dice_Controller : MonoBehaviour {
     /// <param name="para"></param>
     private void Move(int para) {
         //回転中の間は回転させない
-        if (g_rotate_Script.Get_Rotate_Flag()) {
+        if (g_player_con_Script.Get_MoveFlag()) {
             return;
         }
         //回転の中心にしているサイコロの親を取得

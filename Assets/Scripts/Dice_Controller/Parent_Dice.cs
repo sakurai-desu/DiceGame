@@ -126,13 +126,13 @@ public class Parent_Dice : MonoBehaviour {
             //ダイスの現在の指標取得
             (g_dice_ver, g_dice_side, g_dice_high) =
                 g_child_Array[child_pointer].GetComponent<Dice_Squares>().Get_Dice_Pointer();
-            int type = g_game_con_Script.Get_Obj_Type(g_dice_ver, g_dice_side, g_dice_high-1);
+            int type = g_game_con_Script.Get_Obj_Type(g_dice_ver, g_dice_side, g_dice_high - 1);
             //ダイスの縦の指標が保持している最小値以下＆
             //ダイスの横の指標がプレイヤーの横の指標と同じ＆
             //ダイスの縦の指標がプレイヤーの縦の指標と同じ
             if (type != 0 && min >= g_dice_ver && g_dice_side == player_side && g_dice_high == player_high) {
-            //最小値を更新
-            min = g_dice_ver;
+                //最小値を更新
+                min = g_dice_ver;
                 //軸のダイスを更新
                 g_con_Dice = g_child_Array[child_pointer];
             }

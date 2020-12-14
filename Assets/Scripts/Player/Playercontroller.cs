@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Playercontroller : MonoBehaviour {
-
+    private Player_Move g_player_move_Script;
     GameObject g_arraystats;
 
     //生成するプレイヤーオブジェクト
@@ -11,13 +11,17 @@ public class Playercontroller : MonoBehaviour {
     private GameObject g_player;   
     Game_Controller g_arryscript;
     //プレイヤー生成位置
-    public int g_playerpointer_v;
-    public int g_playerpointer_h;
-    public int g_playerpointer_s;
+    public int g_player_pointer_ver;
+    public int g_player_pointer_high;
+    public int g_player_pointer_side;
 
     bool g_arrayflag = false;
     //player位置
     Vector3 g_sponplayer;
+    /// <summary>
+    /// 移動可能か調べるフラグ
+    /// </summary>
+    private bool g_is_move;
 
     void Start() {
         g_arraystats = GameObject.Find("Game_Controller");
@@ -27,6 +31,10 @@ public class Playercontroller : MonoBehaviour {
         g_arrayflag = true;
     }
 
+    private void Update() {
+        
+    }
+
     //プレイヤー生成
     public GameObject PlayerCreator(Vector3 g_playerposition) {
         //生成オブジェクト
@@ -34,13 +42,33 @@ public class Playercontroller : MonoBehaviour {
         //指定位置に生成
         g_playerobj = Instantiate(g_player, new Vector3(g_playerposition.x,g_playerposition.y+1,g_playerposition.z), Quaternion.identity);
 
-        g_playerpointer_s = (int)g_playerobj.transform.position.x;
-        g_playerpointer_v = (int)g_playerobj.transform.position.z;
-        g_playerpointer_h = (int)g_playerobj.transform.position.y;
+        g_player_pointer_side = (int)g_playerobj.transform.position.x;
+        g_player_pointer_ver = (int)g_playerobj.transform.position.z;
+        g_player_pointer_high = (int)g_playerobj.transform.position.y;
         return g_playerobj;
     }
 
+    public void Storage_Player_Pointer(int ver,int side,int high) {
+        g_player_pointer_ver = ver;
+        g_player_pointer_side = side;
+        g_player_pointer_high = high;
+    }
+
     public (int, int, int) Get_Player_Pointer() {
-        return (g_playerpointer_v, g_playerpointer_s, g_playerpointer_h);
+        return (g_player_pointer_ver, g_player_pointer_side, g_player_pointer_high);
+    }
+
+    /// <summary>
+    /// 移動中かどうか判別するフラグを返す処理
+    /// </summary>
+    /// <returns></returns>
+    public bool Get_MoveFlag() {
+        return g_is_move;
+    }
+    public void MoveFlag_True() {
+        g_is_move = true;
+    }
+    public void MoveFlag_False() {
+        g_is_move = false;
     }
 }

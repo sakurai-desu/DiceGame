@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Dice_Rotate : MonoBehaviour {
+    private Playercontroller g_player_con_Script;
     private Dice_Squares g_dice_Script;
     private Parent_All_Rotation g_parent_rotate_Script;
-
+    private TroubleScr g_trouble_script;
+    private Se_Source g_se_source_Script;
     /// <summary>
     /// 回転させるオブジェクト
     /// </summary>
@@ -41,31 +43,32 @@ public class Dice_Rotate : MonoBehaviour {
     private float g_size_change=1;
 
     /// <summary>
-    /// 回転中かどうかを判定するフラグ
+    /// 縦のプラス方向のパラメータ
     /// </summary>
-    private bool g_rotate_Flag = false;
+    private const int g_ver_plus_Para = 31;
+    /// <summary>
+    /// 縦のマイナス方向のパラメータ
+    /// </summary>
+    private const int g_ver_minus_Para = 33;
+    /// <summary>
+    /// 横のプラス方向のパラメータ
+    /// </summary>
+    private const int g_side_plus_Para = 30;
+    /// <summary>
+    /// 横のマイナス方向のパラメータ
+    /// </summary>
+    private const int g_side_minus_Para = 32;
 
-    private const int g_ver_plus_Para = 0;
-    private const int g_ver_minus_Para = 1;
-    private const int g_side_plus_Para = 2;
-    private const int g_side_minus_Para = 3;
-
-    Playermove g_playermove;
-    TroubleScr g_trouble_script;
-    bool g_startflag;
     void Start() {
+        g_player_con_Script = GameObject.Find("Player_Controller").GetComponent<Playercontroller>();
         g_parent_rotate_Script = GameObject.Find("Dice_Controller").GetComponent<Parent_All_Rotation>();
         g_trouble_script = GameObject.Find("TroubleObj").GetComponent<TroubleScr>();
         g_dice_Script = this.GetComponent<Dice_Squares>();
+        g_se_source_Script = GameObject.Find("Se_Source").GetComponent<Se_Source>();
         //操作オブジェクト取得
         g_dice_Obj = this.gameObject;
         //サイズを求める
         g_dice_Size = g_dice_Obj.transform.localScale.x / g_size_change;
-    }
-    private void Update() {
-        if (g_startflag == false) {
-            g_playermove = GameObject.FindGameObjectWithTag("Player").GetComponent<Playermove>();
-        }
     }
 
     private void Get_Parent() {
@@ -76,24 +79,21 @@ public class Dice_Rotate : MonoBehaviour {
     /// </summary>
     /// <param name="para"></param>
     public void This_Rotate(int para) {
-        if (g_playermove.g_speaceflag == false) {
-
-            switch (para) {
-                case g_ver_plus_Para:
-                    Ver_Plus_Rotate();
-                    break;
-                case g_ver_minus_Para:
-                    Ver_Minus_Rotate();
-                    break;
-                case g_side_plus_Para:
-                    Side_Plus_Rotate();
-                    break;
-                case g_side_minus_Para:
-                    Side_Minus_Rotate();
-                    break;
-            }
-            g_trouble_script.Trouble();
+        switch (para) {
+            case g_ver_plus_Para:
+                Ver_Plus_Rotate();
+                break;
+            case g_ver_minus_Para:
+                Ver_Minus_Rotate();
+                break;
+            case g_side_plus_Para:
+                Side_Plus_Rotate();
+                break;
+            case g_side_minus_Para:
+                Side_Minus_Rotate();
+                break;
         }
+        g_trouble_script.Trouble();
     }
 
     /// <summary>
@@ -147,7 +147,7 @@ public class Dice_Rotate : MonoBehaviour {
     /// <returns></returns>
     IEnumerator Rotate() {
         //回転中にする
-        g_rotate_Flag = true;
+        g_player_con_Script.MoveFlag_True();
         //回転の角度合計を保持する変数
         float rotation_Sum = 0f;
         //合計が決めた角度になるまで続ける
@@ -167,26 +167,17 @@ public class Dice_Rotate : MonoBehaviour {
             g_parent_Obj.transform.RotateAround(g_rotate_Point, g_rotate_Axis, g_rotation_Amount);
             yield return null;
         }
-
         //回転中をではなくする
-        g_rotate_Flag = false;
+        g_player_con_Script.MoveFlag_False();
         //回転の中心を初期化
         g_rotate_Point = Vector3.zero;
         //回転の軸を初期化
         g_rotate_Axis = Vector3.zero;
+        //回転SE再生
+        g_se_source_Script.Dice_Rotate_Se_Play();
         //回転先にダイスを格納する
         g_parent_rotate_Script.Reset_And_Storage_Obj();
-
         //処理終了
         yield break;
-    }
-
-    /// <summary>
-    /// 回転フラグを返す処理
-    /// </summary>
-    /// <returns>回転中か判定するフラグ</returns>
-    public bool Get_Rotate_Flag() {
-        //回転フラグを返す
-        return g_rotate_Flag;
     }
 }
