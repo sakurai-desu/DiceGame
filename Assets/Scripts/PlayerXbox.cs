@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerXbox : MonoBehaviour
 {
+    CameraPote g_camera_rotate;
     Playermove g_player_move;
     private Player_Move g_player_move_Script;
 
@@ -38,6 +39,7 @@ public class PlayerXbox : MonoBehaviour
     private float g_limit_num = 0.49f;
     void Start()
     {
+        g_camera_rotate = GameObject.Find("CameraPoint").GetComponent<CameraPote>();
         g_player_move_Script = this.GetComponent<Player_Move>();
         g_timer = g_start_timer;
     }
@@ -52,11 +54,12 @@ public class PlayerXbox : MonoBehaviour
             g_timer = g_start_timer;
             g_player_move_Script.Jump();
         }
-        if (g_camera_num == 0 || g_camera_num == 1) {
-            g_camera_num = 0;
-        } else {
-            g_camera_num = 2;
-        }
+        g_camera_num = g_camera_rotate.CameraRote();
+        //if (g_camera_num == 0 || g_camera_num == 1) {
+        //    g_camera_num = 0;
+        //} else {
+        //    g_camera_num = 2;
+        //}
         //カメラの向きに応じてプレイヤーの操作キーを変更する
         switch (g_camera_num) {
             case 0:
@@ -64,6 +67,7 @@ public class PlayerXbox : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.W) || (Input.GetAxisRaw("Vertical") > g_controller_Move && g_axis_flag == false)) {
                     g_player_move_Script.PlayerMove(g_ver_plus_Para);
                     Axis_True();
+                    Debug.Log(g_camera_rotate.CameraRote());
                 }
                 //配列hの下限に達してない時移動(下)
                 if (Input.GetKeyDown(KeyCode.S) || (Input.GetAxisRaw("Vertical") < -g_controller_Move && g_axis_flag == false)) {
@@ -85,7 +89,7 @@ public class PlayerXbox : MonoBehaviour
                     g_axis_flag = false;
                 }
                 break;
-            case 2:
+            case 1:
                 //配列hの上限に達してない時移動(上)
                 if (Input.GetKeyDown(KeyCode.W) || (Input.GetAxisRaw("Vertical") > g_controller_Move && g_axis_flag == false)) {
                     g_player_move_Script.PlayerMove(g_ver_minus_Para);

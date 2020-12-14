@@ -40,44 +40,8 @@ public class CameraPos : MonoBehaviour
         g_side_pos = g_input.g_inputJson.g_hori;
         g_high_pos = g_input.g_inputJson.g_high;
         g_var_pos = g_input.g_inputJson.g_ver;
-        #region ステージのサイズ判定
-        //ステージの高さがどれぐらいかを検知
-        if (g_high_pos >= 6 && g_high_pos <= 9) {
-            g_change_hpos_num = 1;
-        } else if (g_high_pos > 9) {
 
-            g_change_hpos_num = 2;
-        }
-        //ステージの幅がどれぐらいかを検知
-        if (g_side_pos >= 6 && g_side_pos <= 9) {
-            g_change_Spos_num = 3;
-        } else if (g_side_pos > 9) {
-
-            g_change_Spos_num = 4;
-        }
-        //ステージの奥行がどれぐらいかを検知
-        if (g_var_pos >= 6 && g_var_pos <= 9) {
-            g_change_Vpos_num = 5;
-        } else if (g_var_pos > 9) {
-
-            g_change_Vpos_num = 6;
-        }
-        #endregion
-        //自信のオブジェクトがどこのポジションのカメラ化を判断する
-        switch (g_camera_num) {
-            case g_rghitcamera:
-                CameraSet(g_side_pos, g_high_pos, -g_var_pos+1);
-                break;
-            case g_leftcamera:
-                CameraSet(0, g_high_pos,-g_var_pos+1);
-                break;
-            case g_rightbackcamera:
-                CameraSet(0, g_high_pos, g_var_pos + g_change_Vpos_num-1);
-                break;
-            case g_leftbackcamera:
-                CameraSet(g_side_pos, g_high_pos, g_var_pos + g_change_Vpos_num-1);
-                break;
-        }
+        transform.position = new Vector3(g_side_pos / 2, g_high_pos / 1.5f, g_var_pos / 2);
     }
 
     // Update is called once per frame
