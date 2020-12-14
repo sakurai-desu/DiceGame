@@ -4,50 +4,49 @@ using UnityEngine;
 
 public class CameraPote : MonoBehaviour
 {
-    private float g_rota_x;
     private float g_rota_y;
 
     private int g_camera_rote_num;
+
+    Vector3 g_camera_rotate_euler;
+
+    bool g_push_y_flag;
+    bool g_push_r_flag;
     // Start is called before the first frame update
     void Start()
     {
-        
+        g_camera_rotate_euler = transform.localEulerAngles;
     }
 
     // Update is called once per frame
     void Update() {
-        #region コントローラーのカメラ操作  
-        if (Input.GetButton("R")) {
-            g_rota_y =0.3f;
-            transform.Rotate( 0,g_rota_y, 0);
+        #region コントローラーのカメラ操作 
+        //カメラを回転させるモードにする
+        if (Input.GetButtonDown("X")) {
+            g_push_y_flag = true;
+        } 
+        //話したらカメラを戻す
+        else if(Input.GetButtonUp("X")&&g_push_y_flag) {
+            transform.localEulerAngles = g_camera_rotate_euler;
+            g_push_y_flag = false;
         }
-       else if (Input.GetButton("L")) {
-            g_rota_y =-0.3f;
-            transform.Rotate(0,g_rota_y, 0);
+        //カメラを回転するモードで止める
+        if (Input.GetButtonDown("R")) {
+            g_push_r_flag = true;
+        } else if(Input.GetButtonUp("R")&&g_push_r_flag) {
+            g_push_r_flag = false;
         }
-        else{
-            transform.Rotate(0, 0, 0);
-        }
-        #endregion
-    }
-    public int CameraRote() {
-        float g_rotate = transform.localEulerAngles.y;
-        Debug.Log(g_rotate);
-        if (g_rotate > 0&& g_rotate < 90) {
-            g_camera_rote_num = 0;
-            return g_camera_rote_num;
-        } else if (g_rotate > 90 && g_rotate < 180) {
-            g_camera_rote_num = 1;
-            return g_camera_rote_num;
-        }if (g_rotate > 180&& g_rotate > 295) {
-            g_camera_rote_num = 1;
-            return g_camera_rote_num;
-        } else if (g_rotate > 295) {
-            g_camera_rote_num = 0;
-            return g_camera_rote_num;
-        }
-       
+        if (g_push_y_flag) {
 
-        return g_camera_rote_num;
+            if (Input.GetAxis("CameraX") !=0&&g_push_r_flag==false) {
+                float g_axis = Input.GetAxis("CameraX");
+                g_rota_y = g_axis;
+                Debug.Log(g_axis);
+                transform.Rotate(0, g_rota_y, 0);
+            }
+               
+        }
+
+        #endregion
     }
 }
