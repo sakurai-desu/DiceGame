@@ -33,7 +33,7 @@ public class PlayerXbox : MonoBehaviour
 
     private float g_controller_Move = 0.5f;
 
-    private float g_start_timer=0.15f;
+    private float g_start_timer=0.18f;
     private float g_timer=0;
 
     private float g_limit_num = 0.49f;
