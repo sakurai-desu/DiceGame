@@ -8,6 +8,7 @@ public class Check_Dice : MonoBehaviour {
     private Game_Controller g_game_Con_Script;
     private Se_Source g_se_source_Script;
     private Dice_Squares g_next_dice_Script;
+    private Particle_Source g_particle_Script;
 
     /// <summary>
     /// 初期化用変数
@@ -94,10 +95,13 @@ public class Check_Dice : MonoBehaviour {
     /// </summary>
     private const int g_max_squares_sum = 7;
 
+    private int g_now_check_pointer=0;
+
     void Start() {
         g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Date>();
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         g_se_source_Script = GameObject.Find("Se_Source").GetComponent<Se_Source>();
+        g_particle_Script = GameObject.Find("Particle_Source").GetComponent<Particle_Source>();
         //縦横高さの最大値をjsonで決めた数へ変更する
         (g_max_Ver, g_max_Side, g_max_High) = g_json_Script.Get_Array_Max();
     }
@@ -106,6 +110,7 @@ public class Check_Dice : MonoBehaviour {
     /// 全ての方向を調べる
     /// </summary>
     public void Check_All_Direction(int this_ver, int this_side, int this_high, GameObject dice_Obj) {
+        g_now_check_pointer = 0;
         //チェックの中心になるオブジェクトの指標を保持
         //縦
         g_dice_Ver = this_ver;
@@ -140,6 +145,7 @@ public class Check_Dice : MonoBehaviour {
         }
         //格納されているオブジェクトのタイプを調べる
         Check_Type(g_dice_Ver + g_one_Count, g_dice_Side, g_dice_High, g_ver_plus_para);
+        g_now_check_pointer++;
     }
 
     /// <summary>
@@ -152,6 +158,7 @@ public class Check_Dice : MonoBehaviour {
         }
         //格納されているオブジェクトのタイプを調べる
         Check_Type(g_dice_Ver - g_one_Count, g_dice_Side, g_dice_High, g_ver_minus_para);
+        g_now_check_pointer++;
     }
 
     /// <summary>
@@ -164,6 +171,7 @@ public class Check_Dice : MonoBehaviour {
         }
         //格納されているオブジェクトのタイプを調べる
         Check_Type(g_dice_Ver, g_dice_Side + g_one_Count, g_dice_High, g_side_plus_para);
+        g_now_check_pointer++;
     }
 
     /// <summary>
@@ -176,6 +184,7 @@ public class Check_Dice : MonoBehaviour {
         }
         //格納されているオブジェクトのタイプを調べる
         Check_Type(g_dice_Ver, g_dice_Side - g_one_Count, g_dice_High, g_side_minus_para);
+        g_now_check_pointer++;
     }
 
     /// <summary>
@@ -188,6 +197,7 @@ public class Check_Dice : MonoBehaviour {
         }
         //格納されているオブジェクトのタイプを調べる
         Check_Type(g_dice_Ver, g_dice_Side, g_dice_High + g_one_Count, g_high_plus_para);
+        g_now_check_pointer++;
     }
 
     /// <summary>
@@ -200,6 +210,7 @@ public class Check_Dice : MonoBehaviour {
         }
         //格納されているオブジェクトのタイプを調べる
         Check_Type(g_dice_Ver, g_dice_Side, g_dice_High - g_one_Count, g_high_minus_para);
+        g_now_check_pointer++;
     }
 
     /// <summary>
@@ -288,6 +299,7 @@ public class Check_Dice : MonoBehaviour {
                 Debug.Log("新しいサイコロがくっついた");
                 Debug.Log("サイコロがくっつく演出を入れる");
                 g_se_source_Script.Dice_Docking_Se_Play();
+                g_particle_Script.Docking_Particle_Play(g_dice_Obj, g_now_check_pointer);
                 //くっつけられた側の親を削除する
                 Destroy(detroy_Obj);
             }

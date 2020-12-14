@@ -91,7 +91,6 @@ public class Game_Controller : MonoBehaviour
                         //Debug.Log("オブジェクト：" + g_blocks_Array[ver, side, high]);
                         //Debug.Log("タイプ：" + g_blocksType_Array[ver, side, high]);
                     }
-          
                 }
             }
         }

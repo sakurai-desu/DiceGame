@@ -50,7 +50,7 @@ public class Input_Date : MonoBehaviour
     private void Awake() {
         g_informatinScript = GameObject.Find("Stageinformation").GetComponent<StageInformation>();
         g_jsonname = g_informatinScript.g_playStageName;
-        
+
         string datastr = "";
         StreamReader reader;
         reader = new StreamReader(Application.streamingAssetsPath + "/" + g_jsonname);

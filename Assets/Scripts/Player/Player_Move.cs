@@ -80,13 +80,6 @@ public class Player_Move : MonoBehaviour {
         (g_max_ver, g_max_side, g_max_high) = g_json_Script.Get_Array_Max();
     }
 
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.L)) {
-            g_anim_Script.Player_Jump_Anim();
-
-        }
-    }
-
     /// <summary>
     /// 指定したパラメータと位置に応じてプレイヤーを移動させる
     /// </summary>
