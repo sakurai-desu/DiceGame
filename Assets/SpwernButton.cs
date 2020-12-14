@@ -96,10 +96,12 @@ public class SpwernButton : MonoBehaviour
         }
     }
     //整列するときの縦の数値
-    int g_var_set_num = 80;
- 
+    [SerializeField]
+    int g_var_set_num = 0;
+
     //整列するときの横の数値
-    int g_side_set_num = 100;
+    [SerializeField]
+    int g_side_set_num = 0;
     /// <summary>
     /// ボタンを生んだりするメソッド
     /// </summary>
