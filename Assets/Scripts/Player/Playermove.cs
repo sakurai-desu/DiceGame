@@ -85,15 +85,15 @@ public class Playermove : MonoBehaviour {
 
     public int g_camera_num;
     void Update() {
-        if (g_move_Script.Get_MoveFlag()) {
-            return;
-        }
-        if (g_arrayflag == true) {
-            //Game_Controller.GetArrayから配列読み込み
-            g_sponplayer = g_type_script.Get_Pos(g_potision_script.g_playerpointer_v,
-                g_potision_script.g_playerpointer_s, g_potision_script.g_playerpointer_h);
-            g_arrayflag = false;
-        }
+        //if (g_move_Script.Get_MoveFlag()) {
+        //    return;
+        //}
+        //if (g_arrayflag == true) {
+        //    //Game_Controller.GetArrayから配列読み込み
+        //    g_sponplayer = g_type_script.Get_Pos(g_potision_script.g_player_pointer_ver,
+        //        g_potision_script.g_player_pointer_side, g_potision_script.g_player_pointer_high);
+        //    g_arrayflag = false;
+        //}
         if (g_camera_num == 0 || g_camera_num == 1) {
             g_camera_num = 0;
         } else {
@@ -102,22 +102,22 @@ public class Playermove : MonoBehaviour {
         #region 移動制御
         switch (g_camera_num) {
             case 0:
-                //配列hの上限に達してない時移動(上)
-                if (Input.GetKeyDown(KeyCode.W)) {
-                    Move_W();
-                }
-                //配列hの下限に達してない時移動(下)
-                if (Input.GetKeyDown(KeyCode.S)) {
-                    Move_S();
-                }
-                //配列vの下限に達してない時移動(左)
-                if (Input.GetKeyDown(KeyCode.A)) {
-                    Move_A();
-                }
-                //配列vの上限に達してない時移動(右)
-                if (Input.GetKeyDown(KeyCode.D)) {
-                    Move_D();
-                }
+                ////配列hの上限に達してない時移動(上)
+                //if (Input.GetKeyDown(KeyCode.W)) {
+                //    Move_W();
+                //}
+                ////配列hの下限に達してない時移動(下)
+                //if (Input.GetKeyDown(KeyCode.S)) {
+                //    Move_S();
+                //}
+                ////配列vの下限に達してない時移動(左)
+                //if (Input.GetKeyDown(KeyCode.A)) {
+                //    Move_A();
+                //}
+                ////配列vの上限に達してない時移動(右)
+                //if (Input.GetKeyDown(KeyCode.D)) {
+                //    Move_D();
+                //}
                 break;
             case 2:
                 //配列hの上限に達してない時移動(上)
@@ -140,19 +140,19 @@ public class Playermove : MonoBehaviour {
         }
         #endregion
 
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            PushKey();
-            g_speaceflag = true;
-        }
-        if (Input.GetKeyUp(KeyCode.Space)) {
-            UpKey();
-            g_speaceflag = false;
-        }
+        //if (Input.GetKeyDown(KeyCode.Space)) {
+        //    PushKey();
+        //    g_speaceflag = true;
+        //}
+        //if (Input.GetKeyUp(KeyCode.Space)) {
+        //    UpKey();
+        //    g_speaceflag = false;
+        //}
     }
 
     private void Player_Move() {
 
-        g_sponplayer = g_type_script.Get_Pos(g_potision_script.g_playerpointer_v, g_potision_script.g_playerpointer_s, g_potision_script.g_playerpointer_h);
+        g_sponplayer = g_type_script.Get_Pos(g_potision_script.g_player_pointer_ver, g_potision_script.g_player_pointer_side, g_potision_script.g_player_pointer_high);
         //this.gameObject.transform.position = g_sponplayer;
         g_move_Script.Player_Move(g_sponplayer);
 
@@ -161,7 +161,7 @@ public class Playermove : MonoBehaviour {
 
     void Player_potision() {
         g_playerpotision = g_sponplayer;
-        g_check_script.GetComponent<TypeCheck>().Get_p_p();
+        g_check_script.GetComponent<TypeCheck>().Get_Player_Pointer();
     }
     public Vector3 Get_potision(int v, int s, int h) {
         return g_playerpotision;
@@ -180,41 +180,41 @@ public class Playermove : MonoBehaviour {
         g_floorflag = false;
         switch (g_keynum) {
             case 0:
-                for (int i = g_potision_script.g_playerpointer_h; i > 0 || g_floorflag == true; i--) {
+                for (int i = g_potision_script.g_player_pointer_high; i > 0 || g_floorflag == true; i--) {
                     if (g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, i - 1) == 0) {
                         g_loopnum++;
                     } else if (g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, i - 1) != 0) {
-                        g_loopnum = g_potision_script.g_playerpointer_h - g_loopnum;
+                        g_loopnum = g_potision_script.g_player_pointer_high - g_loopnum;
                         return g_loopnum;
                     }
                 }
                 break;
             case 1:
-                for (int i = g_potision_script.g_playerpointer_h; i > 0 || g_floorflag == true; i--) {
+                for (int i = g_potision_script.g_player_pointer_high; i > 0 || g_floorflag == true; i--) {
                     if (g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, i - 1) == 0) {
                         g_loopnum++;
                     } else if (g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, i - 1) != 0) {
-                        g_loopnum = g_potision_script.g_playerpointer_h - g_loopnum;
+                        g_loopnum = g_potision_script.g_player_pointer_high - g_loopnum;
                         return g_loopnum;
                     }
                 }
                 break;
             case 2:
-                for (int i = g_potision_script.g_playerpointer_h; i > 0 || g_floorflag == true; i--) {
+                for (int i = g_potision_script.g_player_pointer_high; i > 0 || g_floorflag == true; i--) {
                     if (g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, i - 1) == 0) {
                         g_loopnum++;
                     } else if (g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, i - 1) != 0) {
-                        g_loopnum = g_potision_script.g_playerpointer_h - g_loopnum;
+                        g_loopnum = g_potision_script.g_player_pointer_high - g_loopnum;
                         return g_loopnum;
                     }
                 }
                 break;
             case 3:
-                for (int i = g_potision_script.g_playerpointer_h; i > 0 || g_floorflag == true; i--) {
+                for (int i = g_potision_script.g_player_pointer_high; i > 0 || g_floorflag == true; i--) {
                     if (g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, i - 1) == 0) {
                         g_loopnum++;
                     } else if (g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, i - 1) != 0) {
-                        g_loopnum = g_potision_script.g_playerpointer_h - g_loopnum;
+                        g_loopnum = g_potision_script.g_player_pointer_high - g_loopnum;
                         return g_loopnum;
                     }
                 }
@@ -231,9 +231,9 @@ public class Playermove : MonoBehaviour {
         g_movecheck_h = g_check_script.g_dice_check_h;
     }
     public void Move_W() {
-        if (g_potision_script.g_playerpointer_v < g_v_PBlockCount - 1) {
+        if (g_potision_script.g_player_pointer_ver < g_v_PBlockCount - 1) {
             if (g_speaceflag) {
-                g_direction_Script.Player_Direction_Change(30);
+                g_direction_Script.Player_Direction_Change(31);
                 //プレイヤーのv方向の一個先
                 int type_v_plus = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h);
                 //プレイヤーのv.h方向の一個先
@@ -245,20 +245,20 @@ public class Playermove : MonoBehaviour {
 
                             break;
                         case 20:
-                            g_potision_script.g_playerpointer_v++;
-                            g_potision_script.g_playerpointer_h++;
+                            g_potision_script.g_player_pointer_ver++;
+                            g_potision_script.g_player_pointer_high++;
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
                             break;
                         case 50:
-                            g_potision_script.g_playerpointer_v++;
-                            g_potision_script.g_playerpointer_h++;
+                            g_potision_script.g_player_pointer_ver++;
+                            g_potision_script.g_player_pointer_high++;
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
                             break;
                         case 100:
-                            g_potision_script.g_playerpointer_v++;
-                            g_potision_script.g_playerpointer_h++;
+                            g_potision_script.g_player_pointer_ver++;
+                            g_potision_script.g_player_pointer_high++;
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
                             break;
@@ -266,7 +266,7 @@ public class Playermove : MonoBehaviour {
                 }
             } else {
                 //プレイヤーの向きを変更
-                g_direction_Script.Player_Direction_Change(30);
+                g_direction_Script.Player_Direction_Change(31);
 
                 g_dicemovenum = HSearch(0);
                 int type_vp_hm = g_type_script.Get_Obj_Type(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h - 1);
@@ -276,7 +276,7 @@ public class Playermove : MonoBehaviour {
 
                     switch (type_v_p) {
                         case 0:
-                            g_potision_script.g_playerpointer_v++;
+                            g_potision_script.g_player_pointer_ver++;
                             Player_Move();
                             g_anim_Script.Player_Move_Anim();
                             break;
@@ -286,9 +286,9 @@ public class Playermove : MonoBehaviour {
                         //    break;
 
                         case 100:
-                            g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
+                            //g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
                             GameObject dice_obj = g_type_script.Get_Obj(g_movecheck_v + 1, g_movecheck_s, g_movecheck_h);
-                            g_dice_con_Script.Storage_Control_Obj(dice_obj, 0);
+                            g_dice_con_Script.Storage_Control_Obj(dice_obj, 31);
                             g_anim_Script.Player_Roll_Anim();
                             //dicemove入れればいいんじゃね
                             break;
@@ -300,22 +300,22 @@ public class Playermove : MonoBehaviour {
 
                     switch (type_v_p) {
                         case 0:
-                            g_potision_script.g_playerpointer_v++;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+                            g_potision_script.g_player_pointer_ver++;
+                            g_potision_script.g_player_pointer_high = g_dicemovenum;
 
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
                             break;
                         case 20:
-                            g_potision_script.g_playerpointer_v++;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+                            g_potision_script.g_player_pointer_ver++;
+                            g_potision_script.g_player_pointer_high = g_dicemovenum;
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
                             break;
 
                         case 100:
-                            g_potision_script.g_playerpointer_v++;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+                            g_potision_script.g_player_pointer_ver++;
+                            g_potision_script.g_player_pointer_high = g_dicemovenum;
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
                             break;
@@ -333,10 +333,10 @@ public class Playermove : MonoBehaviour {
         }
     }
     public void Move_S() {
-        if (g_potision_script.g_playerpointer_v > 0) {
+        if (g_potision_script.g_player_pointer_ver > 0) {
             if (g_speaceflag) {
                 //プレイヤーの向きを変更
-                g_direction_Script.Player_Direction_Change(32);
+                g_direction_Script.Player_Direction_Change(33);
 
                 int type_v_minus = g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h);
                 int type_vm_hp = g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h + 1);
@@ -346,21 +346,21 @@ public class Playermove : MonoBehaviour {
 
                             break;
                         case 20:
-                            g_potision_script.g_playerpointer_v--;
-                            g_potision_script.g_playerpointer_h++;
+                            g_potision_script.g_player_pointer_ver--;
+                            g_potision_script.g_player_pointer_high++;
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
                             break;
                         case 50:
-                            g_potision_script.g_playerpointer_v--;
-                            g_potision_script.g_playerpointer_h++;
+                            g_potision_script.g_player_pointer_ver--;
+                            g_potision_script.g_player_pointer_high++;
 
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
                             break;
                         case 100:
-                            g_potision_script.g_playerpointer_v--;
-                            g_potision_script.g_playerpointer_h++;
+                            g_potision_script.g_player_pointer_ver--;
+                            g_potision_script.g_player_pointer_high++;
 
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
@@ -369,7 +369,7 @@ public class Playermove : MonoBehaviour {
                 }
             } else {
                 //プレイヤーの向きを変更
-                g_direction_Script.Player_Direction_Change(32);
+                g_direction_Script.Player_Direction_Change(33);
                 g_dicemovenum = HSearch(1);
 
                 int type_vm_hm = g_type_script.Get_Obj_Type(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h - 1);
@@ -379,7 +379,7 @@ public class Playermove : MonoBehaviour {
 
                     switch (type_vm) {
                         case 0:
-                            g_potision_script.g_playerpointer_v--;
+                            g_potision_script.g_player_pointer_ver--;
                             Player_Move();
                             g_anim_Script.Player_Move_Anim();
                             break;
@@ -388,9 +388,9 @@ public class Playermove : MonoBehaviour {
                         //    Player_Move();
                         //    break;
                         case 100:
-                            g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
+                            //g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
                             GameObject dice_obj = g_type_script.Get_Obj(g_movecheck_v - 1, g_movecheck_s, g_movecheck_h);
-                            g_dice_con_Script.Storage_Control_Obj(dice_obj, 1);
+                            g_dice_con_Script.Storage_Control_Obj(dice_obj, 33);
                             g_anim_Script.Player_Roll_Anim();
                             break;
                     }
@@ -400,21 +400,21 @@ public class Playermove : MonoBehaviour {
 
                     switch (type_vm) {
                         case 0:
-                            g_potision_script.g_playerpointer_v--;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+                            g_potision_script.g_player_pointer_ver--;
+                            g_potision_script.g_player_pointer_high = g_dicemovenum;
 
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
                             break;
                         case 20:
-                            g_potision_script.g_playerpointer_v--;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+                            g_potision_script.g_player_pointer_ver--;
+                            g_potision_script.g_player_pointer_high = g_dicemovenum;
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
                             break;
                         case 100:
-                            g_potision_script.g_playerpointer_v--;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+                            g_potision_script.g_player_pointer_ver--;
+                            g_potision_script.g_player_pointer_high = g_dicemovenum;
 
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
@@ -432,10 +432,10 @@ public class Playermove : MonoBehaviour {
         }
     }
     public void Move_A() {
-        if (g_potision_script.g_playerpointer_s > 0) {
+        if (g_potision_script.g_player_pointer_side > 0) {
             if (g_speaceflag) {
                 //プレイヤーの向きを変更
-                g_direction_Script.Player_Direction_Change(33);
+                g_direction_Script.Player_Direction_Change(32);
                 int type_sm = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, g_movecheck_h);
                 int type_sm_hp = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, g_movecheck_h + 1);
                 if (type_sm != 0 && type_sm_hp == 0) {
@@ -444,22 +444,22 @@ public class Playermove : MonoBehaviour {
 
                             break;
                         case 20:
-                            g_potision_script.g_playerpointer_s--;
-                            g_potision_script.g_playerpointer_h++;
+                            g_potision_script.g_player_pointer_side--;
+                            g_potision_script.g_player_pointer_high++;
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
                             break;
 
                         case 50:
-                            g_potision_script.g_playerpointer_s--;
-                            g_potision_script.g_playerpointer_h++;
+                            g_potision_script.g_player_pointer_side--;
+                            g_potision_script.g_player_pointer_high++;
 
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
                             break;
                         case 100:
-                            g_potision_script.g_playerpointer_s--;
-                            g_potision_script.g_playerpointer_h++;
+                            g_potision_script.g_player_pointer_side--;
+                            g_potision_script.g_player_pointer_high++;
 
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
@@ -468,7 +468,7 @@ public class Playermove : MonoBehaviour {
                 }
             } else {
                 //プレイヤーの向きを変更
-                g_direction_Script.Player_Direction_Change(33);
+                g_direction_Script.Player_Direction_Change(32);
                 g_dicemovenum = HSearch(2);
                 int type_sm = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, g_movecheck_h);
                 int type_sm_hm = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s - 1, g_movecheck_h - 1);
@@ -477,7 +477,7 @@ public class Playermove : MonoBehaviour {
 
                     switch (type_sm) {
                         case 0:
-                            g_potision_script.g_playerpointer_s--;
+                            g_potision_script.g_player_pointer_side--;
                             Player_Move();
                             g_anim_Script.Player_Move_Anim();
                             break;
@@ -486,9 +486,9 @@ public class Playermove : MonoBehaviour {
                         //    Player_Move();
                         //    break;
                         case 100:
-                            g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
+                            //g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
                             GameObject dice_obj = g_type_script.Get_Obj(g_movecheck_v, g_movecheck_s - 1, g_movecheck_h);
-                            g_dice_con_Script.Storage_Control_Obj(dice_obj, 3);
+                            g_dice_con_Script.Storage_Control_Obj(dice_obj, 32);
                             g_anim_Script.Player_Roll_Anim();
                             break;
                     }
@@ -498,21 +498,21 @@ public class Playermove : MonoBehaviour {
 
                     switch (type_sm) {
                         case 0:
-                            g_potision_script.g_playerpointer_s--;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+                            g_potision_script.g_player_pointer_side--;
+                            g_potision_script.g_player_pointer_high = g_dicemovenum;
 
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
                             break;
                         case 20:
-                            g_potision_script.g_playerpointer_s--;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+                            g_potision_script.g_player_pointer_side--;
+                            g_potision_script.g_player_pointer_high = g_dicemovenum;
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
                             break;
                         case 100:
-                            g_potision_script.g_playerpointer_s--;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+                            g_potision_script.g_player_pointer_side--;
+                            g_potision_script.g_player_pointer_high = g_dicemovenum;
 
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
@@ -529,11 +529,11 @@ public class Playermove : MonoBehaviour {
         }
     }
     public void Move_D() {
-        if (g_potision_script.g_playerpointer_s < g_s_PBlockCount - 1 ) {
+        if (g_potision_script.g_player_pointer_side < g_s_PBlockCount - 1 ) {
 
             if (g_speaceflag) {
                 //プレイヤーの向きを変更
-                g_direction_Script.Player_Direction_Change(31);
+                g_direction_Script.Player_Direction_Change(30);
                 int type_sp = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, g_movecheck_h);
                 int type_sp_hp = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, g_movecheck_h + 1);
                 if (type_sp != 0 && type_sp_hp == 0) {
@@ -542,21 +542,21 @@ public class Playermove : MonoBehaviour {
 
                             break;
                         case 20:
-                            g_potision_script.g_playerpointer_s++;
-                            g_potision_script.g_playerpointer_h++;
+                            g_potision_script.g_player_pointer_side++;
+                            g_potision_script.g_player_pointer_high++;
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
                             break;
                         case 50:
-                            g_potision_script.g_playerpointer_s++;
-                            g_potision_script.g_playerpointer_h++;
+                            g_potision_script.g_player_pointer_side++;
+                            g_potision_script.g_player_pointer_high++;
 
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
                             break;
                         case 100:
-                            g_potision_script.g_playerpointer_s++;
-                            g_potision_script.g_playerpointer_h++;
+                            g_potision_script.g_player_pointer_side++;
+                            g_potision_script.g_player_pointer_high++;
 
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
@@ -565,7 +565,7 @@ public class Playermove : MonoBehaviour {
                 }
             } else {
                 //プレイヤーの向きを変更
-                g_direction_Script.Player_Direction_Change(31);
+                g_direction_Script.Player_Direction_Change(30);
                 g_dicemovenum = HSearch(3);
                 int type_sp_hm = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, g_movecheck_h - 1);
                 int type_sp = g_type_script.Get_Obj_Type(g_movecheck_v, g_movecheck_s + 1, g_movecheck_h);
@@ -575,7 +575,7 @@ public class Playermove : MonoBehaviour {
 
                     switch (type_sp) {
                         case 0:
-                            g_potision_script.g_playerpointer_s++;
+                            g_potision_script.g_player_pointer_side++;
                             Player_Move();
                             g_anim_Script.Player_Move_Anim();
                             break;
@@ -584,9 +584,9 @@ public class Playermove : MonoBehaviour {
                         //    Player_Move();
                         //    break;
                         case 100:
-                            g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
+                            //g_dice_con_Script.Change_Player_Pointer(g_movecheck_v, g_movecheck_s, g_movecheck_h);
                             GameObject dice_obj = g_type_script.Get_Obj(g_movecheck_v, g_movecheck_s + 1, g_movecheck_h);
-                            g_dice_con_Script.Storage_Control_Obj(dice_obj, 2);
+                            g_dice_con_Script.Storage_Control_Obj(dice_obj, 30);
                             g_anim_Script.Player_Roll_Anim();
                             break;
                     }
@@ -595,21 +595,21 @@ public class Playermove : MonoBehaviour {
                 else if (g_dicemovenum != 0 /*&& type_sp_0 != 0*/) {
                     switch (type_sp) {
                         case 0:
-                            g_potision_script.g_playerpointer_s++;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+                            g_potision_script.g_player_pointer_side++;
+                            g_potision_script.g_player_pointer_high = g_dicemovenum;
 
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
                             break;
                         case 20:
-                            g_potision_script.g_playerpointer_s++;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+                            g_potision_script.g_player_pointer_side++;
+                            g_potision_script.g_player_pointer_high = g_dicemovenum;
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();
                             break;
                         case 100:
-                            g_potision_script.g_playerpointer_s++;
-                            g_potision_script.g_playerpointer_h = g_dicemovenum;
+                            g_potision_script.g_player_pointer_side++;
+                            g_potision_script.g_player_pointer_high = g_dicemovenum;
 
                             Player_Move();
                             g_anim_Script.Player_Jump_Anim();

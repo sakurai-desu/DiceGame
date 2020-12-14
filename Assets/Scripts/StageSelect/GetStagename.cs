@@ -20,7 +20,9 @@ public class GetStagename : MonoBehaviour
 
     void Update()
     {
-        
+        //if (Input.GetButtonDown("Back")) {
+        //    Exit();
+        //}
     }
     public void OnClick() {
         g_info_Script.Change_StageName(g_get_stagename);

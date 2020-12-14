@@ -20,8 +20,8 @@ public class Parent_All_Rotation : MonoBehaviour {
     private GameObject g_center_Dice;
     private GameObject g_parent_center_Dice;
 
-    private int g_array_max = 7;
-    private int g_work_senter = 3;
+    private int g_array_max = 9;
+    private int g_work_senter = 4;
 
     /// <summary>
     /// 初期化用変数
@@ -72,10 +72,22 @@ public class Parent_All_Rotation : MonoBehaviour {
     /// </summary>
     private int g_next_high;
 
-    private const int g_ver_plus_Para = 0;
-    private const int g_ver_minus_Para = 1;
-    private const int g_side_plus_Para = 2;
-    private const int g_side_minus_Para = 3;
+    /// <summary>
+    /// 縦のプラス方向のパラメータ
+    /// </summary>
+    private const int g_ver_plus_Para = 31;
+    /// <summary>
+    /// 縦のマイナス方向のパラメータ
+    /// </summary>
+    private const int g_ver_minus_Para = 33;
+    /// <summary>
+    /// 横のプラス方向のパラメータ
+    /// </summary>
+    private const int g_side_plus_Para = 30;
+    /// <summary>
+    /// 横のマイナス方向のパラメータ
+    /// </summary>
+    private const int g_side_minus_Para = 32;
     /// <summary>
     /// 現在のパラメータを保持する変数
     /// </summary>
@@ -377,7 +389,7 @@ public class Parent_All_Rotation : MonoBehaviour {
     /// <param name="now_pointer_high">高さ</param>
     /// <returns>縦または横、高さを返す</returns>
     private (int, int) Plus_Rotate(int now_pointer_ver_or_side, int now_pointer_high) {
-        int high = 6 - now_pointer_ver_or_side;
+        int high = g_array_max-g_one_Count - now_pointer_ver_or_side;
         int ver_or_side = now_pointer_high;
 
         int move_high = high - now_pointer_high;
@@ -392,7 +404,7 @@ public class Parent_All_Rotation : MonoBehaviour {
     /// <returns>縦または横、高さを返す</returns>
     private (int, int) Minus_Rotate(int now_pointer_ver_or_side, int now_pointer_high) {
         int high = now_pointer_ver_or_side;
-        int ver_or_side = 6 - now_pointer_high;
+        int ver_or_side = g_array_max - g_one_Count - now_pointer_high;
 
         int move_high = high - now_pointer_high;
         int move_ver_or_side = ver_or_side - now_pointer_ver_or_side;

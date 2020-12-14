@@ -10,6 +10,9 @@ public class Player_Appearance_Move : MonoBehaviour {
     /// プレイヤーのオブジェクト
     /// </summary>
     private GameObject g_player_obj;
+    [SerializeField]
+    private GameObject g_player_body;
+
     /// <summary>
     /// 移動先の座標
     /// </summary>
@@ -33,7 +36,9 @@ public class Player_Appearance_Move : MonoBehaviour {
     /// <summary>
     /// 移動中か判別するフラグ・True：移動中・False:停止中
     /// </summary>
-    private bool g_is_move=false;
+    private bool g_is_move = false;
+
+    private float g_check_pos_length = 0.5f;
 
     void Start() {
         g_game_con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
@@ -58,15 +63,21 @@ public class Player_Appearance_Move : MonoBehaviour {
     /// <returns></returns>
     IEnumerator Player_Smooth_Move() {
         //移動中フラグON
-        g_is_move = true;
+        g_player_Script.MoveFlag_True();
         //速度初期化
         g_move_speed = g_zero_count;
         //速度加算変数初期化
         g_plus_speed = g_zero_count;
         //プレイヤーの位置が移動先につくまで繰り返す
-        while (g_player_obj.transform.position != g_end_Pos) {
-            //移動速度上げる
-            if (g_move_speed < g_max_speed) {
+        //while (g_player_body.transform.position != g_end_Pos) {
+            while (g_player_body.transform.position.x < g_end_Pos.x - g_check_pos_length ||
+                   g_player_body.transform.position.x > g_end_Pos.x + g_check_pos_length ||
+                   g_player_body.transform.position.y < g_end_Pos.y - g_check_pos_length ||
+                   g_player_body.transform.position.y > g_end_Pos.y + g_check_pos_length ||
+                   g_player_body.transform.position.z < g_end_Pos.z - g_check_pos_length ||
+                   g_player_body.transform.position.z > g_end_Pos.z + g_check_pos_length) {
+                //移動速度上げる
+                if (g_move_speed < g_max_speed) {
                 g_move_speed = g_move_speed + g_plus_speed;
                 g_plus_speed = g_plus_speed + 0.2f;
             }
@@ -77,24 +88,17 @@ public class Player_Appearance_Move : MonoBehaviour {
         }
         //移動先への移動終了
         g_player_obj.transform.position = g_end_Pos;
-        //移動中フラグOFF
-        g_is_move = false;
+        g_player_Script.MoveFlag_False();
         Goal();
         yield break;
     }
+
     private void Goal() {
         (int p_ver, int p_side, int p_high) = g_player_Script.Get_Player_Pointer();
-        int type = g_game_con_Script.Get_Obj_Type(p_ver, p_side, p_high-1);
+        int type = g_game_con_Script.Get_Obj_Type(p_ver, p_side, p_high - 1);
         if (type == 20) {
             Debug.Log("ゴールの上");
             SceneManager.LoadScene("SelectScene");
         }
-    }
-    /// <summary>
-    /// 移動中かどうか判別するフラグを返す処理
-    /// </summary>
-    /// <returns></returns>
-    public bool Get_MoveFlag() {
-        return g_is_move;
     }
 }

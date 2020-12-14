@@ -12,6 +12,9 @@ public class StageReset : MonoBehaviour
 
     void Update()
     {
+        //if (Input.GetButtonDown("Start")) {
+        //    Resetstage();
+        //}
         
     }
     public void Resetstage() {
