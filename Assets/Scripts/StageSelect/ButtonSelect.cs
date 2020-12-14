@@ -106,7 +106,7 @@ public class ButtonSelect : MonoBehaviour
         if (Input.GetAxisRaw("Vertical") > -g_limit_num && Input.GetAxisRaw("Vertical") < g_limit_num && Input.GetAxisRaw("Horizontal") < g_limit_num && Input.GetAxisRaw("Horizontal") > -g_limit_num && g_stick_flag) {
             g_stick_flag = false;
         }
-            if (Input.GetKeyDown(KeyCode.Space)||Input.GetButtonDown("A")) {
+            if (Input.GetKeyDown(KeyCode.Space)||Input.GetButtonDown("B")) {
             g_stagename = g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer].GetComponent<GetStagename>();
             g_stagename.g_get_stagename = g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer];
             g_stagename.OnClick();
