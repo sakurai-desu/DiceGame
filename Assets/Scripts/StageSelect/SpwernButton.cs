@@ -22,6 +22,8 @@ public class SpwernButton : MonoBehaviour
     //ステージ名を格納する配列
     public string[,] g_json_stage_array;
 
+    public int g_var_calc = 1;
+
     //ボタン縦の最大値
     public int g_varmax_num;
 
@@ -56,15 +58,16 @@ public class SpwernButton : MonoBehaviour
         g_json_stage_array = new string[g_varmax_num,g_side_num];
         ButtonPool(g_button_obj);
     }
-    const float g_button_x_pos=180;
+    //最低でも開ける間隔
+    public float g_button_x_pos=180;
 
-    const float g_button_y_pos=20;
+    public float g_button_y_pos=20;
 
     int g_array_num;
     GameObject g_button;
 
-        int g_var_count=0;
-        int g_side_count = 0;
+       public int g_var_count=0;
+    public int g_side_count = 0;
     /// <summary>
     /// オブジェクトの生成とステージ名を配列に入れるメソッド
     /// </summary>
@@ -97,11 +100,11 @@ public class SpwernButton : MonoBehaviour
     }
     //整列するときの縦の数値
     [SerializeField]
-    int g_var_set_num = 0;
+    int g_var_set_num = 100;
 
     //整列するときの横の数値
     [SerializeField]
-    int g_side_set_num = 0;
+    int g_side_set_num = 130;
     /// <summary>
     /// ボタンを生んだりするメソッド
     /// </summary>
@@ -122,6 +125,7 @@ public class SpwernButton : MonoBehaviour
         g_button_transform.localPosition = new Vector3( g_button_y_pos +j*g_var_set_num,g_button_x_pos + i*-g_side_set_num, 0);
         //二次元配列にボタンを入れる
         g_json_button_array[i, j] = g_button;
+        
         //ステージ名を二次元配列に入れる
         g_json_stage_array[i, j] = g_array_Script.g_json_stage[g_array_num];
     }

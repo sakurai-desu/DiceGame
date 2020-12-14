@@ -28,7 +28,7 @@ public class Playermove : MonoBehaviour {
     private int g_v_PBlockCount;
 
     private int g_h_PBlockCount;
-
+    //プレイヤー座標取得用
     public int g_movecheck_v;
     public int g_movecheck_s;
     public int g_movecheck_h;
@@ -85,15 +85,7 @@ public class Playermove : MonoBehaviour {
 
     public int g_camera_num;
     void Update() {
-        //if (g_move_Script.Get_MoveFlag()) {
-        //    return;
-        //}
-        //if (g_arrayflag == true) {
-        //    //Game_Controller.GetArrayから配列読み込み
-        //    g_sponplayer = g_type_script.Get_Pos(g_potision_script.g_player_pointer_ver,
-        //        g_potision_script.g_player_pointer_side, g_potision_script.g_player_pointer_high);
-        //    g_arrayflag = false;
-        //}
+       
         if (g_camera_num == 0 || g_camera_num == 1) {
             g_camera_num = 0;
         } else {
@@ -102,22 +94,7 @@ public class Playermove : MonoBehaviour {
         #region 移動制御
         switch (g_camera_num) {
             case 0:
-                ////配列hの上限に達してない時移動(上)
-                //if (Input.GetKeyDown(KeyCode.W)) {
-                //    Move_W();
-                //}
-                ////配列hの下限に達してない時移動(下)
-                //if (Input.GetKeyDown(KeyCode.S)) {
-                //    Move_S();
-                //}
-                ////配列vの下限に達してない時移動(左)
-                //if (Input.GetKeyDown(KeyCode.A)) {
-                //    Move_A();
-                //}
-                ////配列vの上限に達してない時移動(右)
-                //if (Input.GetKeyDown(KeyCode.D)) {
-                //    Move_D();
-                //}
+               
                 break;
             case 2:
                 //配列hの上限に達してない時移動(上)
@@ -140,14 +117,6 @@ public class Playermove : MonoBehaviour {
         }
         #endregion
 
-        //if (Input.GetKeyDown(KeyCode.Space)) {
-        //    PushKey();
-        //    g_speaceflag = true;
-        //}
-        //if (Input.GetKeyUp(KeyCode.Space)) {
-        //    UpKey();
-        //    g_speaceflag = false;
-        //}
     }
 
     private void Player_Move() {
@@ -225,6 +194,7 @@ public class Playermove : MonoBehaviour {
         return g_loopnum;
 
     }
+    //動かす度にプレイヤーの座標取得
     public void Movecheck() {
         g_movecheck_v = g_check_script.g_dice_check_v;
         g_movecheck_s = g_check_script.g_dice_check_s;
