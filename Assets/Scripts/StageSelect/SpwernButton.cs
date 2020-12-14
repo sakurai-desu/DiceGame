@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class SpwernButton : MonoBehaviour
 {
+    [SerializeField]
+    int g_var_size;
     //配置するステージ選択のオブジェクト
     [SerializeField]
     GameObject g_button_obj;
@@ -37,11 +39,28 @@ public class SpwernButton : MonoBehaviour
     //ボタンあまりの値
     public int g_remainder_num;
 
+    //整列するときの縦の数値
+    [SerializeField]
+    int g_var_set_num = 100;
+
+    //整列するときの横の数値
+    [SerializeField]
+    int g_side_set_num = 130;
+
+    int g_side_reset;
+
+    //縦の距離を話すために使う数値
+    [SerializeField]
+    int g_var_gap_num;
+
+    //何回も繰り返さないようにするためのもの
+    bool g_var_flag;
     //ボタンに入ってるテキスト
     Text g_button_text;
     // Start is called before the first frame update
     void Start()
     {
+        g_side_reset = g_side_set_num;
         //ボタンを生むのに必要な情報を取得
         g_array_Script = GameObject.Find("Stageinformation").GetComponent<JsonArray>();
         //生み出す横の幅を決定
@@ -98,13 +117,7 @@ public class SpwernButton : MonoBehaviour
             }
         }
     }
-    //整列するときの縦の数値
-    [SerializeField]
-    int g_var_set_num = 100;
 
-    //整列するときの横の数値
-    [SerializeField]
-    int g_side_set_num = 130;
     /// <summary>
     /// ボタンを生んだりするメソッド
     /// </summary>
@@ -113,7 +126,7 @@ public class SpwernButton : MonoBehaviour
     /// <param name="j">sideの数値</param>
     /// <param name="stage_str">ボタンに表示する数値</param>
     void ButtonSpwen(GameObject buttonObj,int i,int j,int stage_str) {
-
+        
         stage_str += 1;
         //オブジェクトが生まれる
         g_button = Instantiate(buttonObj);
@@ -122,6 +135,20 @@ public class SpwernButton : MonoBehaviour
         //親になる
         g_button.transform.parent = gameObject.transform;
         RectTransform g_button_transform = g_button.GetComponent<RectTransform>();
+        if (i < g_var_size) {
+            g_button_transform.localPosition = new Vector3(g_button_y_pos + j * g_var_set_num, g_button_x_pos + i * -g_side_set_num, 0);
+
+        } else if (i % g_var_size == 0) {
+            if (g_var_flag == false) {
+                
+                g_side_set_num =g_side_set_num+ g_var_gap_num;
+                g_var_flag = true;
+            }
+        } else {
+            g_side_set_num = g_side_reset;
+            g_var_flag = false;
+        }
+
         g_button_transform.localPosition = new Vector3( g_button_y_pos +j*g_var_set_num,g_button_x_pos + i*-g_side_set_num, 0);
         //二次元配列にボタンを入れる
         g_json_button_array[i, j] = g_button;

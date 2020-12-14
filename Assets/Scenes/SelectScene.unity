@@ -145,7 +145,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 97349108}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -21.2, z: -14.281099}
   m_LocalScale: {x: 1.025641, y: 1.025641, z: 1.025641}
   m_Children:
@@ -165,6 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a6900f2c97a4f40b9db1b520273597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  g_var_size: 3
   g_button_obj: {fileID: 1398817108274415374, guid: 7070ba4842115cf419ad339ba6640beb,
     type: 3}
   g_button_sprewn_num: 0
@@ -179,6 +180,7 @@ MonoBehaviour:
   g_side_count: 0
   g_var_set_num: 90
   g_side_set_num: 120
+  g_var_gap_num: 30
 --- !u!114 &97349111
 MonoBehaviour:
   m_ObjectHideFlags: 0
