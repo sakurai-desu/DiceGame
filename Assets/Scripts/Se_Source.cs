@@ -20,14 +20,18 @@ public class Se_Source : MonoBehaviour
     {
         
     }
-
+    /// <summary>
+    /// 回転用SEを再生
+    /// </summary>
     public void Dice_Rotate_Se_Play() {
         g_audiosource.mute = false;
         g_audiosource.Stop();
         g_audiosource.clip = g_dice_rotate_se;
         g_audiosource.Play();
     }
-
+    /// <summary>
+    /// 合体用SEを再生
+    /// </summary>
     public void Dice_Docking_Se_Play() {
         g_audiosource.Stop();
         g_audiosource.clip = g_dice_docking_se;

@@ -167,15 +167,14 @@ public class Dice_Rotate : MonoBehaviour {
             g_parent_Obj.transform.RotateAround(g_rotate_Point, g_rotate_Axis, g_rotation_Amount);
             yield return null;
         }
-
         //回転中をではなくする
         g_player_con_Script.MoveFlag_False();
         //回転の中心を初期化
         g_rotate_Point = Vector3.zero;
         //回転の軸を初期化
         g_rotate_Axis = Vector3.zero;
+        //回転SE再生
         g_se_source_Script.Dice_Rotate_Se_Play();
-
         //回転先にダイスを格納する
         g_parent_rotate_Script.Reset_And_Storage_Obj();
         //処理終了
