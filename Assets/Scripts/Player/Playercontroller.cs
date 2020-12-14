@@ -18,6 +18,10 @@ public class Playercontroller : MonoBehaviour {
     bool g_arrayflag = false;
     //player位置
     Vector3 g_sponplayer;
+    /// <summary>
+    /// 移動可能か調べるフラグ
+    /// </summary>
+    private bool g_is_move;
 
     void Start() {
         g_arraystats = GameObject.Find("Game_Controller");
@@ -52,5 +56,19 @@ public class Playercontroller : MonoBehaviour {
 
     public (int, int, int) Get_Player_Pointer() {
         return (g_player_pointer_ver, g_player_pointer_side, g_player_pointer_high);
+    }
+
+    /// <summary>
+    /// 移動中かどうか判別するフラグを返す処理
+    /// </summary>
+    /// <returns></returns>
+    public bool Get_MoveFlag() {
+        return g_is_move;
+    }
+    public void MoveFlag_True() {
+        g_is_move = true;
+    }
+    public void MoveFlag_False() {
+        g_is_move = false;
     }
 }
