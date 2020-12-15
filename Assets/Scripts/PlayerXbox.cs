@@ -61,7 +61,7 @@ public class PlayerXbox : MonoBehaviour
         else if (Input.GetButtonUp("Y")&&g_y_push_flag) {
             g_y_push_flag = false;
         }
-        if (g_y_push_flag==false) {
+        if (g_y_push_flag) {
 
             //配列hの上限に達してない時移動(上)
             if (Input.GetKeyDown(KeyCode.W) || (Input.GetAxisRaw("Vertical") > g_controller_Move && g_axis_flag == false)) {
