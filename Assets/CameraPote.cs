@@ -12,6 +12,8 @@ public class CameraPote : MonoBehaviour
 
     bool g_push_y_flag;
     bool g_push_r_flag;
+    bool g_push_q_flag;
+    bool g_push_e_flag;
     // Start is called before the first frame update
     void Start()
     {
