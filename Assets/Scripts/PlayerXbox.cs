@@ -39,7 +39,7 @@ public class PlayerXbox : MonoBehaviour
     private float g_limit_num = 0.49f;
 
     bool g_y_push_flag;
-
+    [SerializeField]
     private int[] g_camera_para = { 31, 30, 33, 32 };
     int[] g_work_array;
     void Start()
@@ -63,10 +63,10 @@ public class PlayerXbox : MonoBehaviour
             g_timer = g_start_timer;
             g_player_move_Script.Dice_Push();
         }
-        if (Input.GetButtonDown("L")) {
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("L")) {
             ChangePlayerL();   
         }
-        if (Input.GetButtonDown("R")) {
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("R")) {
             ChangePlayerR();   
         }
         if (Input.GetButtonDown("Y")) {
