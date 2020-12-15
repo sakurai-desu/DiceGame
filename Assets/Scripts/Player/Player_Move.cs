@@ -124,44 +124,32 @@ public class Player_Move : MonoBehaviour {
         //移動先に格納されているオブジェクトのタイプ
         int type = g_game_con_Script.Get_Obj_Type(g_player_ver, g_player_side, g_player_high);
         //取得したオブジェクトのタイプに応じて処理
-        switch (type) {
-            //空白の時
-            //プレイヤーを移動させる
-            case 0:
-                //落下可能か調べる
-                g_is_move = Fall_Check(g_player_ver, g_player_side, g_player_high);
-                //落下不可能の時
-                if (!g_is_move) {
-                    //移動処理中止
-                    return;
-                }
-                if (g_player_high - g_check_high == 0) {
-                    //移動アニメーション再生
-                    g_anim_Script.Player_Move_Anim();
-                } 
-                else if (g_player_high - g_check_high != 0) {
-                    g_anim_Script.Player_Jump_Anim();
-                }
-                //移動先の高さの指標を変更する
-                g_player_high = g_check_high;
+        //空白の時
+        //プレイヤーを移動させる
+        if (type == 0) {
+            //落下可能か調べる
+            g_is_move = Fall_Check(g_player_ver, g_player_side, g_player_high);
+            //落下不可能の時
+            if (!g_is_move) {
+                //移動処理中止
+                return;
+            }
+            if (g_player_high - g_check_high == 0) {
+                //移動アニメーション再生
+                g_anim_Script.Player_Move_Anim();
+            } else if (g_player_high - g_check_high != 0) {
+                g_anim_Script.Player_Jump_Anim();
+            }
+            //移動先の高さの指標を変更する
+            g_player_high = g_check_high;
 
 
-                //移動先のポジション取得
-                Vector3 get_pos = g_game_con_Script.Get_Pos(g_player_ver, g_player_side, g_player_high);
-                //取得した位置にプレイヤーを移動させる
-                g_appearance_move_Script.Player_Move(get_pos);
-                //プレイヤーの現在地を更新する
-                g_play_con_Script.Storage_Player_Pointer(g_player_ver, g_player_side, g_player_high);
-                break;
-            //ダイスの時
-            //ダイスを移動させる
-            case 100:
-                //Debug.Log("ダイスを押す");
-                //操作対象のダイスを取得
-                GameObject dice_obj = g_game_con_Script.Get_Obj(g_player_ver, g_player_side, g_player_high);
-                //取得したダイスを中心に回転させる
-                g_dice_con_Script.Storage_Control_Obj(dice_obj, para);
-                break;
+            //移動先のポジション取得
+            Vector3 get_pos = g_game_con_Script.Get_Pos(g_player_ver, g_player_side, g_player_high);
+            //取得した位置にプレイヤーを移動させる
+            g_appearance_move_Script.Player_Move(get_pos);
+            //プレイヤーの現在地を更新する
+            g_play_con_Script.Storage_Player_Pointer(g_player_ver, g_player_side, g_player_high);
         }
     }
     /// <summary>
@@ -267,6 +255,47 @@ public class Player_Move : MonoBehaviour {
             g_appearance_move_Script.Player_Move(get_pos);
             //プレイヤーの現在地を更新する
             g_play_con_Script.Storage_Player_Pointer(g_player_ver, g_player_side, g_player_high + 1);
+        }
+    }
+
+    public void Dice_Push() {
+        if (g_play_con_Script.Get_MoveFlag()) {
+            return;
+        }
+        //プレイヤーが現在向いている方向を取得
+        int direction_para = g_direction_Script.Get_Player_Direction();
+        //プレイヤーの現在のポインター取得
+        (g_player_ver, g_player_side, g_player_high) = g_play_con_Script.Get_Player_Pointer();
+        //検索する向きに応じて処理を変える
+        switch (direction_para) {
+            //縦プラス方向
+            case g_ver_plus_Para:
+                g_player_ver = g_player_ver + 1;
+                break;
+            //縦マイナス方向
+            case g_ver_minus_Para:
+                g_player_ver = g_player_ver - 1;
+                break;
+            //横プラス方向
+            case g_side_plus_Para:
+                g_player_side = g_player_side + 1;
+                break;
+            //横マイナス方向
+            case g_side_minus_Para:
+                g_player_side = g_player_side - 1;
+                break;
+        }
+        //検索先に格納されているオブジェクトのタイプ
+        int type = g_game_con_Script.Get_Obj_Type(g_player_ver, g_player_side, g_player_high);
+        //取得したオブジェクトのタイプに応じて処理
+        //ダイスの時
+        //ダイスを移動させる
+        if (type >= 100) {
+            //Debug.Log("ダイスを押す");
+            //操作対象のダイスを取得
+            GameObject dice_obj = g_game_con_Script.Get_Obj(g_player_ver, g_player_side, g_player_high);
+            //取得したダイスを中心に回転させる
+            g_dice_con_Script.Storage_Control_Obj(dice_obj, direction_para);
         }
     }
 }

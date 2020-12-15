@@ -62,11 +62,11 @@ public class Game_Controller : MonoBehaviour
         Pos_Array_Reset();
     }
 
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.Return)) {
-            Array_Debug_Log();
-        }
-    }
+    //private void Update() {
+    //    if (Input.GetKeyDown(KeyCode.Return)) {
+    //        Array_Debug_Log();
+    //    }
+    //}
 
     /// <summary>
     /// 3次元配列の要素数を返す処理

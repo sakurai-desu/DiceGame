@@ -11,7 +11,7 @@ public class StageReset : MonoBehaviour
     }
 
     void Update() {
-        if (Input.GetButtonDown("Start")) {
+        if (Input.GetKeyDown(KeyCode.Delete)||Input.GetButtonDown("Start")) {
             Resetstage();
         }
 
