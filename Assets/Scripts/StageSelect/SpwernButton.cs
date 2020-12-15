@@ -60,7 +60,6 @@ public class SpwernButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        g_side_reset = g_side_set_num;
         //ボタンを生むのに必要な情報を取得
         g_array_Script = GameObject.Find("Stageinformation").GetComponent<JsonArray>();
         //生み出す横の幅を決定
@@ -117,7 +116,8 @@ public class SpwernButton : MonoBehaviour
             }
         }
     }
-
+    int g_page_pointer;
+    int g_page_gap_num;
     /// <summary>
     /// ボタンを生んだりするメソッド
     /// </summary>
@@ -140,14 +140,16 @@ public class SpwernButton : MonoBehaviour
 
         } else if (i % g_var_size == 0) {
             if (g_var_flag == false) {
-                g_side_set_num = g_side_set_num + g_var_gap_num;
+                g_page_pointer++;
+        g_side_reset = g_side_set_num;
+                g_var_gap_num +=50;
+
                 g_var_flag = true;
             }
         } else {
-            g_side_set_num = g_side_reset;
             g_var_flag = false;
         }
-        g_button_transform.localPosition = new Vector3( g_button_y_pos +j*g_var_set_num,g_button_x_pos + i*-g_side_set_num, 0);
+        g_button_transform.localPosition = new Vector3( g_button_y_pos +j*g_var_set_num,g_button_x_pos + i*-g_side_set_num-g_var_gap_num, 0);
 
         //二次元配列にボタンを入れる
         g_json_button_array[i, j] = g_button;
