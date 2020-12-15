@@ -135,21 +135,20 @@ public class SpwernButton : MonoBehaviour
         //親になる
         g_button.transform.parent = gameObject.transform;
         RectTransform g_button_transform = g_button.GetComponent<RectTransform>();
-        if (i < g_var_size) {
-            g_button_transform.localPosition = new Vector3(g_button_y_pos + j * g_var_set_num, g_button_x_pos + i * -g_side_set_num, 0);
+        //if (i < g_var_size) {
+        //    g_button_transform.localPosition = new Vector3(g_button_y_pos + j * g_var_set_num, g_button_x_pos + i * -g_side_set_num, 0);
 
-        } else if (i % g_var_size == 0) {
-            if (g_var_flag == false) {
-                
-                g_side_set_num =g_side_set_num+ g_var_gap_num;
-                g_var_flag = true;
-            }
-        } else {
-            g_side_set_num = g_side_reset;
-            g_var_flag = false;
-        }
-
+        //} else if (i % g_var_size == 0) {
+        //    if (g_var_flag == false) {
+        //        g_side_set_num =g_side_set_num+ g_var_gap_num;
+        //        g_var_flag = true;
+        //    }
+        //} else {
+        //    g_side_set_num = g_side_reset;
+        //    g_var_flag = false;
+        //}
         g_button_transform.localPosition = new Vector3( g_button_y_pos +j*g_var_set_num,g_button_x_pos + i*-g_side_set_num, 0);
+
         //二次元配列にボタンを入れる
         g_json_button_array[i, j] = g_button;
         
