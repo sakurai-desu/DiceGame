@@ -22,7 +22,7 @@ public class Player_Animation : MonoBehaviour
         g_player_Anim = g_player_obj.GetComponent<Animator>();
     }
 
-    void Update() {
+    //void Update() {
         ////移動中フラグ取得
         //g_play_flag = g_player_con_Script.Get_MoveFlag();
         ////停止中のとき
@@ -31,7 +31,7 @@ public class Player_Animation : MonoBehaviour
         //    g_player_Anim.SetBool("move_active", false);
         //    g_player_Anim.SetBool("roll_active", false);
         //}
-    }
+    //}
     /// <summary>
     /// ジャンプアニメーション
     /// </summary>
