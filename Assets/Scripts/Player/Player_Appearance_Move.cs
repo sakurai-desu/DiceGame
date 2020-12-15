@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Player_Appearance_Move : MonoBehaviour {
     private Game_Controller g_game_con_Script;
     private Playercontroller g_player_Script;
+    private Player_Animation g_player_anim_Script;
     /// <summary>
     /// プレイヤーのオブジェクト
     /// </summary>
@@ -43,6 +44,7 @@ public class Player_Appearance_Move : MonoBehaviour {
     void Start() {
         g_game_con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         g_player_Script = GameObject.Find("Player_Controller").GetComponent<Playercontroller>();
+        g_player_anim_Script = this.GetComponent<Player_Animation>();
         g_player_obj = this.gameObject;
     }
 
@@ -89,6 +91,7 @@ public class Player_Appearance_Move : MonoBehaviour {
         //移動先への移動終了
         g_player_obj.transform.position = g_end_Pos;
         g_player_Script.MoveFlag_False();
+        g_player_anim_Script.Flag_False();
         Goal();
         yield break;
     }

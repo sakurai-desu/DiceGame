@@ -23,14 +23,14 @@ public class Player_Animation : MonoBehaviour
     }
 
     void Update() {
-        //移動中フラグ取得
-        g_play_flag = g_player_con_Script.Get_MoveFlag();
-        //停止中のとき
-        if (!g_play_flag) {
-            g_player_Anim.SetBool("jump_active", false);
-            g_player_Anim.SetBool("move_active", false);
-            g_player_Anim.SetBool("roll_active", false);
-        }
+        ////移動中フラグ取得
+        //g_play_flag = g_player_con_Script.Get_MoveFlag();
+        ////停止中のとき
+        //if (!g_play_flag) {
+        //    g_player_Anim.SetBool("jump_active", false);
+        //    g_player_Anim.SetBool("move_active", false);
+        //    g_player_Anim.SetBool("roll_active", false);
+        //}
     }
     /// <summary>
     /// ジャンプアニメーション
@@ -51,7 +51,7 @@ public class Player_Animation : MonoBehaviour
         g_player_Anim.SetBool("roll_active", true);
     }
 
-    private void Flag_False() {
+    public void Flag_False() {
         g_player_Anim.SetBool("jump_active", false);
         g_player_Anim.SetBool("move_active", false);
         g_player_Anim.SetBool("roll_active", false);
