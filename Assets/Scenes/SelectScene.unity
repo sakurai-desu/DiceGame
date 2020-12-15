@@ -174,13 +174,13 @@ MonoBehaviour:
   g_var_num: 0
   g_side_num: 0
   g_remainder_num: 0
-  g_button_x_pos: 180
-  g_button_y_pos: 20
-  g_var_count: 0
-  g_side_count: 0
   g_var_set_num: 90
   g_side_set_num: 120
   g_var_gap_num: 30
+  g_button_x_pos: 180
+  g_button_y_pos: 20
+  g_var_count: 0
+  g_side_count: 2
 --- !u!114 &97349111
 MonoBehaviour:
   m_ObjectHideFlags: 0

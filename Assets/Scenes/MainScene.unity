@@ -1095,10 +1095,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   g_camera_Array:
-  - {fileID: 672243023}
-  - {fileID: 1594793990}
   - {fileID: 760693887}
+  - {fileID: 1594793990}
   - {fileID: 635931309}
+  - {fileID: 672243023}
   g_camera_pointer: 0
   g_button_push_flag: 0
 --- !u!1 &1001839331

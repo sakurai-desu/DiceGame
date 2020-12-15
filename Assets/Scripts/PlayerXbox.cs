@@ -39,8 +39,12 @@ public class PlayerXbox : MonoBehaviour
     private float g_limit_num = 0.49f;
 
     bool g_y_push_flag;
+
+    private int[] g_camera_para = { 31, 30, 33, 32 };
+    int[] g_work_array;
     void Start()
     {
+        g_work_array = new int[4];
         g_player_move_Script = this.GetComponent<Player_Move>();
         g_timer = g_start_timer;
     }
@@ -59,63 +63,45 @@ public class PlayerXbox : MonoBehaviour
             g_timer = g_start_timer;
             g_player_move_Script.Dice_Push();
         }
+        if (Input.GetButtonDown("L")) {
+            ChangePlayerL();   
+        }
+        if (Input.GetButtonDown("R")) {
+            ChangePlayerR();   
+        }
         if (Input.GetButtonDown("Y")) {
             g_y_push_flag = true;
         }
-        else if (Input.GetButtonUp("Y")&&g_y_push_flag) {
+        if (Input.GetButtonUp("Y")&&g_y_push_flag) {
             g_y_push_flag = false;
         }
-        if (g_y_push_flag) {
+        if (g_y_push_flag==false) {
 
             //配列hの上限に達してない時移動(上)
             if (Input.GetKeyDown(KeyCode.W) || (Input.GetAxisRaw("Vertical") > g_controller_Move && g_axis_flag == false)) {
-                g_player_move_Script.PlayerMove(g_ver_plus_Para);
+                g_player_move_Script.PlayerMove(g_camera_para[0]);
                 Axis_True();
             }
             //配列hの下限に達してない時移動(下)
             if (Input.GetKeyDown(KeyCode.S) || (Input.GetAxisRaw("Vertical") < -g_controller_Move && g_axis_flag == false)) {
-                g_player_move_Script.PlayerMove(g_ver_minus_Para);
+                g_player_move_Script.PlayerMove(g_camera_para[2]);
                 Axis_True();
             }
             //配列vの下限に達してない時移動(左)
             if (Input.GetKeyDown(KeyCode.A) || (Input.GetAxisRaw("Horizontal") < -g_controller_Move && g_axis_flag == false)) {
-                g_player_move_Script.PlayerMove(g_side_minus_Para);
+                g_player_move_Script.PlayerMove(g_camera_para[3]);
                 Axis_True();
             }
             //配列vの上限に達してない時移動(右)
             if (Input.GetKeyDown(KeyCode.D) || (Input.GetAxisRaw("Horizontal") > g_controller_Move && g_axis_flag == false)) {
-                g_player_move_Script.PlayerMove(g_side_plus_Para);
+                g_player_move_Script.PlayerMove(g_camera_para[1]);
                 Axis_True();
             }
             //スティックが戻されたとき
             if (Input.GetAxisRaw("Vertical") > -g_limit_num && Input.GetAxisRaw("Vertical") < g_limit_num && Input.GetAxisRaw("Horizontal") < g_limit_num && Input.GetAxisRaw("Horizontal") > -g_limit_num) {
                 g_axis_flag = false;
             }
-            ////配列hの上限に達してない時移動(上)
-            //if (Input.GetKeyDown(KeyCode.W) || (Input.GetAxisRaw("Vertical") > g_controller_Move && g_axis_flag == false)) {
-            //    g_player_move_Script.PlayerMove(g_ver_minus_Para);
-            //    Axis_True();
-            //}
-            ////配列hの下限に達してない時移動(下)
-            //if (Input.GetKeyDown(KeyCode.S) || (Input.GetAxisRaw("Vertical") < -g_controller_Move && g_axis_flag == false)) {
-            //    g_player_move_Script.PlayerMove(g_ver_plus_Para);
-            //    Axis_True();
-            //}
-            ////配列vの下限に達してない時移動(左)
-            //if (Input.GetKeyDown(KeyCode.A) || (Input.GetAxisRaw("Horizontal") < -g_controller_Move && g_axis_flag == false)) {
-            //    g_player_move_Script.PlayerMove(g_side_plus_Para);
-            //    Axis_True();
-            //}
-            ////配列vの上限に達してない時移動(右)
-            //if (Input.GetKeyDown(KeyCode.D) || (Input.GetAxisRaw("Horizontal") > g_controller_Move && g_axis_flag == false)) {
-            //    g_player_move_Script.PlayerMove(g_side_minus_Para);
-            //    Axis_True();
-            //}
-
-            ////スティックが戻されたとき
-            //if (Input.GetAxisRaw("Vertical") > -g_limit_num && Input.GetAxisRaw("Vertical") < g_limit_num && Input.GetAxisRaw("Horizontal") < g_limit_num && Input.GetAxisRaw("Horizontal") > -g_limit_num) {
-            //    g_axis_flag = false;
-            //}
+           
         }
     }
 
@@ -130,5 +116,43 @@ public class PlayerXbox : MonoBehaviour
     /// <param name="num"></param>
     public void Change_CameraNum(int num) {
         g_camera_num = num;
+    }
+
+    /// <summary>
+    /// playerの入れ替えをする処理
+    /// </summary>
+    private void ChangePlayerR() {
+        //プレイヤーが進む数をworkに入れる
+        g_work_array[0] = g_camera_para[0];
+        g_work_array[1] = g_camera_para[1];
+        g_work_array[2] = g_camera_para[2];
+        g_work_array[3] = g_camera_para[3];
+        ChangeR();
+    }
+    void ChangeR() {
+        //入れ替え
+        g_camera_para[1] = g_work_array[0];
+        g_camera_para[2] = g_work_array[1];
+        g_camera_para[3] = g_work_array[2];
+        g_camera_para[0] = g_work_array[3];
+    }
+
+    /// <summary>
+    /// playerの入れ替えをする処理
+    /// </summary>
+    private void ChangePlayerL() {
+        //プレイヤーが進む数をworkに入れる
+        g_work_array[0] = g_camera_para[0];
+        g_work_array[1] = g_camera_para[1];
+        g_work_array[2] = g_camera_para[2];
+        g_work_array[3] = g_camera_para[3];
+        ChangeL();
+    }
+    void ChangeL() {
+        //入れ替え
+        g_camera_para[3] = g_work_array[0];
+        g_camera_para[0] = g_work_array[1];
+        g_camera_para[1] = g_work_array[2];
+        g_camera_para[2] = g_work_array[3];
     }
 }
