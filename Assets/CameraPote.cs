@@ -46,6 +46,15 @@ public class CameraPote : MonoBehaviour
             }
                
         }
+            if (Input.GetKey(KeyCode.Q)) {
+
+                g_rota_y = 1;
+                transform.Rotate(0, g_rota_y, 0);
+            } else if (Input.GetKey(KeyCode.E)) {
+
+                g_rota_y = -1;
+                transform.Rotate(0, g_rota_y, 0);
+            }
 
         #endregion
     }
