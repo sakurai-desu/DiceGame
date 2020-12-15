@@ -55,6 +55,10 @@ public class PlayerXbox : MonoBehaviour
             g_timer = g_start_timer;
             g_player_move_Script.Jump();
         }
+        if (Input.GetKeyDown(KeyCode.Return)|| Input.GetButtonDown("X")) {
+            g_timer = g_start_timer;
+            g_player_move_Script.Dice_Push();
+        }
         if (Input.GetButtonDown("Y")) {
             g_y_push_flag = true;
         }
