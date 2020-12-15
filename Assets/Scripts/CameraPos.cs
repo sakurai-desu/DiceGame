@@ -41,7 +41,7 @@ public class CameraPos : MonoBehaviour
         g_high_pos = g_input.g_inputJson.g_high;
         g_var_pos = g_input.g_inputJson.g_ver;
 
-        transform.position = new Vector3(g_side_pos / 2, g_high_pos / 1.5f, g_var_pos / 2);
+        transform.position = new Vector3(g_side_pos * 1.5f, g_high_pos * 1.5f, g_var_pos * 1.5f);
     }
 
     // Update is called once per frame
