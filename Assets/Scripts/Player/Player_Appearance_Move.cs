@@ -7,6 +7,7 @@ public class Player_Appearance_Move : MonoBehaviour {
     private Game_Controller g_game_con_Script;
     private Playercontroller g_player_Script;
     private Player_Animation g_player_anim_Script;
+    StageInformation g_information_Script;
     /// <summary>
     /// プレイヤーのオブジェクト
     /// </summary>
@@ -42,6 +43,7 @@ public class Player_Appearance_Move : MonoBehaviour {
     private float g_check_pos_length = 0.5f;
 
     void Start() {
+        g_information_Script = GameObject.Find("Stageinformation").GetComponent<StageInformation>();
         g_game_con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         g_player_Script = GameObject.Find("Player_Controller").GetComponent<Playercontroller>();
         g_player_anim_Script = this.GetComponent<Player_Animation>();
@@ -100,8 +102,22 @@ public class Player_Appearance_Move : MonoBehaviour {
         (int p_ver, int p_side, int p_high) = g_player_Script.Get_Player_Pointer();
         int type = g_game_con_Script.Get_Obj_Type(p_ver, p_side, p_high - 1);
         if (type == 20) {
+            if (SceneManager.GetActiveScene().name == "MainScene") {
             Debug.Log("ゴールの上");
             SceneManager.LoadScene("SelectScene");
+            }
+           else if (SceneManager.GetActiveScene().name == "TutrialScene") {
+                g_information_Script.g_tutorial_num++;
+                if (g_information_Script.g_tutorial_num == g_information_Script.g_tutorial_name.Length) {
+                    SceneManager.LoadScene("SelectScene");
+                } else {
+
+                g_information_Script.Change_Tutorial(g_information_Script.g_tutorial_name[g_information_Script.g_tutorial_num]);
+            SceneManager.LoadScene("TutrialScene");
+                }
+
+            }
+           
         }
     }
 }

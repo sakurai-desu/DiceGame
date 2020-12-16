@@ -16,9 +16,6 @@ public class SelectScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)||Input.GetButtonDown("B")) {
-            OcClick();
-        }
     }
     public void OcClick() {
         SceneManager.LoadScene(g_select_name);
