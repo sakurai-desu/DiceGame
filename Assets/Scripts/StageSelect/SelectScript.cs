@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class SelectScript : MonoBehaviour
 {
+    [SerializeField]
+    string g_select_name;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,11 +16,8 @@ public class SelectScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)||Input.GetButtonDown("B")) {
-            OcClick();
-        }
     }
     public void OcClick() {
-        SceneManager.LoadScene("SelectScene");
+        SceneManager.LoadScene(g_select_name);
     }
 }
