@@ -55,10 +55,10 @@ public class PlayerXbox : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("A")) {
-            g_timer = g_start_timer;
-            g_player_move_Script.Jump();
-        }
+        //if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("A")) {
+        //    g_timer = g_start_timer;
+        //    g_player_move_Script.Jump();
+        //}
         if (Input.GetKeyDown(KeyCode.Return)|| Input.GetButtonDown("X")) {
             g_timer = g_start_timer;
             g_player_move_Script.Dice_Push();
