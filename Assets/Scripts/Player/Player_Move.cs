@@ -93,8 +93,10 @@ public class Player_Move : MonoBehaviour {
         }
         //プレイヤーの現在のポインター取得
         (g_player_ver, g_player_side, g_player_high) = g_play_con_Script.Get_Player_Pointer();
+        int before_direction = g_direction_Script.Get_Player_Direction();
         //プレイヤーオブジェクトの向きをパラメータに応じて変更する
         g_direction_Script.Player_Direction_Change(para);
+        int after_direction= g_direction_Script.Get_Player_Direction();
         //移動する向きに応じて処理を変える
         switch (para) {
             //縦プラス方向
@@ -150,6 +152,29 @@ public class Player_Move : MonoBehaviour {
             g_appearance_move_Script.Player_Move(get_pos);
             //プレイヤーの現在地を更新する
             g_play_con_Script.Storage_Player_Pointer(g_player_ver, g_player_side, g_player_high);
+        } else if(before_direction==after_direction){
+            //ジャンプ先が移動可能か調べる
+            bool is_jump = Move_Check(g_player_ver, g_player_side, g_player_high + 1);
+            //ジャンプ不可能な状態の時
+            if (!is_jump) {
+                //処理中断
+                return;
+            }
+            //ジャンプ先の床に格納されているオブジェクトのタイプ
+            int jump_point_ground = g_game_con_Script.Get_Obj_Type(g_player_ver, g_player_side, g_player_high);
+            //ジャンプ先に格納されているオブジェクトのタイプ取得
+            int jump_point = g_game_con_Script.Get_Obj_Type(g_player_ver, g_player_side, g_player_high + 1);
+            //ジャンプ先に床が存在する＆ジャンプ先が空白
+            if (jump_point_ground != 0 && jump_point == 0) {
+                //移動アニメーション再生
+                g_anim_Script.Player_Jump_Anim();
+                //移動先のポジション取得
+                Vector3 get_pos = g_game_con_Script.Get_Pos(g_player_ver, g_player_side, g_player_high + 1);
+                //取得した位置にプレイヤーを移動させる
+                g_appearance_move_Script.Player_Move(get_pos);
+                //プレイヤーの現在地を更新する
+                g_play_con_Script.Storage_Player_Pointer(g_player_ver, g_player_side, g_player_high + 1);
+            }
         }
     }
     /// <summary>
