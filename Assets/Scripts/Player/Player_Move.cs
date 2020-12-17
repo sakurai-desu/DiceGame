@@ -10,6 +10,7 @@ public class Player_Move : MonoBehaviour {
     private Dice_Controller g_dice_con_Script;
     private Player_Animation g_anim_Script;
     private Player_Appearance_Move g_appearance_move_Script;
+    private PlayerXbox g_xbox_Script;
 
     /// <summary>
     /// 初期化用変数
@@ -67,6 +68,24 @@ public class Player_Move : MonoBehaviour {
     /// </summary>
     private GameObject g_player_Obj;
 
+    private bool g_player_move = false;
+    private bool g_player_auto_move = false;
+    [SerializeField]
+    /// <summary>
+    /// ダイスが長押しで自動移動する間隔
+    /// </summary>
+    public float g_move_interval = 0.5f;
+    [SerializeField]
+    /// <summary>
+    /// 長押し移動用タイマー
+    /// </summary>
+    private float g_auto_move_timer=0;
+    [SerializeField]
+    /// <summary>
+    /// 一度目の移動から何秒後に自動移動を開始するか決める変数
+    /// </summary>
+    private float g_start_timer=-0.5f;
+
     void Start() {
         g_player_Obj = this.gameObject;
         g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Date>();
@@ -76,8 +95,47 @@ public class Player_Move : MonoBehaviour {
         g_dice_con_Script = GameObject.Find("Dice_Controller").GetComponent<Dice_Controller>();
         g_appearance_move_Script = this.GetComponent<Player_Appearance_Move>();
         g_anim_Script = this.GetComponent<Player_Animation>();
+        g_xbox_Script = this.GetComponent<PlayerXbox>();
         //配列の最大値を取得
         (g_max_ver, g_max_side, g_max_high) = g_json_Script.Get_Array_Max();
+    }
+
+    private void Update() {
+        //移動開始状態になったとき
+        if (g_player_move) {
+            //移動開始状態を解除する
+            g_player_move = false;
+            //一度目から二度目までの移動間隔を初期化
+            g_auto_move_timer = g_start_timer;
+            //自動移動可能状態にする
+            g_player_auto_move = true;
+        }
+        //自動移動可能状態の時
+        if (g_player_auto_move) {
+            //タイマーで秒数カウントアップ
+            g_auto_move_timer += Time.deltaTime;
+            //指定した間隔で処理を行う
+            if (g_auto_move_timer >= g_move_interval) {
+                //プレイヤーの現在の向きを取得
+                int player_direction = g_direction_Script.Get_Player_Direction();
+                //取得した方向に移動する
+                PlayerMove(player_direction);
+                //カウントアップタイマーをリセット
+                g_auto_move_timer = g_zero_Count;
+            }
+        }
+        //ボタンから指を離したとき
+        if (!g_xbox_Script.Get_Axis_Flag()) {
+            //自動移動状態を解除する
+            g_player_auto_move = false;
+        }
+    }
+
+    /// <summary>
+    /// プレイヤーを移動開始状態にする処理
+    /// </summary>
+    public void Change_Move_Flag() {
+        g_player_move = true;
     }
 
     /// <summary>
@@ -93,10 +151,12 @@ public class Player_Move : MonoBehaviour {
         }
         //プレイヤーの現在のポインター取得
         (g_player_ver, g_player_side, g_player_high) = g_play_con_Script.Get_Player_Pointer();
+        //移動前のプレイヤーの向きを取得（ジャンプ判定用）
         int before_direction = g_direction_Script.Get_Player_Direction();
         //プレイヤーオブジェクトの向きをパラメータに応じて変更する
         g_direction_Script.Player_Direction_Change(para);
-        int after_direction= g_direction_Script.Get_Player_Direction();
+        //移動後のプレイヤーの向きを取得（ジャンプ判定用）
+        int after_direction = g_direction_Script.Get_Player_Direction();
         //移動する向きに応じて処理を変える
         switch (para) {
             //縦プラス方向
@@ -136,15 +196,18 @@ public class Player_Move : MonoBehaviour {
                 //移動処理中止
                 return;
             }
+            //移動先が今と同じ高さなら
             if (g_player_high - g_check_high == 0) {
                 //移動アニメーション再生
                 g_anim_Script.Player_Move_Anim();
-            } else if (g_player_high - g_check_high != 0) {
+            }
+            //移動先が自分のいる場所より低い位置なら
+            else if (g_player_high - g_check_high != 0) {
+                //落下モーションを再生
                 g_anim_Script.Player_Jump_Anim();
             }
             //移動先の高さの指標を変更する
             g_player_high = g_check_high;
-
 
             //移動先のポジション取得
             Vector3 get_pos = g_game_con_Script.Get_Pos(g_player_ver, g_player_side, g_player_high);
@@ -152,29 +215,13 @@ public class Player_Move : MonoBehaviour {
             g_appearance_move_Script.Player_Move(get_pos);
             //プレイヤーの現在地を更新する
             g_play_con_Script.Storage_Player_Pointer(g_player_ver, g_player_side, g_player_high);
-        } else if(before_direction==after_direction){
-            //ジャンプ先が移動可能か調べる
-            bool is_jump = Move_Check(g_player_ver, g_player_side, g_player_high + 1);
-            //ジャンプ不可能な状態の時
-            if (!is_jump) {
-                //処理中断
-                return;
-            }
-            //ジャンプ先の床に格納されているオブジェクトのタイプ
-            int jump_point_ground = g_game_con_Script.Get_Obj_Type(g_player_ver, g_player_side, g_player_high);
-            //ジャンプ先に格納されているオブジェクトのタイプ取得
-            int jump_point = g_game_con_Script.Get_Obj_Type(g_player_ver, g_player_side, g_player_high + 1);
-            //ジャンプ先に床が存在する＆ジャンプ先が空白
-            if (jump_point_ground != 0 && jump_point == 0) {
-                //移動アニメーション再生
-                g_anim_Script.Player_Jump_Anim();
-                //移動先のポジション取得
-                Vector3 get_pos = g_game_con_Script.Get_Pos(g_player_ver, g_player_side, g_player_high + 1);
-                //取得した位置にプレイヤーを移動させる
-                g_appearance_move_Script.Player_Move(get_pos);
-                //プレイヤーの現在地を更新する
-                g_play_con_Script.Storage_Player_Pointer(g_player_ver, g_player_side, g_player_high + 1);
-            }
+        }
+        //移動先が移動前の向いている方向と同じなら
+        //ジャンプするか調べる
+        else if (before_direction == after_direction) {
+            //ジャンプできるか調べる
+            //条件を満たせばジャンプさせる
+            Jump();
         }
     }
     /// <summary>
@@ -229,36 +276,41 @@ public class Player_Move : MonoBehaviour {
         //落下できるかどうかを返す
         return is_fall;
     }
+
     /// <summary>
     /// プレイヤーをジャンプさせる処理
     /// </summary>
     public void Jump() {
-        if (g_play_con_Script.Get_MoveFlag()) {
-            return;
-        }
-        //プレイヤーが現在向いている方向を取得
-        int direction_para = g_direction_Script.Get_Player_Direction();
-        //現在のプレイヤーのポインタ取得
-        (g_player_ver, g_player_side, g_player_high) = g_play_con_Script.Get_Player_Pointer();
-        //移動する向きに応じて処理を変える
-        switch (direction_para) {
-            //縦プラス方向
-            case g_ver_plus_Para:
-                g_player_ver = g_player_ver + 1;
-                break;
-            //縦マイナス方向
-            case g_ver_minus_Para:
-                g_player_ver = g_player_ver - 1;
-                break;
-            //横プラス方向
-            case g_side_plus_Para:
-                g_player_side = g_player_side + 1;
-                break;
-            //横マイナス方向
-            case g_side_minus_Para:
-                g_player_side = g_player_side - 1;
-                break;
-        }
+
+        #region　ジャンプを単体操作する場合に使用するので残している
+        //if (g_play_con_Script.Get_MoveFlag()) {
+        //    return;
+        //}
+        ////プレイヤーが現在向いている方向を取得
+        //int direction_para = g_direction_Script.Get_Player_Direction();
+        ////現在のプレイヤーのポインタ取得
+        //(g_player_ver, g_player_side, g_player_high) = g_play_con_Script.Get_Player_Pointer();
+        ////移動する向きに応じて処理を変える
+        //switch (direction_para) {
+        //    //縦プラス方向
+        //    case g_ver_plus_Para:
+        //        g_player_ver = g_player_ver + 1;
+        //        break;
+        //    //縦マイナス方向
+        //    case g_ver_minus_Para:
+        //        g_player_ver = g_player_ver - 1;
+        //        break;
+        //    //横プラス方向
+        //    case g_side_plus_Para:
+        //        g_player_side = g_player_side + 1;
+        //        break;
+        //    //横マイナス方向
+        //    case g_side_minus_Para:
+        //        g_player_side = g_player_side - 1;
+        //        break;
+        //}
+        #endregion
+
         //ジャンプ先が移動可能か調べる
         bool is_jump = Move_Check(g_player_ver, g_player_side, g_player_high + 1);
         //ジャンプ不可能な状態の時

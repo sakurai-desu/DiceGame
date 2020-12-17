@@ -106,9 +106,15 @@ public class PlayerXbox : MonoBehaviour
     }
 
     private void Axis_True() {
+        g_player_move_Script.Change_Move_Flag();
         g_axis_flag = true;
         g_timer = g_start_timer;
     }
+
+    public bool Get_Axis_Flag() {
+        return g_axis_flag;
+    }
+
 
     /// <summary>
     /// カメラの向きを示す数値を変更する
