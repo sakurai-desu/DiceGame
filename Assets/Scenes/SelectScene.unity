@@ -169,18 +169,19 @@ MonoBehaviour:
   g_button_obj: {fileID: 1398817108274415374, guid: 7070ba4842115cf419ad339ba6640beb,
     type: 3}
   g_button_sprewn_num: 0
-  g_var_calc: 4
+  g_var_calc: 0
   g_varmax_num: 0
   g_var_num: 0
   g_side_num: 0
   g_remainder_num: 0
+  g_var_set_num: 90
+  g_side_set_num: 130
+  g_var_gap_num: 30
   g_button_x_pos: 180
   g_button_y_pos: 20
   g_var_count: 0
   g_side_count: 0
-  g_var_set_num: 90
-  g_side_set_num: 120
-  g_var_gap_num: 30
+  g_page_pointer: 1
 --- !u!114 &97349111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,9 +195,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   g_var_pointer: 0
+  g_var_remainder: 0
   g_side_pointer: 0
-  g_var_maxcheck_pointer: 3
   g_var_minicheck_pointer: 0
+  g_page_var_count: 0
+  g_stage_page_count: 0
+  g_side_stage_count: 0
+  g_stage_remainder: 0
+  g_page_turnover: 1
   g_move_g_var: 132.5
 --- !u!1 &182910927
 GameObject:
