@@ -33,7 +33,7 @@ public class SpwernButton : MonoBehaviour
 
     //ボタン縦の値
     [SerializeField]
-    int g_var_num;
+   public int g_var_num;
 
     //ボタン横の値
     public int g_side_num;
