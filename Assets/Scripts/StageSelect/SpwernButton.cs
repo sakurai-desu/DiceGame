@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class SpwernButton : MonoBehaviour
 {
+   
+    //1ぺージの最大の数(縦)
     [SerializeField]
-    int g_var_size;
+   public int g_var_size;
     //配置するステージ選択のオブジェクト
     [SerializeField]
     GameObject g_button_obj;
@@ -16,7 +18,7 @@ public class SpwernButton : MonoBehaviour
 
     //ボタンを乱したりするのに使う数値
     [SerializeField]
-    private int g_button_sprewn_num;
+    public int g_button_sprewn_num;
 
     //ボタンをしまう配列
     public GameObject[,] g_json_button_array;
@@ -41,11 +43,11 @@ public class SpwernButton : MonoBehaviour
 
     //整列するときの縦の数値
     [SerializeField]
-    int g_var_set_num = 100;
+   public int g_var_set_num = 100;
 
     //整列するときの横の数値
     [SerializeField]
-    int g_side_set_num = 130;
+    public int g_side_set_num = 130;
 
     int g_side_reset;
 
@@ -116,7 +118,8 @@ public class SpwernButton : MonoBehaviour
             }
         }
     }
-    int g_page_pointer;
+    //ページ数
+   public int g_page_pointer = 1;
     int g_page_gap_num;
     /// <summary>
     /// ボタンを生んだりするメソッド
@@ -139,11 +142,12 @@ public class SpwernButton : MonoBehaviour
             g_button_transform.localPosition = new Vector3(g_button_y_pos + j * g_var_set_num, g_button_x_pos + i * -g_side_set_num, 0);
 
         } else if (i % g_var_size == 0) {
+
             if (g_var_flag == false) {
                 g_page_pointer++;
-        g_side_reset = g_side_set_num;
+                g_side_reset = g_side_set_num;
                 g_var_gap_num +=50;
-
+                Debug.Log(g_page_pointer);
                 g_var_flag = true;
             }
         } else {
