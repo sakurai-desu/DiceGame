@@ -133,7 +133,7 @@ public class ButtonSelect : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.D) || (Input.GetAxisRaw("Horizontal") > g_controller_time && g_stick_flag == false)) {
             ButtonOrigin();
             //一番下以外の一番右の時
-            if (g_side_pointer == g_spwern_script.g_side_num - 1 && g_var_pointer != g_spwern_script.g_varmax_num) {
+            if (g_side_pointer == g_spwern_script.g_side_num - 1 && g_var_pointer != g_spwern_script.g_varmax_num-1) {
                 g_side_pointer = 0;
                 g_var_pointer += 1;
                 g_page_turnover += 1;
@@ -149,7 +149,7 @@ public class ButtonSelect : MonoBehaviour
                 g_var_pointer = 0;
                 g_page_turnover = 1;
 
-            } else if (g_side_pointer == g_spwern_script.g_side_num - 1 && g_var_pointer == g_var_maxcheck_pointer - 1) {
+            } else if (g_side_pointer == g_spwern_script.g_side_num - 1 && g_var_pointer == g_spwern_script.g_varmax_num - 1) {
 
                 g_side_pointer = 0;
                 g_var_pointer = 0;
