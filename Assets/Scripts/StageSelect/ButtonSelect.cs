@@ -41,7 +41,8 @@ public class ButtonSelect : MonoBehaviour
     //ページをめくる数
     [SerializeField]
     private float g_move_g_var;
-
+    [SerializeField]
+    private int g_var_maxcheck_pointer;
     //縦の幅を取得
     private int g_var_siza;
     ButtonSizeChange g_buttonSize;
@@ -65,7 +66,8 @@ public class ButtonSelect : MonoBehaviour
         g_side_stage_count = g_json_script.g_stage_side;
       
         g_page_var_count = g_spwern_script.g_var_size + 1　;
-       
+
+        g_var_maxcheck_pointer = g_array_Script.g_stage_max_var;
         //生成するステージの数を取得
         g_max_stageelement = g_json_script.g_stage_array_num;
         //1ページのステージの数を計算
@@ -121,7 +123,7 @@ public class ButtonSelect : MonoBehaviour
             else if (g_side_pointer == 0 && g_var_pointer == 0) {
                 g_var_pointer = g_spwern_script.g_varmax_num - 1;
                 g_side_pointer = g_spwern_script.g_side_num-g_spwern_script.g_remainder_num-1;
-                //g_page_turnover = g_var_remainder;
+                g_page_turnover = g_var_remainder;
                 //最後のページの縦の数を計算して取得
             } else {
             g_side_pointer -= 1;
@@ -133,7 +135,7 @@ public class ButtonSelect : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.D) || (Input.GetAxisRaw("Horizontal") > g_controller_time && g_stick_flag == false)) {
             ButtonOrigin();
             //一番下以外の一番右の時
-            if (g_side_pointer == g_spwern_script.g_side_num - 1 && g_var_pointer != g_spwern_script.g_varmax_num) {
+            if (g_side_pointer == g_spwern_script.g_side_num - 1 && g_var_pointer != g_spwern_script.g_varmax_num -1) {
                 g_side_pointer = 0;
                 g_var_pointer += 1;
                 g_page_turnover += 1;
@@ -149,7 +151,7 @@ public class ButtonSelect : MonoBehaviour
                 g_var_pointer = 0;
                 g_page_turnover = 1;
 
-            } else if (g_side_pointer == g_spwern_script.g_side_num - 1 && g_var_pointer == g_var_maxcheck_pointer - 1) {
+            } else if (g_side_pointer == g_spwern_script.g_side_num - 1 && g_var_pointer == g_spwern_script.g_varmax_num - 1) {
 
                 g_side_pointer = 0;
                 g_var_pointer = 0;
