@@ -6,6 +6,8 @@ using UnityEngine.Animations;
 public class TutorealAnim : MonoBehaviour
 {
     Animator g_tuto_anim;
+    float g_destroytimer;
+    bool g_destroyflag;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +18,14 @@ public class TutorealAnim : MonoBehaviour
     void Update()
     {
         if (Input.anyKeyDown) {
+            g_destroyflag = true;
             g_tuto_anim.SetBool("EndFlag", true);
+        }
+        if (g_destroyflag) {
+            g_destroytimer+=Time.deltaTime;
+        }
+        if (g_destroytimer > 4) {
+            Destroy(this.gameObject);
         }
     }
 }

@@ -33,6 +33,7 @@ public class ButtonArray : MonoBehaviour
         //スティックを上に倒したとき
         if (Input.GetAxisRaw(g_axisName) >0.5&&g_array_move_flag==false) {
             g_array_move_flag = true;
+            g_button_obj_array[g_button_pointer].GetComponent<SelectScript>().DontSelect();
             //上のボタンを選択する
             if (g_button_pointer != 0) {
                 g_button_pointer--;
@@ -46,9 +47,13 @@ public class ButtonArray : MonoBehaviour
         //スティックを下に倒したとき
         if (Input.GetAxisRaw(g_axisName) <-0.5&&g_array_move_flag==false) {
             g_array_move_flag = true;
+
+            g_button_obj_array[g_button_pointer].GetComponent<SelectScript>().DontSelect();
             //下のボタンを選択する
             if (g_button_pointer != g_button_obj_array.Length-1) {
                 g_button_pointer++;
+
+                g_button_obj_array[g_button_pointer].GetComponent<SelectScript>().SelectCoror();
             }
             //下のボタンが一番上だった時に一番下のボタンを選択する
             else {
