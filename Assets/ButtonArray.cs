@@ -17,6 +17,8 @@ public class ButtonArray : MonoBehaviour
 
     StageInformation g_information_script;
 
+    SelectScript g_select;
+
     //スティックが倒されたときに一回だけ処理を行うためのフラグ
     bool g_array_move_flag;
     // Start is called before the first frame update
@@ -34,6 +36,7 @@ public class ButtonArray : MonoBehaviour
             //上のボタンを選択する
             if (g_button_pointer != 0) {
                 g_button_pointer--;
+                g_button_obj_array[g_button_pointer].GetComponent<SelectScript>().SelectCoror();
             }
             //上のボタンが一番上だった時に一番下のボタンを選択する
             else  {
