@@ -79,12 +79,12 @@ public class Player_Move : MonoBehaviour {
     /// <summary>
     /// 長押し移動用タイマー
     /// </summary>
-    private float g_auto_move_timer=0;
+    private float g_auto_move_timer = 0;
     [SerializeField]
     /// <summary>
     /// 一度目の移動から何秒後に自動移動を開始するか決める変数
     /// </summary>
-    private float g_start_timer=-0.5f;
+    private float g_start_timer = -0.5f;
 
     void Start() {
         g_player_Obj = this.gameObject;
@@ -228,7 +228,7 @@ public class Player_Move : MonoBehaviour {
     /// 移動先が配列範囲外もしくは床があるか調べる処理
     /// </summary>
     /// <returns></returns>
-    private bool Move_Check(int ver,int side,int high) {
+    private bool Move_Check(int ver, int side, int high) {
         //移動先が配列の範囲外の時
         if (ver < g_zero_Count || g_max_ver <= ver
             || side < g_zero_Count || g_max_side <= side
@@ -286,29 +286,31 @@ public class Player_Move : MonoBehaviour {
         //if (g_play_con_Script.Get_MoveFlag()) {
         //    return;
         //}
-        ////プレイヤーが現在向いている方向を取得
-        //int direction_para = g_direction_Script.Get_Player_Direction();
-        ////現在のプレイヤーのポインタ取得
-        //(g_player_ver, g_player_side, g_player_high) = g_play_con_Script.Get_Player_Pointer();
-        ////移動する向きに応じて処理を変える
-        //switch (direction_para) {
-        //    //縦プラス方向
-        //    case g_ver_plus_Para:
-        //        g_player_ver = g_player_ver + 1;
-        //        break;
-        //    //縦マイナス方向
-        //    case g_ver_minus_Para:
-        //        g_player_ver = g_player_ver - 1;
-        //        break;
-        //    //横プラス方向
-        //    case g_side_plus_Para:
-        //        g_player_side = g_player_side + 1;
-        //        break;
-        //    //横マイナス方向
-        //    case g_side_minus_Para:
-        //        g_player_side = g_player_side - 1;
-        //        break;
-        //}
+        //プレイヤーが現在向いている方向を取得
+        int direction_para = g_direction_Script.Get_Player_Direction();
+        //現在のプレイヤーのポインタ取得
+        (g_player_ver, g_player_side, g_player_high) = g_play_con_Script.Get_Player_Pointer();
+        int player_just_above = g_game_con_Script.Get_Obj_Type(g_player_ver, g_player_side, g_player_high+1);
+        int player_just_above_plusone = g_game_con_Script.Get_Obj_Type(g_player_ver, g_player_side, g_player_high+2);
+        //移動する向きに応じて処理を変える
+        switch (direction_para) {
+            //縦プラス方向
+            case g_ver_plus_Para:
+                g_player_ver = g_player_ver + 1;
+                break;
+            //縦マイナス方向
+            case g_ver_minus_Para:
+                g_player_ver = g_player_ver - 1;
+                break;
+            //横プラス方向
+            case g_side_plus_Para:
+                g_player_side = g_player_side + 1;
+                break;
+            //横マイナス方向
+            case g_side_minus_Para:
+                g_player_side = g_player_side - 1;
+                break;
+        }
         #endregion
 
         //ジャンプ先が移動可能か調べる
@@ -322,8 +324,10 @@ public class Player_Move : MonoBehaviour {
         int jump_point_ground = g_game_con_Script.Get_Obj_Type(g_player_ver, g_player_side, g_player_high);
         //ジャンプ先に格納されているオブジェクトのタイプ取得
         int jump_point = g_game_con_Script.Get_Obj_Type(g_player_ver, g_player_side, g_player_high + 1);
+        int jump_point_plusone = g_game_con_Script.Get_Obj_Type(g_player_ver, g_player_side, g_player_high + 2);
         //ジャンプ先に床が存在する＆ジャンプ先が空白
-        if (jump_point_ground != 0 && jump_point == 0) {
+        if (jump_point_ground != 0 && jump_point == 0&&jump_point_plusone==0&&
+            player_just_above==0&&player_just_above_plusone==0) {
             //移動アニメーション再生
             g_anim_Script.Player_Jump_Anim();
             //移動先のポジション取得
