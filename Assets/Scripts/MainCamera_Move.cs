@@ -14,10 +14,15 @@ public class MainCamera_Move : MonoBehaviour
 
     private PlayerXbox g_player_con_Script;
     //ボタンが押されているかどうかを判断するフラグ
-    public bool g_button_push_flag;
+    private bool g_button_push_flag;
 
     //スタートボタンが押されたかどうかを判断するスクリプト
     PushStartScri g_pushStart_Script;
+    /// <summary>
+    /// カメラ切り替えができる間隔
+    /// </summary>
+    private float g_change_camera_interval=0.2f;
+
     void Start()
     {
         g_this_Obj = this.gameObject;
@@ -28,16 +33,24 @@ public class MainCamera_Move : MonoBehaviour
     }
 
     void Update() {
+        if (g_button_push_flag) {
+            return;
+        }
+
         if (g_pushStart_Script.g_start_flag==false) {
             if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("R")) {
                 g_button_push_flag = true;
                 Change_Right_Camra_Pos();
                 CameraNum();
+                g_player_con_Script.ChangePlayerR();
+                Invoke("PushFlag_Off", g_change_camera_interval);
             }
             if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("L")) {
                 g_button_push_flag = true;
                 Change_Left_Camra_Pos();
                 CameraNum();
+                g_player_con_Script.ChangePlayerL();
+                Invoke("PushFlag_Off", g_change_camera_interval);
             }
         }
     }
@@ -71,5 +84,9 @@ public class MainCamera_Move : MonoBehaviour
         g_player_con_Script = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerXbox>();
         g_player_con_Script.Change_CameraNum(g_camera_pointer);
 
+    }
+
+    private void PushFlag_Off() {
+        g_button_push_flag = false;
     }
 }
