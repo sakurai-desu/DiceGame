@@ -69,12 +69,12 @@ public class PlayerXbox : MonoBehaviour
             g_timer = g_start_timer;
             g_player_move_Script.Dice_Push();
         }
-        if (Input.GetButtonDown("L")||Input.GetKeyDown(KeyCode.Q)) {
-            ChangePlayerL();   
-        }
-        if (Input.GetButtonDown("R") || Input.GetKeyDown(KeyCode.E)) {
-            ChangePlayerR();   
-        }
+        //if (Input.GetButtonDown("L")||Input.GetKeyDown(KeyCode.Q)) {
+        //    ChangePlayerL();   
+        //}
+        //if (Input.GetButtonDown("R") || Input.GetKeyDown(KeyCode.E)) {
+        //    ChangePlayerR();   
+        //}
         if (Input.GetButtonDown("Y")) {
             g_y_push_flag = true;
         }
@@ -131,7 +131,7 @@ public class PlayerXbox : MonoBehaviour
     /// <summary>
     /// playerの入れ替えをする処理
     /// </summary>
-    private void ChangePlayerR() {
+    public void ChangePlayerR() {
         //プレイヤーが進む数をworkに入れる
         g_work_array[0] = g_camera_para[0];
         g_work_array[1] = g_camera_para[1];
@@ -150,7 +150,7 @@ public class PlayerXbox : MonoBehaviour
     /// <summary>
     /// playerの入れ替えをする処理
     /// </summary>
-    private void ChangePlayerL() {
+    public void ChangePlayerL() {
         //プレイヤーが進む数をworkに入れる
         g_work_array[0] = g_camera_para[0];
         g_work_array[1] = g_camera_para[1];

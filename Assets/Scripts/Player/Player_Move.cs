@@ -74,7 +74,7 @@ public class Player_Move : MonoBehaviour {
     /// <summary>
     /// ダイスが長押しで自動移動する間隔
     /// </summary>
-    public float g_move_interval = 0.5f;
+    public float g_move_interval = 0.25f;
     [SerializeField]
     /// <summary>
     /// 長押し移動用タイマー
@@ -84,7 +84,7 @@ public class Player_Move : MonoBehaviour {
     /// <summary>
     /// 一度目の移動から何秒後に自動移動を開始するか決める変数
     /// </summary>
-    private float g_start_timer = -0.5f;
+    private float g_start_timer = -0.3f;
 
     void Start() {
         g_player_Obj = this.gameObject;
