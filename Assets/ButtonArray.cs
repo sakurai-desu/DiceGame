@@ -30,6 +30,9 @@ public class ButtonArray : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetButtonDown("Back")||Input.GetKeyDown(KeyCode.Escape)) {
+            Exit();
+        }
         //スティックを上に倒したとき
         if (Input.GetAxisRaw(g_axisName) >0.5&&g_array_move_flag==false) {
             g_array_move_flag = true;
@@ -65,7 +68,7 @@ public class ButtonArray : MonoBehaviour
             g_array_move_flag = false;
         }
         //選択されている配列内に入っているオブジェクトを取得してその中のスクリプト内のメソッドを呼び出す
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("B")) {
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("A")) {
             //チュートリアル以外のボタンを押したとき
             if (g_button_pointer != 1) {
                 ClickMesod();
@@ -79,5 +82,13 @@ public class ButtonArray : MonoBehaviour
     }
     void ClickMesod() {
          g_button_obj_array[g_button_pointer].GetComponent<SelectScript>().OcClick();
+    }
+
+    private void Exit() {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+    Application.Quit();
+#endif 
     }
 }
