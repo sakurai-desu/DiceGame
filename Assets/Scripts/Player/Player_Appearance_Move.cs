@@ -97,7 +97,7 @@ public class Player_Appearance_Move : MonoBehaviour {
         Goal();
         yield break;
     }
-
+    bool g_one_flag;
     private void Goal() {
         (int p_ver, int p_side, int p_high) = g_player_Script.Get_Player_Pointer();
         int type = g_game_con_Script.Get_Obj_Type(p_ver, p_side, p_high - 1);
@@ -107,13 +107,16 @@ public class Player_Appearance_Move : MonoBehaviour {
             SceneManager.LoadScene("SelectScene");
             }
            else if (SceneManager.GetActiveScene().name == "TutrialScene") {
-                g_information_Script.g_tutorial_num++;
+                if (g_one_flag == false) {
+                    g_information_Script.g_tutorial_num++;
+                    g_one_flag = true;
+                }
                 if (g_information_Script.g_tutorial_num == g_information_Script.g_tutorial_name.Length) {
                     SceneManager.LoadScene("SelectScene");
                 } else {
 
-                g_information_Script.Change_Tutorial(g_information_Script.g_tutorial_name[g_information_Script.g_tutorial_num]);
-            SceneManager.LoadScene("TutrialScene");
+                    g_information_Script.Change_Tutorial(g_information_Script.g_tutorial_name[g_information_Script.g_tutorial_num]);
+                    SceneManager.LoadScene("TutrialScene");
                 }
 
             }

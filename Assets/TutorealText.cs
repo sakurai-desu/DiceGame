@@ -24,7 +24,9 @@ public class TutorealText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        g_tuto_text.text = g_text_array[g_info_script.g_tutorial_num];
+        if (g_info_script.g_tutorial_num<=3) {
 
+            g_tuto_text.text = g_text_array[g_info_script.g_tutorial_num];
+        }
     }
 }

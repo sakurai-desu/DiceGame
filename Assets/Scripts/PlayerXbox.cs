@@ -40,6 +40,9 @@ public class PlayerXbox : MonoBehaviour
 
     bool g_y_push_flag;
 
+    //スタートボタンが押されたかどうかを判断するスクリプト
+    PushStartScri g_pushStart_Script;
+
     private int[] g_camera_para = { 31, 30, 33, 32 };
     int[] g_work_array;
     void Start()
@@ -47,6 +50,7 @@ public class PlayerXbox : MonoBehaviour
         g_work_array = new int[4];
         g_player_move_Script = this.GetComponent<Player_Move>();
         g_timer = g_start_timer;
+        g_pushStart_Script = GameObject.Find("StartChackObj").GetComponent<PushStartScri>();
     }
 
     void Update() {
@@ -59,7 +63,9 @@ public class PlayerXbox : MonoBehaviour
         //    g_timer = g_start_timer;
         //    g_player_move_Script.Jump();
         //}
-        if (Input.GetKeyDown(KeyCode.Return)|| Input.GetButtonDown("X")) {
+        if (g_pushStart_Script.g_start_flag==false) {
+
+        if (Input.GetKeyDown(KeyCode.Return)|| Input.GetButton("X")) {
             g_timer = g_start_timer;
             g_player_move_Script.Dice_Push();
         }
@@ -75,8 +81,6 @@ public class PlayerXbox : MonoBehaviour
         if (Input.GetButtonUp("Y")&&g_y_push_flag) {
             g_y_push_flag = false;
         }
-        if (g_y_push_flag==false) {
-
             //配列hの上限に達してない時移動(上)
             if (Input.GetKeyDown(KeyCode.W) || (Input.GetAxisRaw("Vertical") > g_controller_Move && g_axis_flag == false)) {
                 g_player_move_Script.PlayerMove(g_camera_para[0]);

@@ -21,6 +21,9 @@ public class TaskText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (g_stage_info.g_tutorial_num <= 3) {
         g_task.text = g_task_array[g_stage_info.g_tutorial_num];
+        }
+        
     }
 }

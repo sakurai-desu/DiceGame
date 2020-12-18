@@ -16,25 +16,30 @@ public class MainCamera_Move : MonoBehaviour
     //ボタンが押されているかどうかを判断するフラグ
     public bool g_button_push_flag;
 
+    //スタートボタンが押されたかどうかを判断するスクリプト
+    PushStartScri g_pushStart_Script;
     void Start()
     {
         g_this_Obj = this.gameObject;
         g_camera_pointer = 0;
         g_this_Obj.transform.parent = g_camera_Array[g_camera_pointer].transform;
         Local_PosAndRotation_Reset();
+        g_pushStart_Script = GameObject.Find("StartChackObj").GetComponent<PushStartScri>();
     }
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.E)||Input.GetButtonDown("R")) {
-            g_button_push_flag = true;
-            Change_Right_Camra_Pos();
-            CameraNum();
-        } 
-        if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("L")) {
-            g_button_push_flag = true;
-            Change_Left_Camra_Pos();
-            CameraNum();
-        } 
+        if (g_pushStart_Script.g_start_flag==false) {
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("R")) {
+                g_button_push_flag = true;
+                Change_Right_Camra_Pos();
+                CameraNum();
+            }
+            if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("L")) {
+                g_button_push_flag = true;
+                Change_Left_Camra_Pos();
+                CameraNum();
+            }
+        }
     }
 
     private void Change_Left_Camra_Pos() {
