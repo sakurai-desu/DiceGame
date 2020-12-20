@@ -63,7 +63,7 @@ public class Game_Controller : MonoBehaviour
     }
 
     //private void Update() {
-    //    if (Input.GetKeyDown(KeyCode.Return)) {
+    //    if (Input.GetKeyDown(KeyCode.Space)) {
     //        Array_Debug_Log();
     //    }
     //}

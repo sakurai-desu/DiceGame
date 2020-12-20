@@ -18,7 +18,7 @@ public class Optionselect : MonoBehaviour
 
     //スタートボタンが押されたかどうかを判断するスクリプト
     PushStartScri g_pushStart_Script;
-    // Start is called before the first frame update
+
     void Start()
     {
         g_option[0].GetComponent<Image>().color = Color.red;
@@ -26,7 +26,6 @@ public class Optionselect : MonoBehaviour
         g_pushStart_Script = GameObject.Find("StartChackObj").GetComponent<PushStartScri>();
     }
 
-    // Update is called once per frame
     void Update() {
         if (g_pushStart_Script.g_start_flag) {
             if (Input.GetAxisRaw("Vertical") > 0.5 && g_horizontal_flag == false) {

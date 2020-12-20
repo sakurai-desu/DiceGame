@@ -379,7 +379,14 @@ public class Parent_All_Rotation : MonoBehaviour {
             //ダイスの全方向を調べて、くっつくダイスがあるか調べる
             g_child_Script.All_Check();
         }
-        g_dice_fall_Script.All_Dice_Fall(g_work_children);
+        //ダイス落下処理
+        All_Dice_Fall();
+    }
+    /// <summary>
+    /// ダイス落下
+    /// </summary>
+    private void All_Dice_Fall() {
+        g_dice_fall_Script.All_Dice_Fall(g_work_children,g_center_Dice);
     }
 
     /// <summary>

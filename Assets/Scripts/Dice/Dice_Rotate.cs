@@ -30,10 +30,14 @@ public class Dice_Rotate : MonoBehaviour {
     /// <summary>
     /// 回転させる最大値
     /// </summary>
-    private float g_rotation_Max = 90;
+    private const float g_rotation_Max = 90;
     /// <summary>
-    /// 回転の速度
+    /// 回転の初期速度
     /// </summary>
+    private const float g_start_rotation_Speed = 15;
+    /// <summary>
+                                            /// 回転の速度
+                                            /// </summary>
     private float g_rotation_Speed = 15;
     /// <summary>
     /// サイコロのサイズ
@@ -69,6 +73,8 @@ public class Dice_Rotate : MonoBehaviour {
         g_dice_Obj = this.gameObject;
         //サイズを求める
         g_dice_Size = g_dice_Obj.transform.localScale.x / g_size_change;
+        //回転速度の初期化
+        g_rotation_Speed = g_start_rotation_Speed;
     }
 
     private void Get_Parent() {
@@ -148,8 +154,15 @@ public class Dice_Rotate : MonoBehaviour {
     IEnumerator Rotate() {
         //回転中にする
         g_player_con_Script.MoveFlag_True();
+        //回転速度の初期化
+        g_rotation_Speed = g_start_rotation_Speed;
         //回転の角度合計を保持する変数
         float rotation_Sum = 0f;
+        //回転させたい親を取得
+        Get_Parent();
+        //くっついているダイスの個数取得
+        int dice_count = g_parent_Obj.GetComponent<Parent_Dice>().Get_Children_Count();
+        g_rotation_Speed = g_rotation_Speed - dice_count;
         //合計が決めた角度になるまで続ける
         while (rotation_Sum < g_rotation_Max) {
             //角度を変更
@@ -161,8 +174,6 @@ public class Dice_Rotate : MonoBehaviour {
                 //角度を調整する
                 g_rotation_Amount -= rotation_Sum - g_rotation_Max;
             }
-            Get_Parent();
-
             //軸と中心を元に回転させる
             g_parent_Obj.transform.RotateAround(g_rotate_Point, g_rotate_Axis, g_rotation_Amount);
             yield return null;

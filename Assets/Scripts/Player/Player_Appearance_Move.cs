@@ -97,6 +97,7 @@ public class Player_Appearance_Move : MonoBehaviour {
         Goal();
         yield break;
     }
+
     bool g_one_flag;
     private void Goal() {
         (int p_ver, int p_side, int p_high) = g_player_Script.Get_Player_Pointer();

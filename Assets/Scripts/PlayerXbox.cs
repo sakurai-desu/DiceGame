@@ -45,6 +45,7 @@ public class PlayerXbox : MonoBehaviour
 
     private int[] g_camera_para = { 31, 30, 33, 32 };
     int[] g_work_array;
+
     void Start()
     {
         g_work_array = new int[4];
