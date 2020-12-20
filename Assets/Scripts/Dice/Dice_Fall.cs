@@ -159,10 +159,8 @@ public class Dice_Fall : MonoBehaviour {
     /// ダイスを落とす処理
     /// </summary>
     private void Fall() {
-        //床のないところに落ちたダイスを削除する
-        if (g_delete_flag) {
-            //ダイスを削除する
-            //Delete_Dice();
+        //落下する必要がないとき処理終了
+        if (g_min_counter==g_zero_Count) {
             //処理終了
             return;
         }

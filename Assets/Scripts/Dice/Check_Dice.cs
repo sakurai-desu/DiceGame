@@ -298,10 +298,12 @@ public class Check_Dice : MonoBehaviour {
             if (next_children_count > children_count) {
                 Debug.Log("新しいサイコロがくっついた");
                 Debug.Log("サイコロがくっつく演出を入れる");
+                //くっつくSEを再生
                 g_se_source_Script.Dice_Docking_Se_Play();
+                //くっついた面からパーティクル生成
                 g_particle_Script.Docking_Particle_Play(g_dice_Obj, g_now_check_pointer);
                 //くっつけられた側の親を削除する
-                Destroy(detroy_Obj);
+                //Destroy(detroy_Obj);
             }
         }
     }

@@ -59,23 +59,14 @@ public class PlayerXbox : MonoBehaviour
         if (g_timer > 0) {
             return;
         }
-
-        //if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("A")) {
-        //    g_timer = g_start_timer;
-        //    g_player_move_Script.Jump();
-        //}
+        
         if (g_pushStart_Script.g_start_flag==false) {
 
         if (Input.GetKeyDown(KeyCode.Return)|| Input.GetButton("X")) {
             g_timer = g_start_timer;
             g_player_move_Script.Dice_Push();
         }
-        //if (Input.GetButtonDown("L")||Input.GetKeyDown(KeyCode.Q)) {
-        //    ChangePlayerL();   
-        //}
-        //if (Input.GetButtonDown("R") || Input.GetKeyDown(KeyCode.E)) {
-        //    ChangePlayerR();   
-        //}
+
         if (Input.GetButtonDown("Y")) {
             g_y_push_flag = true;
         }
