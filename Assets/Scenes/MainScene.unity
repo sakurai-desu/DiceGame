@@ -2488,6 +2488,10 @@ MonoBehaviour:
   g_undo_player_high: 0
   g_undo_dices: []
   g_undo_dice_pointers: 
+  g_work_squares: 
+  g_not_undo_dice_parent: {fileID: 0}
+  g_undo_dice_parent: {fileID: 0}
+  g_undo_dice_children: []
 --- !u!1 &1682893949
 GameObject:
   m_ObjectHideFlags: 0

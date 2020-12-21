@@ -29,7 +29,8 @@ public class TroubleScr : MonoBehaviour
     /// </summary>
     public void Trouble() {
         g_troublenum--;
-        if (g_troublenum < 0) {
+        g_troublenumtext.text = g_troublenum.ToString();
+        if (g_troublenum <= 0) {
             Debug.Log("ゲームオーバー");
             g_xbox_con_Script = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerXbox>();
             g_xbox_con_Script.enabled = false;
@@ -37,6 +38,5 @@ public class TroubleScr : MonoBehaviour
             g_gameover_UI.SetActive(true);
             return;
         }
-        g_troublenumtext.text = g_troublenum.ToString();
     }
 }

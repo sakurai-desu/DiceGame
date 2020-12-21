@@ -9,6 +9,7 @@ public class Check_Dice : MonoBehaviour {
     private Se_Source g_se_source_Script;
     private Dice_Squares g_next_dice_Script;
     private Particle_Source g_particle_Script;
+    private Undo_Script g_undo_Script;
 
     /// <summary>
     /// 初期化用変数
@@ -100,6 +101,7 @@ public class Check_Dice : MonoBehaviour {
     void Start() {
         g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Date>();
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
+        g_undo_Script = GameObject.Find("Game_Controller").GetComponent<Undo_Script>();
         g_se_source_Script = GameObject.Find("Se_Source").GetComponent<Se_Source>();
         g_particle_Script = GameObject.Find("Particle_Source").GetComponent<Particle_Source>();
         //縦横高さの最大値をjsonで決めた数へ変更する
@@ -289,6 +291,9 @@ public class Check_Dice : MonoBehaviour {
             Parent_Dice next_parent_Script = g_next_dice_Obj.transform.parent.GetComponent<Parent_Dice>();
             //くっつけられた側の子オブジェクトをすべて取得
             GameObject[] children = next_parent_Script.Get_Children();
+            //くっつけられた側の子オブジェクト全てと
+            //くっつけた側の親オブジェを保持
+            g_undo_Script.Keep_Dice_Parent_And_Children(children, parent_Obj);
             //くっつける前の子の数
             int children_count = parent_Obj.GetComponent<Parent_Dice>().Get_Children_Count();
             parent_Obj.GetComponent<Parent_Dice>().Parent_In_Child(children);
