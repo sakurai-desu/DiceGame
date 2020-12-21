@@ -197,6 +197,10 @@ public class Dice_Squares : MonoBehaviour {
         g_squares_Array = storage_dices;
     }
 
+    public int[] Get_Dice_Squares() {
+        return g_squares_Array;
+    }
+
     /// <summary>
     /// 与えられたポインターに対応したマス目の数を返す処理
     /// </summary>

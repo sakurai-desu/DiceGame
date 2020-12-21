@@ -63,7 +63,7 @@ public class Parent_Dice : MonoBehaviour {
     /// <summary>
     /// 自分の子オブジェクトをすべて配列に入れなおす
     /// </summary>
-    private void Storage_Children() {
+    public void Storage_Children() {
         //配列初期化
         g_child_Array = new GameObject[g_zero_Count];
         //指標初期化

@@ -40,6 +40,23 @@ public class Dice_Create : MonoBehaviour {
 
     private bool g_check_flag = false;
 
+    /// <summary>
+    /// 縦のプラス方向のパラメータ
+    /// </summary>
+    private const int g_ver_plus_Para = 31;
+    /// <summary>
+    /// 縦のマイナス方向のパラメータ
+    /// </summary>
+    private const int g_ver_minus_Para = 33;
+    /// <summary>
+    /// 横のプラス方向のパラメータ
+    /// </summary>
+    private const int g_side_plus_Para = 30;
+    /// <summary>
+    /// 横のマイナス方向のパラメータ
+    /// </summary>
+    private const int g_side_minus_Para = 32;
+
     void Start() {
         g_now_dices = new int[6];
         g_work_dices = new int[6];
@@ -170,6 +187,33 @@ public class Dice_Create : MonoBehaviour {
         g_rotate_Point = g_dice_Obj.transform.position;
         //軸と中心を元に回転させる
         g_dice_Obj.transform.RotateAround(g_rotate_Point, g_rotate_Axis, g_rotation_Max);
+    }
+
+    public void Dice_Direction_Rotate(GameObject dice_obj,int para) {
+        switch (para) {
+            case g_ver_plus_Para:
+                //回転の軸を決める
+                g_rotate_Axis = new Vector3(1, 0, 0);
+                break;
+            case g_ver_minus_Para:
+                //回転の軸を決める
+                g_rotate_Axis = new Vector3(-1, 0, 0);
+                break;
+            case g_side_plus_Para:
+                //回転の軸を決める
+                g_rotate_Axis = new Vector3(0, 0, -1);
+                break;
+            case g_side_minus_Para:
+                //回転の軸を決める
+                g_rotate_Axis = new Vector3(0, 0, 1);
+                break;
+        }
+        //サイズを求める
+        g_dice_Size = dice_obj.transform.localScale.x;
+        //回転の中心を決める
+        g_rotate_Point = dice_obj.transform.position;
+        //軸と中心を元に回転させる
+        dice_obj.transform.RotateAround(g_rotate_Point, g_rotate_Axis, g_rotation_Max);
     }
 
     /// <summary>
