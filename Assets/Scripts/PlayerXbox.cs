@@ -40,13 +40,18 @@ public class PlayerXbox : MonoBehaviour
 
     bool g_y_push_flag;
 
+    //スタートボタンが押されたかどうかを判断するスクリプト
+    PushStartScri g_pushStart_Script;
+
     private int[] g_camera_para = { 31, 30, 33, 32 };
     int[] g_work_array;
+
     void Start()
     {
         g_work_array = new int[4];
         g_player_move_Script = this.GetComponent<Player_Move>();
         g_timer = g_start_timer;
+        g_pushStart_Script = GameObject.Find("StartChackObj").GetComponent<PushStartScri>();
     }
 
     void Update() {
@@ -54,29 +59,20 @@ public class PlayerXbox : MonoBehaviour
         if (g_timer > 0) {
             return;
         }
+        
+        if (g_pushStart_Script.g_start_flag==false) {
 
-        //if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("A")) {
-        //    g_timer = g_start_timer;
-        //    g_player_move_Script.Jump();
-        //}
-        if (Input.GetKeyDown(KeyCode.Return)|| Input.GetButtonDown("X")) {
+        if (Input.GetKeyDown(KeyCode.Return)|| Input.GetButton("X")) {
             g_timer = g_start_timer;
             g_player_move_Script.Dice_Push();
         }
-        if (Input.GetButtonDown("L")||Input.GetKeyDown(KeyCode.Q)) {
-            ChangePlayerL();   
-        }
-        if (Input.GetButtonDown("R") || Input.GetKeyDown(KeyCode.E)) {
-            ChangePlayerR();   
-        }
+
         if (Input.GetButtonDown("Y")) {
             g_y_push_flag = true;
         }
         if (Input.GetButtonUp("Y")&&g_y_push_flag) {
             g_y_push_flag = false;
         }
-        if (g_y_push_flag==false) {
-
             //配列hの上限に達してない時移動(上)
             if (Input.GetKeyDown(KeyCode.W) || (Input.GetAxisRaw("Vertical") > g_controller_Move && g_axis_flag == false)) {
                 g_player_move_Script.PlayerMove(g_camera_para[0]);
@@ -106,9 +102,15 @@ public class PlayerXbox : MonoBehaviour
     }
 
     private void Axis_True() {
+        g_player_move_Script.Change_Move_Flag();
         g_axis_flag = true;
         g_timer = g_start_timer;
     }
+
+    public bool Get_Axis_Flag() {
+        return g_axis_flag;
+    }
+
 
     /// <summary>
     /// カメラの向きを示す数値を変更する
@@ -121,7 +123,7 @@ public class PlayerXbox : MonoBehaviour
     /// <summary>
     /// playerの入れ替えをする処理
     /// </summary>
-    private void ChangePlayerR() {
+    public void ChangePlayerR() {
         //プレイヤーが進む数をworkに入れる
         g_work_array[0] = g_camera_para[0];
         g_work_array[1] = g_camera_para[1];
@@ -140,7 +142,7 @@ public class PlayerXbox : MonoBehaviour
     /// <summary>
     /// playerの入れ替えをする処理
     /// </summary>
-    private void ChangePlayerL() {
+    public void ChangePlayerL() {
         //プレイヤーが進む数をworkに入れる
         g_work_array[0] = g_camera_para[0];
         g_work_array[1] = g_camera_para[1];

@@ -5,38 +5,38 @@ using UnityEngine.UI;
 
 public class TroubleScr : MonoBehaviour
 {
+    private PlayerXbox g_xbox_con_Script;
+    private MainCamera_Move g_camera_move_Script;
     /// <summary>
     /// 手数
     /// </summary>
     [SerializeField]
     int g_troublenum = 10;
+    [SerializeField]
+    private GameObject g_gameover_UI;
 
     Text g_troublenumtext;
-    [SerializeField]
-    GameObject g_resetcanvas;
-    // Start is called before the first frame update
+
     void Start()
     {
+        g_camera_move_Script = GameObject.Find("MainCamera").GetComponent<MainCamera_Move>();
         g_troublenumtext = GetComponent<Text>();
         g_troublenumtext.text = g_troublenum.ToString();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     /// <summary>
     /// 手数をいじる
     /// </summary>
-   public  void Trouble() {
+    public void Trouble() {
         g_troublenum--;
-        if (g_troublenum == -1) {
-            Debug.Log("ゲームオーバー");
-            g_resetcanvas.SetActive(true);
-
-        }
         g_troublenumtext.text = g_troublenum.ToString();
-
-   }
+        if (g_troublenum <= 0) {
+            Debug.Log("ゲームオーバー");
+            g_xbox_con_Script = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerXbox>();
+            g_xbox_con_Script.enabled = false;
+            g_camera_move_Script.enabled = false;
+            g_gameover_UI.SetActive(true);
+            return;
+        }
+    }
 }
