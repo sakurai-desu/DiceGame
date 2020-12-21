@@ -31,11 +31,11 @@ public class JsonArray : MonoBehaviour {
         g_folder_Script = GetComponent<Folder_Script>();
 
         //フォルダーを数えるスクリプトの数値を入れる
-        g_stage_array_num = g_folder_Script.Filenum();
+        g_stage_array_num = g_folder_Script.Filenum("*.json");
 
         g_json_stage = new string[g_stage_array_num];
 
-        g_folder_Script.Filename();
+        g_folder_Script.Filename("*.json");
 
 
         //ファイル数とstageの横の数を割る
