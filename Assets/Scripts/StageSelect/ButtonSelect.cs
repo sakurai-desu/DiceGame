@@ -8,13 +8,12 @@ public class ButtonSelect : MonoBehaviour
     SpwernButton g_spwern_script;
     JsonArray g_json_script;
     //配列を検索するポインター
-    [SerializeField]
-    int g_var_pointer;
+    public int g_var_pointer;
     //最後のページの縦の数
     [SerializeField]
     private int g_var_remainder;
-    [SerializeField]
-    int g_side_pointer;
+
+    public int g_side_pointer;
    
     [SerializeField]
     private int g_var_minicheck_pointer;

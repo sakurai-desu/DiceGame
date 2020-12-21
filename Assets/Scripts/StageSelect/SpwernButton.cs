@@ -59,11 +59,14 @@ public class SpwernButton : MonoBehaviour
     bool g_var_flag;
     //ボタンに入ってるテキスト
     Text g_button_text;
+
+    Folder_Script g_folder_Script;
     // Start is called before the first frame update
     void Start()
     {
         //ボタンを生むのに必要な情報を取得
         g_array_Script = GameObject.Find("Stageinformation").GetComponent<JsonArray>();
+        g_folder_Script = GameObject.Find("Stageinformation").GetComponent<Folder_Script>();
         //生み出す横の幅を決定
         g_side_num = g_array_Script.g_stage_side;
         //生み出す縦の幅を決定
@@ -160,5 +163,6 @@ public class SpwernButton : MonoBehaviour
         
         //ステージ名を二次元配列に入れる
         g_json_stage_array[i, j] = g_array_Script.g_json_stage[g_array_num];
+
     }
 }

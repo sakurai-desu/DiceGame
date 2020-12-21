@@ -55,10 +55,4 @@ public class JsonArray : MonoBehaviour {
         Debug.Log(g_stage_remainder);
         Debug.Log(g_stage_max_var);
     }
-
-    // Update is called once per frame
-    void Update() {
-
-    }
- 
 }

@@ -69,21 +69,23 @@ public class Folder_Script : MonoBehaviour
     /// </summary>
     public void Filename(string filename) {
         g_stagearray_pointer = 0;
-        //json形式を検索しようとしていた場合
-        if (filename == "*.json") {
          //指定した名前のファイルの名前表示
         foreach (FileInfo f in g_info) {
             g_json_array.g_json_stage[g_stagearray_pointer] = f.Name;
              g_stagearray_pointer++;
-         }
-        }else　if (filename == "*.jpg") {
-         //指定した名前のファイルの名前表示
-        foreach (FileInfo f in g_info) {
-                g_image.g_stage_string[g_stagearray_pointer] = f.Name;
-             g_stagearray_pointer++;
-         }
         }
-      
+    }
+    public void Imagename(int i, int j) {
+
+        //指定した名前のファイルの名前表示
+        foreach (FileInfo f in g_info) {
+            g_image.g_stage_string[i,j] = f.Name;
+            j++;
+            if (j == 4) {
+                j = 0;
+                i++;
+            }
+        }
     }
     
 }
