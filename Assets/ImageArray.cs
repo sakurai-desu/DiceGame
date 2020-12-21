@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class ImageArray : MonoBehaviour
 {
-    //ステージの画像
-    Image g_stage_image;
 
     //ステージ名を入れていく配列
     public string[,] g_stage_string;
@@ -26,7 +24,6 @@ public class ImageArray : MonoBehaviour
         g_json_array_script = GameObject.Find("Stageinformation").GetComponent<JsonArray>();
         g_var_num = g_json_array_script.g_stage_max_var;
         g_side_num = g_json_array_script.g_stage_side;
-        g_stage_image = GetComponent<Image>();
         g_streaming_folder = GameObject.Find("Stageinformation").GetComponent<Folder_Script>();
         g_stage_string = new string[g_var_num,g_side_num];
         g_streaming_folder.Filename("*.jpg");
