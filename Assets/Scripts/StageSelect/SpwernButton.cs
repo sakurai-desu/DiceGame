@@ -43,17 +43,17 @@ public class SpwernButton : MonoBehaviour
 
     //整列するときの縦の数値
     [SerializeField]
-   public int g_var_set_num = 100;
+   public int g_side_set_num = 100;
 
     //整列するときの横の数値
     [SerializeField]
-    public int g_side_set_num = 130;
+    public int g_var_set_num = 130;
 
     int g_side_reset;
 
     //縦の距離を話すために使う数値
     [SerializeField]
-    int g_var_gap_num;
+   public int g_var_gap_num;
 
     //何回も繰り返さないようにするためのもの
     bool g_var_flag;
@@ -142,13 +142,13 @@ public class SpwernButton : MonoBehaviour
         g_button.transform.parent = gameObject.transform;
         RectTransform g_button_transform = g_button.GetComponent<RectTransform>();
         if (i < g_var_size) {
-            g_button_transform.localPosition = new Vector3(g_button_y_pos + j * g_var_set_num, g_button_x_pos + i * -g_side_set_num, 0);
+            g_button_transform.localPosition = new Vector3(g_button_y_pos + j * g_side_set_num, g_button_x_pos + i * -g_var_set_num, 0);
 
         } else if (i % g_var_size == 0) {
 
             if (g_var_flag == false) {
                 g_page_pointer++;
-                g_side_reset = g_side_set_num;
+                g_side_reset = g_var_set_num;
                 g_var_gap_num +=50;
                 Debug.Log(g_page_pointer);
                 g_var_flag = true;
@@ -156,7 +156,7 @@ public class SpwernButton : MonoBehaviour
         } else {
             g_var_flag = false;
         }
-        g_button_transform.localPosition = new Vector3( g_button_y_pos +j*g_var_set_num,g_button_x_pos + i*-g_side_set_num-g_var_gap_num, 0);
+        g_button_transform.localPosition = new Vector3( g_button_y_pos +j* g_side_set_num, g_button_x_pos + i*-g_var_set_num - g_var_gap_num, 0);
 
         //二次元配列にボタンを入れる
         g_json_button_array[i, j] = g_button;
