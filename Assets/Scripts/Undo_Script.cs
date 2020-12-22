@@ -19,7 +19,9 @@ public class Undo_Script : MonoBehaviour
     private int g_undo_player_side;
     [SerializeField]
     private int g_undo_player_high;
-
+    /// <summary>
+    /// プレイヤーの向いている方向を保持する変数
+    /// </summary>
     private int g_undo_rotate_direction;
     /// <summary>
     /// 保持したいダイスを格納する配列
@@ -80,22 +82,23 @@ public class Undo_Script : MonoBehaviour
 
     void Update() {
 
-        //if (Input.GetKeyDown(KeyCode.B)) {
-        //    Play_Undo();
-        //}
+        if (Input.GetKeyDown(KeyCode.B)) {
+            Play_Undo();
+        }
     }
 
     private void Reset_Keep_Value() {
-        ////保持しているプレイヤーの位置を初期化
-        //(g_undo_player_ver, g_undo_player_side, g_undo_player_high) = (g_zero_count, g_zero_count, g_zero_count);
-        ////保持している移動した方向を初期化
-        //g_undo_rotate_direction = g_zero_count;
-        ////保持していたダイス配列を初期化
-        //g_undo_dices = new GameObject[0];
+        //保持しているプレイヤーの位置を初期化
+        (g_undo_player_ver, g_undo_player_side, g_undo_player_high) = (g_zero_count, g_zero_count, g_zero_count);
+        //保持している移動した方向を初期化
+        g_undo_rotate_direction = g_zero_count;
+        //保持していたダイス配列を初期化
+        g_undo_dices = new GameObject[0];
         //ダイスの位置を格納する配列を初期化
         g_undo_dice_pointers = new int[0];
         //ダイスの位置を配列から取り出す変数初期化
         g_pointer_count = 0;
+        g_undo_dice_children = new GameObject[0];
     }
 
     private void Play_Undo() {
