@@ -26,7 +26,6 @@ public class ImageArray : MonoBehaviour
         g_side_num = g_json_array_script.g_stage_side;
         g_streaming_folder = GameObject.Find("Stageinformation").GetComponent<Folder_Script>();
         g_stage_string = new string[g_var_num,g_side_num];
-        g_streaming_folder.Filename("*.jpg");
     }
 
     // Update is called once per frame

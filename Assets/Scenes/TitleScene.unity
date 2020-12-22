@@ -431,11 +431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 633b3e6d0d32ce148a239cd71c09c37b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  g_tutorial_name:
-  - \Tutorial\TStage001.json
-  - \Tutorial\TStage002.json
-  - \Tutorial\TStage003.json
-  - \Tutorial\TStage004.json
+  g_tutorial_name: []
   g_tutorial_num: 0
   g_playStageName: 
 --- !u!114 &499910591
