@@ -11,6 +11,8 @@ public class Undo_Script : MonoBehaviour
     private Dice_Rotate g_dice_rotate_Script;
     private Dice_Create g_dice_create_Script;
 
+    private const int g_zero_count = 0;
+
     [SerializeField]
     private int g_undo_player_ver;
     [SerializeField]
@@ -19,19 +21,30 @@ public class Undo_Script : MonoBehaviour
     private int g_undo_player_high;
 
     private int g_undo_rotate_direction;
-
+    /// <summary>
+    /// 保持したいダイスを格納する配列
+    /// </summary>
     [SerializeField]
     private GameObject[] g_undo_dices;
+    /// <summary>
+    /// ダイスの縦・横・高さを順番に格納していく配列
+    /// </summary>
     [SerializeField]
     private int[] g_undo_dice_pointers;
+    /// <summary>
+    /// ダイスの位置を配列から取り出す際に使用するポインタ
+    /// </summary>
     private int g_pointer_count=0;
-    [SerializeField]
-    private int[] g_work_squares;
 
     /// <summary>
     /// 合体したか判別するフラグ
     /// </summary>
     private bool g_is_docking;
+    /// <summary>
+    /// 一手戻すことが可能か判別するフラグ
+    /// </summary>
+    private bool g_is_undo;
+
     [SerializeField]
     private GameObject g_not_undo_dice_parent;
     [SerializeField]
@@ -58,23 +71,41 @@ public class Undo_Script : MonoBehaviour
 
     void Start()
     {
+        g_is_undo = true;
         g_game_con_Script = this.GetComponent<Game_Controller>();
         g_player_con_Script = GameObject.Find("Player_Controller").GetComponent<Playercontroller>();
         g_dice_create_Script = GameObject.Find("Stage_Pool").GetComponent<Dice_Create>();
         Keep_Player_Pointer();
     }
 
-    //void Update() {
+    void Update() {
 
-    //    if (Input.GetKeyDown(KeyCode.B)) {
-    //        Play_Undo();
-    //    }
-    //}
+        //if (Input.GetKeyDown(KeyCode.B)) {
+        //    Play_Undo();
+        //}
+    }
+
+    private void Reset_Keep_Value() {
+        ////保持しているプレイヤーの位置を初期化
+        //(g_undo_player_ver, g_undo_player_side, g_undo_player_high) = (g_zero_count, g_zero_count, g_zero_count);
+        ////保持している移動した方向を初期化
+        //g_undo_rotate_direction = g_zero_count;
+        ////保持していたダイス配列を初期化
+        //g_undo_dices = new GameObject[0];
+        //ダイスの位置を格納する配列を初期化
+        g_undo_dice_pointers = new int[0];
+        //ダイスの位置を配列から取り出す変数初期化
+        g_pointer_count = 0;
+    }
 
     private void Play_Undo() {
         if (g_player_con_Script.Get_MoveFlag()) {
             return;
         }
+        if (!g_is_undo) {
+            return;
+        }
+        g_is_undo = false;
         //操作中にする
         g_player_con_Script.MoveFlag_True();
         //プレイヤーオブジェクト取得
@@ -108,7 +139,6 @@ public class Undo_Script : MonoBehaviour
             //子オブジェクトが保持している指標を更新する
             g_dice_squares_Script.Storage_This_Index(back_ver, back_side, back_high);
             g_dice_squares_Script.Change_Squares(g_undo_rotate_direction);
-            g_work_squares = g_dice_squares_Script.Get_Dice_Squares();
             g_dice_create_Script.Dice_Direction_Rotate(g_undo_dices[pointer],g_undo_rotate_direction);
         }
         Parent_And_Children_Undo();
@@ -116,16 +146,11 @@ public class Undo_Script : MonoBehaviour
         g_player_con_Script.MoveFlag_False();
     }
 
-    private void Keep_Reset() {
-        g_undo_dice_pointers = new int[0];
-        g_pointer_count = 0;
-    }
-
     public void Keep_Dice_Children(GameObject[] dices,int para) {
+        //保持している変数を初期化
+        Reset_Keep_Value();
         //ダイスを押した方向を保持
         Keep_Dice_Direction(para);
-        //保持している変数を初期化
-        Keep_Reset();
         //一手前のプレイヤーのポインターを保持
         Keep_Player_Pointer();
         //転がしたダイスたちを保持
@@ -143,7 +168,10 @@ public class Undo_Script : MonoBehaviour
         }
     }
 
-    public void Keep_Dice_Parent_And_Children(GameObject[] children_dices,GameObject parent) {
+    public void Keep_Dice_Parent_And_Children(GameObject[] children_dices,GameObject parent,bool docking_flag) {
+        //合体したか判別するフラグを保持
+        g_is_docking = docking_flag;
+        //動かした側の親オブジェクト保持
         g_not_undo_dice_parent = parent;
         //くっつけられたダイスたちを保持
         g_undo_dice_children = children_dices;
@@ -152,10 +180,12 @@ public class Undo_Script : MonoBehaviour
     }
 
     private void Parent_And_Children_Undo() {
-        //余った親にくっつけられた側のオブジェクトたちを入れる
-        g_undo_dice_parent.GetComponent<Parent_Dice>().Parent_In_Child(g_undo_dice_children);
-        //くっつけた側の親が子オブジェを取得し直す
-        g_not_undo_dice_parent.GetComponent<Parent_Dice>().Storage_Children();
+        if (g_is_docking) {
+            //余った親にくっつけられた側のオブジェクトたちを入れる
+            g_undo_dice_parent.GetComponent<Parent_Dice>().Parent_In_Child(g_undo_dice_children);
+            //くっつけた側の親が子オブジェを取得し直す
+            g_not_undo_dice_parent.GetComponent<Parent_Dice>().Storage_Children();
+        }
     }
 
     /// <summary>
@@ -183,5 +213,9 @@ public class Undo_Script : MonoBehaviour
                 g_undo_rotate_direction = g_side_plus_Para;
                 break;
         }
+    }
+
+    public void Undo_Flag_On() {
+        g_is_undo = true;
     }
 }
