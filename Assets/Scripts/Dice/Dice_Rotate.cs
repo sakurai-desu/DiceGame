@@ -39,6 +39,7 @@ public class Dice_Rotate : MonoBehaviour {
                                             /// 回転の速度
                                             /// </summary>
     private float g_rotation_Speed = 15;
+    private float g_rotation_speed_Min = 5;
     /// <summary>
     /// サイコロのサイズ
     /// </summary>
@@ -163,6 +164,9 @@ public class Dice_Rotate : MonoBehaviour {
         //くっついているダイスの個数取得
         int dice_count = g_parent_Obj.GetComponent<Parent_Dice>().Get_Children_Count();
         g_rotation_Speed = g_rotation_Speed - dice_count;
+        if (g_rotation_Speed< g_rotation_speed_Min) {
+            g_rotation_Speed = g_rotation_speed_Min;
+        }
         //合計が決めた角度になるまで続ける
         while (rotation_Sum < g_rotation_Max) {
             //角度を変更
