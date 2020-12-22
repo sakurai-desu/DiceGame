@@ -42,7 +42,9 @@ public class Player_Appearance_Move : MonoBehaviour {
 
     private float g_check_pos_length = 0.5f;
 
+    Folder_Script g_folder_Script;
     void Start() {
+        g_folder_Script = GameObject.Find("Stageinformation").GetComponent<Folder_Script>();
         g_information_Script = GameObject.Find("Stageinformation").GetComponent<StageInformation>();
         g_game_con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         g_player_Script = GameObject.Find("Player_Controller").GetComponent<Playercontroller>();
@@ -112,11 +114,11 @@ public class Player_Appearance_Move : MonoBehaviour {
                     g_information_Script.g_tutorial_num++;
                     g_one_flag = true;
                 }
-                if (g_information_Script.g_tutorial_num == g_information_Script.g_tutorial_name.Length) {
+                if (g_information_Script.g_tutorial_num == g_folder_Script.Filenum("T*.json")) {
                     SceneManager.LoadScene("SelectScene");
                 } else {
 
-                    g_information_Script.Change_Tutorial(g_information_Script.g_tutorial_name[g_information_Script.g_tutorial_num]);
+                    g_information_Script.Change_Tutorial("/Tutorial/TStage00"+g_information_Script.g_tutorial_num+".json");
                     SceneManager.LoadScene("TutrialScene");
                 }
 

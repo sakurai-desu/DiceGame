@@ -74,7 +74,8 @@ public class ButtonArray : MonoBehaviour
                 ClickMesod();
             }//チュートリアル以外のボタンを押したとき
            else if (g_button_pointer == 1) {
-                g_information_script.g_playStageName = "/Tutorial/TStage001.json";
+                g_information_script.g_playStageName = "/Tutorial/TStage000.json";
+                g_information_script.g_tutorial_num = 0;
                 ClickMesod();
             }
    
