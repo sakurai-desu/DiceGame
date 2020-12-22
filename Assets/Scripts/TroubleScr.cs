@@ -10,18 +10,19 @@ public class TroubleScr : MonoBehaviour
     /// <summary>
     /// 手数
     /// </summary>
-    [SerializeField]
-    int g_troublenum = 10;
+    public int g_troublenum = 10;
     [SerializeField]
     private GameObject g_gameover_UI;
 
     Text g_troublenumtext;
 
+    public int g_max_trouble;
     void Start()
     {
         g_camera_move_Script = GameObject.Find("MainCamera").GetComponent<MainCamera_Move>();
         g_troublenumtext = GetComponent<Text>();
         g_troublenumtext.text = g_troublenum.ToString();
+        g_max_trouble = g_troublenum;
     }
 
     /// <summary>

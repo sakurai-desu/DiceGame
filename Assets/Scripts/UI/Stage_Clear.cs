@@ -9,7 +9,7 @@ public class Stage_Clear : MonoBehaviour
     bool g_crear_flag;
 
     //クリアしたときにアニメーションで使うタイマー
-    float g_crear_timer=0f;
+    float g_crear_timer=2f;
     void Start()
     {
         
@@ -31,6 +31,6 @@ public class Stage_Clear : MonoBehaviour
     }
 
     private void Move_StageSelect() {
-        SceneManager.LoadScene("SelectScene");
+        SceneManager.LoadScene("Result");
     }
 }

@@ -15,7 +15,7 @@ TagManager:
   - UI
   - 
   - 
-  - video
+  - 
   - 
   - 
   - 
@@ -40,12 +40,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: UI_bg
+    uniqueID: 2518403583
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: UI
-    uniqueID: 2518403583
-    locked: 0
-  - name: video
-    uniqueID: 944188427
+  - name: SystemUI
+    uniqueID: 2996448415
     locked: 0

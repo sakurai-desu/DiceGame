@@ -8,6 +8,8 @@ public class Player_Appearance_Move : MonoBehaviour {
     private Playercontroller g_player_Script;
     private Player_Animation g_player_anim_Script;
     StageInformation g_information_Script;
+    TroubleScr g_trouble_Script;
+    ResultScript g_result_Script;
     /// <summary>
     /// プレイヤーのオブジェクト
     /// </summary>
@@ -43,9 +45,13 @@ public class Player_Appearance_Move : MonoBehaviour {
     private float g_check_pos_length = 0.5f;
 
     Folder_Script g_folder_Script;
+    //取得した手数を入れるためのもの
+    private int g_trouble_num;
 
     Stage_Clear g_clear_Script;
     void Start() {
+        g_trouble_Script = GameObject.Find("TroubleObj").GetComponent<TroubleScr>();
+        g_result_Script = GameObject.Find("Stageinformation").GetComponent<ResultScript>();
         g_clear_Script = GameObject.Find("Game_Controller").GetComponent<Stage_Clear>();
         g_folder_Script = GameObject.Find("Stageinformation").GetComponent<Folder_Script>();
         g_information_Script = GameObject.Find("Stageinformation").GetComponent<StageInformation>();
@@ -104,11 +110,16 @@ public class Player_Appearance_Move : MonoBehaviour {
     }
 
     bool g_one_flag;
+    int g_max_trouble_num;
     private void Goal() {
         (int p_ver, int p_side, int p_high) = g_player_Script.Get_Player_Pointer();
         int type = g_game_con_Script.Get_Obj_Type(p_ver, p_side, p_high - 1);
         if (type == 20) {
             if (SceneManager.GetActiveScene().name == "MainScene") {
+                g_trouble_num = g_trouble_Script.g_troublenum;
+                g_max_trouble_num = g_trouble_Script.g_max_trouble;
+                Debug.Log(g_trouble_num);
+                g_result_Script.Trouble_Eva(g_trouble_num,g_max_trouble_num*0.3f,g_max_trouble_num*0.2f,g_max_trouble_num*0.1f);
                 g_clear_Script.This_Stage_Clear();
             }
            else if (SceneManager.GetActiveScene().name == "TutrialScene") {
