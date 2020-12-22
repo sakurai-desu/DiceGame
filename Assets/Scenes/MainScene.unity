@@ -258,7 +258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   g_tutorial_name: []
   g_tutorial_num: 0
-  g_playStageName: Stage007.json
+  g_playStageName: Stage005.json
 --- !u!4 &197347578
 Transform:
   m_ObjectHideFlags: 0
@@ -2488,7 +2488,6 @@ MonoBehaviour:
   g_undo_player_high: 0
   g_undo_dices: []
   g_undo_dice_pointers: 
-  g_work_squares: 
   g_not_undo_dice_parent: {fileID: 0}
   g_undo_dice_parent: {fileID: 0}
   g_undo_dice_children: []
