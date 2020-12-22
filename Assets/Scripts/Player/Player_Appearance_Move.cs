@@ -43,7 +43,10 @@ public class Player_Appearance_Move : MonoBehaviour {
     private float g_check_pos_length = 0.5f;
 
     Folder_Script g_folder_Script;
+
+    Stage_Clear g_clear_Script;
     void Start() {
+        g_clear_Script = GameObject.Find("Game_Controller").GetComponent<Stage_Clear>();
         g_folder_Script = GameObject.Find("Stageinformation").GetComponent<Folder_Script>();
         g_information_Script = GameObject.Find("Stageinformation").GetComponent<StageInformation>();
         g_game_con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
@@ -106,8 +109,7 @@ public class Player_Appearance_Move : MonoBehaviour {
         int type = g_game_con_Script.Get_Obj_Type(p_ver, p_side, p_high - 1);
         if (type == 20) {
             if (SceneManager.GetActiveScene().name == "MainScene") {
-            Debug.Log("ゴールの上");
-            SceneManager.LoadScene("SelectScene");
+                g_clear_Script.This_Stage_Clear();
             }
            else if (SceneManager.GetActiveScene().name == "TutrialScene") {
                 if (g_one_flag == false) {
