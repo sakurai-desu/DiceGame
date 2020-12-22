@@ -174,8 +174,8 @@ MonoBehaviour:
   g_var_num: 0
   g_side_num: 0
   g_remainder_num: 0
-  g_var_set_num: 90
-  g_side_set_num: 130
+  g_side_set_num: 90
+  g_var_set_num: 130
   g_var_gap_num: 30
   g_button_x_pos: 180
   g_button_y_pos: 20
@@ -585,7 +585,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1053883909
 RectTransform:
   m_ObjectHideFlags: 0

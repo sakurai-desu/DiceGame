@@ -114,8 +114,8 @@ public class ButtonSelect : MonoBehaviour
             //一番上の一番左の時
             else if (g_side_pointer == 0 && g_var_pointer == 0) {
                 g_var_pointer = g_spwern_script.g_varmax_num - 1;
-                g_side_pointer = g_spwern_script.g_side_num-g_spwern_script.g_remainder_num-1;
-                //g_page_turnover = g_var_remainder;
+                g_side_pointer = g_spwern_script.g_remainder_num - 1;
+                g_page_turnover = g_var_remainder;
                 //最後のページの縦の数を計算して取得
             } else {
             g_side_pointer -= 1;
@@ -126,6 +126,7 @@ public class ButtonSelect : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.D) || (Input.GetAxisRaw("Horizontal") > g_controller_time && g_stick_flag == false)) {
             ButtonOrigin();
+
             //一番下以外の一番右の時
             if (g_side_pointer == g_spwern_script.g_side_num - 1 && g_var_pointer != g_spwern_script.g_varmax_num-1) {
                 g_side_pointer = 0;
@@ -134,24 +135,22 @@ public class ButtonSelect : MonoBehaviour
                 if (g_page_var_count == g_page_turnover) {
                     this.transform.localPosition += new Vector3(0, g_move_g_var * 20, 0);
                     g_page_turnover = 1;
-                    ButtonBig();
                 }
             }
             //一番下でなおかつ一番右の時
-            else if (g_side_pointer == g_json_script.g_stage_remainder && g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer + 1] == null) {
+            else if (g_side_pointer == g_json_script.g_stage_remainder && g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer ] == null) {
                 g_side_pointer = 0;
                 g_var_pointer = 0;
                 g_page_turnover = 1;
-
             } else if (g_side_pointer == g_spwern_script.g_side_num - 1 && g_var_pointer == g_spwern_script.g_varmax_num - 1) {
 
                 g_side_pointer = 0;
                 g_var_pointer = 0;
                 g_page_turnover = 1;
-
             } else {
                 g_side_pointer += 1;
             }
+
             ButtonBig();
             g_stick_flag = true;
             //Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
@@ -162,14 +161,15 @@ public class ButtonSelect : MonoBehaviour
             if (g_var_pointer == 0) {
                 g_var_pointer = g_spwern_script.g_varmax_num-1;
                 g_var_pointer = VarNullChacker(0);
-                g_page_turnover = g_var_remainder;
+                g_page_turnover = g_var_pointer + 1;
             } else {
             g_var_pointer -= 1;
                 g_page_turnover -= 1;
             }
             ButtonBig();
             g_stick_flag = true;
-            //Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
+            
+            
             //次のページに行く処理
             if (g_page_turnover == 0) {
                 this.transform.localPosition -= new Vector3(0, g_move_g_var * 20, 0);
@@ -181,13 +181,15 @@ public class ButtonSelect : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S)||(Input.GetAxisRaw("Vertical") < -g_controller_time && g_stick_flag == false)) {
             ButtonOrigin();
             //ポインターがはみ出そうなとき
-            if (g_var_pointer == g_spwern_script.g_varmax_num-1) {
+            if (g_var_pointer == g_spwern_script.g_varmax_num - 1) {
                 g_var_pointer = 0;
                 g_page_turnover = 1;
+
             } else {
+
                 g_page_turnover += 1;
-            g_var_pointer += 1;
-            VarNullChacker(1);
+                g_var_pointer += 1;
+                VarNullChacker(1);
             }
             ButtonBig();
             g_stick_flag = true;
@@ -220,6 +222,7 @@ public class ButtonSelect : MonoBehaviour
             if (g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer] == null) {
                 if (g_vectorenum == 1) {
                     g_var_pointer = 0;
+                    g_page_turnover = 1;
                     return g_var_pointer;
                 } else {
                     g_var_pointer = g_spwern_script.g_varmax_num - 2;
@@ -250,7 +253,7 @@ public class ButtonSelect : MonoBehaviour
     /// 対処のものをでっかくするメソッド
     /// </summary>
     private void ButtonBig() {
-            g_buttonSize = g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer].GetComponent<ButtonSizeChange>();
+        g_buttonSize = g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer].GetComponent<ButtonSizeChange>();
         
         g_buttonSize.BigButton();
     }
@@ -258,6 +261,15 @@ public class ButtonSelect : MonoBehaviour
     /// 対象のもののサイズを戻すメソッド
     /// </summary>
     private void ButtonOrigin() {
+        g_buttonSize = g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer].GetComponent<ButtonSizeChange>();
+        g_buttonSize.OriginButton();
+    }
+    private void NullButtonBig() {
+        g_buttonSize = g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer].GetComponent<ButtonSizeChange>();
+
+        g_buttonSize.BigButton();
+    }
+    private void NullButtonOrigin() {
         g_buttonSize = g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer].GetComponent<ButtonSizeChange>();
         g_buttonSize.OriginButton();
     }
