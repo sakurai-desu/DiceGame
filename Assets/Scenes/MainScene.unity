@@ -459,7 +459,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &197347575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,7 +505,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   g_tutorial_name: []
   g_tutorial_num: 0
-  g_playStageName: Stage005.json
+  g_playStageName: Stage007.json
 --- !u!4 &197347578
 Transform:
   m_ObjectHideFlags: 0
@@ -702,7 +702,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f705d9760387a494a881db6f45055f51, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.75
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2442,6 +2442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   g_troublenum: 20
   g_gameover_UI: {fileID: 1257988489}
+  g_max_trouble: 0
 --- !u!114 &1295558124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2860,7 +2861,7 @@ MonoBehaviour:
   g_undo_dices: []
   g_undo_dice_pointers: 
   g_not_undo_dice_parent: {fileID: 0}
-  g_undo_dice_parent: {fileID: 0}
+  g_undo_dice_parents: []
   g_undo_dice_children: []
 --- !u!1 &1682893949
 GameObject:

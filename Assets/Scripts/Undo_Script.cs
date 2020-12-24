@@ -50,9 +50,18 @@ public class Undo_Script : MonoBehaviour
     [SerializeField]
     private GameObject g_not_undo_dice_parent;
     [SerializeField]
-    private GameObject g_undo_dice_parent;
+    private GameObject[] g_undo_dice_parents;
+    [SerializeField]
+    private int g_undo_parent_pointer;
     [SerializeField]
     private GameObject[] g_undo_dice_children;
+    [SerializeField]
+    private int g_undo_children_pointer;
+    [SerializeField]
+    /// <summary>
+    /// 保持しているダイスのどこまでのダイスがどの親かを保持する配列
+    /// </summary>
+    private int[] g_keep_dices_pointers;
 
     /// <summary>
     /// 縦のプラス方向のパラメータ
@@ -78,6 +87,7 @@ public class Undo_Script : MonoBehaviour
         g_player_con_Script = GameObject.Find("Player_Controller").GetComponent<Playercontroller>();
         g_dice_create_Script = GameObject.Find("Stage_Pool").GetComponent<Dice_Create>();
         Keep_Player_Pointer();
+        Reset_Keep_Value();
     }
 
     void Update() {
@@ -93,12 +103,16 @@ public class Undo_Script : MonoBehaviour
         //保持している移動した方向を初期化
         g_undo_rotate_direction = g_zero_count;
         //保持していたダイス配列を初期化
-        g_undo_dices = new GameObject[0];
+        g_undo_dices = new GameObject[g_zero_count];
         //ダイスの位置を格納する配列を初期化
-        g_undo_dice_pointers = new int[0];
+        g_undo_dice_pointers = new int[g_zero_count];
         //ダイスの位置を配列から取り出す変数初期化
-        g_pointer_count = 0;
-        g_undo_dice_children = new GameObject[0];
+        g_pointer_count = g_zero_count;
+        g_undo_children_pointer = g_zero_count;
+        g_undo_dice_children = new GameObject[g_zero_count];
+        g_undo_parent_pointer = g_zero_count;
+        g_undo_dice_parents = new GameObject[g_zero_count];
+        g_keep_dices_pointers = new int[g_zero_count];
     }
 
     private void Play_Undo() {
@@ -149,6 +163,11 @@ public class Undo_Script : MonoBehaviour
         g_player_con_Script.MoveFlag_False();
     }
 
+    /// <summary>
+    /// 転がしたダイスたちと元居た位置を保持する処理
+    /// </summary>
+    /// <param name="dices">転がしたダイスたち</param>
+    /// <param name="para">向いていた方向</param>
     public void Keep_Dice_Children(GameObject[] dices,int para) {
         //保持している変数を初期化
         Reset_Keep_Value();
@@ -170,22 +189,45 @@ public class Undo_Script : MonoBehaviour
             g_pointer_count = g_pointer_count + 3;
         }
     }
-
+    /// <summary>
+    /// ダイスの親と子を保持する処理
+    /// </summary>
+    /// <param name="children_dices">くっつけられた側のダイスたち</param>
+    /// <param name="parent">くっつけた側の親オブジェ</param>
+    /// <param name="docking_flag">合体したか判別するフラグ</param>
     public void Keep_Dice_Parent_And_Children(GameObject[] children_dices,GameObject parent,bool docking_flag) {
         //合体したか判別するフラグを保持
         g_is_docking = docking_flag;
         //動かした側の親オブジェクト保持
         g_not_undo_dice_parent = parent;
         //くっつけられたダイスたちを保持
-        g_undo_dice_children = children_dices;
+        //g_undo_dice_children = children_dices;
+        for (int pointer = g_zero_count;pointer<children_dices.Length;pointer++) {
+            Array.Resize(ref g_undo_dice_children, g_undo_dice_children.Length + 1);
+            g_undo_dice_children[g_undo_children_pointer] = children_dices[pointer];
+            g_undo_children_pointer++;
+        }
+        Array.Resize(ref g_keep_dices_pointers, g_keep_dices_pointers.Length + 1);
+        g_keep_dices_pointers[g_undo_parent_pointer] = g_undo_children_pointer-1;
+        Array.Resize(ref g_undo_dice_parents, g_undo_dice_parents.Length + 1);
         //くっつけられたダイスの親オブジェクト取得
-        g_undo_dice_parent = g_undo_dice_children[0].transform.parent.gameObject;
+        g_undo_dice_parents[g_undo_parent_pointer] = g_undo_dice_children[g_undo_children_pointer-1].transform.parent.gameObject;
+        g_undo_parent_pointer++;
     }
 
     private void Parent_And_Children_Undo() {
+        //保持した際にダイスが合体していた時
         if (g_is_docking) {
-            //余った親にくっつけられた側のオブジェクトたちを入れる
-            g_undo_dice_parent.GetComponent<Parent_Dice>().Parent_In_Child(g_undo_dice_children);
+            int parents_pointer = 0;
+            for (int pointer = 0; pointer < g_undo_dice_children.Length; pointer++) {
+                GameObject dice = g_undo_dice_children[pointer];
+                //余った親にくっつけられた側のオブジェクトたちを入れる
+                //g_undo_dice_parents[pointer].GetComponent<Parent_Dice>().Parent_In_Child(g_undo_dice_children);
+                g_undo_dice_parents[parents_pointer].GetComponent<Parent_Dice>().Parent_In_OneDice(dice);
+                if (g_keep_dices_pointers[parents_pointer]<= pointer) {
+                    parents_pointer++;
+                }
+            }
             //くっつけた側の親が子オブジェを取得し直す
             g_not_undo_dice_parent.GetComponent<Parent_Dice>().Storage_Children();
         }

@@ -41,6 +41,12 @@ public class Parent_Dice : MonoBehaviour {
         //子オブジェクトを配列に格納
         Storage_Children();
     }
+    public void Parent_In_OneDice(GameObject storage_dice) {
+        storage_dice.transform.parent = gameObject.transform;
+        //子オブジェクトを配列に格納
+        Storage_Children();
+    }
+
     /// <summary>
     /// 現在の子オブジェクトを返す処理
     /// </summary>

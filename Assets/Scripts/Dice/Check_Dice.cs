@@ -96,6 +96,7 @@ public class Check_Dice : MonoBehaviour {
     /// </summary>
     private const int g_max_squares_sum = 7;
 
+    private int[] g_check_surface;
     private int g_now_check_pointer=0;
 
     private bool g_is_doking=false;
@@ -124,6 +125,8 @@ public class Check_Dice : MonoBehaviour {
         g_dice_High = this_high;
         //操作中オブジェクトを保持
         g_dice_Obj = dice_Obj;
+        //ダイスのくっつき状態判別配列を取得
+        g_check_surface = g_dice_Obj.GetComponent<Dice_Squares>().Get_Check_Surface();
 
         g_undo_Script.Undo_Flag_On();
 
@@ -149,9 +152,11 @@ public class Check_Dice : MonoBehaviour {
         if (g_dice_Ver + g_one_Count >= g_max_Ver) {
             return;
         }
-        //格納されているオブジェクトのタイプを調べる
-        Check_Type(g_dice_Ver + g_one_Count, g_dice_Side, g_dice_High, g_ver_plus_para);
-        g_now_check_pointer++;
+        if (g_check_surface[g_now_check_pointer] == 1) {
+            //格納されているオブジェクトのタイプを調べる
+            Check_Type(g_dice_Ver + g_one_Count, g_dice_Side, g_dice_High, g_ver_plus_para);
+            g_now_check_pointer++;
+        }
     }
 
     /// <summary>
@@ -162,9 +167,11 @@ public class Check_Dice : MonoBehaviour {
         if (g_dice_Ver - g_one_Count < g_zero_Count) {
             return;
         }
-        //格納されているオブジェクトのタイプを調べる
-        Check_Type(g_dice_Ver - g_one_Count, g_dice_Side, g_dice_High, g_ver_minus_para);
-        g_now_check_pointer++;
+        if (g_check_surface[g_now_check_pointer] == 1) {
+            //格納されているオブジェクトのタイプを調べる
+            Check_Type(g_dice_Ver - g_one_Count, g_dice_Side, g_dice_High, g_ver_minus_para);
+            g_now_check_pointer++;
+        }
     }
 
     /// <summary>
@@ -175,9 +182,11 @@ public class Check_Dice : MonoBehaviour {
         if (g_dice_Side + g_one_Count >= g_max_Side) {
             return;
         }
-        //格納されているオブジェクトのタイプを調べる
-        Check_Type(g_dice_Ver, g_dice_Side + g_one_Count, g_dice_High, g_side_plus_para);
-        g_now_check_pointer++;
+        if (g_check_surface[g_now_check_pointer] == 1) {
+            //格納されているオブジェクトのタイプを調べる
+            Check_Type(g_dice_Ver, g_dice_Side + g_one_Count, g_dice_High, g_side_plus_para);
+            g_now_check_pointer++;
+        }
     }
 
     /// <summary>
@@ -188,9 +197,11 @@ public class Check_Dice : MonoBehaviour {
         if (g_dice_Side - g_one_Count < g_zero_Count) {
             return;
         }
-        //格納されているオブジェクトのタイプを調べる
-        Check_Type(g_dice_Ver, g_dice_Side - g_one_Count, g_dice_High, g_side_minus_para);
-        g_now_check_pointer++;
+        if (g_check_surface[g_now_check_pointer] == 1) {
+            //格納されているオブジェクトのタイプを調べる
+            Check_Type(g_dice_Ver, g_dice_Side - g_one_Count, g_dice_High, g_side_minus_para);
+            g_now_check_pointer++;
+        }
     }
 
     /// <summary>
@@ -201,9 +212,11 @@ public class Check_Dice : MonoBehaviour {
         if (g_dice_High + g_one_Count >= g_max_High) {
             return;
         }
-        //格納されているオブジェクトのタイプを調べる
-        Check_Type(g_dice_Ver, g_dice_Side, g_dice_High + g_one_Count, g_high_plus_para);
-        g_now_check_pointer++;
+        if (g_check_surface[g_now_check_pointer] == 1) {
+            //格納されているオブジェクトのタイプを調べる
+            Check_Type(g_dice_Ver, g_dice_Side, g_dice_High + g_one_Count, g_high_plus_para);
+            g_now_check_pointer++;
+        }
     }
 
     /// <summary>
@@ -214,9 +227,11 @@ public class Check_Dice : MonoBehaviour {
         if (g_dice_High - g_one_Count < g_zero_Count) {
             return;
         }
-        //格納されているオブジェクトのタイプを調べる
-        Check_Type(g_dice_Ver, g_dice_Side, g_dice_High - g_one_Count, g_high_minus_para);
-        g_now_check_pointer++;
+        if (g_check_surface[g_now_check_pointer] == 1) {
+            //格納されているオブジェクトのタイプを調べる
+            Check_Type(g_dice_Ver, g_dice_Side, g_dice_High - g_one_Count, g_high_minus_para);
+            g_now_check_pointer++;
+        }
     }
 
     /// <summary>
@@ -304,22 +319,27 @@ public class Check_Dice : MonoBehaviour {
             //くっつける前の子の数
             int children_count = parent_Obj.GetComponent<Parent_Dice>().Get_Children_Count();
             parent_Obj.GetComponent<Parent_Dice>().Parent_In_Child(children);
+            int plus_count = next_parent_Script.Get_Children_Count();
             //くっつけた後の子の数
             int next_children_count = parent_Obj.GetComponent<Parent_Dice>().Get_Children_Count();
             //くっつけた後の子の個数がくっつける前より増えていたら
             if (next_children_count > children_count) {
+                //if (children_count+plus_count > children_count) {
+                //くっつけられた側の子オブジェクト全てと
+                //くっつけた側の親オブジェを保持
+                //g_undo_Script.Keep_Dice_Parent_And_Children(children, parent_Obj, g_is_doking);
+                //parent_Obj.GetComponent<Parent_Dice>().Parent_In_Child(children);
                 Debug.Log("新しいサイコロがくっついた");
                 Debug.Log("サイコロがくっつく演出を入れる");
                 //くっつくSEを再生
                 g_se_source_Script.Dice_Docking_Se_Play();
                 //くっついた面からパーティクル生成
                 g_particle_Script.Docking_Particle_Play(g_dice_Obj, g_now_check_pointer);
+                g_check_surface[g_now_check_pointer] = 1;
+                g_next_dice_Obj.GetComponent<Dice_Squares>().Storage_Check_Surface(g_check_surface);
                 //くっつけられた側の親を削除する
                 //Destroy(detroy_Obj);
             }
-            ////くっつけられた側の子オブジェクト全てと
-            ////くっつけた側の親オブジェを保持
-            //g_undo_Script.Keep_Dice_Parent_And_Children(children, parent_Obj,g_is_doking);
         }
     }
 
