@@ -23,8 +23,8 @@ public class SelectScript : MonoBehaviour
     public void OcClick() {
         SceneManager.LoadScene(g_select_name);
     }
-    public void SelectCoror() {
-        g_button.color = Color.red;
+    public void SelectColor() {
+        g_button.color = new Color32(255,180,0,255);
     }
     public void DontSelect() {
         g_button.color = Color.white;
