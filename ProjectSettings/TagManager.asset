@@ -15,7 +15,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Front_UI
   - 
   - 
   - 
@@ -40,7 +40,7 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: UI_bg
+  - name: UI_bg_back
     uniqueID: 2518403583
     locked: 0
   - name: Default
@@ -48,4 +48,13 @@ TagManager:
     locked: 0
   - name: SystemUI
     uniqueID: 2996448415
+    locked: 0
+  - name: UI_bg_front
+    uniqueID: 151804727
+    locked: 0
+  - name: EffectUI
+    uniqueID: 870232179
+    locked: 0
+  - name: SystemUI_front
+    uniqueID: 4195157769
     locked: 0

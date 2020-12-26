@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TutorealText : MonoBehaviour
 {
     //自信のテキストを取得
-    Text g_tuto_text;
+    TextMeshProUGUI g_tuto_text;
 
     //テキストを入れる配列
     [SerializeField]
@@ -16,7 +17,7 @@ public class TutorealText : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        g_tuto_text=GetComponent<Text>();
+        g_tuto_text=GetComponent<TextMeshProUGUI>();
         g_info_script = GameObject.Find("Stageinformation").GetComponent<StageInformation>();
         
     }

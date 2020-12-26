@@ -40,7 +40,7 @@ public class ButtonArray : MonoBehaviour
             //上のボタンを選択する
             if (g_button_pointer != 0) {
                 g_button_pointer--;
-                g_button_obj_array[g_button_pointer].GetComponent<SelectScript>().SelectCoror();
+                g_button_obj_array[g_button_pointer].GetComponent<SelectScript>().SelectColor();
             }
             //上のボタンが一番上だった時に一番下のボタンを選択する
             else  {
@@ -56,7 +56,7 @@ public class ButtonArray : MonoBehaviour
             if (g_button_pointer != g_button_obj_array.Length-1) {
                 g_button_pointer++;
 
-                g_button_obj_array[g_button_pointer].GetComponent<SelectScript>().SelectCoror();
+                g_button_obj_array[g_button_pointer].GetComponent<SelectScript>().SelectColor();
             }
             //下のボタンが一番上だった時に一番下のボタンを選択する
             else {
