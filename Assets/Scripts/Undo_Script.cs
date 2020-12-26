@@ -90,12 +90,12 @@ public class Undo_Script : MonoBehaviour
         Reset_Keep_Value();
     }
 
-    void Update() {
+    //void Update() {
 
-        if (Input.GetKeyDown(KeyCode.B)) {
-            Play_Undo();
-        }
-    }
+    //    if (Input.GetKeyDown(KeyCode.B)) {
+    //        Play_Undo();
+    //    }
+    //}
 
     private void Reset_Keep_Value() {
         //保持しているプレイヤーの位置を初期化

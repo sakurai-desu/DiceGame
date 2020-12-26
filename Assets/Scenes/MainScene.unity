@@ -8099,7 +8099,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1257988490
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9273,8 +9273,11 @@ MonoBehaviour:
   g_undo_dices: []
   g_undo_dice_pointers: 
   g_not_undo_dice_parent: {fileID: 0}
-  g_undo_dice_parent: {fileID: 0}
+  g_undo_dice_parents: []
+  g_undo_parent_pointer: 0
   g_undo_dice_children: []
+  g_undo_children_pointer: 0
+  g_keep_dices_pointers: 
 --- !u!1 &1682893949
 GameObject:
   m_ObjectHideFlags: 0
