@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class SpwernButton : MonoBehaviour
 {
@@ -58,7 +59,7 @@ public class SpwernButton : MonoBehaviour
     //何回も繰り返さないようにするためのもの
     bool g_var_flag;
     //ボタンに入ってるテキスト
-    Text g_button_text;
+    TextMeshProUGUI g_button_text;
 
     Folder_Script g_folder_Script;
     // Start is called before the first frame update
@@ -136,7 +137,7 @@ public class SpwernButton : MonoBehaviour
         stage_str += 1;
         //オブジェクトが生まれる
         g_button = Instantiate(buttonObj);
-        g_button_text = g_button.transform.GetChild(0).GetComponent<Text>();
+        g_button_text = g_button.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         g_button_text.text = stage_str.ToString();
         //親になる
         g_button.transform.parent = gameObject.transform;

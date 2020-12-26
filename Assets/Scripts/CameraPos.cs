@@ -67,13 +67,13 @@ public class CameraPos : MonoBehaviour {
                 CameraSet(g_side_pos+3, g_high_pos, g_var_pos/2 );
                 break;
             case g_leftcamera:
-                CameraSet(-4, g_high_pos, g_var_pos/2 );
+                CameraSet(-5, g_high_pos, g_var_pos/2 );
                 break;
             case g_rightbackcamera:
-                CameraSet(g_side_pos/2, g_high_pos,-4);
+                CameraSet(g_side_pos/2, g_high_pos,-5);
                 break;
             case g_leftbackcamera:
-                CameraSet(g_side_pos/2, g_high_pos, g_var_pos+2);
+                CameraSet(g_side_pos/2, g_high_pos, g_var_pos+3);
                 break;
         }
     }

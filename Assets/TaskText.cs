@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TaskText : MonoBehaviour
 {
-    Text g_task;
+    TextMeshProUGUI g_task;
 
     [SerializeField]
     string[] g_task_array;
@@ -14,7 +15,7 @@ public class TaskText : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        g_task = GetComponent<Text>();
+        g_task = GetComponent<TextMeshProUGUI>();
         g_stage_info = GameObject.Find("Stageinformation").GetComponent<StageInformation>();
     }
 

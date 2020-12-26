@@ -19,6 +19,9 @@ EditorBuildSettings:
     guid: dd2802908ade0f14493d04bfa35896e6
   - enabled: 1
     path: Assets/Scenes/TutrialScene.unity
+    guid: 3a3a16c784122484ba452daa52672bed
+  - enabled: 0
+    path: Assets/Scenes/TutrialScene_bk.unity
     guid: 5d81919fcd8835f499252d1ae8bdc69e
   - enabled: 1
     path: Assets/Scenes/Result.unity
