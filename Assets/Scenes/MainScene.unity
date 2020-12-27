@@ -7896,7 +7896,7 @@ MonoBehaviour:
     type: 3}
   g_all_dices:
   - {fileID: 6848938628480217477, guid: 7c96eaf895c18b24b9d189713eac69a4, type: 3}
-  - {fileID: 6467910897625375284, guid: 63d7fa5426c56ed4996911e54da27f9d, type: 3}
+  - {fileID: 4587978707711304603, guid: 072f0fd43807c1d4abd9198a5ff0e3f7, type: 3}
   - {fileID: 1251977319459169648, guid: e920a9433753c1c41a66421429622307, type: 3}
   - {fileID: 5037379002214886113, guid: c57568c41b1e5584ab664fd858367519, type: 3}
   - {fileID: 7338960867939043883, guid: 73dd5ef9e319fa84396c1425120ed413, type: 3}
@@ -8099,7 +8099,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1257988490
 RectTransform:
   m_ObjectHideFlags: 0
