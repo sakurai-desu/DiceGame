@@ -97,9 +97,9 @@ public class Check_Dice : MonoBehaviour {
     private const int g_max_squares_sum = 7;
 
     private int[] g_check_surface;
-    private int g_now_check_pointer=0;
+    private int g_now_check_pointer = 0;
 
-    private bool g_is_doking=false;
+    private bool g_is_doking = false;
 
     void Start() {
         g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Date>();
@@ -152,11 +152,14 @@ public class Check_Dice : MonoBehaviour {
         if (g_dice_Ver + g_one_Count >= g_max_Ver) {
             return;
         }
-        if (g_check_surface[g_now_check_pointer] == 1) {
-            //格納されているオブジェクトのタイプを調べる
-            Check_Type(g_dice_Ver + g_one_Count, g_dice_Side, g_dice_High, g_ver_plus_para);
-            g_now_check_pointer++;
-        }
+        //格納されているオブジェクトのタイプを調べる
+        Check_Type(g_dice_Ver + g_one_Count, g_dice_Side, g_dice_High, g_ver_plus_para);
+        g_now_check_pointer++;
+        //if (g_check_surface[g_now_check_pointer] == 1) {
+        //    //格納されているオブジェクトのタイプを調べる
+        //    Check_Type(g_dice_Ver + g_one_Count, g_dice_Side, g_dice_High, g_ver_plus_para);
+        //    g_now_check_pointer++;
+        //}
     }
 
     /// <summary>
@@ -167,11 +170,14 @@ public class Check_Dice : MonoBehaviour {
         if (g_dice_Ver - g_one_Count < g_zero_Count) {
             return;
         }
-        if (g_check_surface[g_now_check_pointer] == 1) {
-            //格納されているオブジェクトのタイプを調べる
-            Check_Type(g_dice_Ver - g_one_Count, g_dice_Side, g_dice_High, g_ver_minus_para);
-            g_now_check_pointer++;
-        }
+        //格納されているオブジェクトのタイプを調べる
+        Check_Type(g_dice_Ver - g_one_Count, g_dice_Side, g_dice_High, g_ver_minus_para);
+        g_now_check_pointer++;
+        //if (g_check_surface[g_now_check_pointer] == 1) {
+        //    //格納されているオブジェクトのタイプを調べる
+        //    Check_Type(g_dice_Ver - g_one_Count, g_dice_Side, g_dice_High, g_ver_minus_para);
+        //    g_now_check_pointer++;
+        //}
     }
 
     /// <summary>
@@ -182,11 +188,14 @@ public class Check_Dice : MonoBehaviour {
         if (g_dice_Side + g_one_Count >= g_max_Side) {
             return;
         }
-        if (g_check_surface[g_now_check_pointer] == 1) {
-            //格納されているオブジェクトのタイプを調べる
-            Check_Type(g_dice_Ver, g_dice_Side + g_one_Count, g_dice_High, g_side_plus_para);
-            g_now_check_pointer++;
-        }
+        //格納されているオブジェクトのタイプを調べる
+        Check_Type(g_dice_Ver, g_dice_Side + g_one_Count, g_dice_High, g_side_plus_para);
+        g_now_check_pointer++;
+        //if (g_check_surface[g_now_check_pointer] == 1) {
+        //    //格納されているオブジェクトのタイプを調べる
+        //    Check_Type(g_dice_Ver, g_dice_Side + g_one_Count, g_dice_High, g_side_plus_para);
+        //    g_now_check_pointer++;
+        //}
     }
 
     /// <summary>
@@ -197,11 +206,14 @@ public class Check_Dice : MonoBehaviour {
         if (g_dice_Side - g_one_Count < g_zero_Count) {
             return;
         }
-        if (g_check_surface[g_now_check_pointer] == 1) {
-            //格納されているオブジェクトのタイプを調べる
-            Check_Type(g_dice_Ver, g_dice_Side - g_one_Count, g_dice_High, g_side_minus_para);
-            g_now_check_pointer++;
-        }
+        //格納されているオブジェクトのタイプを調べる
+        Check_Type(g_dice_Ver, g_dice_Side - g_one_Count, g_dice_High, g_side_minus_para);
+        g_now_check_pointer++;
+        //if (g_check_surface[g_now_check_pointer] == 1) {
+        //    //格納されているオブジェクトのタイプを調べる
+        //    Check_Type(g_dice_Ver, g_dice_Side - g_one_Count, g_dice_High, g_side_minus_para);
+        //    g_now_check_pointer++;
+        //}
     }
 
     /// <summary>
@@ -212,11 +224,14 @@ public class Check_Dice : MonoBehaviour {
         if (g_dice_High + g_one_Count >= g_max_High) {
             return;
         }
-        if (g_check_surface[g_now_check_pointer] == 1) {
-            //格納されているオブジェクトのタイプを調べる
-            Check_Type(g_dice_Ver, g_dice_Side, g_dice_High + g_one_Count, g_high_plus_para);
-            g_now_check_pointer++;
-        }
+        //格納されているオブジェクトのタイプを調べる
+        Check_Type(g_dice_Ver, g_dice_Side, g_dice_High + g_one_Count, g_high_plus_para);
+        g_now_check_pointer++;
+        //if (g_check_surface[g_now_check_pointer] == 1) {
+        //    //格納されているオブジェクトのタイプを調べる
+        //    Check_Type(g_dice_Ver, g_dice_Side, g_dice_High + g_one_Count, g_high_plus_para);
+        //    g_now_check_pointer++;
+        //}
     }
 
     /// <summary>
@@ -227,11 +242,14 @@ public class Check_Dice : MonoBehaviour {
         if (g_dice_High - g_one_Count < g_zero_Count) {
             return;
         }
-        if (g_check_surface[g_now_check_pointer] == 1) {
-            //格納されているオブジェクトのタイプを調べる
-            Check_Type(g_dice_Ver, g_dice_Side, g_dice_High - g_one_Count, g_high_minus_para);
-            g_now_check_pointer++;
-        }
+        //格納されているオブジェクトのタイプを調べる
+        Check_Type(g_dice_Ver, g_dice_Side, g_dice_High - g_one_Count, g_high_minus_para);
+        g_now_check_pointer++;
+        //if (g_check_surface[g_now_check_pointer] == 1) {
+        //    //格納されているオブジェクトのタイプを調べる
+        //    Check_Type(g_dice_Ver, g_dice_Side, g_dice_High - g_one_Count, g_high_minus_para);
+        //    g_now_check_pointer++;
+        //}
     }
 
     /// <summary>
@@ -335,7 +353,7 @@ public class Check_Dice : MonoBehaviour {
                 g_se_source_Script.Dice_Docking_Se_Play();
                 //くっついた面からパーティクル生成
                 g_particle_Script.Docking_Particle_Play(g_dice_Obj, g_now_check_pointer);
-                g_check_surface[g_now_check_pointer] = 1;
+                //g_check_surface[g_now_check_pointer] = 1;
                 g_next_dice_Obj.GetComponent<Dice_Squares>().Storage_Check_Surface(g_check_surface);
                 //くっつけられた側の親を削除する
                 //Destroy(detroy_Obj);
