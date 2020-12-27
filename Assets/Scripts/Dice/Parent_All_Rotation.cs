@@ -118,7 +118,7 @@ public class Parent_All_Rotation : MonoBehaviour {
         g_center_Dice = center_obj;
         //回転の軸になるオブジェクトと同じ子オブジェクトを取得
         Get_Children();
-        g_undo_Script.Keep_Dice_Children(g_work_children,para);
+        //g_undo_Script.Keep_Dice_Children(g_work_children,para);
         //現在のパラメータ保持
         g_now_para = para;
         //現在のパラメータに応じた処理をする

@@ -128,7 +128,7 @@ public class Check_Dice : MonoBehaviour {
         //ダイスのくっつき状態判別配列を取得
         g_check_surface = g_dice_Obj.GetComponent<Dice_Squares>().Get_Check_Surface();
 
-        g_undo_Script.Undo_Flag_On();
+        //g_undo_Script.Undo_Flag_On();
 
         //縦のプラス方向を調べる
         Check_Ver_Plus();
@@ -315,7 +315,7 @@ public class Check_Dice : MonoBehaviour {
             GameObject[] children = next_parent_Script.Get_Children();
             //くっつけられた側の子オブジェクト全てと
             //くっつけた側の親オブジェを保持
-            g_undo_Script.Keep_Dice_Parent_And_Children(children, parent_Obj, g_is_doking);
+            //g_undo_Script.Keep_Dice_Parent_And_Children(children, parent_Obj, g_is_doking);
             //くっつける前の子の数
             int children_count = parent_Obj.GetComponent<Parent_Dice>().Get_Children_Count();
             parent_Obj.GetComponent<Parent_Dice>().Parent_In_Child(children);
