@@ -101,7 +101,12 @@ public class Check_Dice : MonoBehaviour {
     void Start() {
         g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Date>();
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
+<<<<<<< HEAD
+        g_undo_Script = GameObject.Find("Game_Controller").GetComponent<Undo_Script>();
+        g_se_source_Script = GameObject.Find("SEList").GetComponent<Se_Source>();
+=======
         g_se_source_Script = GameObject.Find("Se_Source").GetComponent<Se_Source>();
+>>>>>>> d30f8357521159db32b7d3c44d1d1638ce0dc4f2
         g_particle_Script = GameObject.Find("Particle_Source").GetComponent<Particle_Source>();
         //縦横高さの最大値をjsonで決めた数へ変更する
         (g_max_Ver, g_max_Side, g_max_High) = g_json_Script.Get_Array_Max();
@@ -333,7 +338,7 @@ public class Check_Dice : MonoBehaviour {
                 Debug.Log("新しいサイコロがくっついた");
                 Debug.Log("サイコロがくっつく演出を入れる");
                 //くっつくSEを再生
-                g_se_source_Script.Dice_Docking_Se_Play();
+                g_se_source_Script.Se_Play(1);
                 //くっついた面からパーティクル生成
                 g_particle_Script.Docking_Particle_Play(g_dice_Obj, g_now_check_pointer);
                 //g_check_surface[g_now_check_pointer] = 1;
