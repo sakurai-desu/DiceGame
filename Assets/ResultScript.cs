@@ -1,23 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ResultScript : MonoBehaviour
-{
-    TroubleScr g_trouble_Script;
-
-    int g_trouble_num;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+public class ResultScript : MonoBehaviour {
+    /// <summary>
+    /// 残りの手数
+    /// </summary>
+    private int g_troubleNum = 0;
     /// <summary>
     /// 残りの手数に応じて評価を決定するメソッド
     /// </summary>
@@ -28,11 +15,20 @@ public class ResultScript : MonoBehaviour
     public void Trouble_Eva(int trouble,float max_eva,float mid_eva,float row_eva) {
         if (trouble > row_eva) {
             Debug.Log("評価"+1);
+            g_troubleNum = 1;
         } else if (row_eva>trouble&&trouble > mid_eva) {
             Debug.Log("評価" + 2);
+            g_troubleNum = 2;
         } else if (mid_eva>trouble&&trouble > max_eva) {
             Debug.Log("評価" + 3);
+            g_troubleNum = 3;
         }
+    }
 
+    /// <summary>
+    /// 手数を取得させる
+    /// </summary>
+    public int Trouble() {
+        return g_troubleNum;
     }
 }
