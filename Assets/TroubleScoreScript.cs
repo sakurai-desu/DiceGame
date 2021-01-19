@@ -15,6 +15,6 @@ public class TroubleScoreScript : MonoBehaviour
     private void Start() {
         g_troubleScript = GameObject.Find("Stageinformation").GetComponent<ResultScript>();
         g_troubleText=this.GetComponent<TextMeshProUGUI>();
-        g_troubleText.text = g_troubleScript.Trouble().ToString();
+        g_troubleText.text = g_troubleScript.GetRemaining().ToString();
     }
 }
