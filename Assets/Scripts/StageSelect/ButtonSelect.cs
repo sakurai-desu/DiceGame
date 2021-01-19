@@ -44,6 +44,8 @@ public class ButtonSelect : MonoBehaviour
 
     GetStagename g_stagename;
 
+    Se_Source g_se_source_Script;
+
     private float g_controller_time = 0.5f;
 
     private float g_limit_num = 0.49f;
@@ -51,6 +53,7 @@ public class ButtonSelect : MonoBehaviour
     {
         //ボタンを生むのに必要な情報を取得
         g_json_script = GameObject.Find("Stageinformation").GetComponent<JsonArray>();
+        g_se_source_Script = GameObject.Find("SEList").GetComponent<Se_Source>();
         g_spwern_script = GetComponent<SpwernButton>();
         //ボタンの幅を取得
         g_move_g_var = g_spwern_script.g_button_y_pos;
@@ -122,6 +125,7 @@ public class ButtonSelect : MonoBehaviour
             }
             ButtonBig();
             g_stick_flag = true;
+            g_se_source_Script.Se_Play(2);
             //Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
         }
         if (Input.GetKeyDown(KeyCode.D) || (Input.GetAxisRaw("Horizontal") > g_controller_time && g_stick_flag == false)) {
@@ -153,6 +157,7 @@ public class ButtonSelect : MonoBehaviour
 
             ButtonBig();
             g_stick_flag = true;
+            g_se_source_Script.Se_Play(2);
             //Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
         }
         if (Input.GetKeyDown(KeyCode.W)|| (Input.GetAxisRaw("Vertical") > g_controller_time && g_stick_flag == false)) {
@@ -177,6 +182,7 @@ public class ButtonSelect : MonoBehaviour
                 g_page_turnover -= 1;
 
             }
+            g_se_source_Script.Se_Play(2);
         }
         if (Input.GetKeyDown(KeyCode.S)||(Input.GetAxisRaw("Vertical") < -g_controller_time && g_stick_flag == false)) {
             ButtonOrigin();
@@ -199,6 +205,7 @@ public class ButtonSelect : MonoBehaviour
                 g_page_turnover =1;
                 ButtonBig();
             }
+            g_se_source_Script.Se_Play(2);
 
             //Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
         }
