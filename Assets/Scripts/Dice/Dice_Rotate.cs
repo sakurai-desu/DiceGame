@@ -69,7 +69,7 @@ public class Dice_Rotate : MonoBehaviour {
         g_parent_rotate_Script = GameObject.Find("Dice_Controller").GetComponent<Parent_All_Rotation>();
         g_trouble_script = GameObject.Find("TroubleObj").GetComponent<TroubleScr>();
         g_dice_Script = this.GetComponent<Dice_Squares>();
-        g_se_source_Script = GameObject.Find("Se_Source").GetComponent<Se_Source>();
+        g_se_source_Script = GameObject.Find("SEList").GetComponent<Se_Source>();
         //操作オブジェクト取得
         g_dice_Obj = this.gameObject;
         //サイズを求める
@@ -189,7 +189,7 @@ public class Dice_Rotate : MonoBehaviour {
         //回転の軸を初期化
         g_rotate_Axis = Vector3.zero;
         //回転SE再生
-        g_se_source_Script.Dice_Rotate_Se_Play();
+        g_se_source_Script.Se_Play(0);
         //回転先にダイスを格納する
         g_parent_rotate_Script.Reset_And_Storage_Obj();
         //処理終了

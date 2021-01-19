@@ -78,7 +78,7 @@ public class Dice_Fall : MonoBehaviour {
     void Start() {
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         g_player_con_Script = GameObject.Find("Player_Controller").GetComponent<Playercontroller>();
-        g_se_source_Script = GameObject.Find("Se_Source").GetComponent<Se_Source>();
+        g_se_source_Script = GameObject.Find("SEList").GetComponent<Se_Source>();
     }
 
     private void Get_Parent() {
@@ -273,7 +273,7 @@ public class Dice_Fall : MonoBehaviour {
         //移動先への移動終了
         g_center_dice.transform.position = end_Pos;
         //移動SE再生
-        g_se_source_Script.Dice_Rotate_Se_Play();
+        g_se_source_Script.Se_Play(0);
         //ダイスを配列から削除
         Dice_Storage_Reset();
         //ダイスを配列の移動先に格納
