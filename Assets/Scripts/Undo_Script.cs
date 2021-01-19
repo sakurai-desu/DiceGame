@@ -7,6 +7,7 @@ public class Undo_Script : MonoBehaviour {
 
     private Game_Controller g_game_con_Script;
     private Dice_Squares g_squares_Script;
+
     
     [SerializeField, Header("デバッグ用")]
     /// <summary>
@@ -45,6 +46,10 @@ public class Undo_Script : MonoBehaviour {
     private int g_work_side = 0;
     private int g_work_high = 0;
 
+    private int g_before_ver = 0;
+    private int g_before_side = 0;
+    private int g_before_high = 0;
+
     private void Start() {
         g_game_con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         Array_Reset();
@@ -53,6 +58,63 @@ public class Undo_Script : MonoBehaviour {
     private void Update() {
         if (Input.GetKeyDown(KeyCode.H)) {
             Keep_Info();
+        }
+        if (Input.GetKeyDown(KeyCode.B)) {
+            Undo_Play();
+        }
+    }
+
+    private void Undo_Play() {
+        //ダイス配列用の指標
+        int _dice_pointer = 0;
+        //縦・横・高さ配列用の指標
+        int _point_pointer = 0;
+        //保持している親の数分繰り返す
+        for (int i = 0; i < g_undo_parents.Length; i++) {
+            //親オブジェクト取得
+            GameObject _work_parent = g_undo_parents[i];
+            //親の子オブジェクトの数取得
+            int _work_count = g_undo_dice_counters[i];
+            
+            //子オブジェクトの数分繰り返す
+            for (int j = 0; j < _work_count; j++) {
+                //子オブジェクト取得
+                GameObject _work_dice = g_undo_dices[j + _dice_pointer];
+                //子オブジェクトの親を今保持している親に変更
+                _work_dice.transform.parent = _work_parent.transform;
+                //縦の指標取得
+                g_work_ver = g_dice_pointers[_point_pointer];
+                //横の指標取得
+                g_work_side = g_dice_pointers[_point_pointer + 1];
+                //高さの指標取得
+                g_work_high = g_dice_pointers[_point_pointer + 2];
+                //元に戻す位置を取得
+                Vector3 _undo_pos = g_game_con_Script.Get_Pos(g_work_ver, g_work_side, g_work_high);
+                //子オブジェクトを移動
+                _work_dice.transform.position = _undo_pos;
+                Debug.Log("ここでマス目に応じてダイス回転");
+                //ダイスのスクリプト取得
+                g_squares_Script = _work_dice.GetComponent<Dice_Squares>();
+                //ダイスの移動前の指標取得
+                (g_before_ver, g_before_side, g_before_high) = g_squares_Script.Get_Dice_Pointer();
+                //オブジェクトの種類を取得
+                int _type = g_game_con_Script.Get_Obj_Type(g_before_ver, g_before_side, g_before_high);
+                //大元の配列からダイスを除去
+                g_game_con_Script.Storage_Reset(g_before_ver, g_before_side, g_before_high);
+
+                //移動後の縦・横・高さの指標に変更
+                g_squares_Script.Storage_This_Index(g_work_ver, g_work_side, g_work_high);
+                //大元の配列にダイス格納
+                g_game_con_Script.Storage_Obj(g_work_ver, g_work_side, g_work_high, _work_dice);
+                //大元の配列に種類格納
+                g_game_con_Script.Storage_Obj_Type(g_work_ver, g_work_side, g_work_high, _type);
+
+                //縦・横・高さ配列の指標を3つ進める
+                _point_pointer += 3;
+
+            }
+            //ダイス用の配列の指標を取り出した個数分進める
+            _dice_pointer += _work_count;
         }
     }
 
