@@ -14,7 +14,7 @@ public class Se_Source : MonoBehaviour
     {
         DontDestroyOnLoad(this);
         g_audiosource = this.GetComponent<AudioSource>();
-        g_audiosource.mute=true;
+        //g_audiosource.mute=true;
     }
 
     void Update()
@@ -25,7 +25,7 @@ public class Se_Source : MonoBehaviour
     /// SEを再生
     /// </summary>
     public void Se_Play(int soundNum) {
-        g_audiosource.mute = false;
+        //g_audiosource.mute = false;
         g_audiosource.Stop();
         g_audiosource.clip = g_system_se[soundNum];
         g_audiosource.Play();
