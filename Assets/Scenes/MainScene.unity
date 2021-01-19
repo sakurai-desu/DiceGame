@@ -9188,6 +9188,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc8a60dc8ec1aed42b154f99557a211f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  g_undo_parents: []
+  g_undo_dices: []
 --- !u!1 &1682893949
 GameObject:
   m_ObjectHideFlags: 0
@@ -9580,7 +9582,7 @@ MonoBehaviour:
   - \Tutorial\TStage003.json
   - \Tutorial\TStage004.json
   g_tutorial_num: 0
-  g_playStageName: Stage005.json
+  g_playStageName: Stage007.json
 --- !u!4 &1714548367
 Transform:
   m_ObjectHideFlags: 0
