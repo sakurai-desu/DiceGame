@@ -9,7 +9,6 @@ public class Check_Dice : MonoBehaviour {
     private Se_Source g_se_source_Script;
     private Dice_Squares g_next_dice_Script;
     private Particle_Source g_particle_Script;
-    private Undo_Script g_undo_Script;
 
     /// <summary>
     /// 初期化用変数
@@ -99,12 +98,9 @@ public class Check_Dice : MonoBehaviour {
     private int[] g_check_surface;
     private int g_now_check_pointer = 0;
 
-    private bool g_is_doking = false;
-
     void Start() {
         g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Date>();
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
-        g_undo_Script = GameObject.Find("Game_Controller").GetComponent<Undo_Script>();
         g_se_source_Script = GameObject.Find("Se_Source").GetComponent<Se_Source>();
         g_particle_Script = GameObject.Find("Particle_Source").GetComponent<Particle_Source>();
         //縦横高さの最大値をjsonで決めた数へ変更する
@@ -263,8 +259,6 @@ public class Check_Dice : MonoBehaviour {
         int type = g_game_Con_Script.Get_Obj_Type(this_ver, this_side, this_high);
         //取得したタイプがサイコロだった時
         if (type == 100) {
-            //Debug.Log("縦：" + this_ver + "_横" + this_side + "_高さ" + this_high + "_ダイス発見");
-
             //接触された側のオブジェクトを取得
             g_next_dice_Obj = g_game_Con_Script.Get_Obj(this_ver, this_side, this_high);
             //接触された側のスクリプトを取得
@@ -280,7 +274,6 @@ public class Check_Dice : MonoBehaviour {
     /// 接触したサイコロ同士の接触面を比較し接着するか調べる処理
     /// </summary>
     private void Docking_Check() {
-        g_is_doking = false;
         //移動側のサイコロの接触面に対応した処理をする
         switch (g_adhesive_para) {
             //接触面が縦のプラス方向の時
@@ -321,8 +314,6 @@ public class Check_Dice : MonoBehaviour {
         int g_next_dice_squares = g_next_dice_Script.Get_Array_Squares(g_next_adhesive_para);
         //互いの数値の合計が7の時くっつく
         if (g_dice_squares + g_next_dice_squares == g_max_squares_sum) {
-            g_is_doking = true;
-
             //操作中オブジェクトの親を取得
             GameObject parent_Obj = g_dice_Obj.gameObject.transform.root.gameObject;
             //くっつけられた側の親オブジェクトを保持
@@ -331,9 +322,6 @@ public class Check_Dice : MonoBehaviour {
             Parent_Dice next_parent_Script = g_next_dice_Obj.transform.parent.GetComponent<Parent_Dice>();
             //くっつけられた側の子オブジェクトをすべて取得
             GameObject[] children = next_parent_Script.Get_Children();
-            //くっつけられた側の子オブジェクト全てと
-            //くっつけた側の親オブジェを保持
-            //g_undo_Script.Keep_Dice_Parent_And_Children(children, parent_Obj, g_is_doking);
             //くっつける前の子の数
             int children_count = parent_Obj.GetComponent<Parent_Dice>().Get_Children_Count();
             parent_Obj.GetComponent<Parent_Dice>().Parent_In_Child(children);
@@ -342,11 +330,6 @@ public class Check_Dice : MonoBehaviour {
             int next_children_count = parent_Obj.GetComponent<Parent_Dice>().Get_Children_Count();
             //くっつけた後の子の個数がくっつける前より増えていたら
             if (next_children_count > children_count) {
-                //if (children_count+plus_count > children_count) {
-                //くっつけられた側の子オブジェクト全てと
-                //くっつけた側の親オブジェを保持
-                //g_undo_Script.Keep_Dice_Parent_And_Children(children, parent_Obj, g_is_doking);
-                //parent_Obj.GetComponent<Parent_Dice>().Parent_In_Child(children);
                 Debug.Log("新しいサイコロがくっついた");
                 Debug.Log("サイコロがくっつく演出を入れる");
                 //くっつくSEを再生
@@ -359,9 +342,5 @@ public class Check_Dice : MonoBehaviour {
                 //Destroy(detroy_Obj);
             }
         }
-    }
-
-    public bool Get_Docking_Flag() {
-        return g_is_doking;
     }
 }

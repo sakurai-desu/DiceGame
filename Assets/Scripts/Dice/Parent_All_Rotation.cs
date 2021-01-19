@@ -10,7 +10,6 @@ public class Parent_All_Rotation : MonoBehaviour {
     private Parent_Dice g_parent_Script;
     private Move_Check g_check_Script;
     private Dice_Fall g_dice_fall_Script;
-    private Undo_Script g_undo_Script;
 
     /// <summary>
     /// 回転計算用オブジェクト配列
@@ -104,7 +103,6 @@ public class Parent_All_Rotation : MonoBehaviour {
 
     void Start() {
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
-        g_undo_Script = GameObject.Find("Game_Controller").GetComponent<Undo_Script>();
         g_check_Script = this.GetComponent<Move_Check>();
         g_dice_fall_Script = this.GetComponent<Dice_Fall>();
         //配列を生成
