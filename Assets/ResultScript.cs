@@ -13,15 +13,15 @@ public class ResultScript : MonoBehaviour {
     /// <param name="mid_eva">真ん中の評価の手数</param>
     /// <param name="row_eva">一番低い評価の手数</param>
     public void Trouble_Eva(int trouble,float max_eva,float mid_eva,float row_eva) {
-        if (trouble > row_eva) {
-            Debug.Log("評価"+1);
-            g_troubleNum = 1;
-        } else if (row_eva>trouble&&trouble > mid_eva) {
+        if (trouble > max_eva) {
+            Debug.Log("評価"+3);
+            g_troubleNum = 3;
+        } else if (max_eva>trouble&&trouble > mid_eva) {
             Debug.Log("評価" + 2);
             g_troubleNum = 2;
-        } else if (mid_eva>trouble&&trouble > max_eva) {
-            Debug.Log("評価" + 3);
-            g_troubleNum = 3;
+        } else if (mid_eva>trouble) {
+            Debug.Log("評価" + 1);
+            g_troubleNum = 1;
         }
     }
 

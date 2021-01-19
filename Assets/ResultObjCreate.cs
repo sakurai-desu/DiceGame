@@ -28,7 +28,7 @@ public class ResultObjCreate : MonoBehaviour
     {
         for (int i = 0; i < g_resultScript.Trouble(); i++) {
             GameObject trouble = Instantiate(g_troubleObjct);
-            trouble.transform.position = new Vector3(g_originPosX + (i * 10), g_posY, 0f);
+            trouble.transform.position = new Vector3(g_originPosX + (i * 3), g_posY, 0f);
             //親を決める
             trouble.transform.parent = gameObject.transform;
         }
