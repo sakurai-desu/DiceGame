@@ -7642,13 +7642,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1149346340}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91875743afe97a049a75a757ff4c61e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  g_dice_rotate_se: {fileID: 8300000, guid: 2874588fae876874da7317ef7cac7863, type: 3}
-  g_dice_docking_se: {fileID: 8300000, guid: d1d6b8d5ed1923f438d60d4b9538af08, type: 3}
+  g_system_se:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!82 &1149346343
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9188,6 +9193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc8a60dc8ec1aed42b154f99557a211f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  g_undo_parents: []
 --- !u!1 &1682893949
 GameObject:
   m_ObjectHideFlags: 0
