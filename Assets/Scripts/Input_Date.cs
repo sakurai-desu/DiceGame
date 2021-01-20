@@ -23,6 +23,8 @@ public class Input_Date : MonoBehaviour
         public int g_high;
         //プレイヤーの向き
         public int g_p_direction;
+        //ステージの手数
+        public int g_trouble;
         //ステージ攻勢を入れる配列
         public Block[] g_blocks;
     }
