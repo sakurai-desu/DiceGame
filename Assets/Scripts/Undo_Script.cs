@@ -7,10 +7,14 @@ public class Undo_Script : MonoBehaviour {
 
     private Game_Controller g_game_con_Script;
     private Playercontroller g_player_con_Script;
+    private Player_Direction g_direction_Script;
     private Dice_Squares g_squares_Script;
     private Dice_Create g_dice_create_Script;
+    private TroubleScr g_trouble_Script;
 
     private GameObject g_player_obj = null;
+
+    private int g_player_direction = 30;
     private int g_player_ver = 0;
     private int g_player_side = 0;
     private int g_player_high = 0;
@@ -53,7 +57,8 @@ public class Undo_Script : MonoBehaviour {
     /// <summary>
     /// ダイスのマス目を一時的に保持する配列
     /// </summary>
-    private int[] g_work_squares;
+    private int[] g_work_before_squares;
+    private int[] g_work_after_squares;
     private int g_work_pointer = 0;
 
     private int g_work_ver = 0;
@@ -64,29 +69,36 @@ public class Undo_Script : MonoBehaviour {
     private int g_before_side = 0;
     private int g_before_high = 0;
 
+    private bool g_is_undo = false;
+
     private void Start() {
         g_game_con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         g_player_con_Script = GameObject.Find("Player_Controller").GetComponent<Playercontroller>();
+        g_direction_Script = GameObject.Find("Player_Controller").GetComponent<Player_Direction>();
         g_dice_create_Script = GameObject.Find("Stage_Pool").GetComponent<Dice_Create>();
+        g_trouble_Script = GameObject.Find("TroubleObj").GetComponent<TroubleScr>();
         Array_Reset();
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.H)) {
-            Keep_Info();
-        }
         if (Input.GetKeyDown(KeyCode.B)) {
             Undo_Play();
         }
     }
 
-    private void Undo_Play() {
+    public  void Undo_Play() {
+        if (!g_is_undo) {
+            return;
+        }
+        g_is_undo = false;
         //プレイヤーの移動先取得
         Vector3 _player_pos = g_game_con_Script.Get_Pos(g_player_ver, g_player_side, g_player_high);
         //プレイヤー移動
         g_player_obj.transform.position = _player_pos;
         //プレイヤーの保持する指標変更
         g_player_con_Script.Storage_Player_Pointer(g_player_ver, g_player_side, g_player_high);
+        //プレイヤーの向きを変更
+        g_direction_Script.Player_Direction_Change(g_player_direction);
 
         //ダイス配列用の指標
         int _dice_pointer = 0;
@@ -115,7 +127,7 @@ public class Undo_Script : MonoBehaviour {
                 Vector3 _undo_pos = g_game_con_Script.Get_Pos(g_work_ver, g_work_side, g_work_high);
                 //子オブジェクトを移動
                 _work_dice.transform.position = _undo_pos;
-                Debug.Log("ここでマス目に応じてダイス回転");
+
                 //ダイスのスクリプト取得
                 g_squares_Script = _work_dice.GetComponent<Dice_Squares>();
                 //ダイスの移動前の指標取得
@@ -132,9 +144,14 @@ public class Undo_Script : MonoBehaviour {
                 //大元の配列に種類格納
                 g_game_con_Script.Storage_Obj_Type(g_work_ver, g_work_side, g_work_high, _type);
 
-                g_work_squares = Get_Dice_Squares();
-                g_dice_create_Script.Dice_Squares_Change(_work_dice,g_work_squares);
-                g_squares_Script.Storage_Squares(g_work_squares);
+                //ダイスの移動後のマス目を取得
+                g_work_after_squares = g_squares_Script.Get_Dice_Squares();
+                //配列に保持しているマス目を取得する
+                g_work_before_squares = Get_Dice_Squares();
+                //ダイスが保持しているマス目を保持していたマス目に変更する
+                g_squares_Script.Storage_Squares(g_work_before_squares);
+                //変更後のマス目に応じてダイスを回転させる
+                g_dice_create_Script.Undo_Squares_Change(_work_dice, g_work_before_squares, g_work_after_squares);
 
                 //縦・横・高さ配列の指標を3つ進める
                 _point_pointer += 3;
@@ -142,8 +159,15 @@ public class Undo_Script : MonoBehaviour {
             //ダイス用の配列の指標を取り出した個数分進める
             _dice_pointer += _work_count;
         }
+        //手数を戻す
+        g_trouble_Script.Trouble_Plus();
+        //保持する変数を全て初期化
+        Array_Reset();
     }
 
+    /// <summary>
+    /// 一手前の状態を保持する配列を初期化
+    /// </summary>
     private void Array_Reset() {
         g_undo_parents = new GameObject[0];
         g_parent_pointer = 0;
@@ -158,9 +182,14 @@ public class Undo_Script : MonoBehaviour {
         g_work_pointer = 0;
     }
 
-    private void Keep_Info() {
+    /// <summary>
+    /// 現在の盤面を保持する処理
+    /// </summary>
+    public void Keep_Info() {
+        g_is_undo = true;
         g_player_obj = GameObject.FindWithTag("Player").gameObject;
         (g_player_ver, g_player_side, g_player_high) = g_player_con_Script.Get_Player_Pointer();
+        g_player_direction = g_direction_Script.Get_Player_Direction();
         Array_Reset();
         g_undo_parents = GameObject.FindGameObjectsWithTag("Dice_Parent");
         for (int i = 0; i < g_undo_parents.Length; i++) {
@@ -189,8 +218,8 @@ public class Undo_Script : MonoBehaviour {
             (g_work_ver, g_work_side, g_work_high) = g_squares_Script.Get_Dice_Pointer();
             //取得した指標を配列に格納
             Storage_Dice_Pointer(g_work_ver, g_work_side, g_work_high);
-            g_work_squares = g_squares_Script.Get_Dice_Squares();
-            Storage_Dice_Squares(g_work_squares);
+            g_work_before_squares = g_squares_Script.Get_Dice_Squares();
+            Storage_Dice_Squares(g_work_before_squares);
         }
     }
 

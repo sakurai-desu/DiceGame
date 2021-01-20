@@ -62,7 +62,21 @@ public class Dice_Create : MonoBehaviour {
         g_work_dices = new int[6];
         g_work_Array = new int[6];
         g_json_dices = new int[6];
-        Reset_Array();
+        Reset_Array(g_default_dices);
+    }
+
+    public void Undo_Squares_Change(GameObject dice_obj, int[] json_dices,int[] default_json) {
+        Reset_Array(default_json);
+        g_json_dices = json_dices;
+        g_dice_Obj = dice_obj;
+        Dice_Squares_Change();
+    }
+
+    public void Start_Squares_Change(GameObject dice_obj, int[] json_dices) {
+        Reset_Array(g_default_dices);
+        g_json_dices = json_dices;
+        g_dice_Obj = dice_obj;
+        Dice_Squares_Change();
     }
 
     /// <summary>
@@ -70,10 +84,7 @@ public class Dice_Create : MonoBehaviour {
     /// </summary>
     /// <param name="dice_obj">ダイス</param>
     /// <param name="json_dices">マス目の配列</param>
-    public void Dice_Squares_Change(GameObject dice_obj, int[] json_dices) {
-        g_json_dices = json_dices;
-        Reset_Array();
-        g_dice_Obj = dice_obj;
+    private void Dice_Squares_Change() {
         //サイズを求める
         g_dice_Size = g_dice_Obj.transform.localScale.x;
         g_check_flag = false;
@@ -83,18 +94,6 @@ public class Dice_Create : MonoBehaviour {
                 g_check_flag = false;
                 break;
             }
-        }
-    }
-
-    private void Check_Point_Change() {
-        if (g_ver_check < 3) {
-            g_ver_check++;
-        }
-        if (g_side_check < 4) {
-            g_side_check++;
-        }
-        if (g_high_check < 5) {
-            g_high_check++;
         }
     }
 
@@ -166,6 +165,18 @@ public class Dice_Create : MonoBehaviour {
                 Squares_All_Check();
                 break;
             }
+        }
+    }
+
+    private void Check_Point_Change() {
+        if (g_ver_check < 3) {
+            g_ver_check++;
+        }
+        if (g_side_check < 4) {
+            g_side_check++;
+        }
+        if (g_high_check < 5) {
+            g_high_check++;
         }
     }
 
@@ -281,14 +292,14 @@ public class Dice_Create : MonoBehaviour {
     /// <summary>
     /// 保持しているマス目を初期化する
     /// </summary>
-    private void Reset_Array() {
+    private void Reset_Array(int[] _default_json) {
         g_ver_check = 0;
         g_side_check = 1;
         g_high_check = 2;
         //マス目の数の分繰り返す
         for (int pointer = 0; pointer < g_default_dices.Length; pointer++) {
             //保持用配列にマス目の値を保持する
-            g_work_dices[pointer] = g_default_dices[pointer];
+            g_work_dices[pointer] = _default_json[pointer];
         }
     }
 }

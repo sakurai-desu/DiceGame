@@ -111,7 +111,6 @@ public class Dice_Squares : MonoBehaviour {
     }
 
     public void Change_Squares(int para) {
-
         switch (para) {
             case g_ver_plus_Para:
                 Ver_Plus_Squeares_Change();
