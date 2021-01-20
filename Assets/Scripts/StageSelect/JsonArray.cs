@@ -37,7 +37,6 @@ public class JsonArray : MonoBehaviour {
 
         g_folder_Script.Filename("*.json");
 
-
         //ファイル数とstageの横の数を割る
         g_stage_var = g_stage_array_num / g_stage_side;
 
@@ -50,9 +49,5 @@ public class JsonArray : MonoBehaviour {
             //割った数で縦の数を決める
           g_stage_max_var = g_stage_var;
         }
-      
-        Debug.Log(g_stage_var);
-        Debug.Log(g_stage_remainder);
-        Debug.Log(g_stage_max_var);
     }
 }

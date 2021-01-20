@@ -6,8 +6,14 @@ using System;
 public class Undo_Script : MonoBehaviour {
 
     private Game_Controller g_game_con_Script;
+    private Playercontroller g_player_con_Script;
     private Dice_Squares g_squares_Script;
+    private Dice_Create g_dice_create_Script;
 
+    private GameObject g_player_obj = null;
+    private int g_player_ver = 0;
+    private int g_player_side = 0;
+    private int g_player_high = 0;
     
     [SerializeField, Header("デバッグ用")]
     /// <summary>
@@ -40,7 +46,15 @@ public class Undo_Script : MonoBehaviour {
     private int[] g_dice_squares;
     private int g_squares_pointer = 0;
 
+    /// <summary>
+    /// 子オブジェクトを一時的に保持する配列
+    /// </summary>
     private GameObject[] g_work_children;
+    /// <summary>
+    /// ダイスのマス目を一時的に保持する配列
+    /// </summary>
+    private int[] g_work_squares;
+    private int g_work_pointer = 0;
 
     private int g_work_ver = 0;
     private int g_work_side = 0;
@@ -52,6 +66,8 @@ public class Undo_Script : MonoBehaviour {
 
     private void Start() {
         g_game_con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
+        g_player_con_Script = GameObject.Find("Player_Controller").GetComponent<Playercontroller>();
+        g_dice_create_Script = GameObject.Find("Stage_Pool").GetComponent<Dice_Create>();
         Array_Reset();
     }
 
@@ -65,6 +81,13 @@ public class Undo_Script : MonoBehaviour {
     }
 
     private void Undo_Play() {
+        //プレイヤーの移動先取得
+        Vector3 _player_pos = g_game_con_Script.Get_Pos(g_player_ver, g_player_side, g_player_high);
+        //プレイヤー移動
+        g_player_obj.transform.position = _player_pos;
+        //プレイヤーの保持する指標変更
+        g_player_con_Script.Storage_Player_Pointer(g_player_ver, g_player_side, g_player_high);
+
         //ダイス配列用の指標
         int _dice_pointer = 0;
         //縦・横・高さ配列用の指標
@@ -109,9 +132,12 @@ public class Undo_Script : MonoBehaviour {
                 //大元の配列に種類格納
                 g_game_con_Script.Storage_Obj_Type(g_work_ver, g_work_side, g_work_high, _type);
 
+                g_work_squares = Get_Dice_Squares();
+                g_dice_create_Script.Dice_Squares_Change(_work_dice,g_work_squares);
+                g_squares_Script.Storage_Squares(g_work_squares);
+
                 //縦・横・高さ配列の指標を3つ進める
                 _point_pointer += 3;
-
             }
             //ダイス用の配列の指標を取り出した個数分進める
             _dice_pointer += _work_count;
@@ -120,16 +146,21 @@ public class Undo_Script : MonoBehaviour {
 
     private void Array_Reset() {
         g_undo_parents = new GameObject[0];
-        g_undo_dices = new GameObject[0];
-        g_undo_dice_counters = new int[0];
-        g_dice_pointers = new int[0];
         g_parent_pointer = 0;
+        g_undo_dices = new GameObject[0];
         g_dice_pointer = 0;
+        g_undo_dice_counters = new int[0];
         g_count_pointer = 0;
+        g_dice_pointers = new int[0];
         g_point_pointer = 0;
+        g_dice_squares = new int[0];
+        g_squares_pointer = 0;
+        g_work_pointer = 0;
     }
 
     private void Keep_Info() {
+        g_player_obj = GameObject.FindWithTag("Player").gameObject;
+        (g_player_ver, g_player_side, g_player_high) = g_player_con_Script.Get_Player_Pointer();
         Array_Reset();
         g_undo_parents = GameObject.FindGameObjectsWithTag("Dice_Parent");
         for (int i = 0; i < g_undo_parents.Length; i++) {
@@ -158,6 +189,8 @@ public class Undo_Script : MonoBehaviour {
             (g_work_ver, g_work_side, g_work_high) = g_squares_Script.Get_Dice_Pointer();
             //取得した指標を配列に格納
             Storage_Dice_Pointer(g_work_ver, g_work_side, g_work_high);
+            g_work_squares = g_squares_Script.Get_Dice_Squares();
+            Storage_Dice_Squares(g_work_squares);
         }
     }
 
@@ -191,5 +224,26 @@ public class Undo_Script : MonoBehaviour {
         g_dice_pointers[g_point_pointer + 2] = _high;
         //指標を３つ進める
         g_point_pointer += 3;
+    }
+
+    /// <summary>
+    /// ダイスのマス目を配列に格納する処理
+    /// </summary>
+    /// <param name="_squares">マス目</param>
+    private void Storage_Dice_Squares(int[] _squares) {
+        Array.Resize(ref g_dice_squares, g_dice_squares.Length + 6);
+        for (int i = 0; i < _squares.Length; i++) {
+            g_dice_squares[g_squares_pointer] = _squares[i];
+            g_squares_pointer++;
+        }
+    }
+
+    private int[] Get_Dice_Squares() {
+        int[] _keep_squares=new int[6];
+        for (int i = 0; i < _keep_squares.Length; i++) {
+            _keep_squares[i] = g_dice_squares[g_work_pointer];
+            g_work_pointer++;
+        }
+        return _keep_squares;
     }
 }
