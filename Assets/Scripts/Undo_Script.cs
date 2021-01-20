@@ -6,32 +6,44 @@ using System;
 public class Undo_Script : MonoBehaviour {
 
     private Game_Controller g_game_con_Script;
-
-    private int g_ver_max = 0;
-    private int g_side_max = 0;
-    private int g_high_max = 0;
-
-    [SerializeField]
+    private Dice_Squares g_squares_Script;
+    
+    [SerializeField, Header("デバッグ用")]
     /// <summary>
     /// 一手前のダイスの親オブジェクトを保持する配列
     /// </summary>
     private GameObject[] g_undo_parents;
     private int g_parent_pointer = 0;
+    [SerializeField, Header("デバッグ用")]
     /// <summary>
     /// 一手前のダイスを保持する配列
     /// </summary>
     private GameObject[] g_undo_dices;
     private int g_dice_pointer = 0;
+    [SerializeField, Header("デバッグ用")]
     /// <summary>
     /// 親が保持しているダイスをの個数を格納する配列
     /// </summary>
     private int[] g_undo_dice_counters;
     private int g_count_pointer = 0;
+    [SerializeField, Header("デバッグ用")]
     /// <summary>
     /// 保持しているダイスが格納されている・縦・横・高さを格納する配列
     /// </summary>
     private int[] g_dice_pointers;
     private int g_point_pointer = 0;
+    [SerializeField, Header("デバッグ用")]
+    /// <summary>
+    /// 保持しているダイスが格納されているマス目を格納する配列
+    /// </summary>
+    private int[] g_dice_squares;
+    private int g_squares_pointer = 0;
+
+    private GameObject[] g_work_children;
+
+    private int g_work_ver = 0;
+    private int g_work_side = 0;
+    private int g_work_high = 0;
 
     private void Start() {
         g_game_con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
@@ -40,7 +52,7 @@ public class Undo_Script : MonoBehaviour {
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.H)) {
-            Dice_Get();
+            Keep_Info();
         }
     }
 
@@ -49,41 +61,42 @@ public class Undo_Script : MonoBehaviour {
         g_undo_dices = new GameObject[0];
         g_undo_dice_counters = new int[0];
         g_dice_pointers = new int[0];
+        g_parent_pointer = 0;
+        g_dice_pointer = 0;
+        g_count_pointer = 0;
+        g_point_pointer = 0;
     }
 
-    private void Dice_Get() {
+    private void Keep_Info() {
+        Array_Reset();
         g_undo_parents = GameObject.FindGameObjectsWithTag("Dice_Parent");
-        //(g_ver_max, g_side_max, g_high_max) = g_game_con_Script.Get_Array_Max();
-        //for (int _ver = 0; _ver < g_ver_max; _ver++) {
-        //    for (int _side = 0; _side < g_side_max; _side++) {
-        //        for (int _high = 0; _high < g_high_max; _high++) {
-        //            int _type = g_game_con_Script.Get_Obj_Type(_ver, _side, _high);
-        //            if (_type >= 100) {
-        //                Debug.Log("_縦_" + _ver + "_横_" + _side + "_高さ_" +_high);
-        //            }
-        //        }
-        //    }
-        //}
-    }
-
-    /// <summary>
-    /// ダイスの親オブジェクトを配列に格納する処理
-    /// </summary>
-    /// <param name="_storage_parent">格納する親オブジェクト</param>
-    private void Storage_Parent(GameObject _storage_parent) {
-        Array.Resize(ref g_undo_parents, g_undo_parents.Length + 1);
-        g_undo_parents[g_parent_pointer] = _storage_parent;
-        g_parent_pointer++;
+        for (int i = 0; i < g_undo_parents.Length; i++) {
+            g_work_children = g_undo_parents[i].GetComponent<Parent_Dice>().Get_Children();
+            Storage_Dice_Counter(g_work_children.Length);
+            Storage_Dices();
+        }
     }
 
     /// <summary>
     /// ダイスを配列に格納する処理
     /// </summary>
     /// <param name="_storage_dice">格納するダイス</param>
-    private void Storage_Dices(GameObject _storage_dice) {
-        Array.Resize(ref g_undo_dices, g_undo_dices.Length + 1);
-        g_undo_dices[g_dice_pointer] = _storage_dice;
-        g_dice_pointer++;
+    private void Storage_Dices() {
+        //現在保持している子オブジェクトの数分繰り返す
+        for (int i = 0; i < g_work_children.Length; i++) {
+            //ダイスを格納する配列のサイズを増やす
+            Array.Resize(ref g_undo_dices, g_undo_dices.Length + 1);
+            //保持中のダイスを配列に格納
+            g_undo_dices[g_dice_pointer] = g_work_children[i];
+            //ダイスのスクリプトを取得
+            g_squares_Script = g_undo_dices[g_dice_pointer].GetComponent<Dice_Squares>();
+            //指標を進める
+            g_dice_pointer++;
+            //取得したスクリプトから・縦・横・高さの３つの指標を取得
+            (g_work_ver, g_work_side, g_work_high) = g_squares_Script.Get_Dice_Pointer();
+            //取得した指標を配列に格納
+            Storage_Dice_Pointer(g_work_ver, g_work_side, g_work_high);
+        }
     }
 
     /// <summary>
@@ -91,8 +104,11 @@ public class Undo_Script : MonoBehaviour {
     /// </summary>
     /// <param name="_storage_count">ダイスの個数</param>
     private void Storage_Dice_Counter(int _storage_count) {
+        //配列のサイズを増やす
         Array.Resize(ref g_undo_dice_counters, g_undo_dice_counters.Length + 1);
+        //引数を配列に格納
         g_undo_dice_counters[g_count_pointer] = _storage_count;
+        //指標を１つ進める
         g_count_pointer++;
     }
 
@@ -103,12 +119,15 @@ public class Undo_Script : MonoBehaviour {
     /// <param name="_side">横の指標</param>
     /// <param name="_high">高さの指標</param>
     private void Storage_Dice_Pointer(int _ver, int _side, int _high) {
-        Array.Resize(ref g_dice_pointers, g_dice_pointers.Length + 1);
+        //配列のサイズを・縦・横・高さの3つ分増やす
+        Array.Resize(ref g_dice_pointers, g_dice_pointers.Length + 3);
+        //縦格納
         g_dice_pointers[g_point_pointer + 0] = _ver;
+        //横格納
         g_dice_pointers[g_point_pointer + 1] = _side;
+        //高さ格納
         g_dice_pointers[g_point_pointer + 2] = _high;
+        //指標を３つ進める
         g_point_pointer += 3;
     }
-
-
 }
