@@ -62,7 +62,7 @@ public class PlayerXbox : MonoBehaviour
         
         if (g_pushStart_Script.g_start_flag==false) {
 
-        if (Input.GetKeyDown(KeyCode.Return)|| Input.GetButton("X")) {
+        if (Input.GetKeyDown(KeyCode.Return)|| Input.GetButton("A")) {
             g_timer = g_start_timer;
             g_player_move_Script.Dice_Push();
         }
