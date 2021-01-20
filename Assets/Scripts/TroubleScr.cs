@@ -38,4 +38,12 @@ public class TroubleScr : MonoBehaviour
             return;
         }
     }
+
+    /// <summary>
+    /// 現在の手数を1増やす
+    /// </summary>
+    public void Trouble_Plus() {
+        g_troublenum++;
+        g_troublenumtext.text = g_troublenum.ToString();
+    }
 }

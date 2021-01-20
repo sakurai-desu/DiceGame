@@ -111,7 +111,7 @@ public class Stage_Obj_Pool : MonoBehaviour {
                 //生成段階のマス目をダイスが保持
                 g_block_Obj.GetComponent<Dice_Squares>().Storage_Squares(json_dices);
                 //生成時のマス目になるようにダイスを回転させる
-                g_dice_create_Script.Dice_Squares_Change(g_block_Obj, json_dices);
+                g_dice_create_Script.Start_Squares_Change(g_block_Obj, json_dices);
                 break;
             #region　全面同じ数字のダイス生成
             case g_dice_1_para:
@@ -159,7 +159,7 @@ public class Stage_Obj_Pool : MonoBehaviour {
             //生成段階のマス目をダイスが保持
             g_block_Obj.GetComponent<Dice_Squares>().Storage_Squares(json_dices);
             //生成時のマス目になるようにダイスを回転させる
-            g_dice_create_Script.Dice_Squares_Change(g_block_Obj, json_dices);
+            g_dice_create_Script.Start_Squares_Change(g_block_Obj, json_dices);
             switch (type) {
                 case g_yellow_dice_para:
                     g_block_Obj.GetComponent<Renderer>().material=g_dice_sprite_array[0];
