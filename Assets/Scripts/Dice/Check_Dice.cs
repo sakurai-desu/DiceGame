@@ -330,8 +330,8 @@ public class Check_Dice : MonoBehaviour {
             int next_children_count = parent_Obj.GetComponent<Parent_Dice>().Get_Children_Count();
             //くっつけた後の子の個数がくっつける前より増えていたら
             if (next_children_count > children_count) {
-                Debug.Log("新しいサイコロがくっついた");
-                Debug.Log("サイコロがくっつく演出を入れる");
+                //Debug.Log("新しいサイコロがくっついた");
+                //Debug.Log("サイコロがくっつく演出を入れる");
                 //くっつくSEを再生
                 g_se_source_Script.Se_Play(1);
                 //くっついた面からパーティクル生成

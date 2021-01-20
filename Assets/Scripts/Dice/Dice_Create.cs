@@ -65,6 +65,11 @@ public class Dice_Create : MonoBehaviour {
         Reset_Array();
     }
 
+    /// <summary>
+    /// ダイスをマス目に応じて、回転させる処理
+    /// </summary>
+    /// <param name="dice_obj">ダイス</param>
+    /// <param name="json_dices">マス目の配列</param>
     public void Dice_Squares_Change(GameObject dice_obj, int[] json_dices) {
         g_json_dices = json_dices;
         Reset_Array();
