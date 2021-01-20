@@ -27,6 +27,8 @@ public class Stage_Obj_Pool : MonoBehaviour {
     private GameObject g_goal_Prefab;
     [SerializeField]
     private GameObject[] g_all_dices;
+    [SerializeField]
+    private Material[] g_dice_sprite_array = null;
 
     /// <summary>
     /// 空白パラメータ
@@ -149,20 +151,35 @@ public class Stage_Obj_Pool : MonoBehaviour {
                 g_block_Obj.GetComponent<Dice_Squares>().Storage_This_Index(ver, side, high);
                 break;
             #endregion
-            #region ヒント機能が機能するさいころを生成
-            case g_yellow_dice_para:
-                break;
-            case g_green_dice_para:
-                break;
-            case g_orange_dice_para:
-                break;
-            case g_purple_dice_para:
-                break;
-            case g_blue_dice_para:
-                break;
-            case g_green_yellow_dice_para:
-                break;
-                #endregion
+        }
+        if (type > 110) {
+            g_block_Obj = Dice_Creator(g_dice_Prefab);
+            //生成した位置をダイスが保持
+            g_block_Obj.GetComponent<Dice_Squares>().Storage_This_Index(ver, side, high);
+            //生成段階のマス目をダイスが保持
+            g_block_Obj.GetComponent<Dice_Squares>().Storage_Squares(json_dices);
+            //生成時のマス目になるようにダイスを回転させる
+            g_dice_create_Script.Dice_Squares_Change(g_block_Obj, json_dices);
+            switch (type) {
+                case g_yellow_dice_para:
+                    g_block_Obj.GetComponent<Renderer>().material=g_dice_sprite_array[0];
+                    break;
+                case g_green_dice_para:
+                    g_block_Obj.GetComponent<Renderer>().material = g_dice_sprite_array[1];
+                    break;
+                case g_orange_dice_para:
+                    g_block_Obj.GetComponent<Renderer>().material = g_dice_sprite_array[2];
+                    break;
+                case g_purple_dice_para:
+                    g_block_Obj.GetComponent<Renderer>().material = g_dice_sprite_array[3];
+                    break;
+                case g_blue_dice_para:
+                    g_block_Obj.GetComponent<Renderer>().material = g_dice_sprite_array[4];
+                    break;
+                case g_green_yellow_dice_para:
+                    g_block_Obj.GetComponent<Renderer>().material = g_dice_sprite_array[5];
+                    break;
+            }
         }
         //ポジション取得
         Vector3 g_sporn_Pos = g_game_Con_Script.Get_Pos(ver, side, high);

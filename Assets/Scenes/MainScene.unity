@@ -7827,6 +7827,12 @@ MonoBehaviour:
   - {fileID: 5037379002214886113, guid: c57568c41b1e5584ab664fd858367519, type: 3}
   - {fileID: 7338960867939043883, guid: 73dd5ef9e319fa84396c1425120ed413, type: 3}
   - {fileID: 5798241902058706344, guid: 333ae2eb7d2d5dd4c97637a8683b6f0f, type: 3}
+  g_dice_sprite_array:
+  - {fileID: 2100000, guid: 59196ca2e2403fb4eb90cbb53d9474f2, type: 2}
+  - {fileID: 2100000, guid: bf9d2bcbe826b3f46b8839bdd5ae7666, type: 2}
+  - {fileID: 2100000, guid: e128a43f8c624b642a512caadb75ff10, type: 2}
+  - {fileID: 2100000, guid: bd23c56bcbd78af4a888e4812422257f, type: 2}
+  - {fileID: 2100000, guid: 37e15376b60ee5747b48164e6edf6d07, type: 2}
 --- !u!1 &1210239902
 GameObject:
   m_ObjectHideFlags: 0
@@ -9194,6 +9200,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   g_undo_parents: []
+  g_undo_dices: []
+  g_undo_dice_counters: 
+  g_dice_pointers: 
+  g_dice_squares: 
 --- !u!1 &1682893949
 GameObject:
   m_ObjectHideFlags: 0
