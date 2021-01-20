@@ -258,7 +258,7 @@ public class Check_Dice : MonoBehaviour {
         //タイプ取得
         int type = g_game_Con_Script.Get_Obj_Type(this_ver, this_side, this_high);
         //取得したタイプがサイコロだった時
-        if (type == 100) {
+        if (type >= 100) {
             //接触された側のオブジェクトを取得
             g_next_dice_Obj = g_game_Con_Script.Get_Obj(this_ver, this_side, this_high);
             //接触された側のスクリプトを取得
