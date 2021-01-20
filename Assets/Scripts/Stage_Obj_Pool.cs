@@ -49,6 +49,7 @@ public class Stage_Obj_Pool : MonoBehaviour {
     /// </summary>
     private const int g_dice_para = 100;
     
+    //目が固定されているサイコロを識別する
     private const int g_dice_1_para = 101;
     private const int g_dice_2_para = 102;
     private const int g_dice_3_para = 103;
@@ -56,6 +57,13 @@ public class Stage_Obj_Pool : MonoBehaviour {
     private const int g_dice_5_para = 105;
     private const int g_dice_6_para = 106;
 
+    //色付きのサイコロを識別するための定数
+    private const int g_green_dice_para = 111;
+    private const int g_blue_dice_para = 112;
+    private const int g_yellow_dice_para = 113;
+    private const int g_purple_dice_para = 114;
+    private const int g_orange_dice_para = 115;
+    private const int g_green_yellow_dice_para = 116;
     void Start() {
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         g_player_sporn = GameObject.Find("Player_Controller").GetComponent<Playercontroller>();
@@ -139,6 +147,20 @@ public class Stage_Obj_Pool : MonoBehaviour {
                 g_block_Obj = Dice_Creator(g_all_dices[5]);
                 //生成した位置をダイスが保持
                 g_block_Obj.GetComponent<Dice_Squares>().Storage_This_Index(ver, side, high);
+                break;
+            #endregion
+            #region ヒント機能が機能するさいころを生成
+            case g_yellow_dice_para:
+                break;
+            case g_green_dice_para:
+                break;
+            case g_orange_dice_para:
+                break;
+            case g_purple_dice_para:
+                break;
+            case g_blue_dice_para:
+                break;
+            case g_green_yellow_dice_para:
                 break;
                 #endregion
         }
