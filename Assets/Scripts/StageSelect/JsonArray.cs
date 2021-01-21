@@ -25,8 +25,7 @@ public class JsonArray : MonoBehaviour {
     //ステージのあまりの数
     public int g_stage_remainder;
 
-    // Start is called before the first frame update
-    void Start() {
+    void Awake() {
         //スクリプトを取得
         g_folder_Script = GetComponent<Folder_Script>();
 
