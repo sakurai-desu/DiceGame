@@ -231,7 +231,7 @@ public class Dice_Fall : MonoBehaviour {
     /// ダイスをゆっくり落下させる処理
     /// </summary>
     /// <returns></returns>
-    IEnumerator Move() {
+    private IEnumerator Move() {
         //移動中状態にする
         g_player_con_Script.MoveFlag_True();
         //速度初期化
