@@ -45,6 +45,7 @@ public class ButtonArray : MonoBehaviour
             //上のボタンが一番上だった時に一番下のボタンを選択する
             else  {
                 g_button_pointer = g_button_obj_array.Length-1;
+                g_button_obj_array[g_button_pointer].GetComponent<SelectScript>().SelectColor();
             }
         }
         //スティックを下に倒したとき
@@ -61,6 +62,7 @@ public class ButtonArray : MonoBehaviour
             //下のボタンが一番上だった時に一番下のボタンを選択する
             else {
                 g_button_pointer = 0;
+                g_button_obj_array[g_button_pointer].GetComponent<SelectScript>().SelectColor();
             }
         }
         //スティックがニュートラルの時
