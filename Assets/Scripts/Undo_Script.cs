@@ -12,42 +12,66 @@ public class Undo_Script : MonoBehaviour {
     private Dice_Create g_dice_create_Script;
     private TroubleScr g_trouble_Script;
 
+    /// <summary>
+    /// プレイヤーのオブジェクト
+    /// </summary>
     private GameObject g_player_obj = null;
-
+    /// <summary>
+    /// 保持しているプレイヤーの向き
+    /// </summary>
     private int g_player_direction = 30;
+    /// <summary>
+    /// 一手前のプレイヤーの指標：縦
+    /// </summary>
     private int g_player_ver = 0;
+    /// <summary>
+    /// 一手前のプレイヤーの指標：横
+    /// </summary>
     private int g_player_side = 0;
+    /// <summary>
+    /// 一手前のプレイヤーの指標：高さ
+    /// </summary>
     private int g_player_high = 0;
     
-    [SerializeField, Header("デバッグ用")]
     /// <summary>
     /// 一手前のダイスの親オブジェクトを保持する配列
     /// </summary>
     private GameObject[] g_undo_parents;
+    /// <summary>
+    /// 親オブジェクト配列用のポインタ
+    /// </summary>
     private int g_parent_pointer = 0;
-    [SerializeField, Header("デバッグ用")]
     /// <summary>
     /// 一手前のダイスを保持する配列
     /// </summary>
     private GameObject[] g_undo_dices;
+    /// <summary>
+    /// ダイスのオブジェクト配列用のポインタ
+    /// </summary>
     private int g_dice_pointer = 0;
-    [SerializeField, Header("デバッグ用")]
     /// <summary>
     /// 親が保持しているダイスをの個数を格納する配列
     /// </summary>
     private int[] g_undo_dice_counters;
+    /// <summary>
+    /// 親の子ダイスの数配列用のポインタ
+    /// </summary>
     private int g_count_pointer = 0;
-    [SerializeField, Header("デバッグ用")]
     /// <summary>
     /// 保持しているダイスが格納されている・縦・横・高さを格納する配列
     /// </summary>
     private int[] g_dice_pointers;
+    /// <summary>
+    /// 親オブジェクト配列用のポインタ
+    /// </summary>
     private int g_point_pointer = 0;
-    [SerializeField, Header("デバッグ用")]
     /// <summary>
     /// 保持しているダイスが格納されているマス目を格納する配列
     /// </summary>
     private int[] g_dice_squares;
+    /// <summary>
+    /// 親オブジェクト配列用のポインタ
+    /// </summary>
     private int g_squares_pointer = 0;
 
     /// <summary>
@@ -81,13 +105,16 @@ public class Undo_Script : MonoBehaviour {
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.B)) {
+        if (Input.GetButtonDown("Y")) {
             Undo_Play();
         }
     }
 
     public  void Undo_Play() {
         if (!g_is_undo) {
+            return;
+        }
+        if (g_player_con_Script.Get_MoveFlag()) {
             return;
         }
         g_is_undo = false;
