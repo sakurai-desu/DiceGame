@@ -43,18 +43,20 @@ public class ScoreJsonScript : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         g_jsonArrayScript = GameObject.Find("Stageinformation").GetComponent<JsonArray>();
     }
-    void Start()
-    {
-
+    void Start() {
+        //スコアを保存するためのjsonを取得する
         string datastr = "";
         StreamReader reader;
         reader = new StreamReader(Application.streamingAssetsPath + "/Score/Score.json");
         datastr = reader.ReadToEnd();
         reader.Close();
         g_stageScore = JsonUtility.FromJson<Score>(datastr);
+
+        //ステージの数を取得して入れる
+        g_stageScore.g_stageNum = g_jsonArrayScript.g_stage_array_num;
+        Debug.Log(g_stageScore.g_stageNum+"ステージ数");
     }
 
-    // Update is called once per frame
     void Update()
     {
         
