@@ -1041,7 +1041,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &434210821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6596,7 +6596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &775256878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7917,12 +7917,12 @@ MonoBehaviour:
   g_goal_Prefab: {fileID: 8228770091370613375, guid: 57e75bd51e6897347a3748d09a23ebdd,
     type: 3}
   g_all_dices:
-  - {fileID: 6848938628480217477, guid: 7c96eaf895c18b24b9d189713eac69a4, type: 3}
-  - {fileID: 4587978707711304603, guid: 072f0fd43807c1d4abd9198a5ff0e3f7, type: 3}
-  - {fileID: 1251977319459169648, guid: e920a9433753c1c41a66421429622307, type: 3}
-  - {fileID: 5037379002214886113, guid: c57568c41b1e5584ab664fd858367519, type: 3}
-  - {fileID: 7338960867939043883, guid: 73dd5ef9e319fa84396c1425120ed413, type: 3}
-  - {fileID: 5798241902058706344, guid: 333ae2eb7d2d5dd4c97637a8683b6f0f, type: 3}
+  - {fileID: 4356000869399113105, guid: 7c96eaf895c18b24b9d189713eac69a4, type: 3}
+  - {fileID: 2690651178779008648, guid: 072f0fd43807c1d4abd9198a5ff0e3f7, type: 3}
+  - {fileID: 5658605070475726635, guid: e920a9433753c1c41a66421429622307, type: 3}
+  - {fileID: 2957940537961824289, guid: c57568c41b1e5584ab664fd858367519, type: 3}
+  - {fileID: 8314077520562065687, guid: 73dd5ef9e319fa84396c1425120ed413, type: 3}
+  - {fileID: 7847085657984900574, guid: 333ae2eb7d2d5dd4c97637a8683b6f0f, type: 3}
   g_dice_sprite_array:
   - {fileID: 2100000, guid: 59196ca2e2403fb4eb90cbb53d9474f2, type: 2}
   - {fileID: 2100000, guid: bf9d2bcbe826b3f46b8839bdd5ae7666, type: 2}

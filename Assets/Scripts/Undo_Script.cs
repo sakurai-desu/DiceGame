@@ -104,13 +104,7 @@ public class Undo_Script : MonoBehaviour {
         Array_Reset();
     }
 
-    private void Update() {
-        if (Input.GetButtonDown("Y")) {
-            Undo_Play();
-        }
-    }
-
-    public  void Undo_Play() {
+    public void Undo_Play() {
         if (!g_is_undo) {
             return;
         }

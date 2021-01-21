@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class TroubleScr : MonoBehaviour
 {
     private PlayerXbox g_xbox_con_Script;
+    private PushStartScri g_menu_Script;
     private MainCamera_Move g_camera_move_Script;
     /// <summary>
     /// 手数
@@ -17,6 +18,7 @@ public class TroubleScr : MonoBehaviour
     public int g_max_trouble;
     void Start()
     {
+        g_menu_Script = GameObject.Find("StartChackObj").GetComponent<PushStartScri>();
         g_camera_move_Script = GameObject.Find("MainCamera").GetComponent<MainCamera_Move>();
         g_troublenumtext = GetComponent<Text>();
         g_troublenumtext.text = g_troublenum.ToString();
@@ -33,7 +35,9 @@ public class TroubleScr : MonoBehaviour
             Debug.Log("ゲームオーバー");
             g_xbox_con_Script = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerXbox>();
             g_xbox_con_Script.enabled = false;
+            g_menu_Script.enabled = false;
             g_camera_move_Script.enabled = false;
+
             g_gameover_UI.SetActive(true);
             return;
         }

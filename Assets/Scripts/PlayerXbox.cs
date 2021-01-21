@@ -7,6 +7,7 @@ public class PlayerXbox : MonoBehaviour
     CameraPote g_camera_rotate;
     Playermove g_player_move;
     private Player_Move g_player_move_Script;
+    private Undo_Script g_undo_Script;
 
     bool g_axis_flag;
     /// <summary>
@@ -52,6 +53,7 @@ public class PlayerXbox : MonoBehaviour
         g_player_move_Script = this.GetComponent<Player_Move>();
         g_timer = g_start_timer;
         g_pushStart_Script = GameObject.Find("StartChackObj").GetComponent<PushStartScri>();
+        g_undo_Script = GameObject.Find("Game_Controller").GetComponent<Undo_Script>();
     }
 
     void Update() {
@@ -59,20 +61,23 @@ public class PlayerXbox : MonoBehaviour
         if (g_timer > 0) {
             return;
         }
-        
-        if (g_pushStart_Script.g_start_flag==false) {
 
-        if (Input.GetKeyDown(KeyCode.Return)|| Input.GetButton("A")) {
-            g_timer = g_start_timer;
-            g_player_move_Script.Dice_Push();
-        }
+        if (g_pushStart_Script.g_start_flag == false) {
 
-        if (Input.GetButtonDown("Y")) {
-            g_y_push_flag = true;
-        }
-        if (Input.GetButtonUp("Y")&&g_y_push_flag) {
-            g_y_push_flag = false;
-        }
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetButton("A")) {
+                g_timer = g_start_timer;
+                g_player_move_Script.Dice_Push();
+            }
+            if (Input.GetButtonDown("Y")) {
+                g_undo_Script.Undo_Play();
+            }
+
+            if (Input.GetButtonDown("Y")) {
+                g_y_push_flag = true;
+            }
+            if (Input.GetButtonUp("Y") && g_y_push_flag) {
+                g_y_push_flag = false;
+            }
             //配列hの上限に達してない時移動(上)
             if (Input.GetKeyDown(KeyCode.W) || (Input.GetAxisRaw("Vertical") > g_controller_Move && g_axis_flag == false)) {
                 g_player_move_Script.PlayerMove(g_camera_para[0]);
@@ -97,7 +102,7 @@ public class PlayerXbox : MonoBehaviour
             if (Input.GetAxisRaw("Vertical") > -g_limit_num && Input.GetAxisRaw("Vertical") < g_limit_num && Input.GetAxisRaw("Horizontal") < g_limit_num && Input.GetAxisRaw("Horizontal") > -g_limit_num) {
                 g_axis_flag = false;
             }
-           
+
         }
     }
 

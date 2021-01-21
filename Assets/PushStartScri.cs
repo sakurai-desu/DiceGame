@@ -14,7 +14,7 @@ public class PushStartScri : MonoBehaviour
     /// スタートが押されたのを検知するフラグ
     /// </summary>
     public bool g_start_flag;
-    // Start is called before the first frame update
+
     void Start()
     {
         g_optionamim = g_option_panel.GetComponent<Animator>();

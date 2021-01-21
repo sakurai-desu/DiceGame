@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class Stage_Clear : MonoBehaviour
 {
+    private PlayerXbox g_controller_Script;
+    private PushStartScri g_menu_Script;
+    private MainCamera_Move g_camera_move_Script;
+
     //クリアしたときにタイマーを稼働させるためフラグ
     bool g_clear_flag;
 
@@ -17,12 +21,19 @@ public class Stage_Clear : MonoBehaviour
 
     void Start()
     {
-        
+        g_menu_Script = GameObject.Find("StartChackObj").GetComponent<PushStartScri>();
+        g_camera_move_Script = GameObject.Find("MainCamera").GetComponent<MainCamera_Move>();
     }
 
     void Update()
     {
         if (g_clear_flag == true) {
+
+            g_controller_Script = GameObject.FindWithTag("Player").GetComponent<PlayerXbox>();
+            g_controller_Script.enabled = false;
+            g_menu_Script.enabled = false;
+            g_camera_move_Script.enabled = false;
+
             g_clear_UI.SetActive(true);
             g_clear_timer -= Time.deltaTime;
         }
