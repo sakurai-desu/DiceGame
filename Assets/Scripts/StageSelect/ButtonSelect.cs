@@ -7,6 +7,7 @@ public class ButtonSelect : MonoBehaviour
     //ボタンの配列をつかさどる配列
     SpwernButton g_spwern_script;
     JsonArray g_json_script;
+    private StageInformation g_stageInformationScript = null;
     //配列を検索するポインター
     public int g_var_pointer;
     //最後のページの縦の数
@@ -53,6 +54,7 @@ public class ButtonSelect : MonoBehaviour
     {
         //ボタンを生むのに必要な情報を取得
         g_json_script = GameObject.Find("Stageinformation").GetComponent<JsonArray>();
+        g_stageInformationScript = GameObject.Find("Stageinformation").GetComponent<StageInformation>();
         g_se_source_Script = GameObject.Find("SEList").GetComponent<Se_Source>();
         g_spwern_script = GetComponent<SpwernButton>();
         //ボタンの幅を取得
@@ -215,6 +217,7 @@ public class ButtonSelect : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space)||Input.GetButtonDown("A")) {
             g_stagename = g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer].GetComponent<GetStagename>();
             g_stagename.g_get_stagename = g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer];
+            g_stageInformationScript.Change_StageNum(g_var_pointer,g_side_pointer);
             g_stagename.OnClick();
         }
         #endregion

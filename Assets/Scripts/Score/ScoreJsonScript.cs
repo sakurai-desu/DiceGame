@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System;
 
 public class ScoreJsonScript : MonoBehaviour
 {
     /// <summary>
-    /// スコアクラスを使用するための変数
-    /// </summary>
-    private Score g_stageScore=null;
-    /// <summary>
     /// ステージごとのスコアを保存するクラスの親
     /// </summary>
+    [Serializable]
     public class Score {
         /// <summary>
         ///　ステージ数
@@ -25,6 +23,7 @@ public class ScoreJsonScript : MonoBehaviour
     /// <summary>
     /// ステージごとのスコア
     /// </summary>
+    [Serializable]
     public class StageScore {
         /// <summary>
         /// 評価
@@ -36,6 +35,10 @@ public class ScoreJsonScript : MonoBehaviour
         public int g_trouble;
     }
 
+    /// <summary>
+    /// スコアクラスを使用するための変数
+    /// </summary>
+    private Score g_stageScore=null;
     /// <summary>
     /// ストリーミングアセット内の.jsonフォルダの数を数えるスクリプト
     /// </summary>
@@ -66,12 +69,12 @@ public class ScoreJsonScript : MonoBehaviour
     /// <summary>
     /// jsonの中身を変更する
     /// </summary>
-    /// <param name="stageNum">ステージ数</param>
+    /// <param name="stageNum">ステージ番号</param>
     /// <param name="evaluation">評価</param>
     /// <param name="trouble">手数</param>
     public void ChangeInfo(int stageNum,int evaluation,int trouble) 
     {
-        g_stageScore.g_stageInfo[stageNum].g_evaluation = evaluation;
-        g_stageScore.g_stageInfo[stageNum].g_trouble = trouble;
+        //g_stageScore.g_stageInfo[stageNum].g_evaluation = evaluation;
+        //g_stageScore.g_stageInfo[stageNum].g_trouble = trouble;
     }
 }

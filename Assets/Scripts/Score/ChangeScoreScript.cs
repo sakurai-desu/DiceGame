@@ -24,9 +24,6 @@ public class ChangeScoreScript : MonoBehaviour
         g_jsonArrayScript = GameObject.Find(g_stageInfoName).GetComponent<JsonArray>();
         g_scoreJsonScript = GameObject.Find("ScoreInformation").GetComponent<ScoreJsonScript>();
         //jsonに数値を入れる
-        for (int i = 0; i < g_jsonArrayScript.g_stage_array_num-1; i++) 
-        {
-            g_scoreJsonScript.ChangeInfo(i, g_resultScript.Trouble(), g_resultScript.GetRemaining());
-        }
+            g_scoreJsonScript.ChangeInfo(0, g_resultScript.Trouble(), g_resultScript.GetRemaining());
     }
 }
