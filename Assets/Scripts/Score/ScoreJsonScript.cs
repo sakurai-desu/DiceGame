@@ -71,7 +71,7 @@ public class ScoreJsonScript : MonoBehaviour
     /// <param name="trouble">手数</param>
     public void ChangeInfo(int stageNum,int evaluation,int trouble) 
     {
-        g_stageScore.g_stageInfo[stageNum].g_evaluation = evaluation;
-        g_stageScore.g_stageInfo[stageNum].g_trouble = trouble;
+        //g_stageScore.g_stageInfo[stageNum].g_evaluation = evaluation;
+        //g_stageScore.g_stageInfo[stageNum].g_trouble = trouble;
     }
 }
