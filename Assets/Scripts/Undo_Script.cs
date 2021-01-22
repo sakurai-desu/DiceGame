@@ -82,17 +82,43 @@ public class Undo_Script : MonoBehaviour {
     /// ダイスのマス目を一時的に保持する配列
     /// </summary>
     private int[] g_work_before_squares;
+    /// <summary>
+    /// ダイスの移動後のマス目を保持する配列
+    /// </summary>
     private int[] g_work_after_squares;
+    /// <summary>
+    /// マス目を取得する際に使用するポインタ
+    /// </summary>
     private int g_work_pointer = 0;
 
+    /// <summary>
+    /// 指標を一時的格納する変数：縦
+    /// </summary>
     private int g_work_ver = 0;
+    /// <summary>
+    /// 指標を一時的格納する変数：横
+    /// </summary>
     private int g_work_side = 0;
+    /// <summary>
+    /// 指標を一時的格納する変数：高さ
+    /// </summary>
     private int g_work_high = 0;
-
+    /// <summary>
+    /// ダイス移動前の指標を一時的格納する変数：縦
+    /// </summary>
     private int g_before_ver = 0;
+    /// <summary>
+    /// ダイス移動前の指標を一時的格納する変数：横
+    /// </summary>
     private int g_before_side = 0;
+    /// <summary>
+    /// ダイス移動前の指標を一時的格納する変数：高さ
+    /// </summary>
     private int g_before_high = 0;
 
+    /// <summary>
+    /// 一手戻しの処理をできるか判別するフラグ
+    /// </summary>
     private bool g_is_undo = false;
 
     private void Start() {
@@ -104,6 +130,9 @@ public class Undo_Script : MonoBehaviour {
         Array_Reset();
     }
 
+    /// <summary>
+    /// 保持している情報をもとに一手前の状態に戻す
+    /// </summary>
     public void Undo_Play() {
         if (!g_is_undo) {
             return;
@@ -207,15 +236,25 @@ public class Undo_Script : MonoBehaviour {
     /// 現在の盤面を保持する処理
     /// </summary>
     public void Keep_Info() {
+        //元に戻す処理を可能にする
         g_is_undo = true;
+        //プレイヤーを取得
         g_player_obj = GameObject.FindWithTag("Player").gameObject;
+        //プレイヤーの現在の指標を取得
         (g_player_ver, g_player_side, g_player_high) = g_player_con_Script.Get_Player_Pointer();
+        //プレイヤーの現在の向きを取得
         g_player_direction = g_direction_Script.Get_Player_Direction();
+        //保持用配列を初期化
         Array_Reset();
+        //シーン上にあるダイスの親オブジェクトをすべて取得
         g_undo_parents = GameObject.FindGameObjectsWithTag("Dice_Parent");
+        //取得した親の個数分繰り返す
         for (int i = 0; i < g_undo_parents.Length; i++) {
+            //子オブジェクトのダイスを全て取得
             g_work_children = g_undo_parents[i].GetComponent<Parent_Dice>().Get_Children();
+            //ダイスの数を保持
             Storage_Dice_Counter(g_work_children.Length);
+            //ダイスのオブジェクトを保持
             Storage_Dices();
         }
     }
@@ -239,7 +278,9 @@ public class Undo_Script : MonoBehaviour {
             (g_work_ver, g_work_side, g_work_high) = g_squares_Script.Get_Dice_Pointer();
             //取得した指標を配列に格納
             Storage_Dice_Pointer(g_work_ver, g_work_side, g_work_high);
+            //ダイスの現在のマス目を取得
             g_work_before_squares = g_squares_Script.Get_Dice_Squares();
+            //ダイスのマス目を保持
             Storage_Dice_Squares(g_work_before_squares);
         }
     }
@@ -281,19 +322,32 @@ public class Undo_Script : MonoBehaviour {
     /// </summary>
     /// <param name="_squares">マス目</param>
     private void Storage_Dice_Squares(int[] _squares) {
+        //配列の数をマス目の数分増やす
         Array.Resize(ref g_dice_squares, g_dice_squares.Length + 6);
+        //マス目の数分繰り返す（　6マス分　）
         for (int i = 0; i < _squares.Length; i++) {
+            //マス目を一つ保持
             g_dice_squares[g_squares_pointer] = _squares[i];
+            //指標＋1
             g_squares_pointer++;
         }
     }
 
+    /// <summary>
+    /// 保持したマス目を6マス分返す処理
+    /// </summary>
+    /// <returns></returns>
     private int[] Get_Dice_Squares() {
+        //一時的にマス目を保持する配列を初期化
         int[] _keep_squares=new int[6];
+        //6マス分繰り返す
         for (int i = 0; i < _keep_squares.Length; i++) {
+            //保持していたマス目を取得
             _keep_squares[i] = g_dice_squares[g_work_pointer];
+            //マス目用配列の指標＋1
             g_work_pointer++;
         }
+        //マス目を取得した配列を返す
         return _keep_squares;
     }
 }

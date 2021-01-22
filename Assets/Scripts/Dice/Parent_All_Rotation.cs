@@ -10,6 +10,7 @@ public class Parent_All_Rotation : MonoBehaviour {
     private Parent_Dice g_parent_Script;
     private Move_Check g_check_Script;
     private Dice_Fall g_dice_fall_Script;
+    private Undo_Script g_undo_Script;
 
     /// <summary>
     /// 回転計算用オブジェクト配列
@@ -105,6 +106,7 @@ public class Parent_All_Rotation : MonoBehaviour {
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         g_check_Script = this.GetComponent<Move_Check>();
         g_dice_fall_Script = this.GetComponent<Dice_Fall>();
+        g_undo_Script = GameObject.Find("Game_Controller").GetComponent<Undo_Script>();
         //配列を生成
         g_work_Objs_Array = new GameObject[g_array_max, g_array_max, g_array_max];
     }
@@ -116,7 +118,6 @@ public class Parent_All_Rotation : MonoBehaviour {
         g_center_Dice = center_obj;
         //回転の軸になるオブジェクトと同じ子オブジェクトを取得
         Get_Children();
-        //g_undo_Script.Keep_Dice_Children(g_work_children,para);
         //現在のパラメータ保持
         g_now_para = para;
         //現在のパラメータに応じた処理をする
@@ -138,9 +139,10 @@ public class Parent_All_Rotation : MonoBehaviour {
                 Minus_Side_Rotate();
                 break;
         }
-        //g_is_ground=g_dice_fall_Script.Rotate_Check(g_work_children);
         //回転できる状態なら
         if (g_is_rotate && g_is_ground) {
+            //移動前の状態を保持
+            g_undo_Script.Keep_Info();
             //回転の軸にするダイスの回転用スクリプト取得
             g_rotate_Script = g_center_Dice.GetComponent<Dice_Rotate>();
             //ダイスを回転させる

@@ -11,7 +11,6 @@ public class Player_Move : MonoBehaviour {
     private Player_Animation g_anim_Script;
     private Player_Appearance_Move g_appearance_move_Script;
     private PlayerXbox g_xbox_Script;
-    private Undo_Script g_undo_Script;
 
     /// <summary>
     /// 初期化用変数
@@ -97,7 +96,6 @@ public class Player_Move : MonoBehaviour {
         g_appearance_move_Script = this.GetComponent<Player_Appearance_Move>();
         g_anim_Script = this.GetComponent<Player_Animation>();
         g_xbox_Script = this.GetComponent<PlayerXbox>();
-        g_undo_Script = GameObject.Find("Game_Controller").GetComponent<Undo_Script>();
         //配列の最大値を取得
         (g_max_ver, g_max_side, g_max_high) = g_json_Script.Get_Array_Max();
     }
@@ -374,7 +372,6 @@ public class Player_Move : MonoBehaviour {
         //ダイスの時
         //ダイスを移動させる
         if (type >= 100) {
-            g_undo_Script.Keep_Info();
             //Debug.Log("ダイスを押す");
             //操作対象のダイスを取得
             GameObject dice_obj = g_game_con_Script.Get_Obj(g_player_ver, g_player_side, g_player_high);
