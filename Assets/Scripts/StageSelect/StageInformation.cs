@@ -51,11 +51,18 @@ public class StageInformation : MonoBehaviour
     public void Change_StageNum(int stageVerNum, int stageSideNum) {
         //選択したステージが一段目の時
         if (stageVerNum > 0) {
-                stageSideNum = (stageVerNum+g_sideNum)+stageSideNum;
+                stageSideNum = (stageVerNum*g_sideNum)+stageSideNum+1;
         } else {
           stageSideNum++;
         }
           g_arrayPointerNum = stageSideNum;
         Debug.Log(g_arrayPointerNum+"ステージ目");
+    }
+    /// <summary>
+    /// 何個目のステージが選択されたのかを表示する
+    /// </summary>
+    /// <returns>ステージのナンバー</returns>
+    public int Get_StageNum() {
+        return g_arrayPointerNum;
     }
 }
