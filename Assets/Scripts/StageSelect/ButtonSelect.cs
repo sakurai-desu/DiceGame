@@ -14,7 +14,7 @@ public class ButtonSelect : MonoBehaviour
     private int g_var_remainder;
 
     public int g_side_pointer;
-   
+
     [SerializeField]
     private int g_var_minicheck_pointer;
 
@@ -82,10 +82,10 @@ public class ButtonSelect : MonoBehaviour
             } else {
                 g_var_remainder = g_stage_remainder + 1;
                 Debug.Log(g_var_remainder);
-
             }
         }
-      
+        Debug.Log(g_spwern_script.g_varmax_num);
+        Debug.Log(g_spwern_script.g_side_num);
     }
     bool g_oneflag;
     bool g_stick_flag;
@@ -116,9 +116,17 @@ public class ButtonSelect : MonoBehaviour
             }
             //一番上の一番左の時
             else if (g_side_pointer == 0 && g_var_pointer == 0) {
-                g_var_pointer = g_spwern_script.g_varmax_num - 1;
-                g_side_pointer = g_spwern_script.g_remainder_num - 1;
-                g_page_turnover = g_var_remainder;
+                //ステージにあまりがない場合
+                if (g_spwern_script.g_remainder_num == 0) {
+                    g_var_pointer = g_spwern_script.g_varmax_num - 1;
+                    g_side_pointer = g_spwern_script.g_side_num - 1;
+                } 
+                //あまりがあったとき
+                else {
+                    g_var_pointer = g_spwern_script.g_varmax_num - 1;
+                    g_side_pointer = g_spwern_script.g_remainder_num - 1;
+                }
+                g_page_turnover = g_var_remainder - 1;
                 //最後のページの縦の数を計算して取得
             } else {
             g_side_pointer -= 1;
@@ -141,13 +149,16 @@ public class ButtonSelect : MonoBehaviour
                     g_page_turnover = 1;
                 }
             }
-            //一番下でなおかつ一番右の時
-            else if (g_side_pointer == g_json_script.g_stage_remainder && g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer ] == null) {
+            ////一番下でなおかつ一番右の時　ここの処理でnullエラー？
+            else if (g_side_pointer == g_json_script.g_stage_remainder - 1  && g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer + 1] == null) {
+                Debug.Log("null");
                 g_side_pointer = 0;
                 g_var_pointer = 0;
                 g_page_turnover = 1;
-            } else if (g_side_pointer == g_spwern_script.g_side_num - 1 && g_var_pointer == g_spwern_script.g_varmax_num - 1) {
-
+            }
+            //最後のページの横が全部埋まってた時
+            else if (g_side_pointer == g_spwern_script.g_side_num - 1 && g_var_pointer == g_spwern_script.g_varmax_num - 1) {
+                Debug.Log("埋まってる");
                 g_side_pointer = 0;
                 g_var_pointer = 0;
                 g_page_turnover = 1;
@@ -166,9 +177,9 @@ public class ButtonSelect : MonoBehaviour
             if (g_var_pointer == 0) {
                 g_var_pointer = g_spwern_script.g_varmax_num-1;
                 g_var_pointer = VarNullChacker(0);
-                g_page_turnover = g_var_pointer + 1;
+                g_page_turnover = g_var_pointer;
             } else {
-            g_var_pointer -= 1;
+                g_var_pointer -= 1;
                 g_page_turnover -= 1;
             }
             ButtonBig();
@@ -271,13 +282,13 @@ public class ButtonSelect : MonoBehaviour
         g_buttonSize = g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer].GetComponent<ButtonSizeChange>();
         g_buttonSize.OriginButton();
     }
-    private void NullButtonBig() {
-        g_buttonSize = g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer].GetComponent<ButtonSizeChange>();
+    //private void NullButtonBig() {
+    //    g_buttonSize = g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer].GetComponent<ButtonSizeChange>();
 
-        g_buttonSize.BigButton();
-    }
-    private void NullButtonOrigin() {
-        g_buttonSize = g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer].GetComponent<ButtonSizeChange>();
-        g_buttonSize.OriginButton();
-    }
+    //    g_buttonSize.BigButton();
+    //}
+    //private void NullButtonOrigin() {
+    //    g_buttonSize = g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer].GetComponent<ButtonSizeChange>();
+    //    g_buttonSize.OriginButton();
+    //}
 }
