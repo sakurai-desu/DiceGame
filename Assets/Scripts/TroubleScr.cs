@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class TroubleScr : MonoBehaviour
 {
+    private Input_Date g_json_Script;
     private PlayerXbox g_xbox_con_Script;
     private PushStartScri g_menu_Script;
     private MainCamera_Move g_camera_move_Script;
@@ -18,9 +19,11 @@ public class TroubleScr : MonoBehaviour
     public int g_max_trouble;
     void Start()
     {
+        g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Date>();
         g_menu_Script = GameObject.Find("StartChackObj").GetComponent<PushStartScri>();
         g_camera_move_Script = GameObject.Find("MainCamera").GetComponent<MainCamera_Move>();
         g_troublenumtext = GetComponent<Text>();
+        g_troublenum = g_json_Script.g_inputJson.g_trouble;
         g_troublenumtext.text = g_troublenum.ToString();
         g_max_trouble = g_troublenum;
     }
