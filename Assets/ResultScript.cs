@@ -10,6 +10,14 @@ public class ResultScript : MonoBehaviour {
     /// </summary>
     private int g_troubleRemainingNum = 0;
     /// <summary>
+    /// ステージ数を保持しているフォルダ
+    /// </summary>
+    private JsonArray g_jsonArrayScript = null;
+
+    private void Awake() {
+        g_jsonArrayScript = GameObject.Find("Stageinformation").GetComponent<JsonArray>();
+    }
+    /// <summary>
     /// 残りの手数に応じて評価を決定するメソッド
     /// </summary>
     /// <param name="trouble">残りの手かず</param>

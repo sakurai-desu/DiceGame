@@ -7,6 +7,9 @@ public class ButtonSelect : MonoBehaviour
     //ボタンの配列をつかさどる配列
     SpwernButton g_spwern_script;
     JsonArray g_json_script;
+    private StageInformation g_stageInformationScript = null;
+    private Stage_Image g_stage_image_Script;
+
     //配列を検索するポインター
     public int g_var_pointer;
     //最後のページの縦の数
@@ -51,8 +54,10 @@ public class ButtonSelect : MonoBehaviour
     {
         //ボタンを生むのに必要な情報を取得
         g_json_script = GameObject.Find("Stageinformation").GetComponent<JsonArray>();
+        g_stageInformationScript = GameObject.Find("Stageinformation").GetComponent<StageInformation>();
         g_se_source_Script = GameObject.Find("SEList").GetComponent<Se_Source>();
         g_spwern_script = GetComponent<SpwernButton>();
+        g_stage_image_Script = GameObject.Find("Stage_Image").GetComponent<Stage_Image>();
         //ボタンの幅を取得
         g_move_g_var = g_spwern_script.g_button_y_pos;
        
@@ -132,6 +137,7 @@ public class ButtonSelect : MonoBehaviour
             ButtonBig();
             g_stick_flag = true;
             g_se_source_Script.Se_Play(2);
+            g_stage_image_Script.Stage_Sprite_Change(g_var_pointer, g_side_pointer);
             //Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
         }
         if (Input.GetKeyDown(KeyCode.D) || (Input.GetAxisRaw("Horizontal") > g_controller_time && g_stick_flag == false)) {
@@ -165,6 +171,7 @@ public class ButtonSelect : MonoBehaviour
             ButtonBig();
             g_stick_flag = true;
             g_se_source_Script.Se_Play(2);
+            g_stage_image_Script.Stage_Sprite_Change(g_var_pointer, g_side_pointer);
             //Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
         }
         if (Input.GetKeyDown(KeyCode.W)|| (Input.GetAxisRaw("Vertical") > g_controller_time && g_stick_flag == false)) {
@@ -197,6 +204,7 @@ public class ButtonSelect : MonoBehaviour
 
             }
             g_se_source_Script.Se_Play(2);
+            g_stage_image_Script.Stage_Sprite_Change(g_var_pointer, g_side_pointer);
         }
         if (Input.GetKeyDown(KeyCode.S)||(Input.GetAxisRaw("Vertical") < -g_controller_time && g_stick_flag == false)) {
             ButtonOrigin();
@@ -220,6 +228,7 @@ public class ButtonSelect : MonoBehaviour
                 ButtonBig();
             }
             g_se_source_Script.Se_Play(2);
+            g_stage_image_Script.Stage_Sprite_Change(g_var_pointer, g_side_pointer);
 
             //Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
         }
@@ -229,6 +238,7 @@ public class ButtonSelect : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space)||Input.GetButtonDown("A")) {
             g_stagename = g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer].GetComponent<GetStagename>();
             g_stagename.g_get_stagename = g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer];
+            g_stageInformationScript.Change_StageNum(g_var_pointer,g_side_pointer);
             g_stagename.OnClick();
         }
         #endregion
