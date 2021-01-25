@@ -1060,6 +1060,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   g_images:
   - {fileID: 309878357}
+  - {fileID: 309878357}
   - {fileID: 67628355}
   - {fileID: 1876218819}
 --- !u!1 &805530589

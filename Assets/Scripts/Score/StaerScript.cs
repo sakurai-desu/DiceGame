@@ -47,17 +47,20 @@ public class StaerScript : MonoBehaviour
     public void ChangeSter(int evoNum) 
     {
         //評価の最大数までfor文を回す
-        for (int i = 0; i < g_imagesNum; i++) 
+        for (int i = 1; i <= g_imagesNum; i++) 
         {
+            //評価がゼロ以上の時
             if (evoNum != 0) {
-            if (i <= evoNum) 
-            {
-                g_images[i].color = new Color32(255,255,255,255);
+                if (i <= evoNum) {
+                    g_images[i].color = new Color32(255, 255, 255, 255);
+                } else {
+                    g_images[i].color = new Color32(60, 60, 60, 255);
+                }
+                Debug.Log(evoNum);
             }
-            else 
-            {
-                g_images[i].color = new Color32(60, 60 , 60, 255);
-            }
+            //評価がゼロの時
+            else {
+                g_images[i].color = new Color32(60, 60, 60, 255);
             }
         }
     }
