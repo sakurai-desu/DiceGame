@@ -138,6 +138,7 @@ public class ButtonSelect : MonoBehaviour
             g_stick_flag = true;
             g_se_source_Script.Se_Play(2);
             g_stage_image_Script.Stage_Sprite_Change(g_var_pointer, g_side_pointer);
+            g_stageInformationScript.Change_StageNum(g_var_pointer, g_side_pointer);
             //Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
         }
         if (Input.GetKeyDown(KeyCode.D) || (Input.GetAxisRaw("Horizontal") > g_controller_time && g_stick_flag == false)) {
@@ -172,6 +173,7 @@ public class ButtonSelect : MonoBehaviour
             g_stick_flag = true;
             g_se_source_Script.Se_Play(2);
             g_stage_image_Script.Stage_Sprite_Change(g_var_pointer, g_side_pointer);
+            g_stageInformationScript.Change_StageNum(g_var_pointer, g_side_pointer);
             //Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
         }
         if (Input.GetKeyDown(KeyCode.W)|| (Input.GetAxisRaw("Vertical") > g_controller_time && g_stick_flag == false)) {
@@ -205,6 +207,7 @@ public class ButtonSelect : MonoBehaviour
             }
             g_se_source_Script.Se_Play(2);
             g_stage_image_Script.Stage_Sprite_Change(g_var_pointer, g_side_pointer);
+            g_stageInformationScript.Change_StageNum(g_var_pointer, g_side_pointer);
         }
         if (Input.GetKeyDown(KeyCode.S)||(Input.GetAxisRaw("Vertical") < -g_controller_time && g_stick_flag == false)) {
             ButtonOrigin();
@@ -230,6 +233,7 @@ public class ButtonSelect : MonoBehaviour
             g_se_source_Script.Se_Play(2);
             g_stage_image_Script.Stage_Sprite_Change(g_var_pointer, g_side_pointer);
 
+            g_stageInformationScript.Change_StageNum(g_var_pointer, g_side_pointer);
             //Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
         }
         if (Input.GetAxisRaw("Vertical") > -g_limit_num && Input.GetAxisRaw("Vertical") < g_limit_num && Input.GetAxisRaw("Horizontal") < g_limit_num && Input.GetAxisRaw("Horizontal") > -g_limit_num && g_stick_flag) {

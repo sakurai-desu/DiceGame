@@ -31,11 +31,6 @@ public class StageInformation : MonoBehaviour
 
     void Update()
     {
-        //ステージを選択するシーンの時
-        if (SceneManager.GetActiveScene().name == "SelectScene") {
-            g_staerScript = GameObject.Find("SterParentObject").GetComponent<StaerScript>();
-            g_staerScript.SetStaer(g_arrayPointerNum);
-        }
     }
     /// <summary>
     /// チュートリアルに飛ぶようにする
@@ -63,6 +58,11 @@ public class StageInformation : MonoBehaviour
           stageSideNum++;
         }
           g_arrayPointerNum = stageSideNum;
+        //ステージを選択するシーンの時
+        if (SceneManager.GetActiveScene().name == "SelectScene") {
+            g_staerScript = GameObject.Find("SterParentObject").GetComponent<StaerScript>();
+            g_staerScript.SetStaer(g_arrayPointerNum);
+        }
         Debug.Log(g_arrayPointerNum+"ステージ目");
     }
     /// <summary>
