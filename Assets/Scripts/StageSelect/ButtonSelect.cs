@@ -41,8 +41,6 @@ public class ButtonSelect : MonoBehaviour
     [SerializeField]
     private float g_move_g_var;
 
-    //縦の幅を取得
-    private int g_var_siza;
     ButtonSizeChange g_buttonSize;
 
     GetStagename g_stagename;
@@ -72,25 +70,25 @@ public class ButtonSelect : MonoBehaviour
         g_max_stageelement = g_json_script.g_stage_array_num;
         //1ページのステージの数を計算
         g_stage_page_count = g_side_stage_count * (g_page_var_count -1);
-      
         if (g_max_stageelement % g_stage_page_count == 0) {
-            Debug.Log("余り0");
             g_var_remainder = g_page_var_count -1;
         } else {
             //最後のページのステージの個数
             g_stage_remainder = g_max_stageelement % g_stage_page_count;
+            Debug.Log(g_stage_remainder);
 
             g_stage_remainder = g_stage_remainder / g_side_stage_count;
+            Debug.Log(g_side_stage_count);
 
             if (g_stage_remainder == 0) {
-                g_var_remainder = g_stage_remainder;
-            } else {
                 g_var_remainder = g_stage_remainder + 1;
+                Debug.Log(g_var_remainder);
+
+            } else {
+                g_var_remainder = g_stage_remainder;
                 Debug.Log(g_var_remainder);
             }
         }
-        Debug.Log(g_spwern_script.g_varmax_num);
-        Debug.Log(g_spwern_script.g_side_num);
     }
     bool g_oneflag;
     bool g_stick_flag;
@@ -116,7 +114,6 @@ public class ButtonSelect : MonoBehaviour
                     this.transform.localPosition -= new Vector3(0, g_move_g_var * 20, 0);
                     g_page_turnover = g_page_var_count;
                     g_page_turnover -= 1;
-
                 }
             }
             //一番上の一番左の時
@@ -125,13 +122,14 @@ public class ButtonSelect : MonoBehaviour
                 if (g_spwern_script.g_remainder_num == 0) {
                     g_var_pointer = g_spwern_script.g_varmax_num - 1;
                     g_side_pointer = g_spwern_script.g_side_num - 1;
-                } 
+                    g_page_turnover = g_var_remainder;
+                }
                 //あまりがあったとき
                 else {
                     g_var_pointer = g_spwern_script.g_varmax_num - 1;
                     g_side_pointer = g_spwern_script.g_remainder_num - 1;
+                    g_page_turnover = g_var_remainder + 1;
                 }
-                g_page_turnover = g_var_remainder - 1;
                 //最後のページの縦の数を計算して取得
             } else {
             g_side_pointer -= 1;
@@ -157,14 +155,12 @@ public class ButtonSelect : MonoBehaviour
             }
             ////一番下でなおかつ一番右の時　ここの処理でnullエラー？
             else if (g_side_pointer == g_json_script.g_stage_remainder - 1  && g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer + 1] == null) {
-                Debug.Log("null");
                 g_side_pointer = 0;
                 g_var_pointer = 0;
                 g_page_turnover = 1;
             }
             //最後のページの横が全部埋まってた時
             else if (g_side_pointer == g_spwern_script.g_side_num - 1 && g_var_pointer == g_spwern_script.g_varmax_num - 1) {
-                Debug.Log("埋まってる");
                 g_side_pointer = 0;
                 g_var_pointer = 0;
                 g_page_turnover = 1;
@@ -184,7 +180,14 @@ public class ButtonSelect : MonoBehaviour
             if (g_var_pointer == 0) {
                 g_var_pointer = g_spwern_script.g_varmax_num-1;
                 g_var_pointer = VarNullChacker(0);
-                g_page_turnover = g_var_pointer;
+
+                //一番下があまりの部分かそうじゃないか
+                if (g_var_pointer == g_spwern_script.g_varmax_num - 1) {
+                    g_page_turnover = g_var_remainder + 1;
+                } else if (g_var_pointer != g_spwern_script.g_varmax_num - 1) {
+                    g_page_turnover = g_var_remainder;
+                }
+
             } else {
                 g_var_pointer -= 1;
                 g_page_turnover -= 1;
