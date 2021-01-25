@@ -38,7 +38,7 @@ public class ScoreJsonScript : MonoBehaviour
     /// <summary>
     /// スコアクラスを使用するための変数
     /// </summary>
-    private Score g_stageScore=null;
+    public Score g_stageScore=null;
     /// <summary>
     /// ストリーミングアセット内の.jsonフォルダの数を数えるスクリプト
     /// </summary>
