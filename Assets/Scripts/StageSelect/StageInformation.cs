@@ -19,7 +19,10 @@ public class StageInformation : MonoBehaviour
     /// </summary>
     private const int g_sideNum = 4;
     Folder_Script g_folder;
-
+    /// <summary>
+    /// 評価表示のスクリプト
+    /// </summary>
+    private StaerScript g_staerScript = null;
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
@@ -28,7 +31,11 @@ public class StageInformation : MonoBehaviour
 
     void Update()
     {
-      
+        //ステージを選択するシーンの時
+        if (SceneManager.GetActiveScene().name == "SelectScene") {
+            g_staerScript = GameObject.Find("SterParentObject").GetComponent<StaerScript>();
+            g_staerScript.SetStaer(g_arrayPointerNum);
+        }
     }
     /// <summary>
     /// チュートリアルに飛ぶようにする
