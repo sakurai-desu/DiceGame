@@ -49,6 +49,7 @@ public class StaerScript : MonoBehaviour
         //評価の最大数までfor文を回す
         for (int i = 0; i < g_imagesNum; i++) 
         {
+            if (evoNum != 0) {
             if (i <= evoNum) 
             {
                 g_images[i].color = new Color32(255,255,255,255);
@@ -56,6 +57,7 @@ public class StaerScript : MonoBehaviour
             else 
             {
                 g_images[i].color = new Color32(60, 60 , 60, 255);
+            }
             }
         }
     }
