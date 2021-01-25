@@ -60,7 +60,7 @@ public class ButtonSelect : MonoBehaviour
         g_stage_image_Script = GameObject.Find("Stage_Image").GetComponent<Stage_Image>();
         //ボタンの幅を取得
         g_move_g_var = g_spwern_script.g_button_y_pos;
-       
+
         //横の数を取得
         g_side_stage_count = g_json_script.g_stage_side;
       
@@ -96,6 +96,7 @@ public class ButtonSelect : MonoBehaviour
     void Update()
     {
         if (g_oneflag == false) {
+        g_stageInformationScript.Change_StageNum(g_var_pointer, g_side_pointer);
 
             ButtonBig();
             g_oneflag = true;
