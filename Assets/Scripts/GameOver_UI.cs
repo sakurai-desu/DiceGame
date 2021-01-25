@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -74,7 +72,6 @@ public class GameOver_UI : MonoBehaviour {
     /// </summary>
     private void ChangeSelect() {
         g_gameover_UI[g_select_pointer].GetComponent<Text>().color = g_select_color;
-
     }
     /// <summary>
     /// 選択中ではなくなったテキストの色を変更する
