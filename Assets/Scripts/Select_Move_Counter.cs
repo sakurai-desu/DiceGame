@@ -25,7 +25,9 @@ public class Select_Move_Counter : MonoBehaviour {
     /// 呼び出すテキストの名前
     /// </summary>
     private string g_json_name = "";
-
+    /// <summary>
+    /// Jsonの名前を格納する配列
+    /// </summary>
     private string[] g_json_names;
     [SerializeField]
     private int[] g_stage_move_counts = new int[0];
@@ -49,6 +51,8 @@ public class Select_Move_Counter : MonoBehaviour {
             //Jsonの中の手数を配列に保持
             g_stage_move_counts[i] = g_inputJson.g_trouble;
         }
+        //テキスト変更する
+        g_trouble_text.text = g_stage_move_counts[0].ToString("D2");
     }
 
     /// <summary>

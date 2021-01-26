@@ -9,6 +9,7 @@ public class ButtonSelect : MonoBehaviour
     JsonArray g_json_script;
     private StageInformation g_stageInformationScript = null;
     private Stage_Image g_stage_image_Script;
+    private Select_Move_Counter g_move_counter_Script;
 
     /// <summary>
     /// 配列を検索するポインター
@@ -71,6 +72,7 @@ public class ButtonSelect : MonoBehaviour
         g_se_source_Script = GameObject.Find("SEList").GetComponent<Se_Source>();
         g_spwern_script = GetComponent<SpwernButton>();
         g_stage_image_Script = GameObject.Find("Stage_Image").GetComponent<Stage_Image>();
+        g_move_counter_Script = GameObject.Find("Stage_Move_Counter").GetComponent<Select_Move_Counter>();
         //ボタンの幅を取得
         g_move_g_var = g_spwern_script.g_button_y_pos;
 
@@ -152,6 +154,7 @@ public class ButtonSelect : MonoBehaviour
             g_stick_flag = true;
             g_se_source_Script.Se_Play(2);
             g_stage_image_Script.Stage_Sprite_Change(g_var_pointer, g_side_pointer);
+            g_move_counter_Script.Move_Count_Text_Change(g_var_pointer, g_side_pointer);
             g_stageInformationScript.Change_StageNum(g_var_pointer, g_side_pointer);
             //Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
         }
@@ -187,6 +190,7 @@ public class ButtonSelect : MonoBehaviour
             g_stick_flag = true;
             g_se_source_Script.Se_Play(2);
             g_stage_image_Script.Stage_Sprite_Change(g_var_pointer, g_side_pointer);
+            g_move_counter_Script.Move_Count_Text_Change(g_var_pointer, g_side_pointer);
             g_stageInformationScript.Change_StageNum(g_var_pointer, g_side_pointer);
             //Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
         }
@@ -221,6 +225,7 @@ public class ButtonSelect : MonoBehaviour
             }
             g_se_source_Script.Se_Play(2);
             g_stage_image_Script.Stage_Sprite_Change(g_var_pointer, g_side_pointer);
+            g_move_counter_Script.Move_Count_Text_Change(g_var_pointer, g_side_pointer);
             g_stageInformationScript.Change_StageNum(g_var_pointer, g_side_pointer);
         }
         if (Input.GetKeyDown(KeyCode.S)||(Input.GetAxisRaw("Vertical") < -g_controller_time && g_stick_flag == false)) {
@@ -246,7 +251,7 @@ public class ButtonSelect : MonoBehaviour
             }
             g_se_source_Script.Se_Play(2);
             g_stage_image_Script.Stage_Sprite_Change(g_var_pointer, g_side_pointer);
-
+            g_move_counter_Script.Move_Count_Text_Change(g_var_pointer, g_side_pointer);
             g_stageInformationScript.Change_StageNum(g_var_pointer, g_side_pointer);
             //Debug.Log(g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer]);
         }
