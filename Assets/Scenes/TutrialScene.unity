@@ -2993,13 +2993,19 @@ MonoBehaviour:
   g_goal_Prefab: {fileID: 8228770091370613375, guid: 57e75bd51e6897347a3748d09a23ebdd,
     type: 3}
   g_all_dices:
-  - {fileID: 6848938628480217477, guid: 7c96eaf895c18b24b9d189713eac69a4, type: 3}
-  - {fileID: 6467910897625375284, guid: 63d7fa5426c56ed4996911e54da27f9d, type: 3}
-  - {fileID: 1251977319459169648, guid: e920a9433753c1c41a66421429622307, type: 3}
-  - {fileID: 5037379002214886113, guid: c57568c41b1e5584ab664fd858367519, type: 3}
-  - {fileID: 7338960867939043883, guid: 73dd5ef9e319fa84396c1425120ed413, type: 3}
-  - {fileID: 5798241902058706344, guid: 333ae2eb7d2d5dd4c97637a8683b6f0f, type: 3}
-  g_dice_sprite_array: []
+  - {fileID: 4356000869399113105, guid: 7c96eaf895c18b24b9d189713eac69a4, type: 3}
+  - {fileID: 2690651178779008648, guid: 072f0fd43807c1d4abd9198a5ff0e3f7, type: 3}
+  - {fileID: 5658605070475726635, guid: e920a9433753c1c41a66421429622307, type: 3}
+  - {fileID: 2957940537961824289, guid: c57568c41b1e5584ab664fd858367519, type: 3}
+  - {fileID: 8314077520562065687, guid: 73dd5ef9e319fa84396c1425120ed413, type: 3}
+  - {fileID: 7847085657984900574, guid: 333ae2eb7d2d5dd4c97637a8683b6f0f, type: 3}
+  g_dice_sprite_array:
+  - {fileID: 2100000, guid: 59196ca2e2403fb4eb90cbb53d9474f2, type: 2}
+  - {fileID: 2100000, guid: 37e15376b60ee5747b48164e6edf6d07, type: 2}
+  - {fileID: 2100000, guid: 9a19751ee304de64c9383f0e7bc4b9a2, type: 2}
+  - {fileID: 2100000, guid: bd23c56bcbd78af4a888e4812422257f, type: 2}
+  - {fileID: 2100000, guid: bf9d2bcbe826b3f46b8839bdd5ae7666, type: 2}
+  - {fileID: 2100000, guid: e128a43f8c624b642a512caadb75ff10, type: 2}
 --- !u!4 &1225863107
 Transform:
   m_ObjectHideFlags: 0

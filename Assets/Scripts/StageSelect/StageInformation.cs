@@ -57,7 +57,7 @@ public class StageInformation : MonoBehaviour
         } else {
           stageSideNum++;
         }
-          g_arrayPointerNum = stageSideNum;
+            g_arrayPointerNum = stageSideNum;
         //ステージを選択するシーンの時
         if (SceneManager.GetActiveScene().name == "SelectScene") {
             g_staerScript = GameObject.Find("SterParentObject").GetComponent<StaerScript>();
