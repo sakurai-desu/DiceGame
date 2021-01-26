@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TroubleScr : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class TroubleScr : MonoBehaviour
     /// 手数
     /// </summary>
     public int g_troublenum = 10;
+    /// <summary>
+    /// チュートリアルがあるシーンの名前
+    /// </summary>
+    private string g_tutoName = "TutrialScene";
     [SerializeField]
     private GameObject g_gameover_UI;
 
@@ -32,8 +37,10 @@ public class TroubleScr : MonoBehaviour
     /// 手数をいじる
     /// </summary>
     public void Trouble() {
+        if (SceneManager.GetActiveScene().name != g_tutoName) {
         g_troublenum--;
         g_troublenumtext.text = g_troublenum.ToString();
+       
         if (g_troublenum <= 0) {
             Debug.Log("ゲームオーバー");
             g_xbox_con_Script = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerXbox>();
@@ -43,6 +50,7 @@ public class TroubleScr : MonoBehaviour
 
             g_gameover_UI.SetActive(true);
             return;
+        }
         }
     }
 
