@@ -9,6 +9,10 @@ public class PlayerXbox : MonoBehaviour
     private Player_Move g_player_move_Script;
     private Undo_Script g_undo_Script;
 
+    /// <summary>
+    /// xボタンが押されているときのフラグ
+    /// </summary>
+    bool g_xPushFlag = false;
     bool g_axis_flag;
     /// <summary>
     /// カメラの向き
@@ -78,6 +82,13 @@ public class PlayerXbox : MonoBehaviour
             if (Input.GetButtonUp("Y") && g_y_push_flag) {
                 g_y_push_flag = false;
             }
+
+            if (Input.GetButtonDown("X")) {
+                ChangeXFlag();
+            }
+            if (Input.GetButtonUp("X") && g_xPushFlag) {
+                ChangeXFlag();
+            }
             //配列hの上限に達してない時移動(上)
             if (Input.GetKeyDown(KeyCode.W) || (Input.GetAxisRaw("Vertical") > g_controller_Move && g_axis_flag == false)) {
                 g_player_move_Script.PlayerMove(g_camera_para[0]);
@@ -115,7 +126,16 @@ public class PlayerXbox : MonoBehaviour
     public bool Get_Axis_Flag() {
         return g_axis_flag;
     }
-
+    /// <summary>
+    /// フラグを変更させる
+    /// </summary>
+    private void ChangeXFlag() {
+        if (g_xPushFlag) {
+            g_xPushFlag = false;
+        } else {
+            g_xPushFlag = true;
+        }
+    }
 
     /// <summary>
     /// カメラの向きを示す数値を変更する
