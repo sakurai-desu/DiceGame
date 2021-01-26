@@ -440,7 +440,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &349212712
 RectTransform:
   m_ObjectHideFlags: 0
@@ -956,6 +956,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 950202907}
+  - component: {fileID: 950202908}
   m_Layer: 5
   m_Name: HighScoreData
   m_TagString: Untagged
@@ -985,6 +986,19 @@ RectTransform:
   m_AnchoredPosition: {x: -328, y: -40}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &950202908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950202906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1660e013675b3814984e9d4c2d43635c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  g_highScoreText: {fileID: 0}
 --- !u!1 &975124451
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,7 +1011,7 @@ GameObject:
   - component: {fileID: 975124454}
   - component: {fileID: 975124453}
   m_Layer: 5
-  m_Name: move_para
+  m_Name: high_move_para
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
