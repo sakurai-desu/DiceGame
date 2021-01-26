@@ -10,34 +10,47 @@ public class ButtonSelect : MonoBehaviour
     private StageInformation g_stageInformationScript = null;
     private Stage_Image g_stage_image_Script;
 
-    //配列を検索するポインター
+    /// <summary>
+    /// 配列を検索するポインター
+    /// </summary>
     public int g_var_pointer;
-    //最後のページの縦の数
+    public int g_side_pointer;
+    /// <summary>
+    /// 最後のページの縦の数
+    /// </summary>
     [SerializeField]
     private int g_var_remainder;
-
-    public int g_side_pointer;
-
-    [SerializeField]
-    private int g_var_minicheck_pointer;
-
-    //生成するステージ数を取得
+    /// <summary>
+    /// 生成するステージ数を取得
+    /// </summary>
     private int g_max_stageelement;
-    //1ページの縦の数を取得する変数
+    /// <summary>
+    /// 1ページの縦の数を取得する変数
+    /// </summary>
     [SerializeField]
     private int g_page_var_count;
-    //1ページのステージの数を取得する変数
+    /// <summary>
+    /// 1ページのステージの数を取得する変数
+    /// </summary>
     [SerializeField]
     private int g_stage_page_count;
-    //ステージの横の数を取得
+    /// <summary>
+    /// ステージの横の数を取得
+    /// </summary>
     public int g_side_stage_count;
-    //最後のページ中のステージが何個あるか
+    /// <summary>
+    /// 最後のページ中のステージが何個あるか
+    /// </summary>
     [SerializeField]
     private int g_stage_remainder;
-    //移動先が画面外にでるかの比較用
+    /// <summary>
+    /// g_page_turnover
+    /// </summary>
     [SerializeField]
     private int g_page_turnover = 1;
-    //ページをめくる数
+    /// <summary>
+    /// ページをめくる数
+    /// </summary>
     [SerializeField]
     private float g_move_g_var;
 
@@ -300,13 +313,5 @@ public class ButtonSelect : MonoBehaviour
         g_buttonSize = g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer].GetComponent<ButtonSizeChange>();
         g_buttonSize.OriginButton();
     }
-    //private void NullButtonBig() {
-    //    g_buttonSize = g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer].GetComponent<ButtonSizeChange>();
-
-    //    g_buttonSize.BigButton();
-    //}
-    //private void NullButtonOrigin() {
-    //    g_buttonSize = g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer].GetComponent<ButtonSizeChange>();
-    //    g_buttonSize.OriginButton();
-    //}
+   
 }
