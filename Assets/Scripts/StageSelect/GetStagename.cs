@@ -31,6 +31,10 @@ public class GetStagename : MonoBehaviour
         g_fade_Script.Start_Fade_Out(Move_MainScene());
     }
 
+    private void Move_Title() {
+        g_fade_Script.Start_Fade_Out(Move_TitleScene());
+    }
+
     private IEnumerator Move_MainScene() {
         g_info_Script.Change_StageName(g_get_stagename);
         SceneManager.LoadScene("MainScene");
@@ -42,7 +46,4 @@ public class GetStagename : MonoBehaviour
         yield break;
     }
 
-    private void Move_Title() {
-        g_fade_Script.Start_Fade_Out(Move_TitleScene());
-    }
 }

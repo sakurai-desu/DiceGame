@@ -20,7 +20,7 @@ public class Fade_In_Out : MonoBehaviour
     /// <summary>
     /// 色を変更してから次に変更するまでの待ち時間
     /// </summary>
-    private float g_wait_time=0.002f;
+    private float g_wait_time=0.01f;
     
     private void Start()
     {
@@ -54,7 +54,7 @@ public class Fade_In_Out : MonoBehaviour
             //色変更
             g_fade_image.color = new Color(0, 0, 0, _fade_plus);
             //少しづつ黒く
-            _fade_plus += 0.025f;
+            _fade_plus += 0.06f;
             //一定時間待つ
             yield return new WaitForSeconds(g_wait_time);
         }
@@ -91,7 +91,7 @@ public class Fade_In_Out : MonoBehaviour
             //色変更
             g_fade_image.color = new Color(0, 0, 0, _fade_plus);
             //少しづつ透明に
-            _fade_plus -= 0.02f;
+            _fade_plus -= 0.06f;
             //一定時間待つ
             yield return new WaitForSeconds(g_wait_time);
         }
@@ -112,7 +112,7 @@ public class Fade_In_Out : MonoBehaviour
             //色変更
             g_fade_image.color = new Color(0, 0, 0, _fade_plus);
             //少しづつ透明に
-            _fade_plus -= 0.02f;
+            _fade_plus -= 0.06f;
             //一定時間待つ
             yield return new WaitForSeconds(g_wait_time);
         }
