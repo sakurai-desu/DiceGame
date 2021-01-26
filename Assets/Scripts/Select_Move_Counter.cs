@@ -63,12 +63,12 @@ public class Select_Move_Counter : MonoBehaviour {
     public void Move_Count_Text_Change(int _ver, int _side) {
         //選択したステージが一段目の時
         if (_ver > 0) {
-            _side = (_ver * 4) + _side;
-        }
+            _side = (_ver * 4) + _side + 1;
+        } 
         else {
             _side++;
         }
-        int _pointer = _side;
+        int _pointer = _side - 1;
         //テキスト変更する
         g_trouble_text.text = g_stage_move_counts[_pointer].ToString("D2");
     }
