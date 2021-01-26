@@ -6,6 +6,7 @@ public class Stage_Obj_Pool : MonoBehaviour {
     private Game_Controller g_game_Con_Script;
     private Dice_Create g_dice_create_Script;
     private Playercontroller g_player_sporn;
+    private HintScript g_hintScript;
 
     //ブロックを入れるためのオブジェクト
     private GameObject g_block_Obj;
@@ -69,6 +70,7 @@ public class Stage_Obj_Pool : MonoBehaviour {
     void Start() {
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         g_player_sporn = GameObject.Find("Player_Controller").GetComponent<Playercontroller>();
+        g_hintScript = GameObject.Find("Stageinformation").GetComponent<HintScript>();
         g_dice_create_Script = this.GetComponent<Dice_Create>();
     }
 
@@ -160,6 +162,7 @@ public class Stage_Obj_Pool : MonoBehaviour {
             g_block_Obj.GetComponent<Dice_Squares>().Storage_Squares(json_dices);
             //生成時のマス目になるようにダイスを回転させる
             g_dice_create_Script.Start_Squares_Change(g_block_Obj, json_dices);
+            if (g_hintScript.GetHint()) {
             switch (type) {
                 case g_yellow_dice_para:
                     g_block_Obj.GetComponent<Renderer>().material=g_dice_sprite_array[0];
@@ -179,6 +182,8 @@ public class Stage_Obj_Pool : MonoBehaviour {
                 case g_green_yellow_dice_para:
                     g_block_Obj.GetComponent<Renderer>().material = g_dice_sprite_array[5];
                     break;
+            }
+
             }
             type = 100;
         }
