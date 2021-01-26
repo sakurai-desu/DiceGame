@@ -12,9 +12,12 @@ public class ButtonSelect : MonoBehaviour
     private Select_Move_Counter g_move_counter_Script;
 
     /// <summary>
-    /// 配列を検索するポインター
+    /// 縦の配列を検索するポインター
     /// </summary>
     public int g_var_pointer;
+    /// <summary>
+    /// 横の配列を検索するポインター
+    /// </summary>
     public int g_side_pointer;
     /// <summary>
     /// 最後のページの縦の数
@@ -85,6 +88,7 @@ public class ButtonSelect : MonoBehaviour
         g_max_stageelement = g_json_script.g_stage_array_num;
         //1ページのステージの数を計算
         g_stage_page_count = g_side_stage_count * (g_page_var_count -1);
+        //全部のページが埋まってた場合
         if (g_max_stageelement % g_stage_page_count == 0) {
             g_var_remainder = g_page_var_count -1;
         } else {
@@ -100,7 +104,7 @@ public class ButtonSelect : MonoBehaviour
                 Debug.Log(g_var_remainder);
 
             } else {
-                g_var_remainder = g_stage_remainder;
+                g_var_remainder = g_stage_remainder + 1;
                 Debug.Log(g_var_remainder);
             }
         }
@@ -126,7 +130,7 @@ public class ButtonSelect : MonoBehaviour
                 g_side_pointer = g_spwern_script.g_side_num - 1;
                 g_page_turnover -= 1;
 
-                if (g_page_turnover == 0) {
+                if (g_page_turnover % g_page_var_count == 0) {
                     this.transform.localPosition -= new Vector3(0, g_move_g_var * 20, 0);
                     g_page_turnover = g_page_var_count;
                     g_page_turnover -= 1;
@@ -142,9 +146,10 @@ public class ButtonSelect : MonoBehaviour
                 }
                 //あまりがあったとき
                 else {
+                    Debug.Log("あまり");
                     g_var_pointer = g_spwern_script.g_varmax_num - 1;
                     g_side_pointer = g_spwern_script.g_remainder_num - 1;
-                    g_page_turnover = g_var_remainder + 1;
+                    g_page_turnover = g_var_remainder;
                 }
                 //最後のページの縦の数を計算して取得
             } else {
@@ -203,9 +208,9 @@ public class ButtonSelect : MonoBehaviour
 
                 //一番下があまりの部分かそうじゃないか
                 if (g_var_pointer == g_spwern_script.g_varmax_num - 1) {
-                    g_page_turnover = g_var_remainder + 1;
-                } else if (g_var_pointer != g_spwern_script.g_varmax_num - 1) {
                     g_page_turnover = g_var_remainder;
+                } else if (g_var_pointer != g_spwern_script.g_varmax_num - 1) {
+                    g_page_turnover = g_var_remainder - 1;
                 }
 
             } else {
