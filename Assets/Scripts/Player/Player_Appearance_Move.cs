@@ -52,7 +52,7 @@ public class Player_Appearance_Move : MonoBehaviour {
     /// <summary>
     /// 増えた評価の数
     /// </summary>
-    private const int g_max_trouble_num=10;
+    private const int g_max_trouble_num=5;
     Stage_Clear g_clear_Script;
     void Start() {
         g_trouble_Script = GameObject.Find("TroubleObj").GetComponent<TroubleScr>();
