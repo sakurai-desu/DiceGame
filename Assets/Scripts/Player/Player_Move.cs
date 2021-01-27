@@ -126,11 +126,11 @@ public class Player_Move : MonoBehaviour {
                 g_auto_move_timer = g_zero_Count;
             }
         }
-        //ボタンから指を離したとき
-        if (!g_xbox_Script.Get_Axis_Flag()) {
-            //自動移動状態を解除する
-            g_player_auto_move = false;
-        }
+        ////ボタンから指を離したとき
+        //if (!g_xbox_Script.Get_Axis_Flag()) {
+        //    //自動移動状態を解除する
+        //    g_player_auto_move = false;
+        //}
         //if (!g_playerDirectXbox_Script.Get_Direct_Axis_Flag()) {
         //    //自動移動状態を解除する
         //    g_player_auto_move = false;
@@ -143,6 +143,14 @@ public class Player_Move : MonoBehaviour {
     public void Change_Move_Flag() {
         g_player_move = true;
     }
+
+    /// <summary>
+    /// 連続移動フラグをOFFにする
+    /// </summary>
+    public void Auto_Move_Flag_False() {
+        g_player_auto_move = false;
+    }
+
 
     /// <summary>
     /// 指定したパラメータと位置に応じてプレイヤーを移動させる

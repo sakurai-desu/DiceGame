@@ -111,6 +111,7 @@ public class PlayerXbox : MonoBehaviour
             }
             //スティックが戻されたとき
             if (Input.GetAxisRaw("Vertical") > -g_limit_num && Input.GetAxisRaw("Vertical") < g_limit_num && Input.GetAxisRaw("Horizontal") < g_limit_num && Input.GetAxisRaw("Horizontal") > -g_limit_num) {
+                g_player_move_Script.Auto_Move_Flag_False();
                 g_axis_flag = false;
             }
 
