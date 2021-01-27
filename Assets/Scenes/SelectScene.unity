@@ -270,9 +270,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   g_var_pointer: 0
-  g_var_remainder: 0
   g_side_pointer: 0
-  g_var_minicheck_pointer: 0
+  g_var_remainder: 0
   g_page_var_count: 0
   g_stage_page_count: 0
   g_side_stage_count: 0
