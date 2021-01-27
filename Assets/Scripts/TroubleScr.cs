@@ -22,11 +22,14 @@ public class TroubleScr : MonoBehaviour
     Text g_troublenumtext;
 
     public int g_max_trouble;
+
+    private GameObject g_bgmObj;
     void Start()
     {
         g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Date>();
         g_menu_Script = GameObject.Find("StartChackObj").GetComponent<PushStartScri>();
         g_camera_move_Script = GameObject.Find("MainCamera").GetComponent<MainCamera_Move>();
+        g_bgmObj = GameObject.Find("BGM_Source");
         g_troublenumtext = GetComponent<Text>();
         g_troublenum = g_json_Script.g_inputJson.g_trouble;
         g_troublenumtext.text = g_troublenum.ToString();
@@ -43,6 +46,7 @@ public class TroubleScr : MonoBehaviour
        
         if (g_troublenum <= 0) {
             Debug.Log("ゲームオーバー");
+                g_bgmObj.SetActive(false);
             g_xbox_con_Script = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerXbox>();
             g_xbox_con_Script.enabled = false;
             g_menu_Script.enabled = false;

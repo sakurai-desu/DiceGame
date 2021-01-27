@@ -54,6 +54,7 @@ public class Player_Appearance_Move : MonoBehaviour {
     /// </summary>
     private const int g_max_trouble_num=5;
     Stage_Clear g_clear_Script;
+   
     void Start() {
         g_trouble_Script = GameObject.Find("TroubleObj").GetComponent<TroubleScr>();
         g_result_Script = GameObject.Find("Stageinformation").GetComponent<ResultScript>();
