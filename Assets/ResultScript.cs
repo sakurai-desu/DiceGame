@@ -26,13 +26,13 @@ public class ResultScript : MonoBehaviour {
     /// <param name="row_eva">一番低い評価の手数</param>
     public void Trouble_Eva(int trouble,float max_eva,float mid_eva,float row_eva) {
         g_troubleRemainingNum = trouble;
-        if (trouble > max_eva) {
+        if (trouble >= max_eva) {
             Debug.Log("評価"+3);
             g_troubleNum = 3;
-        } else if (max_eva>trouble&&trouble > mid_eva) {
+        } else if (trouble > mid_eva) {
             Debug.Log("評価" + 2);
             g_troubleNum = 2;
-        } else if (mid_eva>trouble) {
+        } else{
             Debug.Log("評価" + 1);
             g_troubleNum = 1;
         }

@@ -53,11 +53,13 @@ public class StageInformation : MonoBehaviour
     public void Change_StageNum(int stageVerNum, int stageSideNum) {
         //選択したステージが一段目の時
         if (stageVerNum > 0) {
-                stageSideNum = (stageVerNum*g_sideNum)+stageSideNum+1;
+            stageSideNum = (stageVerNum * g_sideNum) + stageSideNum + 1;
+        } else if (stageSideNum > 0) {
+            stageSideNum++;
         } else {
-          stageSideNum++;
+            g_arrayPointerNum=0;
         }
-          g_arrayPointerNum = stageSideNum;
+            g_arrayPointerNum = stageSideNum;
         //ステージを選択するシーンの時
         if (SceneManager.GetActiveScene().name == "SelectScene") {
             g_staerScript = GameObject.Find("SterParentObject").GetComponent<StaerScript>();

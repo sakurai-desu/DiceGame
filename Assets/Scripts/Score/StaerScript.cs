@@ -56,7 +56,7 @@ public class StaerScript : MonoBehaviour
                 } else {
                     g_images[i].color = new Color32(60, 60, 60, 255);
                 }
-                Debug.Log(evoNum);
+                //Debug.Log(evoNum);
             }
             //評価がゼロの時
             else {
