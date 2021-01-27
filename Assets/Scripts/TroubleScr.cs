@@ -17,7 +17,7 @@ public class TroubleScr : MonoBehaviour
     /// </summary>
     private string g_tutoName = "TutrialScene";
     [SerializeField]
-    private GameObject g_gameover_UI;
+    private GameObject g_gameover_UI=null;
 
     Text g_troublenumtext;
 

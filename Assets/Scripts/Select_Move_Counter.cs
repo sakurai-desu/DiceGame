@@ -8,7 +8,7 @@ using System.IO;
 
 public class Select_Move_Counter : MonoBehaviour {
     [SerializeField]
-    private TextMeshProUGUI g_trouble_text;
+    private TextMeshProUGUI g_trouble_text=null;
 
     private JsonArray g_json_Script;
 

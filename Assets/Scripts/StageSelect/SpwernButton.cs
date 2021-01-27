@@ -9,38 +9,38 @@ public class SpwernButton : MonoBehaviour
    
     //1ぺージの最大の数(縦)
     [SerializeField]
-   public int g_var_size;
+   public int g_var_size=0;
     //配置するステージ選択のオブジェクト
     [SerializeField]
-    GameObject g_button_obj;
+    GameObject g_button_obj=null;
 
     //json関連の配列を使うスクリプト
     private JsonArray g_array_Script;
 
     //ボタンを乱したりするのに使う数値
     [SerializeField]
-    public int g_button_sprewn_num;
+    public int g_button_sprewn_num=0;
 
     //ボタンをしまう配列
-    public GameObject[,] g_json_button_array;
+    public GameObject[,] g_json_button_array=null;
     
     //ステージ名を格納する配列
-    public string[,] g_json_stage_array;
+    public string[,] g_json_stage_array=null;
 
     public int g_var_calc = 1;
 
     //ボタン縦の最大値
-    public int g_varmax_num;
+    public int g_varmax_num=0;
 
     //ボタン縦の値
     [SerializeField]
-   public int g_var_num;
+   public int g_var_num=0;
 
     //ボタン横の値
-    public int g_side_num;
+    public int g_side_num=0;
 
     //ボタンあまりの値
-    public int g_remainder_num;
+    public int g_remainder_num=0;
 
     //整列するときの縦の数値
     [SerializeField]
@@ -50,14 +50,14 @@ public class SpwernButton : MonoBehaviour
     [SerializeField]
     public int g_var_set_num = 130;
 
-    int g_side_reset;
+    int g_side_reset=0;
 
     //縦の距離を話すために使う数値
     [SerializeField]
-   public int g_var_gap_num;
+   public int g_var_gap_num=0;
 
     //何回も繰り返さないようにするためのもの
-    bool g_var_flag;
+    bool g_var_flag=false;
     //ボタンに入ってるテキスト
     TextMeshProUGUI g_button_text;
 

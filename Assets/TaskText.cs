@@ -9,7 +9,7 @@ public class TaskText : MonoBehaviour
     TextMeshProUGUI g_task;
 
     [SerializeField]
-    string[] g_task_array;
+    string[] g_task_array=default;
 
     StageInformation g_stage_info;
     // Start is called before the first frame update

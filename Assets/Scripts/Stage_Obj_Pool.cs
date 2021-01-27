@@ -9,25 +9,25 @@ public class Stage_Obj_Pool : MonoBehaviour {
     private HintScript g_hintScript;
 
     //ブロックを入れるためのオブジェクト
-    private GameObject g_block_Obj;
+    private GameObject g_block_Obj=null;
 
     [SerializeField]
-    private GameObject g_parent_Prefab;
+    private GameObject g_parent_Prefab=null;
 
     [SerializeField]
-    private GameObject g_null_Prefab;
+    private GameObject g_null_Prefab=null;
     [SerializeField]
-    private GameObject g_dice_Prefab;
+    private GameObject g_dice_Prefab = null;
     [SerializeField]
-    private GameObject g_floor_Prefab;
+    private GameObject g_floor_Prefab=null;
     [SerializeField]
-    private GameObject g_ground_Prefab_2;
+    private GameObject g_ground_Prefab_2=null;
     [SerializeField]
-    private GameObject g_start_Prefab;
+    private GameObject g_start_Prefab=null;
     [SerializeField]
-    private GameObject g_goal_Prefab;
+    private GameObject g_goal_Prefab=null;
     [SerializeField]
-    private GameObject[] g_all_dices;
+    private GameObject[] g_all_dices=null;
     [SerializeField]
     private Material[] g_dice_sprite_array = null;
 

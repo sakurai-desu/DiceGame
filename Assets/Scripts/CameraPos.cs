@@ -8,7 +8,7 @@ public class CameraPos : MonoBehaviour {
 
     //自分がどのカメラかどうかを判断する数値
     [SerializeField]
-    private int g_camera_num;
+    private int g_camera_num=0;
 
     //横の幅
     [SerializeField]

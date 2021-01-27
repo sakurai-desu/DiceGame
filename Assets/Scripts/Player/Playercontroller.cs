@@ -8,14 +8,13 @@ public class Playercontroller : MonoBehaviour {
 
     //生成するプレイヤーオブジェクト
     [SerializeField]
-    private GameObject g_player;   
+    private GameObject g_player=null;   
     Game_Controller g_arryscript;
     //プレイヤー生成位置
-    public int g_player_pointer_ver;
-    public int g_player_pointer_high;
-    public int g_player_pointer_side;
+    public int g_player_pointer_ver=0;
+    public int g_player_pointer_high=0;
+    public int g_player_pointer_side=0;
 
-    bool g_arrayflag = false;
     //player位置
     Vector3 g_sponplayer;
     /// <summary>
@@ -26,9 +25,6 @@ public class Playercontroller : MonoBehaviour {
     void Start() {
         g_arraystats = GameObject.Find("Game_Controller");
         g_arryscript = g_arraystats.GetComponent<Game_Controller>();
-
-        //配列を一度だけ読み込み用フラグ
-        g_arrayflag = true;
     }
 
     private void Update() {

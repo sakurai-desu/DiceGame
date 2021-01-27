@@ -8,8 +8,7 @@ public class Player_Animation : MonoBehaviour
     private Player_Appearance_Move g_move_Script;
     private Animator g_player_Anim;
     [SerializeField]
-    private GameObject g_player_obj;
-    private bool g_play_flag = false;
+    private GameObject g_player_obj=null;
     [SerializeField]
     AnimationClip g_move_anim;
     [SerializeField]

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Particle_Source : MonoBehaviour {
     [SerializeField]
-    private GameObject g_docking_particle;
+    private GameObject g_docking_particle = null;
 
     /// <summary>
     /// 回転の中心
@@ -14,10 +14,6 @@ public class Particle_Source : MonoBehaviour {
     /// 回転の軸
     /// </summary>
     private Vector3 g_rotate_Axis = Vector3.zero;
-    /// <summary>
-    /// サイコロの回転させる角度
-    /// </summary>
-    private float g_rotation_Amount = -90;
     /// <summary>
     /// サイコロのサイズ
     /// </summary>

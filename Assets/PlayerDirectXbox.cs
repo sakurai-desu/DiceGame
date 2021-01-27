@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerDirectXbox : MonoBehaviour {
     CameraPote g_camera_rotate;
-    Playermove g_player_move;
     private Player_Move g_player_move_Script;
     private Undo_Script g_undo_Script;
 

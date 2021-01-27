@@ -18,7 +18,7 @@ public class Stage_Clear : MonoBehaviour
 
     //クリア時のUI
     [SerializeField]
-    GameObject g_clear_UI;
+    GameObject g_clear_UI=null;
 
     void Start()
     {

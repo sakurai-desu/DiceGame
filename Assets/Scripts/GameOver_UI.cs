@@ -6,17 +6,17 @@ using UnityEngine.SceneManagement;
 public class GameOver_UI : MonoBehaviour {
     private Fade_In_Out g_fade_Script;
     [SerializeField]
-    private GameObject[] g_gameover_UI;
+    private GameObject[] g_gameover_UI=null;
     /// <summary>
     /// 選択中のポインタ
     /// </summary>
     private int g_select_pointer = 0;
     [SerializeField]
-    private Color g_default_color;
+    private Color g_default_color=default;
     [SerializeField]
-    private Color g_select_color;
+    private Color g_select_color=default;
 
-    private bool g_horizontal_flag;
+    private bool g_horizontal_flag=false;
 
     void Start() {
         g_fade_Script = GameObject.Find("Fade_Image").GetComponent<Fade_In_Out>();

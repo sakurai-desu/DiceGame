@@ -9,11 +9,11 @@ public class ButtonSizeChange : MonoBehaviour
     RectTransform g_transform_button;
 
     //画像データ
-    Image g_mySprite;
+    Image g_mySprite=null;
     [SerializeField]
-    Sprite g_unenableImage;
+    Sprite g_unenableImage=null;
     [SerializeField]
-    Sprite g_enableImage;
+    Sprite g_enableImage=null;
 
     [SerializeField]
     float g_ori_x= 1f;
@@ -31,7 +31,7 @@ public class ButtonSizeChange : MonoBehaviour
         
         g_transform_button.localScale = new Vector3(g_ori_x, g_ori_y, 0.1f);
     }
-    private float g_changenum = 1.2f;
+
     /// <summary>
     /// 自信を大きくするメソッド
     /// </summary>
