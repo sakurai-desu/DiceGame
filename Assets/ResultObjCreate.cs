@@ -19,6 +19,7 @@ public class ResultObjCreate : MonoBehaviour
     private void Start()
     {
         g_resultScript = GameObject.Find("Stageinformation").GetComponent<ResultScript>();
+        GameObject.Find("Fade_Image").GetComponent<Fade_In_Out>().GameStart_Fade_In();
         CreateObj();
     }
 

@@ -77,14 +77,6 @@ public class Dice_Squares : MonoBehaviour {
     /// 横のマイナス方向のパラメータ
     /// </summary>
     private const int g_side_minus_Para = 32;
-    /// <summary>
-    /// 対応した面がくっついているか調べるための配列
-    /// </summary>
-    private int[] g_check_surface = {0,0,0,0,0,0 };
-    /// <summary>
-    /// くっつき判別配列の一手前の状態を保持している配列
-    /// </summary>
-    private int[] g_undo_check_surface;
 
     void Start() {
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
@@ -224,15 +216,5 @@ public class Dice_Squares : MonoBehaviour {
     /// <returns></returns>
     public (int, int, int) Get_Dice_Pointer() {
         return (g_this_Ver, g_this_Side, g_this_High);
-    }
-
-    public void Storage_Check_Surface(int[] storage_surface) {
-        //一手前を保持
-        g_undo_check_surface = g_check_surface;
-        //くっついている面を更新
-        g_check_surface = storage_surface;
-    }
-    public int[] Get_Check_Surface() {
-        return g_check_surface;
     }
 }
