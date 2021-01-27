@@ -121,7 +121,7 @@ public class PlayerDirectXbox : MonoBehaviour {
         g_timer = g_start_timer;
     }
 
-    public bool Get_Axis_Flag() {
+    public bool Get_Direct_Axis_Flag() {
         return g_axis_flag;
     }
     /// <summary>
