@@ -140,7 +140,7 @@ public class SpwernButton : MonoBehaviour
         g_button_text = g_button.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         g_button_text.text = stage_str.ToString();
         //親になる
-        g_button.transform.parent = gameObject.transform;
+        g_button.transform.SetParent(this.transform);
         RectTransform g_button_transform = g_button.GetComponent<RectTransform>();
         if (i < g_var_size) {
             g_button_transform.localPosition = new Vector3(g_button_y_pos + j * g_side_set_num, g_button_x_pos + i * -g_var_set_num, 0);
