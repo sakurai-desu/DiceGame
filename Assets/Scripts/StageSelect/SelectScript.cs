@@ -10,19 +10,27 @@ public class SelectScript : MonoBehaviour
     string g_select_name;
 
     Image g_button;
-    // Start is called before the first frame update
+
+    private Fade_In_Out g_fade_Script;
+    private ButtonArray g_button_array_Script;
+
     void Start()
     {
+        g_fade_Script = GameObject.Find("Fade_Image").GetComponent<Fade_In_Out>();
+        g_button_array_Script = GameObject.Find("ButtonParent").GetComponent<ButtonArray>();
         g_button = GetComponent<Image>();   
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
+    
     public void OcClick() {
-        SceneManager.LoadScene(g_select_name);
+        g_button_array_Script.enabled = false;
+        g_fade_Script.Start_Fade_Out(Load_Scene());
     }
+
+    private IEnumerator Load_Scene() {
+        SceneManager.LoadScene(g_select_name);
+        yield break;
+    }
+
     public void SelectColor() {
         g_button.color = new Color32(255,180,0,255);
     }
