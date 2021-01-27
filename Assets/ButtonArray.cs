@@ -25,6 +25,7 @@ public class ButtonArray : MonoBehaviour
     void Start()
     {
         g_information_script = GameObject.Find("Stageinformation").GetComponent<StageInformation>();
+        GameObject.Find("Fade_Image").GetComponent<Fade_In_Out>().GameStart_Fade_In();
     }
 
     // Update is called once per frame

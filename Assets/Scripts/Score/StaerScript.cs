@@ -29,6 +29,7 @@ public class StaerScript : MonoBehaviour
     {
         g_scoreJsonScript = GameObject.Find("ScoreInformation").GetComponent<ScoreJsonScript>();
         g_stageInformationScript = GameObject.Find("Stageinformation").GetComponent<StageInformation>();
+        GameObject.Find("Fade_Image").GetComponent<Fade_In_Out>().GameStart_Fade_In();
     }
 
     /// <summary>

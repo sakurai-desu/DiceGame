@@ -22,15 +22,12 @@ public class Particle_Source : MonoBehaviour {
     /// サイコロのサイズ
     /// </summary>
     private float g_dice_Size;
-
-    void Start() {
-
-    }
-
-    void Update() {
-    }
+    private bool g_is_start = false;
 
     public void Docking_Particle_Play(GameObject docking_dice, int particle_pointer) {
+        if (!g_is_start) {
+            return;
+        }
         //回転の中心を初期化
         g_rotate_Point = Vector3.zero;
         //パーティクル生成
@@ -66,4 +63,10 @@ public class Particle_Source : MonoBehaviour {
         //パーティクルの生成位置変更
         docking_particle.transform.position = g_rotate_Point;
     }
+    
+    public IEnumerator Change_Start_Flag_(bool _flag) {
+        g_is_start = _flag;
+        yield break;
+    }
+
 }

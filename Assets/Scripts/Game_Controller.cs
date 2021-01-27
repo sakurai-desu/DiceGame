@@ -6,6 +6,8 @@ public class Game_Controller : MonoBehaviour
 {
     private Input_Date g_json_Script;
     private Stage_Obj_Pool g_pool_Script;
+    private Fade_In_Out g_fade_Script;
+    private Particle_Source g_particle_Script;
 
     /// <summary>
     /// 横：X軸のポジション
@@ -60,6 +62,11 @@ public class Game_Controller : MonoBehaviour
         g_blocksType_Array = new int[g_s_BlockCount, g_v_BlockCount, g_h_BlockCount];
 
         Pos_Array_Reset();
+
+        g_fade_Script = GameObject.Find("Fade_Image").GetComponent<Fade_In_Out>();
+        g_particle_Script = GameObject.Find("Particle_Source").GetComponent<Particle_Source>();
+        //フェードイン後にエフェクトを生成できるようにする
+        g_fade_Script.Start_Fade_In(g_particle_Script.Change_Start_Flag_(true));
     }
 
     //private void Update() {
