@@ -9,9 +9,13 @@ public class MainCamera_Move : MonoBehaviour
 
     //配列内のどのカメラが選択されているかを判断するための数値
     public int g_camera_pointer;
-
+    /// <summary>
+    /// 真上から見たカメラ
+    /// </summary>
+    private GameObject g_directCameraObject;
     private GameObject g_this_Obj;
 
+    private PlayerDirectXbox g_playerDirectXboxScript;
     private PlayerXbox g_player_con_Script;
     //ボタンが押されているかどうかを判断するフラグ
     private bool g_button_push_flag;
@@ -30,13 +34,13 @@ public class MainCamera_Move : MonoBehaviour
         g_this_Obj.transform.parent = g_camera_Array[g_camera_pointer].transform;
         Local_PosAndRotation_Reset();
         g_pushStart_Script = GameObject.Find("StartChackObj").GetComponent<PushStartScri>();
+        g_directCameraObject = GameObject.Find("Display_5");
     }
 
     void Update() {
         if (g_button_push_flag) {
             return;
         }
-
         if (g_pushStart_Script.g_start_flag==false) {
             if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("R")) {
                 g_button_push_flag = true;
@@ -51,6 +55,11 @@ public class MainCamera_Move : MonoBehaviour
                 CameraNum();
                 g_player_con_Script.ChangePlayerL();
                 Invoke("PushFlag_Off", g_change_camera_interval);
+            }
+            if (Input.GetKeyDown(KeyCode.F) || Input.GetButtonDown("X")) 
+            {
+                DirectView();
+                DirectChange();
             }
         }
     }
@@ -82,11 +91,30 @@ public class MainCamera_Move : MonoBehaviour
     /// </summary>
     void CameraNum() {
         g_player_con_Script = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerXbox>();
+        g_playerDirectXboxScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerDirectXbox>();
+        //プレイヤーの動きを切り替える
+        g_playerDirectXboxScript.enabled = false;
+        g_player_con_Script.enabled = true;
         g_player_con_Script.Change_CameraNum(g_camera_pointer);
 
+    }
+    void DirectChange() {
+        g_player_con_Script = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerXbox>();
+        g_playerDirectXboxScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerDirectXbox>();
+        //プレイヤーの動きを切り替える
+        g_playerDirectXboxScript.enabled = true;
+        g_player_con_Script.enabled = false;
     }
 
     private void PushFlag_Off() {
         g_button_push_flag = false;
+    }
+    /// <summary>
+    /// 真上から見た状態にする
+    /// </summary>
+    private void DirectView() 
+    {
+        g_this_Obj.transform.parent = g_directCameraObject.transform;
+        Local_PosAndRotation_Reset();
     }
 }

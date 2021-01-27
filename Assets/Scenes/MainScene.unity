@@ -976,7 +976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595ab501bb1f83d44928222e6efe2cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  g_camera_num: 2
+  g_camera_num: 4
   g_side_pos: 0
   g_high_pos: 0
   g_var_pos: 0

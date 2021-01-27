@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerXbox : MonoBehaviour
-{
+public class PlayerDirectXbox : MonoBehaviour {
     CameraPote g_camera_rotate;
     Playermove g_player_move;
     private Player_Move g_player_move_Script;
@@ -38,8 +37,8 @@ public class PlayerXbox : MonoBehaviour
 
     private float g_controller_Move = 0.5f;
 
-    private float g_start_timer=0.18f;
-    private float g_timer=0;
+    private float g_start_timer = 0.18f;
+    private float g_timer = 0;
 
     private float g_limit_num = 0.49f;
 
@@ -51,8 +50,7 @@ public class PlayerXbox : MonoBehaviour
     private int[] g_camera_para = { 31, 30, 33, 32 };
     int[] g_work_array;
 
-    void Start()
-    {
+    void Start() {
         g_work_array = new int[4];
         g_player_move_Script = this.GetComponent<Player_Move>();
         g_timer = g_start_timer;
@@ -151,41 +149,4 @@ public class PlayerXbox : MonoBehaviour
         g_camera_num = num;
     }
 
-    /// <summary>
-    /// playerの入れ替えをする処理
-    /// </summary>
-    public void ChangePlayerR() {
-        //プレイヤーが進む数をworkに入れる
-        g_work_array[0] = g_camera_para[0];
-        g_work_array[1] = g_camera_para[1];
-        g_work_array[2] = g_camera_para[2];
-        g_work_array[3] = g_camera_para[3];
-        ChangeR();
-    }
-    void ChangeR() {
-        //入れ替え
-        g_camera_para[1] = g_work_array[0];
-        g_camera_para[2] = g_work_array[1];
-        g_camera_para[3] = g_work_array[2];
-        g_camera_para[0] = g_work_array[3];
-    }
-
-    /// <summary>
-    /// playerの入れ替えをする処理
-    /// </summary>
-    public void ChangePlayerL() {
-        //プレイヤーが進む数をworkに入れる
-        g_work_array[0] = g_camera_para[0];
-        g_work_array[1] = g_camera_para[1];
-        g_work_array[2] = g_camera_para[2];
-        g_work_array[3] = g_camera_para[3];
-        ChangeL();
-    }
-    void ChangeL() {
-        //入れ替え
-        g_camera_para[3] = g_work_array[0];
-        g_camera_para[0] = g_work_array[1];
-        g_camera_para[1] = g_work_array[2];
-        g_camera_para[2] = g_work_array[3];
-    }
 }
