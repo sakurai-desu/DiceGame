@@ -19,7 +19,10 @@ public class MainCamera_Move : MonoBehaviour
     private PlayerXbox g_player_con_Script;
     //ボタンが押されているかどうかを判断するフラグ
     private bool g_button_push_flag;
-
+    /// <summary>
+    /// 現在真上から見ているかどうか
+    /// </summary>
+    private bool g_directflag = false;
     //スタートボタンが押されたかどうかを判断するスクリプト
     PushStartScri g_pushStart_Script;
     /// <summary>
@@ -58,8 +61,14 @@ public class MainCamera_Move : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.F) || Input.GetButtonDown("X")) 
             {
-                DirectView();
+                if (g_directflag == false) {
+                 DirectView();
                 DirectChange();
+                g_directflag = true;
+                }
+                else if (g_directflag == true) {
+                    Change_Reset_Camera();
+                }
             }
         }
     }
@@ -80,6 +89,15 @@ public class MainCamera_Move : MonoBehaviour
         }
         g_this_Obj.transform.parent = g_camera_Array[g_camera_pointer].transform;
         Local_PosAndRotation_Reset();
+    }
+    /// <summary>
+    /// 真上の視点から戻った時
+    /// </summary>
+    private void Change_Reset_Camera() {
+        g_this_Obj.transform.parent = g_camera_Array[g_camera_pointer].transform;
+        Local_PosAndRotation_Reset();
+        CameraNum();
+        g_directflag = false;
     }
 
     private void Local_PosAndRotation_Reset() {
