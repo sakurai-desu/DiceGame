@@ -73,13 +73,12 @@ public class Optionselect : MonoBehaviour {
             if (Input.GetButtonDown("A")) {
                 switch (g_option_pointer) {
                     case 0:
-
-                        break;
-                    case 1:
                         g_option[g_option_pointer].GetComponent<OptionText>().SelectScene(g_scene_name);
                         break;
-                    case 2:
+                    case 1:
                         g_option[g_option_pointer].GetComponent<OptionText>().SelectScene("SelectScene");
+                        break;
+                    case 2:
                         break;
                     case 3:
 
