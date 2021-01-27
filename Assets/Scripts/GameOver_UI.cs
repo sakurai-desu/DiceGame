@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameOver_UI : MonoBehaviour {
+    private Fade_In_Out g_fade_Script;
     [SerializeField]
     private GameObject[] g_gameover_UI;
     /// <summary>
@@ -17,6 +19,7 @@ public class GameOver_UI : MonoBehaviour {
     private bool g_horizontal_flag;
 
     void Start() {
+        g_fade_Script = GameObject.Find("Fade_Image").GetComponent<Fade_In_Out>();
         g_gameover_UI[g_select_pointer].GetComponent<Text>().color = g_select_color;
     }
 
@@ -52,11 +55,11 @@ public class GameOver_UI : MonoBehaviour {
         }
 
         if (Input.GetButtonDown("A")) {
-            Select();
+            g_fade_Script.Start_Fade_Out(Select());
         }
     }
 
-    private void Select() {
+    private IEnumerator Select() {
         switch (g_select_pointer) {
             case 0:
                 SceneManager.LoadScene("MainScene");
@@ -65,6 +68,7 @@ public class GameOver_UI : MonoBehaviour {
                 SceneManager.LoadScene("SelectScene");
                 break;
         }
+        yield break;
     }
 
     /// <summary>

@@ -131,15 +131,13 @@ public class Player_Appearance_Move : MonoBehaviour {
                     g_one_flag = true;
                 }
                 if (g_information_Script.g_tutorial_num == g_folder_Script.Filenum("T*.json")) {
-                    SceneManager.LoadScene("SelectScene");
+                    g_clear_Script.Move_Select();
                 } else {
 
                     g_information_Script.Change_Tutorial("/Tutorial/TStage00"+g_information_Script.g_tutorial_num+".json");
-                    SceneManager.LoadScene("TutrialScene");
+                    g_clear_Script.Move_Tutrial();
                 }
-
             }
-           
         }
     }
 }

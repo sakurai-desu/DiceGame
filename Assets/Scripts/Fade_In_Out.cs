@@ -21,7 +21,11 @@ public class Fade_In_Out : MonoBehaviour
     /// 色を変更してから次に変更するまでの待ち時間
     /// </summary>
     private float g_wait_time=0.01f;
-    
+    /// <summary>
+    /// 透明度を変更する際の加算量
+    /// </summary>
+    private float g_plus_value = 0.06f;
+
     private void Start()
     {
         g_fade_image = this.GetComponent<Image>();
@@ -54,7 +58,7 @@ public class Fade_In_Out : MonoBehaviour
             //色変更
             g_fade_image.color = new Color(0, 0, 0, _fade_plus);
             //少しづつ黒く
-            _fade_plus += 0.06f;
+            _fade_plus += g_plus_value;
             //一定時間待つ
             yield return new WaitForSeconds(g_wait_time);
         }
@@ -91,7 +95,7 @@ public class Fade_In_Out : MonoBehaviour
             //色変更
             g_fade_image.color = new Color(0, 0, 0, _fade_plus);
             //少しづつ透明に
-            _fade_plus -= 0.06f;
+            _fade_plus -= g_plus_value;
             //一定時間待つ
             yield return new WaitForSeconds(g_wait_time);
         }
@@ -112,7 +116,7 @@ public class Fade_In_Out : MonoBehaviour
             //色変更
             g_fade_image.color = new Color(0, 0, 0, _fade_plus);
             //少しづつ透明に
-            _fade_plus -= 0.06f;
+            _fade_plus -= g_plus_value;
             //一定時間待つ
             yield return new WaitForSeconds(g_wait_time);
         }
