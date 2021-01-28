@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Stage_Clear : MonoBehaviour
 {
     private PlayerXbox g_controller_Script;
+    private PlayerDirectXbox g_direct_xbox_Script; 
     private PushStartScri g_menu_Script;
     private MainCamera_Move g_camera_move_Script;
     private Fade_In_Out g_fade_Script;
@@ -33,6 +34,8 @@ public class Stage_Clear : MonoBehaviour
 
             g_controller_Script = GameObject.FindWithTag("Player").GetComponent<PlayerXbox>();
             g_controller_Script.enabled = false;
+            g_direct_xbox_Script = GameObject.FindWithTag("Player").GetComponent<PlayerDirectXbox>();
+            g_direct_xbox_Script.enabled = false;
             g_menu_Script.enabled = false;
             g_camera_move_Script.enabled = false;
 

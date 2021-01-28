@@ -6,6 +6,7 @@ public class TroubleScr : MonoBehaviour
 {
     private Input_Date g_json_Script;
     private PlayerXbox g_xbox_con_Script;
+    private PlayerDirectXbox g_direct_xbox_Script;
     private PushStartScri g_menu_Script;
     private MainCamera_Move g_camera_move_Script;
     /// <summary>
@@ -41,20 +42,21 @@ public class TroubleScr : MonoBehaviour
     /// </summary>
     public void Trouble() {
         if (SceneManager.GetActiveScene().name != g_tutoName) {
-        g_troublenum--;
-        g_troublenumtext.text = g_troublenum.ToString();
-       
-        if (g_troublenum <= 0) {
-            Debug.Log("ゲームオーバー");
-                g_bgmObj.SetActive(false);
-            g_xbox_con_Script = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerXbox>();
-            g_xbox_con_Script.enabled = false;
-            g_menu_Script.enabled = false;
-            g_camera_move_Script.enabled = false;
+            g_troublenum--;
+            g_troublenumtext.text = g_troublenum.ToString();
 
-            g_gameover_UI.SetActive(true);
-            return;
-        }
+            if (g_troublenum <= 0) {
+                Debug.Log("ゲームオーバー");
+                g_bgmObj.SetActive(false);
+                g_xbox_con_Script = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerXbox>();
+                g_xbox_con_Script.enabled = false;
+                g_direct_xbox_Script = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerDirectXbox>();
+                g_direct_xbox_Script.enabled = false;
+                g_menu_Script.enabled = false;
+                g_camera_move_Script.enabled = false;
+                g_gameover_UI.SetActive(true);
+                return;
+            }
         }
     }
 

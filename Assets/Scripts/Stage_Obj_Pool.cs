@@ -195,9 +195,6 @@ public class Stage_Obj_Pool : MonoBehaviour {
         g_game_Con_Script.Storage_Obj(ver, side, high, g_block_Obj);
         //配列にタイプを格納
         g_game_Con_Script.Storage_Obj_Type(ver, side, high, type);
-        if (type == 100) {
-            Debug.Log(type);
-        }
     }
 
     /// <summary>
