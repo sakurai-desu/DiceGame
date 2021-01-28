@@ -65,7 +65,6 @@ public class StageInformation : MonoBehaviour
             g_staerScript = GameObject.Find("SterParentObject").GetComponent<StaerScript>();
             g_staerScript.SetStaer(g_arrayPointerNum);
         }
-        Debug.Log(g_arrayPointerNum+"ステージ目");
     }
     /// <summary>
     /// 何個目のステージが選択されたのかを表示する
