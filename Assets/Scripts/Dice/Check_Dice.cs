@@ -121,10 +121,6 @@ public class Check_Dice : MonoBehaviour {
         g_dice_High = this_high;
         //操作中オブジェクトを保持
         g_dice_Obj = dice_Obj;
-        //ダイスのくっつき状態判別配列を取得
-        g_check_surface = g_dice_Obj.GetComponent<Dice_Squares>().Get_Check_Surface();
-
-        //g_undo_Script.Undo_Flag_On();
 
         //縦のプラス方向を調べる
         Check_Ver_Plus();
@@ -151,11 +147,6 @@ public class Check_Dice : MonoBehaviour {
         //格納されているオブジェクトのタイプを調べる
         Check_Type(g_dice_Ver + g_one_Count, g_dice_Side, g_dice_High, g_ver_plus_para);
         g_now_check_pointer++;
-        //if (g_check_surface[g_now_check_pointer] == 1) {
-        //    //格納されているオブジェクトのタイプを調べる
-        //    Check_Type(g_dice_Ver + g_one_Count, g_dice_Side, g_dice_High, g_ver_plus_para);
-        //    g_now_check_pointer++;
-        //}
     }
 
     /// <summary>
@@ -169,11 +160,6 @@ public class Check_Dice : MonoBehaviour {
         //格納されているオブジェクトのタイプを調べる
         Check_Type(g_dice_Ver - g_one_Count, g_dice_Side, g_dice_High, g_ver_minus_para);
         g_now_check_pointer++;
-        //if (g_check_surface[g_now_check_pointer] == 1) {
-        //    //格納されているオブジェクトのタイプを調べる
-        //    Check_Type(g_dice_Ver - g_one_Count, g_dice_Side, g_dice_High, g_ver_minus_para);
-        //    g_now_check_pointer++;
-        //}
     }
 
     /// <summary>
@@ -187,11 +173,6 @@ public class Check_Dice : MonoBehaviour {
         //格納されているオブジェクトのタイプを調べる
         Check_Type(g_dice_Ver, g_dice_Side + g_one_Count, g_dice_High, g_side_plus_para);
         g_now_check_pointer++;
-        //if (g_check_surface[g_now_check_pointer] == 1) {
-        //    //格納されているオブジェクトのタイプを調べる
-        //    Check_Type(g_dice_Ver, g_dice_Side + g_one_Count, g_dice_High, g_side_plus_para);
-        //    g_now_check_pointer++;
-        //}
     }
 
     /// <summary>
@@ -205,11 +186,6 @@ public class Check_Dice : MonoBehaviour {
         //格納されているオブジェクトのタイプを調べる
         Check_Type(g_dice_Ver, g_dice_Side - g_one_Count, g_dice_High, g_side_minus_para);
         g_now_check_pointer++;
-        //if (g_check_surface[g_now_check_pointer] == 1) {
-        //    //格納されているオブジェクトのタイプを調べる
-        //    Check_Type(g_dice_Ver, g_dice_Side - g_one_Count, g_dice_High, g_side_minus_para);
-        //    g_now_check_pointer++;
-        //}
     }
 
     /// <summary>
@@ -223,11 +199,6 @@ public class Check_Dice : MonoBehaviour {
         //格納されているオブジェクトのタイプを調べる
         Check_Type(g_dice_Ver, g_dice_Side, g_dice_High + g_one_Count, g_high_plus_para);
         g_now_check_pointer++;
-        //if (g_check_surface[g_now_check_pointer] == 1) {
-        //    //格納されているオブジェクトのタイプを調べる
-        //    Check_Type(g_dice_Ver, g_dice_Side, g_dice_High + g_one_Count, g_high_plus_para);
-        //    g_now_check_pointer++;
-        //}
     }
 
     /// <summary>
@@ -241,11 +212,6 @@ public class Check_Dice : MonoBehaviour {
         //格納されているオブジェクトのタイプを調べる
         Check_Type(g_dice_Ver, g_dice_Side, g_dice_High - g_one_Count, g_high_minus_para);
         g_now_check_pointer++;
-        //if (g_check_surface[g_now_check_pointer] == 1) {
-        //    //格納されているオブジェクトのタイプを調べる
-        //    Check_Type(g_dice_Ver, g_dice_Side, g_dice_High - g_one_Count, g_high_minus_para);
-        //    g_now_check_pointer++;
-        //}
     }
 
     /// <summary>
@@ -330,16 +296,10 @@ public class Check_Dice : MonoBehaviour {
             int next_children_count = parent_Obj.GetComponent<Parent_Dice>().Get_Children_Count();
             //くっつけた後の子の個数がくっつける前より増えていたら
             if (next_children_count > children_count) {
-                //Debug.Log("新しいサイコロがくっついた");
-                //Debug.Log("サイコロがくっつく演出を入れる");
                 //くっつくSEを再生
                 g_se_source_Script.Se_Play(1);
                 //くっついた面からパーティクル生成
                 g_particle_Script.Docking_Particle_Play(g_dice_Obj, g_now_check_pointer);
-                //g_check_surface[g_now_check_pointer] = 1;
-                g_next_dice_Obj.GetComponent<Dice_Squares>().Storage_Check_Surface(g_check_surface);
-                //くっつけられた側の親を削除する
-                //Destroy(detroy_Obj);
             }
         }
     }

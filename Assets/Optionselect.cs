@@ -5,32 +5,32 @@ using UnityEngine.UI;
 
 public class Optionselect : MonoBehaviour {
     [SerializeField]
-    GameObject[] g_option;
+    GameObject[] g_option=null;
 
     [SerializeField]
-    int g_option_pointer;
+    int g_option_pointer=0;
 
     //オプションパネル本体の角度の数値
     [SerializeField]
-    float g_rotateController;
+    float g_rotateController=0;
 
     //0 = 上移動,1 = 停止,2 = 下移動のカーソルフラグ
     [SerializeField]
-    int g_rotate_flag;
+    int g_rotate_flag=0;
 
-    bool g_horizontal_flag;
+    bool g_horizontal_flag=false;
 
     [SerializeField]
-    string g_scene_name;
+    string g_scene_name=null;
 
     //スタートボタンが押されたかどうかを判断するスクリプト
     PushStartScri g_pushStart_Script;
 
     //画像データ
     [SerializeField]
-    Sprite[] g_unenableImage;
+    Sprite[] g_unenableImage=null;
     [SerializeField]
-    Sprite[] g_enableImage;
+    Sprite[] g_enableImage=null;
 
     void Start() {
         //画像コンポーネントを格納

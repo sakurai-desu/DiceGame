@@ -9,11 +9,11 @@ public class ButtonArray : MonoBehaviour
 
     //ステージを移動したりするやつを入れておく
     [SerializeField]
-    GameObject[] g_button_obj_array;
+    GameObject[] g_button_obj_array=null;
 
     //検索用ポインター
     [SerializeField]
-    int g_button_pointer;
+    int g_button_pointer=0;
 
     StageInformation g_information_script;
 
@@ -25,6 +25,7 @@ public class ButtonArray : MonoBehaviour
     void Start()
     {
         g_information_script = GameObject.Find("Stageinformation").GetComponent<StageInformation>();
+        GameObject.Find("Fade_Image").GetComponent<Fade_In_Out>().GameStart_Fade_In();
     }
 
     // Update is called once per frame

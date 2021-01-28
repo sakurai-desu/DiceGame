@@ -26,10 +26,9 @@ public class Fade_In_Out : MonoBehaviour
     /// </summary>
     private float g_plus_value = 0.06f;
 
-    private void Start()
+    private void Awake()
     {
         g_fade_image = this.GetComponent<Image>();
-        StartCoroutine(GameStart_Fade_In());
     }
     
     /// <summary>
@@ -106,7 +105,18 @@ public class Fade_In_Out : MonoBehaviour
         yield break;
     }
 
-    private IEnumerator GameStart_Fade_In() {
+    /// <summary>
+    /// ゲームスタート時のフェードイン処理
+    /// </summary>
+    public void GameStart_Fade_In() {
+        StartCoroutine(GameStart());
+    }
+
+    /// <summary>
+    /// フェードイン処理
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator GameStart() {
         //イメージを真っ黒な状態からスタート
         g_fade_image.color = g_fade_out_color;
         //透明度
@@ -122,6 +132,7 @@ public class Fade_In_Out : MonoBehaviour
         }
         //イメージを透明にする
         g_fade_image.color = g_fade_in_color;
+
         yield break;
     }
 

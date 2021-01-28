@@ -13,9 +13,9 @@ public class Player_Appearance_Move : MonoBehaviour {
     /// <summary>
     /// プレイヤーのオブジェクト
     /// </summary>
-    private GameObject g_player_obj;
+    private GameObject g_player_obj=null;
     [SerializeField]
-    private GameObject g_player_body;
+    private GameObject g_player_body=null;
 
     /// <summary>
     /// 移動先の座標
@@ -37,10 +37,6 @@ public class Player_Appearance_Move : MonoBehaviour {
     /// 移動速度を加算するための変数
     /// </summary>
     private float g_plus_speed = 0;
-    /// <summary>
-    /// 移動中か判別するフラグ・True：移動中・False:停止中
-    /// </summary>
-    private bool g_is_move = false;
 
     private float g_check_pos_length = 0.5f;
 

@@ -8,7 +8,7 @@ public class Se_Source : MonoBehaviour
 
     //効果音 0～1 = サイコロの効果音、2～5 = システム効果音
     [SerializeField]
-    private AudioClip[] g_system_se;
+    private AudioClip[] g_system_se=null;
 
     void Start()
     {

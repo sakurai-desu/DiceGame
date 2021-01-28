@@ -5,7 +5,7 @@ using UnityEngine;
 public class PushStartScri : MonoBehaviour
 {
     [SerializeField]
-    GameObject g_option_panel;
+    GameObject g_option_panel=null;
 
     //オプションのUIを出すアニメ
     Animator g_optionamim;

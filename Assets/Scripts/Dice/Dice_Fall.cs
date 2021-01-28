@@ -34,10 +34,6 @@ public class Dice_Fall : MonoBehaviour {
     /// </summary>
     private int g_min_counter;
     /// <summary>
-    /// ダイスを消すか判別するフラグ/True：消す/False：消さない
-    /// </summary>
-    private bool g_delete_flag = true;
-    /// <summary>
     /// 親オブジェクトが同じか判別するフラグ/True：同じ/False：同じではない
     /// </summary>
     private bool g_same_parent_flag = false;
@@ -104,8 +100,6 @@ public class Dice_Fall : MonoBehaviour {
     /// ダイスをどれだけ落下させるか調べる処理
     /// </summary>
     private void Fall_Check() {
-        //消すフラグ初期化
-        g_delete_flag = true;
         //最小値初期化
         g_min_counter = g_min_Start;
 
@@ -139,8 +133,6 @@ public class Dice_Fall : MonoBehaviour {
                 }
                 //移動先オブジェクトが空白ではないなら（床があるなら）
                 if (type != 0&&!g_same_parent_flag) {
-                    //削除フラグOFF
-                    g_delete_flag = false;
                     //処理終了
                     break;
                 }

@@ -6,131 +6,127 @@ using UnityEngine.UI;
 public class Opt_VolumeController : MonoBehaviour
 {
     //音量設定オプションで取り扱うパーツ
-    public Slider[] targetSlider = new Slider[2];
+    public Slider[] g_targetSlider = new Slider[2];
     //後々TextMeshProに変更
-    public Text[] targetvalueText = new Text[2];
+    public Text[] g_targetvalueText = new Text[2];
     //カーソルの割当変数
     //この仕様の場合、0はBGM、1はSEにあたる
-    private int select_cursor = 0;
+    private int g_select_cursor = 0;
     //カーソル割当変数の制限値の設定。最大値を入力する。
-    private int select_limit = 1;
+    private int g_select_limit = 1;
     //各設定値の配列管理
-    public float[] select_value;
+    public float[] g_select_value;
     //共通の制限値
-    private float max_value = 100;
-    private float min_value = 0;
-    private bool limit_sw = false;
+    private float g_max_value = 100;
+    private float g_min_value = 0;
+    private bool g_limit_sw = false;
 
     //項目選択時の引数 - 縦
-    private float select_versw = 0;
-    private bool count_sw = false;
+    private float g_select_versw = 0;
+    private bool g_count_sw = false;
     //項目選択時の引数 - 横
-    public float select_horsw = 0;
-    private float conti_time = 0;
-    private bool conti_sw = false;
+    public float g_select_horsw = 0;
+    private bool g_conti_sw = false;
 
     //値変更時の間隔の設定
-    public float move_value = 0;
+    public float g_move_value = 0;
 
     //効果音
     [SerializeField]
-    AudioSource cursorSE;
+    AudioSource g_cursorSE=null;
 
     //操作対象の配列リスト
     [SerializeField]
-    AudioSource[] BGMList;
+    AudioSource[] g_bgmList=null;
     [SerializeField]
-    AudioSource[] SEList;
+    AudioSource[] g_seList=null;
+    
+    [SerializeField]
+    GameObject[] g_target_Parent=null;
 
-    //縦移動用のカーソル
-    [SerializeField]
-    Image cursorImage;
-    [SerializeField]
-    GameObject[] target_Parent;
-
-    /*private*/[SerializeField] float[] target_yPos;
+    /*private*/[SerializeField] float[] g_target_yPos=null;
 
     // Start is called before the first frame update
     void Start()
     {
         //カーソル移動位置の設定
-        for (int parentcount = 0; parentcount <= target_Parent.Length - 1; parentcount++)
+        for (int parentcount = 0; parentcount <= g_target_Parent.Length - 1; parentcount++)
         {
-            target_yPos[parentcount] = target_Parent[parentcount].transform.position.y;
-            print(target_yPos[parentcount]);
+            g_target_yPos[parentcount] = g_target_Parent[parentcount].transform.position.y;
+            print(g_target_yPos[parentcount]);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        select_value = new float[2];
+        g_select_value = new float[2];
         //設定項目の値を設定
-        select_value[0] = targetSlider[0].value;
-        select_value[1] = targetSlider[1].value;
+        g_select_value[0] = g_targetSlider[0].value;
+        g_select_value[1] = g_targetSlider[1].value;
 
         //上下キーの制御
-        select_versw = Input.GetAxisRaw("Vertical");
+        g_select_versw = Input.GetAxisRaw("Vertical");
         //左右キーの制御
-        select_horsw = Input.GetAxisRaw("Horizontal");
+        g_select_horsw = Input.GetAxisRaw("Horizontal");
 
 
         //■処理の順序
         //上下キーでカーソル変数を変動
-        if (select_versw >= 1 && count_sw == false)
+        if (g_select_versw >= 1 && g_count_sw == false)
         {
-            if (select_cursor != 0)
+            if (g_select_cursor != 0)
             {
-                select_cursor = select_cursor - 1;
-                count_sw = true;
+                g_select_cursor = g_select_cursor - 1;
+                g_count_sw = true;
                 print("上入力完了");
             }
             else
             {
-                select_cursor = 0;
+                g_select_cursor = 0;
                 print("これ以上、上に進めません");
             }
         }
-        else if (select_versw <= -1 && count_sw == false)
+        else if (g_select_versw <= -1 && g_count_sw == false)
         {
-            if (select_cursor != select_limit)
+            if (g_select_cursor != g_select_limit)
             {
-                select_cursor = select_cursor + 1;
-                count_sw = true;
+                g_select_cursor = g_select_cursor + 1;
+                g_count_sw = true;
                 print("下入力完了");
             }
             else
             {
-                select_cursor = select_limit;
+                g_select_cursor = g_select_limit;
                 print("これ以上、下に進めません");
             }
         }
-        else if (select_versw == 0)
+        else if (g_select_versw == 0)
         {
-            count_sw = false;
+            g_count_sw = false;
         }
 
         //左右キーで値変更処理(ここで増加か減少かを決定させる)
-        if (select_horsw >= 1 && conti_sw == false)
+        if (g_select_horsw >= 1 && g_conti_sw == false)
         {
-            conti_sw = true;
-            cursorSE.Play();
-            targetSlider[select_cursor].value = select_value[select_cursor] + move_value;
+            g_conti_sw = true;
+            g_cursorSE.Play();
+            g_targetSlider[g_select_cursor].value = g_select_value[g_select_cursor] + g_move_value;
             print("右入力完了");
             ValueLimit();
         }
-        else if (select_horsw <= -1 && conti_sw == false)
+        else if (g_select_horsw <= -1 && g_conti_sw == false)
         {
-            conti_sw = true;
-            cursorSE.Play();
-            targetSlider[select_cursor].value = select_value[select_cursor] - move_value;
+            g_conti_sw = true;
+            g_cursorSE.Play();
+            g_targetSlider[g_select_cursor].value = g_select_value[g_select_cursor] - g_move_value;
             print("左入力完了");
             ValueLimit();
         }
-        else if (select_horsw == 0)
+        else if (g_select_horsw == 0)
         {
-            conti_sw = false;
-            targetvalueText[select_cursor].text = string.Format(select_value[select_cursor] + "%");
+            g_conti_sw = false;
+            g_targetvalueText[g_select_cursor].text = string.Format(g_select_value[g_select_cursor] + "%");
             AudioVolumeControl();
         }
 
@@ -140,23 +136,23 @@ public class Opt_VolumeController : MonoBehaviour
 
     private void ValueLimit()
     {
-        if(select_horsw != 0)
+        if(g_select_horsw != 0)
         {
-            if (select_value[select_cursor] > max_value)
+            if (g_select_value[g_select_cursor] > g_max_value)
             {
-                select_value[select_cursor] = max_value;
-                limit_sw = true;
+                g_select_value[g_select_cursor] = g_max_value;
+                g_limit_sw = true;
                 print("これ以上指定の方向に進めません。");
             }
-            else if (select_value[select_cursor] < min_value)
+            else if (g_select_value[g_select_cursor] < g_min_value)
             {
-                select_value[select_cursor] = min_value;
-                limit_sw = true;
+                g_select_value[g_select_cursor] = g_min_value;
+                g_limit_sw = true;
                 print("これ以上指定の方向に進めません。");
             }
             else
             {
-                limit_sw = false;
+                g_limit_sw = false;
             }
         }
     }
@@ -167,21 +163,21 @@ public class Opt_VolumeController : MonoBehaviour
         //配列のBGMList,SEListからAudioSource.volumeの値を取得し、音量を変更する
         //select_cursorの値によってBGM,SEのどちらかを消すかを判定する
         //計算方式「AudioSource.volume / (select_value[select_cursor] * 0.01)」
-        if(limit_sw == false)
+        if(g_limit_sw == false)
         {
-            if (select_cursor == 0)
+            if (g_select_cursor == 0)
             {
-                for (int listcount = 0; listcount <= BGMList.Length - 1; listcount++)
+                for (int listcount = 0; listcount <= g_bgmList.Length - 1; listcount++)
                 {
-                    BGMList[listcount].volume = select_value[select_cursor] / 100;
+                    g_bgmList[listcount].volume = g_select_value[g_select_cursor] / 100;
                     print("bgm volume changed no." + listcount);
                 }
             }
-            else if (select_cursor == 1)
+            else if (g_select_cursor == 1)
             {
-                for (int listcount = 0; listcount <= SEList.Length - 1; listcount++)
+                for (int listcount = 0; listcount <= g_seList.Length - 1; listcount++)
                 {
-                    SEList[listcount].volume = select_value[select_cursor] / 100;
+                    g_seList[listcount].volume = g_select_value[g_select_cursor] / 100;
                     print("se volume changed no." + listcount);
                 }
             }

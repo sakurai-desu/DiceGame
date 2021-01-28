@@ -4,31 +4,21 @@ using UnityEngine;
 
 public class Stageparameter : MonoBehaviour
 {
-    private string[,] g_string_element;
-
-    private GameObject[,] g_button_element;
-
-    /// <summary>
-    /// ステージ個数
-    /// </summary>
-    [SerializeField]
-    int g_stage_counter;
+    private GameObject[,] g_button_element=null;
 
     /// <summary>
     /// 横ステージ個数
     /// </summary>
     [SerializeField]
-    int g_side_element;
+    int g_side_element=0;
 
     /// <summary>
     /// 縦ステージ個数
     /// </summary>
     [SerializeField]
-    int g_var_element;
+    int g_var_element=0;
 
-    int g_numberCursor;
-
-    public int g_selectNo;
+    public int g_selectNo=0;
 
 
     // Start is called before the first frame update

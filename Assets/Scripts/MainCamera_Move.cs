@@ -5,20 +5,20 @@ using UnityEngine;
 public class MainCamera_Move : MonoBehaviour
 {
     [SerializeField]
-    private GameObject[] g_camera_Array;
+    private GameObject[] g_camera_Array=null;
 
     //配列内のどのカメラが選択されているかを判断するための数値
-    public int g_camera_pointer;
+    public int g_camera_pointer=0;
     /// <summary>
     /// 真上から見たカメラ
     /// </summary>
-    private GameObject g_directCameraObject;
-    private GameObject g_this_Obj;
+    private GameObject g_directCameraObject=null;
+    private GameObject g_this_Obj=null;
 
     private PlayerDirectXbox g_playerDirectXboxScript;
     private PlayerXbox g_player_con_Script;
     //ボタンが押されているかどうかを判断するフラグ
-    private bool g_button_push_flag;
+    private bool g_button_push_flag=false;
     /// <summary>
     /// 現在真上から見ているかどうか
     /// </summary>

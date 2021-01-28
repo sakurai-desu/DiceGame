@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class SelectScript : MonoBehaviour
 {
     [SerializeField]
-    string g_select_name;
+    string g_select_name=null;
 
-    Image g_button;
+    Image g_button=null;
 
     private Fade_In_Out g_fade_Script;
     private ButtonArray g_button_array_Script;

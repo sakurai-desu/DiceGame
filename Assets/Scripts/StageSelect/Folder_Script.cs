@@ -62,13 +62,11 @@ public class Folder_Script : MonoBehaviour
        
         return g_pathnum;
     }
-    int g_array_pointer;
     /// <summary>
     /// 指定した形式のファイルを配列に入れる
     /// </summary>
     public void Filename(string filename) {
         g_stagearray_pointer = 0;
-        g_array_pointer = 0;
             //指定した名前のファイルの名前表示
             foreach (FileInfo f in g_info) {
                 g_json_array.g_json_stage[g_stagearray_pointer] = f.Name;

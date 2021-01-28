@@ -38,10 +38,6 @@ public class Undo_Script : MonoBehaviour {
     /// </summary>
     private GameObject[] g_undo_parents;
     /// <summary>
-    /// 親オブジェクト配列用のポインタ
-    /// </summary>
-    private int g_parent_pointer = 0;
-    /// <summary>
     /// 一手前のダイスを保持する配列
     /// </summary>
     private GameObject[] g_undo_dices;
@@ -220,7 +216,6 @@ public class Undo_Script : MonoBehaviour {
     /// </summary>
     private void Array_Reset() {
         g_undo_parents = new GameObject[0];
-        g_parent_pointer = 0;
         g_undo_dices = new GameObject[0];
         g_dice_pointer = 0;
         g_undo_dice_counters = new int[0];
