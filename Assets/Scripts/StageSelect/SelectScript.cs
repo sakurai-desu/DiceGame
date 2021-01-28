@@ -25,11 +25,11 @@ public class SelectScript : MonoBehaviour
     
     public void OcClick() {
         g_button_array_Script.enabled = false;
+        g_se_source_Script.Se_Play(3);
         g_fade_Script.Start_Fade_Out(Load_Scene());
     }
 
     private IEnumerator Load_Scene() {
-        g_se_source_Script.Se_Play(3);
         SceneManager.LoadScene(g_select_name);
         yield break;
     }
@@ -39,5 +39,6 @@ public class SelectScript : MonoBehaviour
     }
     public void DontSelect() {
         g_button.color = Color.white;
+        g_se_source_Script.Se_Play(2);
     }
 }
