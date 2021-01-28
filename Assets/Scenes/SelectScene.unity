@@ -246,7 +246,7 @@ MonoBehaviour:
   g_button_sprewn_num: 0
   g_var_calc: 0
   g_varmax_num: 0
-  g_var_num: 300
+  g_var_num: 0
   g_side_num: 0
   g_remainder_num: 0
   g_side_set_num: 160
