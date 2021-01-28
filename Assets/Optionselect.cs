@@ -91,7 +91,7 @@ public class Optionselect : MonoBehaviour {
         if (g_rotateController <= -45 * g_option_pointer || g_rotateController >= -45 * g_option_pointer) {
             this.gameObject.transform.localRotation = Quaternion.Euler(0, 0, -45 * g_option_pointer);
             g_rotate_flag = 1;
-
+            g_option[1].transform.localRotation = Quaternion.Euler(0, 0, -45 * g_option_pointer);
             //if (g_option_pointer == 0) {
             //    g_rotateController = 0;
             //}
