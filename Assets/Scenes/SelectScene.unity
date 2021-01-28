@@ -273,11 +273,13 @@ MonoBehaviour:
   g_side_pointer: 0
   g_var_remainder: 0
   g_page_var_count: 0
+  g_max_var_count: 0
   g_stage_page_count: 0
   g_side_stage_count: 0
   g_stage_remainder: 0
   g_page_turnover: 1
-  g_move_g_var: 132.5
+  g_move_g_var: 0
+  g_page_count: 0
 --- !u!1 &130773942
 GameObject:
   m_ObjectHideFlags: 0

@@ -90,7 +90,7 @@ public class SpwernButton : MonoBehaviour
     int g_array_num;
     GameObject g_button;
 
-       public int g_var_count=0;
+    public int g_var_count=0;
     public int g_side_count = 0;
     /// <summary>
     /// オブジェクトの生成とステージ名を配列に入れるメソッド
