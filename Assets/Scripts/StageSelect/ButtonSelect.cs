@@ -268,6 +268,7 @@ public class ButtonSelect : MonoBehaviour
             g_stagename = g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer].GetComponent<GetStagename>();
             g_stagename.g_get_stagename = g_spwern_script.g_json_stage_array[g_var_pointer, g_side_pointer];
             g_stageInformationScript.Change_StageNum(g_var_pointer, g_side_pointer);
+            g_se_source_Script.Se_Play(3);
             g_stagename.OnClick();
         }
         #endregion

@@ -13,11 +13,13 @@ public class SelectScript : MonoBehaviour
 
     private Fade_In_Out g_fade_Script;
     private ButtonArray g_button_array_Script;
+    private Se_Source g_se_source_Script;
 
     void Start()
     {
         g_fade_Script = GameObject.Find("Fade_Image").GetComponent<Fade_In_Out>();
         g_button_array_Script = GameObject.Find("ButtonParent").GetComponent<ButtonArray>();
+        g_se_source_Script = GameObject.Find("SEList").GetComponent<Se_Source>();
         g_button = GetComponent<Image>();   
     }
     
@@ -27,6 +29,7 @@ public class SelectScript : MonoBehaviour
     }
 
     private IEnumerator Load_Scene() {
+        g_se_source_Script.Se_Play(3);
         SceneManager.LoadScene(g_select_name);
         yield break;
     }
