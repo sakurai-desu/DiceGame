@@ -14,15 +14,19 @@ public class GetStagename : MonoBehaviour
 
     GameObject g_get_child;
 
+    private Se_Source g_se_source_Script;
+
     Text g_stage_text;
     void Start()
     {
         g_info_Script = GameObject.Find("Stageinformation").GetComponent<StageInformation>();
         g_fade_Script = GameObject.Find("Fade_Image").GetComponent<Fade_In_Out>();
+        g_se_source_Script = GameObject.Find("SEList").GetComponent<Se_Source>();
     }
 
     void Update() {
         if (Input.GetButtonDown("Back")||Input.GetKeyDown(KeyCode.Escape)) {
+            g_se_source_Script.Se_Play(4);
             Move_Title();
         }
     }
