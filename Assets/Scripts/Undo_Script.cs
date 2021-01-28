@@ -1,0 +1,348 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+
+public class Undo_Script : MonoBehaviour {
+
+    private Game_Controller g_game_con_Script;
+    private Playercontroller g_player_con_Script;
+    private Player_Direction g_direction_Script;
+    private Dice_Squares g_squares_Script;
+    private Dice_Create g_dice_create_Script;
+    private TroubleScr g_trouble_Script;
+
+    /// <summary>
+    /// プレイヤーのオブジェクト
+    /// </summary>
+    private GameObject g_player_obj = null;
+    /// <summary>
+    /// 保持しているプレイヤーの向き
+    /// </summary>
+    private int g_player_direction = 30;
+    /// <summary>
+    /// 一手前のプレイヤーの指標：縦
+    /// </summary>
+    private int g_player_ver = 0;
+    /// <summary>
+    /// 一手前のプレイヤーの指標：横
+    /// </summary>
+    private int g_player_side = 0;
+    /// <summary>
+    /// 一手前のプレイヤーの指標：高さ
+    /// </summary>
+    private int g_player_high = 0;
+    
+    /// <summary>
+    /// 一手前のダイスの親オブジェクトを保持する配列
+    /// </summary>
+    private GameObject[] g_undo_parents;
+    /// <summary>
+    /// 一手前のダイスを保持する配列
+    /// </summary>
+    private GameObject[] g_undo_dices;
+    /// <summary>
+    /// ダイスのオブジェクト配列用のポインタ
+    /// </summary>
+    private int g_dice_pointer = 0;
+    /// <summary>
+    /// 親が保持しているダイスをの個数を格納する配列
+    /// </summary>
+    private int[] g_undo_dice_counters;
+    /// <summary>
+    /// 親の子ダイスの数配列用のポインタ
+    /// </summary>
+    private int g_count_pointer = 0;
+    /// <summary>
+    /// 保持しているダイスが格納されている・縦・横・高さを格納する配列
+    /// </summary>
+    private int[] g_dice_pointers;
+    /// <summary>
+    /// 親オブジェクト配列用のポインタ
+    /// </summary>
+    private int g_point_pointer = 0;
+    /// <summary>
+    /// 保持しているダイスが格納されているマス目を格納する配列
+    /// </summary>
+    private int[] g_dice_squares;
+    /// <summary>
+    /// 親オブジェクト配列用のポインタ
+    /// </summary>
+    private int g_squares_pointer = 0;
+
+    /// <summary>
+    /// 子オブジェクトを一時的に保持する配列
+    /// </summary>
+    private GameObject[] g_work_children;
+    /// <summary>
+    /// ダイスのマス目を一時的に保持する配列
+    /// </summary>
+    private int[] g_work_before_squares;
+    /// <summary>
+    /// ダイスの移動後のマス目を保持する配列
+    /// </summary>
+    private int[] g_work_after_squares;
+    /// <summary>
+    /// マス目を取得する際に使用するポインタ
+    /// </summary>
+    private int g_work_pointer = 0;
+
+    /// <summary>
+    /// 指標を一時的格納する変数：縦
+    /// </summary>
+    private int g_work_ver = 0;
+    /// <summary>
+    /// 指標を一時的格納する変数：横
+    /// </summary>
+    private int g_work_side = 0;
+    /// <summary>
+    /// 指標を一時的格納する変数：高さ
+    /// </summary>
+    private int g_work_high = 0;
+    /// <summary>
+    /// ダイス移動前の指標を一時的格納する変数：縦
+    /// </summary>
+    private int g_before_ver = 0;
+    /// <summary>
+    /// ダイス移動前の指標を一時的格納する変数：横
+    /// </summary>
+    private int g_before_side = 0;
+    /// <summary>
+    /// ダイス移動前の指標を一時的格納する変数：高さ
+    /// </summary>
+    private int g_before_high = 0;
+
+    /// <summary>
+    /// 一手戻しの処理をできるか判別するフラグ
+    /// </summary>
+    private bool g_is_undo = false;
+
+    private void Start() {
+        g_game_con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
+        g_player_con_Script = GameObject.Find("Player_Controller").GetComponent<Playercontroller>();
+        g_direction_Script = GameObject.Find("Player_Controller").GetComponent<Player_Direction>();
+        g_dice_create_Script = GameObject.Find("Stage_Pool").GetComponent<Dice_Create>();
+        g_trouble_Script = GameObject.Find("TroubleObj").GetComponent<TroubleScr>();
+        Array_Reset();
+    }
+
+    /// <summary>
+    /// 保持している情報をもとに一手前の状態に戻す
+    /// </summary>
+    public void Undo_Play() {
+        if (!g_is_undo) {
+            return;
+        }
+        if (g_player_con_Script.Get_MoveFlag()) {
+            return;
+        }
+        g_is_undo = false;
+        //プレイヤーの移動先取得
+        Vector3 _player_pos = g_game_con_Script.Get_Pos(g_player_ver, g_player_side, g_player_high);
+        //プレイヤー移動
+        g_player_obj.transform.position = _player_pos;
+        //プレイヤーの保持する指標変更
+        g_player_con_Script.Storage_Player_Pointer(g_player_ver, g_player_side, g_player_high);
+        //プレイヤーの向きを変更
+        g_direction_Script.Player_Direction_Change(g_player_direction);
+
+        //ダイス配列用の指標
+        int _dice_pointer = 0;
+        //縦・横・高さ配列用の指標
+        int _point_pointer = 0;
+        //保持している親の数分繰り返す
+        for (int i = 0; i < g_undo_parents.Length; i++) {
+            //親オブジェクト取得
+            GameObject _work_parent = g_undo_parents[i];
+            //親の子オブジェクトの数取得
+            int _work_count = g_undo_dice_counters[i];
+            
+            //子オブジェクトの数分繰り返す
+            for (int j = 0; j < _work_count; j++) {
+                //子オブジェクト取得
+                GameObject _work_dice = g_undo_dices[j + _dice_pointer];
+                //子オブジェクトの親を今保持している親に変更
+                _work_dice.transform.parent = _work_parent.transform;
+                //縦の指標取得
+                g_work_ver = g_dice_pointers[_point_pointer];
+                //横の指標取得
+                g_work_side = g_dice_pointers[_point_pointer + 1];
+                //高さの指標取得
+                g_work_high = g_dice_pointers[_point_pointer + 2];
+                //元に戻す位置を取得
+                Vector3 _undo_pos = g_game_con_Script.Get_Pos(g_work_ver, g_work_side, g_work_high);
+                //子オブジェクトを移動
+                _work_dice.transform.position = _undo_pos;
+
+                //ダイスのスクリプト取得
+                g_squares_Script = _work_dice.GetComponent<Dice_Squares>();
+                //ダイスの移動前の指標取得
+                (g_before_ver, g_before_side, g_before_high) = g_squares_Script.Get_Dice_Pointer();
+                //オブジェクトの種類を取得
+                int _type = g_game_con_Script.Get_Obj_Type(g_before_ver, g_before_side, g_before_high);
+                //大元の配列からダイスを除去
+                g_game_con_Script.Storage_Reset(g_before_ver, g_before_side, g_before_high);
+
+                //移動後の縦・横・高さの指標に変更
+                g_squares_Script.Storage_This_Index(g_work_ver, g_work_side, g_work_high);
+                //大元の配列にダイス格納
+                g_game_con_Script.Storage_Obj(g_work_ver, g_work_side, g_work_high, _work_dice);
+                //大元の配列に種類格納
+                g_game_con_Script.Storage_Obj_Type(g_work_ver, g_work_side, g_work_high, _type);
+
+                //ダイスの移動後のマス目を取得
+                g_work_after_squares = g_squares_Script.Get_Dice_Squares();
+                //配列に保持しているマス目を取得する
+                g_work_before_squares = Get_Dice_Squares();
+                //ダイスが保持しているマス目を保持していたマス目に変更する
+                g_squares_Script.Storage_Squares(g_work_before_squares);
+                //変更後のマス目に応じてダイスを回転させる
+                g_dice_create_Script.Undo_Squares_Change(_work_dice, g_work_before_squares, g_work_after_squares);
+
+                //縦・横・高さ配列の指標を3つ進める
+                _point_pointer += 3;
+            }
+            //ダイス用の配列の指標を取り出した個数分進める
+            _dice_pointer += _work_count;
+        }
+        //手数を戻す
+        g_trouble_Script.Trouble_Plus();
+        //保持する変数を全て初期化
+        Array_Reset();
+    }
+
+    /// <summary>
+    /// 一手前の状態を保持する配列を初期化
+    /// </summary>
+    private void Array_Reset() {
+        g_undo_parents = new GameObject[0];
+        g_undo_dices = new GameObject[0];
+        g_dice_pointer = 0;
+        g_undo_dice_counters = new int[0];
+        g_count_pointer = 0;
+        g_dice_pointers = new int[0];
+        g_point_pointer = 0;
+        g_dice_squares = new int[0];
+        g_squares_pointer = 0;
+        g_work_pointer = 0;
+    }
+
+    /// <summary>
+    /// 現在の盤面を保持する処理
+    /// </summary>
+    public void Keep_Info() {
+        //元に戻す処理を可能にする
+        g_is_undo = true;
+        //プレイヤーを取得
+        g_player_obj = GameObject.FindWithTag("Player").gameObject;
+        //プレイヤーの現在の指標を取得
+        (g_player_ver, g_player_side, g_player_high) = g_player_con_Script.Get_Player_Pointer();
+        //プレイヤーの現在の向きを取得
+        g_player_direction = g_direction_Script.Get_Player_Direction();
+        //保持用配列を初期化
+        Array_Reset();
+        //シーン上にあるダイスの親オブジェクトをすべて取得
+        g_undo_parents = GameObject.FindGameObjectsWithTag("Dice_Parent");
+        //取得した親の個数分繰り返す
+        for (int i = 0; i < g_undo_parents.Length; i++) {
+            //子オブジェクトのダイスを全て取得
+            g_work_children = g_undo_parents[i].GetComponent<Parent_Dice>().Get_Children();
+            //ダイスの数を保持
+            Storage_Dice_Counter(g_work_children.Length);
+            //ダイスのオブジェクトを保持
+            Storage_Dices();
+        }
+    }
+
+    /// <summary>
+    /// ダイスを配列に格納する処理
+    /// </summary>
+    /// <param name="_storage_dice">格納するダイス</param>
+    private void Storage_Dices() {
+        //現在保持している子オブジェクトの数分繰り返す
+        for (int i = 0; i < g_work_children.Length; i++) {
+            //ダイスを格納する配列のサイズを増やす
+            Array.Resize(ref g_undo_dices, g_undo_dices.Length + 1);
+            //保持中のダイスを配列に格納
+            g_undo_dices[g_dice_pointer] = g_work_children[i];
+            //ダイスのスクリプトを取得
+            g_squares_Script = g_undo_dices[g_dice_pointer].GetComponent<Dice_Squares>();
+            //指標を進める
+            g_dice_pointer++;
+            //取得したスクリプトから・縦・横・高さの３つの指標を取得
+            (g_work_ver, g_work_side, g_work_high) = g_squares_Script.Get_Dice_Pointer();
+            //取得した指標を配列に格納
+            Storage_Dice_Pointer(g_work_ver, g_work_side, g_work_high);
+            //ダイスの現在のマス目を取得
+            g_work_before_squares = g_squares_Script.Get_Dice_Squares();
+            //ダイスのマス目を保持
+            Storage_Dice_Squares(g_work_before_squares);
+        }
+    }
+
+    /// <summary>
+    /// 親の下にあるダイスの個数を配列に格納する処理
+    /// </summary>
+    /// <param name="_storage_count">ダイスの個数</param>
+    private void Storage_Dice_Counter(int _storage_count) {
+        //配列のサイズを増やす
+        Array.Resize(ref g_undo_dice_counters, g_undo_dice_counters.Length + 1);
+        //引数を配列に格納
+        g_undo_dice_counters[g_count_pointer] = _storage_count;
+        //指標を１つ進める
+        g_count_pointer++;
+    }
+
+    /// <summary>
+    /// ダイスの指標を配列に格納する処理
+    /// </summary>
+    /// <param name="_ver">縦の指標</param>
+    /// <param name="_side">横の指標</param>
+    /// <param name="_high">高さの指標</param>
+    private void Storage_Dice_Pointer(int _ver, int _side, int _high) {
+        //配列のサイズを・縦・横・高さの3つ分増やす
+        Array.Resize(ref g_dice_pointers, g_dice_pointers.Length + 3);
+        //縦格納
+        g_dice_pointers[g_point_pointer + 0] = _ver;
+        //横格納
+        g_dice_pointers[g_point_pointer + 1] = _side;
+        //高さ格納
+        g_dice_pointers[g_point_pointer + 2] = _high;
+        //指標を３つ進める
+        g_point_pointer += 3;
+    }
+
+    /// <summary>
+    /// ダイスのマス目を配列に格納する処理
+    /// </summary>
+    /// <param name="_squares">マス目</param>
+    private void Storage_Dice_Squares(int[] _squares) {
+        //配列の数をマス目の数分増やす
+        Array.Resize(ref g_dice_squares, g_dice_squares.Length + 6);
+        //マス目の数分繰り返す（　6マス分　）
+        for (int i = 0; i < _squares.Length; i++) {
+            //マス目を一つ保持
+            g_dice_squares[g_squares_pointer] = _squares[i];
+            //指標＋1
+            g_squares_pointer++;
+        }
+    }
+
+    /// <summary>
+    /// 保持したマス目を6マス分返す処理
+    /// </summary>
+    /// <returns></returns>
+    private int[] Get_Dice_Squares() {
+        //一時的にマス目を保持する配列を初期化
+        int[] _keep_squares=new int[6];
+        //6マス分繰り返す
+        for (int i = 0; i < _keep_squares.Length; i++) {
+            //保持していたマス目を取得
+            _keep_squares[i] = g_dice_squares[g_work_pointer];
+            //マス目用配列の指標＋1
+            g_work_pointer++;
+        }
+        //マス目を取得した配列を返す
+        return _keep_squares;
+    }
+}

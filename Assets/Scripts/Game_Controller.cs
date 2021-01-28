@@ -6,6 +6,8 @@ public class Game_Controller : MonoBehaviour
 {
     private Input_Date g_json_Script;
     private Stage_Obj_Pool g_pool_Script;
+    private Fade_In_Out g_fade_Script;
+    private Particle_Source g_particle_Script;
 
     /// <summary>
     /// 横：X軸のポジション
@@ -45,6 +47,8 @@ public class Game_Controller : MonoBehaviour
     /// </summary>
     private const int g_originpoint = 0;
 
+    private int[] g_json_dices;
+
     void Start()
     {
         g_json_Script = this.GetComponent<Input_Date>();
@@ -59,13 +63,17 @@ public class Game_Controller : MonoBehaviour
 
         Pos_Array_Reset();
 
+        g_fade_Script = GameObject.Find("Fade_Image").GetComponent<Fade_In_Out>();
+        g_particle_Script = GameObject.Find("Particle_Source").GetComponent<Particle_Source>();
+        //フェードイン後にエフェクトを生成できるようにする
+        g_fade_Script.Start_Fade_In(g_particle_Script.Change_Start_Flag_(true));
     }
 
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            Array_Debug_Log();
-        }
-    }
+    //private void Update() {
+    //    if (Input.GetKeyDown(KeyCode.Space)) {
+    //        Array_Debug_Log();
+    //    }
+    //}
 
     /// <summary>
     /// 3次元配列の要素数を返す処理
@@ -85,14 +93,15 @@ public class Game_Controller : MonoBehaviour
             for (int side = g_originpoint; side < g_s_BlockCount; side++) {
                 //縦の回数分繰り返す
                 for (int ver = g_originpoint; ver < g_v_BlockCount; ver++) {
-                    Debug.Log("縦："+ver+"_横："+ side+"_高さ："+ high);
-                    Debug.Log("オブジェクト："+g_blocks_Array[ver, side, high]);
-                    Debug.Log("タイプ："+ g_blocksType_Array[ver, side, high]);
+                    if (g_blocksType_Array[ver, side, high] == 100) {
+                        Debug.Log("縦：" + ver + "_横：" + side + "_高さ：" + high);
+                        //Debug.Log("オブジェクト：" + g_blocks_Array[ver, side, high]);
+                        //Debug.Log("タイプ：" + g_blocksType_Array[ver, side, high]);
+                    }
                 }
             }
         }
     }
-    
 
     /// <summary>
     /// ポジション配列初期化
@@ -115,11 +124,10 @@ public class Game_Controller : MonoBehaviour
                     //ポジション格納用配列にポジションを格納
                     g_blocksPos_Array[ver, side, high] = new Vector3(g_s_pos, g_h_pos, g_v_pos);
                     //タイプを保持
-                    int type = g_json_Script.g_inputJson.g_block[i].g_type;
-                    //配列にタイプを格納
-                    Storage_Obj_Type(ver, side, high, type);
+                    int type = g_json_Script.g_inputJson.g_blocks[i].g_type;
+                    g_json_dices = g_json_Script.g_inputJson.g_blocks[i].g_dices;
                     //タイプに応じたブロックを生成
-                    g_pool_Script.Spawn_Block(ver,side,high,type);
+                    g_pool_Script.Spawn_Block(ver,side,high,type, g_json_dices);
                     //Json用の指標を進める
                     i++;
                 }
@@ -181,7 +189,7 @@ public class Game_Controller : MonoBehaviour
     public GameObject Get_Obj(int ver, int side, int high) {
         return g_blocks_Array[ver, side, high];
     }
-
+ 
     /// <summary>
     /// 与えられた指標に格納されているオブジェクトの種類を返す処理
     /// </summary>
@@ -190,6 +198,24 @@ public class Game_Controller : MonoBehaviour
     /// <param name="high">高さ</param>
     /// <returns>オブジェクトの種類</returns>
     public int Get_Obj_Type(int ver, int side, int high) {
+        if (high <= 0) {
+            high = 0;
+        }
+        if (side <= 0) {
+            side = 0;
+        }
+        if (ver <= 0) {
+            ver = 0;
+        }
+        if (ver >= g_v_BlockCount) {
+            ver = g_v_BlockCount-1;
+        }
+        if (side >= g_s_BlockCount) {
+            side = g_s_BlockCount-1;
+        }
+        if (high >= g_h_BlockCount) {
+            high = g_h_BlockCount-1;
+        }
         return g_blocksType_Array[ver, side, high];
     }
 }
