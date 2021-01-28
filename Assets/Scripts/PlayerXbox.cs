@@ -41,7 +41,7 @@ public class PlayerXbox : MonoBehaviour
     private float g_timer=0;
 
     private float g_limit_num = 0.49f;
-
+    private const float g_max_num = 1f;
     bool g_y_push_flag;
 
     //スタートボタンが押されたかどうかを判断するスクリプト
@@ -113,7 +113,19 @@ public class PlayerXbox : MonoBehaviour
                 g_player_move_Script.Auto_Move_Flag_False();
                 g_axis_flag = false;
             }
-
+            //スティックが一定の範囲に入った時
+            if (Input.GetAxisRaw("Vertical") > g_controller_Move||Input.GetAxisRaw("Vertical") < -g_controller_Move) {
+                if (Input.GetAxisRaw("Horizontal") != 0) {
+                g_player_move_Script.Auto_Move_Flag_False();
+                g_axis_flag = false;
+                }
+            }
+            if (Input.GetAxisRaw("Horizontal") < -g_controller_Move ||Input.GetAxisRaw("Horizontal") > g_controller_Move) {
+                if (Input.GetAxisRaw("Vertical") != 0) {
+                g_player_move_Script.Auto_Move_Flag_False();
+                g_axis_flag = false;
+                }
+            }
         }
     }
 
