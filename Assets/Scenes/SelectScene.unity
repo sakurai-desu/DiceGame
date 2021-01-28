@@ -278,7 +278,7 @@ MonoBehaviour:
   g_side_stage_count: 0
   g_stage_remainder: 0
   g_page_turnover: 1
-  g_move_g_var: 132.5
+  g_move_g_var: 0
   g_page_count: 0
 --- !u!1 &130773942
 GameObject:
