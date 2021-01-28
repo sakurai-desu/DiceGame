@@ -26,6 +26,9 @@ public class Optionselect : MonoBehaviour {
     //スタートボタンが押されたかどうかを判断するスクリプト
     PushStartScri g_pushStart_Script;
 
+    //効果音データ
+    private Se_Source g_se_source_Script;
+
     //画像データ
     [SerializeField]
     Sprite[] g_unenableImage=null;
@@ -37,7 +40,7 @@ public class Optionselect : MonoBehaviour {
         g_option[0].GetComponent<Image>().sprite = g_enableImage[0];
 
         g_pushStart_Script = GameObject.Find("StartChackObj").GetComponent<PushStartScri>();
-
+        g_se_source_Script = GameObject.Find("SEList").GetComponent<Se_Source>();
 
     }
 
@@ -52,6 +55,7 @@ public class Optionselect : MonoBehaviour {
                     g_option_pointer = g_option.Length - 1;
                     g_rotate_flag = 0;
                 }
+                g_se_source_Script.Se_Play(2);
                 DontSelect();
                 g_horizontal_flag = true;
             }
@@ -64,6 +68,7 @@ public class Optionselect : MonoBehaviour {
                     g_option_pointer = 0;
                     g_rotate_flag = 2;
                 }
+                g_se_source_Script.Se_Play(2);
                 DontSelect();
                 g_horizontal_flag = true;
             }
@@ -73,9 +78,11 @@ public class Optionselect : MonoBehaviour {
             if (Input.GetButtonDown("A")) {
                 switch (g_option_pointer) {
                     case 0:
+                        g_se_source_Script.Se_Play(5);
                         g_option[g_option_pointer].GetComponent<OptionText>().SelectScene(g_scene_name);
                         break;
                     case 1:
+                        g_se_source_Script.Se_Play(4);
                         g_option[g_option_pointer].GetComponent<OptionText>().SelectScene("SelectScene");
                         break;
                     case 2:
