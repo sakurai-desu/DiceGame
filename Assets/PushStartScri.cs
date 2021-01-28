@@ -6,6 +6,8 @@ public class PushStartScri : MonoBehaviour
 {
     [SerializeField]
     GameObject g_option_panel=null;
+    [SerializeField]
+    private GameObject g_controller_guide = null;
 
     //オプションのUIを出すアニメ
     Animator g_optionamim;
@@ -25,10 +27,12 @@ public class PushStartScri : MonoBehaviour
     void Update()
     {
         if (Input.GetButtonDown("Start")&&g_start_flag==false) {
+            g_controller_guide.SetActive(true);
             g_optionamim.SetBool("StartPushFlag", true);
             g_start_flag =true;
         }
        else if (Input.GetButtonDown("Start")&&g_start_flag) {
+            g_controller_guide.SetActive(false);
             g_optionamim.SetBool("StartPushFlag", false);
             g_start_flag = false;
         }
