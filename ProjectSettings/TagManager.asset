@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Dice
+  - Stage
+  - Dice_Parent
   layers:
   - Default
   - TransparentFX
@@ -13,7 +16,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Front_UI
   - 
   - 
   - 
@@ -38,6 +41,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: UI_bg_back
+    uniqueID: 2518403583
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: SystemUI
+    uniqueID: 2996448415
+    locked: 0
+  - name: UI_bg_front
+    uniqueID: 151804727
+    locked: 0
+  - name: EffectUI
+    uniqueID: 870232179
+    locked: 0
+  - name: SystemUI_front
+    uniqueID: 4195157769
     locked: 0
