@@ -18,9 +18,12 @@ public class GameOver_UI : MonoBehaviour {
 
     private bool g_horizontal_flag=false;
 
+    private Se_Source g_se_source_Script;
+
     void Start() {
         g_fade_Script = GameObject.Find("Fade_Image").GetComponent<Fade_In_Out>();
         g_gameover_UI[g_select_pointer].GetComponent<Text>().color = g_select_color;
+        g_se_source_Script = GameObject.Find("SEList").GetComponent<Se_Source>();
     }
 
     void Update() {
@@ -32,6 +35,7 @@ public class GameOver_UI : MonoBehaviour {
             if (g_select_pointer < 0) {
                 g_select_pointer = g_gameover_UI.Length - 1;
             }
+            g_se_source_Script.Se_Play(2);
             //次に選択するテキストの色を変更する
             ChangeSelect();
             //連続で押せないようにする
@@ -45,6 +49,7 @@ public class GameOver_UI : MonoBehaviour {
             if (g_select_pointer > g_gameover_UI.Length - 1) {
                 g_select_pointer = 0;
             }
+            g_se_source_Script.Se_Play(2);
             //次に選択するテキストの色を変更する
             ChangeSelect();
             //連続で押せないようにする
@@ -55,6 +60,7 @@ public class GameOver_UI : MonoBehaviour {
         }
 
         if (Input.GetButtonDown("A")) {
+            g_se_source_Script.Se_Play(3);
             g_fade_Script.Start_Fade_Out(Select());
         }
     }
