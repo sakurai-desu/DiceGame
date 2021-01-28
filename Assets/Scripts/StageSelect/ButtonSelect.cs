@@ -34,6 +34,11 @@ public class ButtonSelect : MonoBehaviour
     [SerializeField]
     private int g_page_var_count;
     /// <summary>
+    /// 縦の数を取得する変数
+    /// </summary>
+    [SerializeField]
+    private int g_max_var_count;
+    /// <summary>
     /// 1ページのステージの数を取得する変数
     /// </summary>
     [SerializeField]
@@ -48,15 +53,20 @@ public class ButtonSelect : MonoBehaviour
     [SerializeField]
     private int g_stage_remainder;
     /// <summary>
-    /// g_page_turnover
+    /// ページをめくる時の比較用
     /// </summary>
     [SerializeField]
     private int g_page_turnover = 1;
     /// <summary>
-    /// ページをめくる数
+    /// ページをめくる移動量
     /// </summary>
     [SerializeField]
     private float g_move_g_var;
+    /// <summary>
+    /// 生成するページ数
+    /// </summary>
+    [SerializeField]
+    private float g_page_count;
 
     ButtonSizeChange g_buttonSize;
 
@@ -78,20 +88,26 @@ public class ButtonSelect : MonoBehaviour
         g_move_counter_Script = GameObject.Find("Stage_Move_Counter").GetComponent<Select_Move_Counter>();
         //ボタンの幅を取得
         g_move_g_var = g_spwern_script.g_button_y_pos;
-
+        Debug.Log(g_move_g_var);
         //横の数を取得
         g_side_stage_count = g_json_script.g_stage_side;
-      
-        g_page_var_count = g_spwern_script.g_var_size + 1　;
-       
+        //縦の数を取得
+        g_page_var_count = g_spwern_script.g_var_size;
+        //縦の最大数を取得
+        g_max_var_count = g_json_script.g_stage_max_var;
         //生成するステージの数を取得
         g_max_stageelement = g_json_script.g_stage_array_num;
         //1ページのステージの数を計算
-        g_stage_page_count = g_side_stage_count * (g_page_var_count -1);
+        g_stage_page_count = g_side_stage_count * g_page_var_count;
         //全部のページが埋まってた場合
         if (g_max_stageelement % g_stage_page_count == 0) {
-            g_var_remainder = g_page_var_count -1;
+            //ページ数を計算
+            g_page_count = g_max_stageelement / g_stage_page_count;
+            g_var_remainder = g_page_var_count;
         } else {
+            g_page_count = (g_max_stageelement / g_stage_page_count) + 1;
+            Debug.Log(g_page_count);
+
             //最後のページのステージの個数
             g_stage_remainder = g_max_stageelement % g_stage_page_count;
             Debug.Log(g_stage_remainder);
@@ -132,8 +148,6 @@ public class ButtonSelect : MonoBehaviour
 
                 if (g_page_turnover % g_page_var_count == 0) {
                     this.transform.localPosition -= new Vector3(0, g_move_g_var * 20, 0);
-                    g_page_turnover = g_page_var_count;
-                    g_page_turnover -= 1;
                 }
             }
             //一番上の一番左の時
@@ -142,14 +156,14 @@ public class ButtonSelect : MonoBehaviour
                 if (g_spwern_script.g_remainder_num == 0) {
                     g_var_pointer = g_spwern_script.g_varmax_num - 1;
                     g_side_pointer = g_spwern_script.g_side_num - 1;
-                    g_page_turnover = g_var_remainder;
+                    g_page_turnover = g_max_var_count;
                 }
                 //あまりがあったとき
                 else {
                     Debug.Log("あまり");
                     g_var_pointer = g_spwern_script.g_varmax_num - 1;
                     g_side_pointer = g_spwern_script.g_remainder_num - 1;
-                    g_page_turnover = g_var_remainder;
+                    g_page_turnover = g_max_var_count;
                 }
                 //最後のページの縦の数を計算して取得
             } else {
@@ -170,13 +184,13 @@ public class ButtonSelect : MonoBehaviour
             if (g_side_pointer == g_spwern_script.g_side_num - 1 && g_var_pointer != g_spwern_script.g_varmax_num-1) {
                 g_side_pointer = 0;
                 g_var_pointer += 1;
-                g_page_turnover += 1;
-                if (g_page_var_count == g_page_turnover) {
+                if (g_page_turnover % g_page_var_count == 0) {
                     this.transform.localPosition += new Vector3(0, g_move_g_var * 20, 0);
-                    g_page_turnover = 1;
                 }
+                g_page_turnover += 1;
+
             }
-            ////一番下でなおかつ一番右の時　ここの処理でnullエラー？
+            ////一番下でなおかつ一番右の時
             else if (g_side_pointer == g_json_script.g_stage_remainder - 1  && g_spwern_script.g_json_button_array[g_var_pointer, g_side_pointer + 1] == null) {
                 g_side_pointer = 0;
                 g_var_pointer = 0;
@@ -208,9 +222,9 @@ public class ButtonSelect : MonoBehaviour
 
                 //一番下があまりの部分かそうじゃないか
                 if (g_var_pointer == g_spwern_script.g_varmax_num - 1) {
-                    g_page_turnover = g_var_remainder;
+                    g_page_turnover = g_max_var_count;
                 } else if (g_var_pointer != g_spwern_script.g_varmax_num - 1) {
-                    g_page_turnover = g_var_remainder - 1;
+                    g_page_turnover = g_max_var_count - 1;
                 }
 
             } else {
@@ -220,13 +234,9 @@ public class ButtonSelect : MonoBehaviour
             ButtonBig();
             g_stick_flag = true;
             
-            
-            //次のページに行く処理
-            if (g_page_turnover == 0) {
-                this.transform.localPosition -= new Vector3(0, g_move_g_var * 20, 0);
-                g_page_turnover = g_page_var_count;
-                g_page_turnover -= 1;
-
+            //次のページに行く処理 あとここだけｗ
+            if (g_page_turnover % g_page_var_count == 0) {
+                this.transform.localPosition -= new Vector3(0, g_move_g_var * 0, 0);
             }
             g_se_source_Script.Se_Play(2);
             g_stage_image_Script.Stage_Sprite_Change(g_var_pointer, g_side_pointer);
@@ -235,25 +245,25 @@ public class ButtonSelect : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.S)||(Input.GetAxisRaw("Vertical") < -g_controller_time && g_stick_flag == false)) {
             ButtonOrigin();
+
+            //次のページに行く処理
+            if (g_page_turnover % g_page_var_count == 0) {
+                this.transform.localPosition += new Vector3(0, g_move_g_var * 0, 0);
+                //ButtonBig();
+            }
             //ポインターがはみ出そうなとき
             if (g_var_pointer == g_spwern_script.g_varmax_num - 1) {
                 g_var_pointer = 0;
                 g_page_turnover = 1;
 
             } else {
-
                 g_page_turnover += 1;
                 g_var_pointer += 1;
                 VarNullChacker(1);
             }
             ButtonBig();
             g_stick_flag = true;
-            //次のページに行く処理
-            if (g_page_var_count  == g_page_turnover ) {
-                this.transform.localPosition += new Vector3(0, g_move_g_var * 20, 0);
-                g_page_turnover =1;
-                ButtonBig();
-            }
+            
             g_se_source_Script.Se_Play(2);
             g_stage_image_Script.Stage_Sprite_Change(g_var_pointer, g_side_pointer);
             g_move_counter_Script.Move_Count_Text_Change(g_var_pointer, g_side_pointer);
