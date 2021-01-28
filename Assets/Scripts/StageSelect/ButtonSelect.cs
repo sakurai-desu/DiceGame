@@ -14,44 +14,44 @@ public class ButtonSelect : MonoBehaviour
     /// <summary>
     /// 縦の配列を検索するポインター
     /// </summary>
-    public int g_var_pointer;
+    public int g_var_pointer = 0;
     /// <summary>
     /// 横の配列を検索するポインター
     /// </summary>
-    public int g_side_pointer;
+    public int g_side_pointer = 0;
     /// <summary>
     /// 最後のページの縦の数
     /// </summary>
     [SerializeField]
-    private int g_var_remainder;
+    private int g_var_remainder = 0;
     /// <summary>
     /// 生成するステージ数を取得
     /// </summary>
-    private int g_max_stageelement;
+    private int g_max_stageelement = 0;
     /// <summary>
     /// 1ページの縦の数を取得する変数
     /// </summary>
     [SerializeField]
-    private int g_page_var_count;
+    private int g_page_var_count = 0;
     /// <summary>
     /// 縦の数を取得する変数
     /// </summary>
     [SerializeField]
-    private int g_max_var_count;
+    private int g_max_var_count = 0;
     /// <summary>
     /// 1ページのステージの数を取得する変数
     /// </summary>
     [SerializeField]
-    private int g_stage_page_count;
+    private int g_stage_page_count = 0;
     /// <summary>
     /// ステージの横の数を取得
     /// </summary>
-    public int g_side_stage_count;
+    public int g_side_stage_count = 0;
     /// <summary>
     /// 最後のページ中のステージが何個あるか
     /// </summary>
     [SerializeField]
-    private int g_stage_remainder;
+    private int g_stage_remainder = 0;
     /// <summary>
     /// ページをめくる時の比較用
     /// </summary>
@@ -61,12 +61,12 @@ public class ButtonSelect : MonoBehaviour
     /// ページをめくる移動量
     /// </summary>
     [SerializeField]
-    private float g_move_g_var;
+    private float g_move_g_var = 0;
     /// <summary>
     /// 生成するページ数
     /// </summary>
     [SerializeField]
-    private float g_page_count;
+    private float g_page_count = 0;
 
     ButtonSizeChange g_buttonSize;
 
@@ -77,6 +77,10 @@ public class ButtonSelect : MonoBehaviour
     private float g_controller_time = 0.5f;
 
     private float g_limit_num = 0.49f;
+
+    private bool g_oneflag;
+    private bool g_stick_flag;
+
     void Start()
     {
         //ボタンを生むのに必要な情報を取得
@@ -125,9 +129,7 @@ public class ButtonSelect : MonoBehaviour
             }
         }
     }
-    bool g_oneflag;
-    bool g_stick_flag;
-
+   
     void Update()
     {
         if (g_oneflag == false) {
