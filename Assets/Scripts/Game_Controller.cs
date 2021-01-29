@@ -69,11 +69,11 @@ public class Game_Controller : MonoBehaviour
         g_fade_Script.Start_Fade_In(g_particle_Script.Change_Start_Flag_(true));
     }
 
-    //private void Update() {
-    //    if (Input.GetKeyDown(KeyCode.Space)) {
-    //        Array_Debug_Log();
-    //    }
-    //}
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            Array_Debug_Log();
+        }
+    }
 
     /// <summary>
     /// 3次元配列の要素数を返す処理
@@ -93,7 +93,7 @@ public class Game_Controller : MonoBehaviour
             for (int side = g_originpoint; side < g_s_BlockCount; side++) {
                 //縦の回数分繰り返す
                 for (int ver = g_originpoint; ver < g_v_BlockCount; ver++) {
-                    if (g_blocksType_Array[ver, side, high] == 100) {
+                    if (g_blocksType_Array[ver, side, high] >= 100) {
                         Debug.Log("縦：" + ver + "_横：" + side + "_高さ：" + high);
                         //Debug.Log("オブジェクト：" + g_blocks_Array[ver, side, high]);
                         //Debug.Log("タイプ：" + g_blocksType_Array[ver, side, high]);

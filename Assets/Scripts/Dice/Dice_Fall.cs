@@ -118,7 +118,7 @@ public class Dice_Fall : MonoBehaviour {
                 //検索先に埋まっているオブジェクトのタイプ取得
                 int type = g_game_Con_Script.Get_Obj_Type(g_dice_ver, g_dice_side, pointer);
                 //検索先がダイスの時、ダイスが検索用ダイスと同じ階層にあるか調べる
-                if (type == 100) {
+                if (type >= 100) {
                     //検索用ダイスの親オブジェクトを取得
                     GameObject dice_parent = g_work_dices[dice_count].transform.parent.gameObject;
                     //検索先のダイス取得
