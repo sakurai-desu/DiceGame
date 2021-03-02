@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class TroubleScr : MonoBehaviour
 {
-    private Input_Date g_json_Script;
+    private Input_Data g_json_Script;
     private PlayerXbox g_xbox_con_Script;
     private PlayerDirectXbox g_direct_xbox_Script;
     private PushStartScri g_menu_Script;
@@ -27,7 +27,7 @@ public class TroubleScr : MonoBehaviour
     private GameObject g_bgmObj;
     void Start()
     {
-        g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Date>();
+        g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Data>();
         g_menu_Script = GameObject.Find("StartChackObj").GetComponent<PushStartScri>();
         g_camera_move_Script = GameObject.Find("MainCamera").GetComponent<MainCamera_Move>();
         g_bgmObj = GameObject.Find("BGM_Source");

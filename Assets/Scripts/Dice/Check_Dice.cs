@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Check_Dice : MonoBehaviour {
-    private Input_Date g_json_Script;
+    private Input_Data g_json_Script;
     private Game_Controller g_game_Con_Script;
     private Se_Source g_se_source_Script;
     private Dice_Squares g_next_dice_Script;
@@ -99,7 +99,7 @@ public class Check_Dice : MonoBehaviour {
     private int g_now_check_pointer = 0;
 
     void Start() {
-        g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Date>();
+        g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Data>();
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         g_se_source_Script = GameObject.Find("SEList").GetComponent<Se_Source>();
         g_particle_Script = GameObject.Find("Particle_Source").GetComponent<Particle_Source>();

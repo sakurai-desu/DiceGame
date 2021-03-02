@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraPos : MonoBehaviour {
     //jsonを保持しているスクリプト
-    Input_Date g_input;
+    Input_Data g_input;
 
     //自分がどのカメラかどうかを判断する数値
     [SerializeField]
@@ -34,7 +34,7 @@ public class CameraPos : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         //jsonを読み込んでいるスクリプトを保存しているスクリプト
-        g_input = GameObject.Find("Game_Controller").GetComponent<Input_Date>();
+        g_input = GameObject.Find("Game_Controller").GetComponent<Input_Data>();
         //ステージの広さを代入
         g_side_pos = g_input.g_inputJson.g_hori;
         g_high_pos = g_input.g_inputJson.g_high;

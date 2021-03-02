@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.IO;
 
-public class Input_Date : MonoBehaviour
+public class Input_Data : MonoBehaviour
 {
     StageInformation g_informatinScript;
     //[HideInInspector]

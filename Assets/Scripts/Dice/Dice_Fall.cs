@@ -77,6 +77,9 @@ public class Dice_Fall : MonoBehaviour {
         g_se_source_Script = GameObject.Find("SEList").GetComponent<Se_Source>();
     }
 
+    /// <summary>
+    /// 動かしたい親オブジェクトを取得
+    /// </summary>
     private void Get_Parent() {
         g_parent_Obj = g_center_dice.transform.parent.gameObject;
     }
@@ -157,10 +160,6 @@ public class Dice_Fall : MonoBehaviour {
             return;
         }
         StartCoroutine(Move());
-        ////ダイスを配列から削除
-        //Dice_Storage_Reset();
-        ////ダイスを配列の移動先に格納
-        //Dice_Storage();
     }
 
     /// <summary>
@@ -251,7 +250,9 @@ public class Dice_Fall : MonoBehaviour {
         while (g_center_dice.transform.position != end_Pos) {
             //移動速度上げる
             if (g_move_speed < g_max_speed) {
+                //移動速度加算
                 g_move_speed = g_move_speed + g_plus_speed;
+                //加算量増加
                 g_plus_speed = g_plus_speed + 2.5f;
             }
 

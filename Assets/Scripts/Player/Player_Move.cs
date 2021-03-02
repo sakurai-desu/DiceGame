@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_Move : MonoBehaviour {
-    private Input_Date g_json_Script;
+    private Input_Data g_json_Script;
     private Game_Controller g_game_con_Script;
     private Playercontroller g_play_con_Script;
     private Player_Direction g_direction_Script;
@@ -89,7 +89,7 @@ public class Player_Move : MonoBehaviour {
 
     void Start() {
         g_player_Obj = this.gameObject;
-        g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Date>();
+        g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Data>();
         g_game_con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
         g_play_con_Script = GameObject.Find("Player_Controller").GetComponent<Playercontroller>();
         g_direction_Script = GameObject.Find("Player_Controller").GetComponent<Player_Direction>();

@@ -5,7 +5,7 @@ using System;
 
 public class Move_Check : MonoBehaviour {
 
-    private Input_Date g_json_Script;
+    private Input_Data g_json_Script;
     private Game_Controller g_game_Con_Script;
 
     /// <summary>
@@ -63,7 +63,7 @@ public class Move_Check : MonoBehaviour {
 
     void Start() {
         g_game_Con_Script = GameObject.Find("Game_Controller").GetComponent<Game_Controller>();
-        g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Date>();
+        g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Data>();
         //ステージの配列の最大値を取得
         (g_max_Ver, g_max_Side, g_max_High) = g_json_Script.Get_Array_Max();
         //初期化

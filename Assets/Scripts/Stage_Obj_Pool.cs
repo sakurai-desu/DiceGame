@@ -163,26 +163,26 @@ public class Stage_Obj_Pool : MonoBehaviour {
             //生成時のマス目になるようにダイスを回転させる
             g_dice_create_Script.Start_Squares_Change(g_block_Obj, json_dices);
             if (g_hintScript.GetHint()) {
-            switch (type) {
-                case g_yellow_dice_para:
-                    g_block_Obj.GetComponent<Renderer>().material=g_dice_sprite_array[0];
-                    break;
-                case g_green_dice_para:
-                    g_block_Obj.GetComponent<Renderer>().material = g_dice_sprite_array[1];
-                    break;
-                case g_orange_dice_para:
-                    g_block_Obj.GetComponent<Renderer>().material = g_dice_sprite_array[2];
-                    break;
-                case g_purple_dice_para:
-                    g_block_Obj.GetComponent<Renderer>().material = g_dice_sprite_array[3];
-                    break;
-                case g_blue_dice_para:
-                    g_block_Obj.GetComponent<Renderer>().material = g_dice_sprite_array[4];
-                    break;
-                case g_green_yellow_dice_para:
-                    g_block_Obj.GetComponent<Renderer>().material = g_dice_sprite_array[5];
-                    break;
-            }
+                switch (type) {
+                    case g_yellow_dice_para:
+                        g_block_Obj.GetComponent<Renderer>().material = g_dice_sprite_array[0];
+                        break;
+                    case g_green_dice_para:
+                        g_block_Obj.GetComponent<Renderer>().material = g_dice_sprite_array[1];
+                        break;
+                    case g_orange_dice_para:
+                        g_block_Obj.GetComponent<Renderer>().material = g_dice_sprite_array[2];
+                        break;
+                    case g_purple_dice_para:
+                        g_block_Obj.GetComponent<Renderer>().material = g_dice_sprite_array[3];
+                        break;
+                    case g_blue_dice_para:
+                        g_block_Obj.GetComponent<Renderer>().material = g_dice_sprite_array[4];
+                        break;
+                    case g_green_yellow_dice_para:
+                        g_block_Obj.GetComponent<Renderer>().material = g_dice_sprite_array[5];
+                        break;
+                }
 
             }
             type = 100;

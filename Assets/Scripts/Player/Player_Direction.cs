@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player_Direction : MonoBehaviour {
 
-    private Input_Date g_json_Script;
+    private Input_Data g_json_Script;
 
     private GameObject g_player_Obj;
     /// <summary>
@@ -38,7 +38,7 @@ public class Player_Direction : MonoBehaviour {
     }
 
     public void Start_Direction(GameObject player) {
-        g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Date>();
+        g_json_Script = GameObject.Find("Game_Controller").GetComponent<Input_Data>();
         g_start_Para = g_json_Script.g_inputJson.g_p_direction;
         g_player_Obj = player;
         Player_Direction_Change(g_start_Para);

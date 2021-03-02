@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Game_Controller : MonoBehaviour
 {
-    private Input_Date g_json_Script;
+    private Input_Data g_json_Script;
     private Stage_Obj_Pool g_pool_Script;
     private Fade_In_Out g_fade_Script;
     private Particle_Source g_particle_Script;
@@ -51,7 +51,7 @@ public class Game_Controller : MonoBehaviour
 
     void Start()
     {
-        g_json_Script = this.GetComponent<Input_Date>();
+        g_json_Script = this.GetComponent<Input_Data>();
         g_pool_Script = GameObject.Find("Stage_Pool").GetComponent<Stage_Obj_Pool>();
         //配列の要素数をjsonで決めた数へ変更する
         (g_s_BlockCount, g_v_BlockCount, g_h_BlockCount) = g_json_Script.Get_Array_Max();
@@ -104,7 +104,7 @@ public class Game_Controller : MonoBehaviour
     }
 
     /// <summary>
-    /// ポジション配列初期化
+    /// ポジション配列初期化し、ブロックを生成する
     /// </summary>
     private void Pos_Array_Reset() {
         int i = 0;
@@ -125,6 +125,7 @@ public class Game_Controller : MonoBehaviour
                     g_blocksPos_Array[ver, side, high] = new Vector3(g_s_pos, g_h_pos, g_v_pos);
                     //タイプを保持
                     int type = g_json_Script.g_inputJson.g_blocks[i].g_type;
+                    //マス目を保持
                     g_json_dices = g_json_Script.g_inputJson.g_blocks[i].g_dices;
                     //タイプに応じたブロックを生成
                     g_pool_Script.Spawn_Block(ver,side,high,type, g_json_dices);

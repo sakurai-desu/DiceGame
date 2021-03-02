@@ -111,6 +111,11 @@ public class Parent_All_Rotation : MonoBehaviour {
         g_work_Objs_Array = new GameObject[g_array_max, g_array_max, g_array_max];
     }
 
+    /// <summary>
+    /// 軸にするダイスと同じ親のダイスを全て回転させる処理
+    /// </summary>
+    /// <param name="center_obj">回転の軸にするダイス</param>
+    /// <param name="para">回転の向き</param>
     public void All_Rotation(GameObject center_obj, int para) {
         //配列初期化
         Reset_Objs_Array();
